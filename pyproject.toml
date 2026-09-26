@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "throughline"
+version = "0.1.0"
+description = "Evidence-first unified security knowledge graph (spine MVP)"
+requires-python = ">=3.10"
+dependencies = ["networkx>=3.0"]
+
+[project.optional-dependencies]
+api = ["fastapi>=0.110", "uvicorn>=0.29", "httpx>=0.27"]
+neo4j = ["neo4j>=5.0"]
+dev = ["pytest>=8", "fastapi>=0.110", "httpx>=0.27"]
+
+[project.scripts]
+throughline = "throughline.cli:main"
+
+[tool.setuptools]
+packages = ["throughline"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
