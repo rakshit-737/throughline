@@ -9,3 +9,8 @@ build/
 dist/
 *.part
 /store/
+
+# docs build outputs (generated in CI)
+/site/
+/docs/figures/
+/docs/demo/

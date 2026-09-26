@@ -1,0 +1,72 @@
+site_name: THROUGHLINE
+site_description: Evidence-first security knowledge graph that fuses sibling engines into one confidence-graded investigation
+site_url: https://rakshit-737.github.io/throughline/
+repo_url: https://github.com/rakshit-737/throughline
+repo_name: rakshit-737/throughline
+edit_uri: edit/main/docs/
+copyright: MIT licence
+
+theme:
+  name: material
+  features: [navigation.sections, navigation.top, content.code.copy, search.highlight]
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle: {icon: material/weather-night, name: Dark mode}
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle: {icon: material/weather-sunny, name: Light mode}
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Live demo: demo/index.html
+  - Architecture: architecture.md
+  - Datasets: datasets.md
+  - Benchmarks: benchmarks.md
+  - CLI & API reference: reference.md
+  - Threat model: threat-model.md
+  - Security: security.md
+  - Prior art: prior-art.md
+  - ADRs:
+      - adr/index.md
+      - adr/0001-frozen-contracts.md
+      - adr/0002-networkx-first-neo4j-optional.md
+      - adr/0003-confidence-model.md
+      - adr/0004-schema-0.2.md
+      - adr/0005-windows-process-identity.md
+      - adr/0006-engine-scores-and-calibration.md
+      - adr/0007-siblings-as-pinned-extras.md
+      - adr/0008-attribution-fusion.md
+  - Changelog: changelog.md
+  - Limitations & roadmap: limitations.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc: {permalink: true}
+  - pymdownx.snippets: {check_paths: true}
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: false
+            docstring_style: google
+
+validation:
+  nav:
+    omitted_files: warn
+    not_found: warn
+  links:
+    not_found: warn
+    anchors: warn
