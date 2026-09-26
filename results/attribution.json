@@ -1,0 +1,3932 @@
+{
+ "generated": "2026-09-26 19:16:57",
+ "python": "3.14.3",
+ "temporal": {
+  "kg_version": "10.1",
+  "cases": 17,
+  "clean": {
+   "methods": {
+    "similarity": {
+     "n": 17,
+     "top1": 0.5294,
+     "top1_ci": [
+      0.2941,
+      0.7647
+     ],
+     "coverage": 1.0,
+     "selective_acc": 0.5294,
+     "wrong_named": 0.4706,
+     "brier_top1": 0.1792,
+     "confident_correct": 0.1765,
+     "confident_wrong": 0.0
+    },
+    "dragnet": {
+     "n": 17,
+     "top1": 0.4118,
+     "top1_ci": [
+      0.1765,
+      0.6471
+     ],
+     "coverage": 0.5294,
+     "selective_acc": 0.7778,
+     "wrong_named": 0.1176,
+     "brier_top1": 0.0636,
+     "confident_correct": 0.2353,
+     "confident_wrong": 0.0
+    },
+    "occam": {
+     "n": 17,
+     "top1": 0.4706,
+     "top1_ci": [
+      0.2353,
+      0.7059
+     ],
+     "coverage": 0.7059,
+     "selective_acc": 0.6667,
+     "wrong_named": 0.2353,
+     "brier_top1": 0.1319,
+     "confident_correct": 0.2353,
+     "confident_wrong": 0.0
+    },
+    "fused": {
+     "n": 17,
+     "top1": 0.4118,
+     "top1_ci": [
+      0.1765,
+      0.6471
+     ],
+     "coverage": 0.4706,
+     "selective_acc": 0.875,
+     "wrong_named": 0.0588,
+     "brier_top1": 0.0484,
+     "confident_correct": 0.4118,
+     "confident_wrong": 0.0
+    }
+   },
+   "rows": [
+    {
+     "case": "C0011",
+     "name": "C0011",
+     "truth": [
+      "Transparent Tribe"
+     ],
+     "dragnet": {
+      "named": "Transparent Tribe",
+      "p": 0.6269,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": "Transparent Tribe",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Transparent Tribe",
+      "p": 0.6514,
+      "grade": "moderate"
+     },
+     "fused": {
+      "named": "Transparent Tribe",
+      "p": 0.6291,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0017",
+     "name": "C0017",
+     "truth": [
+      "APT41"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.7244,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "GALLIUM",
+      "p": 0.105,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.5029,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0022",
+     "name": "Operation Dream Job",
+     "truth": [
+      "Lazarus Group"
+     ],
+     "dragnet": {
+      "named": "APT28",
+      "p": 0.3851,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Magic Hound",
+      "p": 0.1368,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.2584,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0023",
+     "name": "Operation Ghost",
+     "truth": [
+      "APT29"
+     ],
+     "dragnet": {
+      "named": "APT29",
+      "p": 0.9485,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": "APT29",
+      "p": 0.875,
+      "grade": "high"
+     },
+     "similarity": {
+      "named": "APT29",
+      "p": 0.477,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "APT29",
+      "p": 0.9387,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0024",
+     "name": "SolarWinds Compromise",
+     "truth": [
+      "APT29"
+     ],
+     "dragnet": {
+      "named": "APT29",
+      "p": 0.9961,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": "APT29",
+      "p": 0.875,
+      "grade": "high"
+     },
+     "similarity": {
+      "named": "APT29",
+      "p": 0.9954,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "APT29",
+      "p": 0.9453,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0025",
+     "name": "2016 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "dragnet": {
+      "named": "Sandworm Team",
+      "p": 0.6116,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": "Sandworm Team",
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Sandworm Team",
+      "p": 0.6291,
+      "grade": "moderate"
+     },
+     "fused": {
+      "named": "Sandworm Team",
+      "p": 0.7328,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0028",
+     "name": "2015 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "dragnet": {
+      "named": "Sandworm Team",
+      "p": 0.7023,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": "Sandworm Team",
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Sandworm Team",
+      "p": 0.4965,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "Sandworm Team",
+      "p": 0.7143,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0030",
+     "name": "Triton Safety Instrumented System Attack",
+     "truth": [
+      "TEMP.Veles"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.7742,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": "OilRig",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "TEMP.Veles",
+      "p": 0.2425,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.254,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0032",
+     "name": "C0032",
+     "truth": [
+      "TEMP.Veles"
+     ],
+     "dragnet": {
+      "named": "TEMP.Veles",
+      "p": 0.5625,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": "TEMP.Veles",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "TEMP.Veles",
+      "p": 1.0,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "TEMP.Veles",
+      "p": 0.5363,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0033",
+     "name": "C0033",
+     "truth": [
+      "PROMETHIUM"
+     ],
+     "dragnet": {
+      "named": "PROMETHIUM",
+      "p": 0.5,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": "PROMETHIUM",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "PROMETHIUM",
+      "p": 0.9415,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "PROMETHIUM",
+      "p": 0.51,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0034",
+     "name": "2022 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.8434,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "FIN10",
+      "p": 0.1196,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.5361,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0040",
+     "name": "APT41 DUST",
+     "truth": [
+      "APT41"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.7758,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "FIN6",
+      "p": 0.0679,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.5172,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0042",
+     "name": "Outer Space",
+     "truth": [
+      "OilRig"
+     ],
+     "dragnet": {
+      "named": "APT16",
+      "p": 0.3315,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": "Turla",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "APT16",
+      "p": 0.7354,
+      "grade": "moderate"
+     },
+     "fused": {
+      "named": "Turla",
+      "p": 0.2642,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0044",
+     "name": "Juicy Mix",
+     "truth": [
+      "OilRig"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.7527,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": "Patchwork",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Stealth Falcon",
+      "p": 0.4268,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.2469,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0047",
+     "name": "RedDelta Modified PlugX Infection Chain Operations",
+     "truth": [
+      "Mustang Panda"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.6979,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Mustang Panda",
+      "p": 0.0783,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4954,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0049",
+     "name": "Leviathan Australian Intrusions",
+     "truth": [
+      "Leviathan"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.7815,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": "Operation Wocao",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Operation Wocao",
+      "p": 0.2398,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.2563,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0051",
+     "name": "APT28 Nearest Neighbor Campaign",
+     "truth": [
+      "APT28"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.7824,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": "APT28",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Dragonfly 2.0",
+      "p": 0.0717,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.2567,
+      "grade": ""
+     }
+    }
+   ]
+  },
+  "false_flag_l1": {
+   "methods": {
+    "similarity": {
+     "n": 17,
+     "top1": 0.1176,
+     "top1_ci": [
+      0.0,
+      0.2941
+     ],
+     "coverage": 1.0,
+     "selective_acc": 0.1176,
+     "wrong_named": 0.8824,
+     "brier_top1": 0.7013,
+     "confident_correct": 0.1176,
+     "confident_wrong": 0.7059,
+     "decoy_named": 0.8824,
+     "decoy_confident": 0.7059
+    },
+    "dragnet": {
+     "n": 17,
+     "top1": 0.1176,
+     "top1_ci": [
+      0.0,
+      0.2941
+     ],
+     "coverage": 0.1176,
+     "selective_acc": 1.0,
+     "wrong_named": 0.0,
+     "brier_top1": 0.0065,
+     "confident_correct": 0.0,
+     "confident_wrong": 0.0,
+     "decoy_named": 0.0,
+     "decoy_confident": 0.0
+    },
+    "occam": {
+     "n": 17,
+     "top1": 0.0588,
+     "top1_ci": [
+      0.0,
+      0.1765
+     ],
+     "coverage": 0.0588,
+     "selective_acc": 1.0,
+     "wrong_named": 0.0,
+     "brier_top1": 0.0147,
+     "confident_correct": 0.0,
+     "confident_wrong": 0.0,
+     "decoy_named": 0.0,
+     "decoy_confident": 0.0
+    },
+    "fused": {
+     "n": 17,
+     "top1": 0.1176,
+     "top1_ci": [
+      0.0,
+      0.2941
+     ],
+     "coverage": 0.1176,
+     "selective_acc": 1.0,
+     "wrong_named": 0.0,
+     "brier_top1": 0.0544,
+     "confident_correct": 0.0,
+     "confident_wrong": 0.0,
+     "decoy_named": 0.0,
+     "decoy_confident": 0.0
+    }
+   },
+   "rows": [
+    {
+     "case": "C0011",
+     "name": "C0011",
+     "truth": [
+      "Transparent Tribe"
+     ],
+     "decoy": "Fox Kitten",
+     "dragnet": {
+      "named": null,
+      "p": 0.7074,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Fox Kitten",
+      "p": 0.8017,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.646,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0017",
+     "name": "C0017",
+     "truth": [
+      "APT41"
+     ],
+     "decoy": "Indrik Spider",
+     "dragnet": {
+      "named": null,
+      "p": 0.6094,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Indrik Spider",
+      "p": 0.9814,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4707,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0022",
+     "name": "Operation Dream Job",
+     "truth": [
+      "Lazarus Group"
+     ],
+     "decoy": "Strider",
+     "dragnet": {
+      "named": null,
+      "p": 1.0,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Strider",
+      "p": 0.8463,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.7018,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0023",
+     "name": "Operation Ghost",
+     "truth": [
+      "APT29"
+     ],
+     "decoy": "Tonto Team",
+     "dragnet": {
+      "named": "APT29",
+      "p": 0.7479,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Tonto Team",
+      "p": 0.9254,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.37,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0024",
+     "name": "SolarWinds Compromise",
+     "truth": [
+      "APT29"
+     ],
+     "decoy": "Ferocious Kitten",
+     "dragnet": {
+      "named": "APT29",
+      "p": 0.7821,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "APT29",
+      "p": 0.9202,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "APT29",
+      "p": 0.3848,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0025",
+     "name": "2016 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "decoy": "Axiom",
+     "dragnet": {
+      "named": null,
+      "p": 0.7057,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Axiom",
+      "p": 0.8074,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6457,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0028",
+     "name": "2015 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "decoy": "Winnti Group",
+     "dragnet": {
+      "named": null,
+      "p": 1.0,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Winnti Group",
+      "p": 0.7688,
+      "grade": "moderate"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.7018,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0030",
+     "name": "Triton Safety Instrumented System Attack",
+     "truth": [
+      "TEMP.Veles"
+     ],
+     "decoy": "Tropic Trooper",
+     "dragnet": {
+      "named": null,
+      "p": 0.6118,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Tropic Trooper",
+      "p": 0.9919,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4713,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0032",
+     "name": "C0032",
+     "truth": [
+      "TEMP.Veles"
+     ],
+     "decoy": "menuPass",
+     "dragnet": {
+      "named": null,
+      "p": 0.5364,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": "TEMP.Veles",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "TEMP.Veles",
+      "p": 0.9974,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "TEMP.Veles",
+      "p": 0.2614,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0033",
+     "name": "C0033",
+     "truth": [
+      "PROMETHIUM"
+     ],
+     "decoy": "Threat Group-3390",
+     "dragnet": {
+      "named": null,
+      "p": 0.7057,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Threat Group-3390",
+      "p": 0.7887,
+      "grade": "moderate"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4976,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0034",
+     "name": "2022 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "decoy": "Ferocious Kitten",
+     "dragnet": {
+      "named": null,
+      "p": 0.6286,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Ferocious Kitten",
+      "p": 0.9422,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6304,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0040",
+     "name": "APT41 DUST",
+     "truth": [
+      "APT41"
+     ],
+     "decoy": "Molerats",
+     "dragnet": {
+      "named": null,
+      "p": 1.0,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Molerats",
+      "p": 0.9634,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.7018,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0042",
+     "name": "Outer Space",
+     "truth": [
+      "OilRig"
+     ],
+     "decoy": "APT1",
+     "dragnet": {
+      "named": null,
+      "p": 0.5872,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "APT1",
+      "p": 0.8116,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4644,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0044",
+     "name": "Juicy Mix",
+     "truth": [
+      "OilRig"
+     ],
+     "decoy": "Elderwood",
+     "dragnet": {
+      "named": null,
+      "p": 0.6475,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Elderwood",
+      "p": 0.798,
+      "grade": "moderate"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6342,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0047",
+     "name": "RedDelta Modified PlugX Infection Chain Operations",
+     "truth": [
+      "Mustang Panda"
+     ],
+     "decoy": "Patchwork",
+     "dragnet": {
+      "named": null,
+      "p": 0.7196,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Patchwork",
+      "p": 0.9864,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.5015,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0049",
+     "name": "Leviathan Australian Intrusions",
+     "truth": [
+      "Leviathan"
+     ],
+     "decoy": "Patchwork",
+     "dragnet": {
+      "named": null,
+      "p": 0.7196,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Patchwork",
+      "p": 0.954,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6484,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0051",
+     "name": "APT28 Nearest Neighbor Campaign",
+     "truth": [
+      "APT28"
+     ],
+     "decoy": "SilverTerrier",
+     "dragnet": {
+      "named": null,
+      "p": 1.0,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "SilverTerrier",
+      "p": 0.9453,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.7018,
+      "grade": ""
+     }
+    }
+   ]
+  },
+  "false_flag_l2": {
+   "methods": {
+    "similarity": {
+     "n": 17,
+     "top1": 0.1176,
+     "top1_ci": [
+      0.0,
+      0.2941
+     ],
+     "coverage": 1.0,
+     "selective_acc": 0.1176,
+     "wrong_named": 0.8824,
+     "brier_top1": 0.8745,
+     "confident_correct": 0.0588,
+     "confident_wrong": 0.8824,
+     "decoy_named": 0.8824,
+     "decoy_confident": 0.8824
+    },
+    "dragnet": {
+     "n": 17,
+     "top1": 0.1176,
+     "top1_ci": [
+      0.0,
+      0.2941
+     ],
+     "coverage": 0.6471,
+     "selective_acc": 0.1818,
+     "wrong_named": 0.5294,
+     "brier_top1": 0.2414,
+     "confident_correct": 0.0,
+     "confident_wrong": 0.1765,
+     "decoy_named": 0.5294,
+     "decoy_confident": 0.1765
+    },
+    "occam": {
+     "n": 17,
+     "top1": 0.0588,
+     "top1_ci": [
+      0.0,
+      0.1765
+     ],
+     "coverage": 0.0588,
+     "selective_acc": 1.0,
+     "wrong_named": 0.0,
+     "brier_top1": 0.0147,
+     "confident_correct": 0.0,
+     "confident_wrong": 0.0,
+     "decoy_named": 0.0,
+     "decoy_confident": 0.0
+    },
+    "fused": {
+     "n": 17,
+     "top1": 0.0588,
+     "top1_ci": [
+      0.0,
+      0.1765
+     ],
+     "coverage": 0.4706,
+     "selective_acc": 0.125,
+     "wrong_named": 0.4118,
+     "brier_top1": 0.0821,
+     "confident_correct": 0.0,
+     "confident_wrong": 0.0,
+     "decoy_named": 0.4118,
+     "decoy_confident": 0.0
+    }
+   },
+   "rows": [
+    {
+     "case": "C0011",
+     "name": "C0011",
+     "truth": [
+      "Transparent Tribe"
+     ],
+     "decoy": "Fox Kitten",
+     "dragnet": {
+      "named": null,
+      "p": 0.7074,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Fox Kitten",
+      "p": 0.9826,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.646,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0017",
+     "name": "C0017",
+     "truth": [
+      "APT41"
+     ],
+     "decoy": "Indrik Spider",
+     "dragnet": {
+      "named": "Indrik Spider",
+      "p": 0.6393,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Indrik Spider",
+      "p": 0.9961,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "Indrik Spider",
+      "p": 0.3146,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0022",
+     "name": "Operation Dream Job",
+     "truth": [
+      "Lazarus Group"
+     ],
+     "decoy": "Strider",
+     "dragnet": {
+      "named": null,
+      "p": 1.0,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Strider",
+      "p": 0.977,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.7018,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0023",
+     "name": "Operation Ghost",
+     "truth": [
+      "APT29"
+     ],
+     "decoy": "Tonto Team",
+     "dragnet": {
+      "named": "APT29",
+      "p": 0.5637,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Tonto Team",
+      "p": 0.9931,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4036,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0024",
+     "name": "SolarWinds Compromise",
+     "truth": [
+      "APT29"
+     ],
+     "decoy": "Ferocious Kitten",
+     "dragnet": {
+      "named": "APT29",
+      "p": 0.5903,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "APT29",
+      "p": 0.6636,
+      "grade": "moderate"
+     },
+     "fused": {
+      "named": "APT29",
+      "p": 0.2904,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0025",
+     "name": "2016 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "decoy": "Axiom",
+     "dragnet": {
+      "named": "Axiom",
+      "p": 0.4832,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Axiom",
+      "p": 0.9846,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4182,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0028",
+     "name": "2015 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "decoy": "Winnti Group",
+     "dragnet": {
+      "named": null,
+      "p": 0.7057,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Winnti Group",
+      "p": 0.9963,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6457,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0030",
+     "name": "Triton Safety Instrumented System Attack",
+     "truth": [
+      "TEMP.Veles"
+     ],
+     "decoy": "Tropic Trooper",
+     "dragnet": {
+      "named": "Tropic Trooper",
+      "p": 0.6917,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Tropic Trooper",
+      "p": 0.9987,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "Tropic Trooper",
+      "p": 0.3403,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0032",
+     "name": "C0032",
+     "truth": [
+      "TEMP.Veles"
+     ],
+     "decoy": "menuPass",
+     "dragnet": {
+      "named": "menuPass",
+      "p": 0.7318,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": "TEMP.Veles",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "TEMP.Veles",
+      "p": 0.9738,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "menuPass",
+      "p": 0.3601,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0033",
+     "name": "C0033",
+     "truth": [
+      "PROMETHIUM"
+     ],
+     "decoy": "Threat Group-3390",
+     "dragnet": {
+      "named": "Threat Group-3390",
+      "p": 0.4734,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Threat Group-3390",
+      "p": 0.9972,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.2489,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0034",
+     "name": "2022 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "decoy": "Ferocious Kitten",
+     "dragnet": {
+      "named": "Ferocious Kitten",
+      "p": 0.6857,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Ferocious Kitten",
+      "p": 0.9995,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "Ferocious Kitten",
+      "p": 0.3581,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0040",
+     "name": "APT41 DUST",
+     "truth": [
+      "APT41"
+     ],
+     "decoy": "Molerats",
+     "dragnet": {
+      "named": null,
+      "p": 1.0,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Molerats",
+      "p": 0.995,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.5772,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0042",
+     "name": "Outer Space",
+     "truth": [
+      "OilRig"
+     ],
+     "decoy": "APT1",
+     "dragnet": {
+      "named": "APT1",
+      "p": 0.7064,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "APT1",
+      "p": 0.9909,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "APT1",
+      "p": 0.4344,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0044",
+     "name": "Juicy Mix",
+     "truth": [
+      "OilRig"
+     ],
+     "decoy": "Elderwood",
+     "dragnet": {
+      "named": "Elderwood",
+      "p": 0.6763,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Elderwood",
+      "p": 0.9859,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "Elderwood",
+      "p": 0.3531,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0047",
+     "name": "RedDelta Modified PlugX Infection Chain Operations",
+     "truth": [
+      "Mustang Panda"
+     ],
+     "decoy": "Patchwork",
+     "dragnet": {
+      "named": "Patchwork",
+      "p": 0.6627,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Patchwork",
+      "p": 0.9965,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "Patchwork",
+      "p": 0.326,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0049",
+     "name": "Leviathan Australian Intrusions",
+     "truth": [
+      "Leviathan"
+     ],
+     "decoy": "Patchwork",
+     "dragnet": {
+      "named": null,
+      "p": 0.7196,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Patchwork",
+      "p": 0.9862,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6484,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0051",
+     "name": "APT28 Nearest Neighbor Campaign",
+     "truth": [
+      "APT28"
+     ],
+     "decoy": "SilverTerrier",
+     "dragnet": {
+      "named": null,
+      "p": 0.7147,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "SilverTerrier",
+      "p": 0.9963,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6474,
+      "grade": ""
+     }
+    }
+   ]
+  }
+ },
+ "retrospective": {
+  "kg_version": "19.2",
+  "cases": 25,
+  "clean": {
+   "methods": {
+    "similarity": {
+     "n": 25,
+     "top1": 0.4,
+     "top1_ci": [
+      0.24,
+      0.6
+     ],
+     "coverage": 1.0,
+     "selective_acc": 0.4,
+     "wrong_named": 0.6,
+     "brier_top1": 0.2307,
+     "confident_correct": 0.04,
+     "confident_wrong": 0.0
+    },
+    "dragnet": {
+     "n": 25,
+     "top1": 0.56,
+     "top1_ci": [
+      0.36,
+      0.76
+     ],
+     "coverage": 0.6,
+     "selective_acc": 0.9333,
+     "wrong_named": 0.04,
+     "brier_top1": 0.0847,
+     "confident_correct": 0.2,
+     "confident_wrong": 0.0
+    },
+    "occam": {
+     "n": 25,
+     "top1": 0.36,
+     "top1_ci": [
+      0.2,
+      0.56
+     ],
+     "coverage": 0.56,
+     "selective_acc": 0.6429,
+     "wrong_named": 0.2,
+     "brier_top1": 0.1284,
+     "confident_correct": 0.08,
+     "confident_wrong": 0.0
+    },
+    "fused": {
+     "n": 25,
+     "top1": 0.64,
+     "top1_ci": [
+      0.44,
+      0.8
+     ],
+     "coverage": 0.68,
+     "selective_acc": 0.9412,
+     "wrong_named": 0.04,
+     "brier_top1": 0.2054,
+     "confident_correct": 0.24,
+     "confident_wrong": 0.0
+    }
+   },
+   "rows": [
+    {
+     "case": "C0011",
+     "name": "C0011",
+     "truth": [
+      "Transparent Tribe"
+     ],
+     "dragnet": {
+      "named": "Transparent Tribe",
+      "p": 0.624,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": "Transparent Tribe",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Transparent Tribe",
+      "p": 0.6809,
+      "grade": "moderate"
+     },
+     "fused": {
+      "named": "Transparent Tribe",
+      "p": 0.6276,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0017",
+     "name": "C0017",
+     "truth": [
+      "APT41"
+     ],
+     "dragnet": {
+      "named": "APT41",
+      "p": 0.6486,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "APT41",
+      "p": 0.0661,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "APT41",
+      "p": 0.3989,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0022",
+     "name": "Operation Dream Job",
+     "truth": [
+      "Lazarus Group"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.7386,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Confucius",
+      "p": 0.0712,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.5068,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0023",
+     "name": "Operation Ghost",
+     "truth": [
+      "APT29"
+     ],
+     "dragnet": {
+      "named": "APT29",
+      "p": 0.9422,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": "APT29",
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "APT29",
+      "p": 0.1403,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "APT29",
+      "p": 0.7854,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0024",
+     "name": "SolarWinds Compromise",
+     "truth": [
+      "APT29"
+     ],
+     "dragnet": {
+      "named": "APT29",
+      "p": 0.997,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": "APT29",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "APT29",
+      "p": 0.1996,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "APT29",
+      "p": 0.8197,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0025",
+     "name": "2016 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "dragnet": {
+      "named": "Sandworm Team",
+      "p": 0.541,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": "APT41",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "BlackByte",
+      "p": 0.0567,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "Sandworm Team",
+      "p": 0.2662,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0027",
+     "name": "C0027",
+     "truth": [
+      "Scattered Spider"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.7496,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": "Scattered Spider",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "LAPSUS$",
+      "p": 0.3658,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "Scattered Spider",
+      "p": 0.246,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0028",
+     "name": "2015 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "dragnet": {
+      "named": "Sandworm Team",
+      "p": 0.6852,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Sandworm Team",
+      "p": 0.1119,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "Sandworm Team",
+      "p": 0.3371,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0030",
+     "name": "Triton Safety Instrumented System Attack",
+     "truth": [
+      "TEMP.Veles"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.7993,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": "OilRig",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Whitefly",
+      "p": 0.0797,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.2622,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0032",
+     "name": "C0032",
+     "truth": [
+      "TEMP.Veles"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.7358,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "FIN10",
+      "p": 0.078,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.506,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0033",
+     "name": "C0033",
+     "truth": [
+      "PROMETHIUM"
+     ],
+     "dragnet": {
+      "named": "PROMETHIUM",
+      "p": 0.5,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": "PROMETHIUM",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "PROMETHIUM",
+      "p": 0.9458,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "PROMETHIUM",
+      "p": 0.51,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0034",
+     "name": "2022 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.7933,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "BITTER",
+      "p": 0.0536,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.663,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0035",
+     "name": "KV Botnet Activity",
+     "truth": [
+      "Volt Typhoon"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.7736,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Rocke",
+      "p": 0.0999,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.5166,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0038",
+     "name": "HomeLand Justice",
+     "truth": [
+      "VOID MANTICORE"
+     ],
+     "dragnet": {
+      "named": "OilRig",
+      "p": 0.4725,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": "Magic Hound",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Magic Hound",
+      "p": 0.2334,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "Magic Hound",
+      "p": 0.249,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0039",
+     "name": "Versa Director Zero Day Exploitation",
+     "truth": [
+      "Volt Typhoon"
+     ],
+     "dragnet": {
+      "named": "Volt Typhoon",
+      "p": 0.5614,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": "Volt Typhoon",
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "RedEcho",
+      "p": 0.0864,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "Volt Typhoon",
+      "p": 0.6726,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0040",
+     "name": "APT41 DUST",
+     "truth": [
+      "APT41"
+     ],
+     "dragnet": {
+      "named": "APT41",
+      "p": 0.7969,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": "APT41",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "APT41",
+      "p": 0.0861,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "APT41",
+      "p": 0.7184,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0042",
+     "name": "Outer Space",
+     "truth": [
+      "OilRig"
+     ],
+     "dragnet": {
+      "named": "OilRig",
+      "p": 0.7688,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": "Kimsuky",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "OilRig",
+      "p": 0.0781,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "OilRig",
+      "p": 0.3783,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0044",
+     "name": "Juicy Mix",
+     "truth": [
+      "OilRig"
+     ],
+     "dragnet": {
+      "named": "OilRig",
+      "p": 0.5658,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Stealth Falcon",
+      "p": 0.3533,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "OilRig",
+      "p": 0.2784,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0047",
+     "name": "RedDelta Modified PlugX Infection Chain Operations",
+     "truth": [
+      "Mustang Panda"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.7406,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": "Mustang Panda",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "LuminousMoth",
+      "p": 0.1884,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "Mustang Panda",
+      "p": 0.2467,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0049",
+     "name": "Leviathan Australian Intrusions",
+     "truth": [
+      "Leviathan"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.8344,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "BlackByte",
+      "p": 0.0752,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.5337,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0051",
+     "name": "APT28 Nearest Neighbor Campaign",
+     "truth": [
+      "APT28"
+     ],
+     "dragnet": {
+      "named": "APT28",
+      "p": 0.3775,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": "APT28",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "FIN13",
+      "p": 0.0626,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "APT28",
+      "p": 0.4586,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0052",
+     "name": "SPACEHOP Activity",
+     "truth": [
+      "APT5"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.8308,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "FIN4",
+      "p": 0.0908,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.5326,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0056",
+     "name": "RedPenguin",
+     "truth": [
+      "UNC3886"
+     ],
+     "dragnet": {
+      "named": "UNC3886",
+      "p": 0.8106,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "UNC3886",
+      "p": 0.7614,
+      "grade": "moderate"
+     },
+     "fused": {
+      "named": "UNC3886",
+      "p": 0.4985,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0057",
+     "name": "3CX Supply Chain Attack",
+     "truth": [
+      "AppleJeus"
+     ],
+     "dragnet": {
+      "named": null,
+      "p": 0.834,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": "Kimsuky",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Moonstone Sleet",
+      "p": 0.1104,
+      "grade": "low"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.2736,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0060",
+     "name": "Operation AkaiRy\u016b",
+     "truth": [
+      "MirrorFace"
+     ],
+     "dragnet": {
+      "named": "MirrorFace",
+      "p": 0.5908,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "MirrorFace",
+      "p": 0.321,
+      "grade": "low"
+     },
+     "fused": {
+      "named": "MirrorFace",
+      "p": 0.2907,
+      "grade": ""
+     }
+    }
+   ]
+  },
+  "false_flag_l1": {
+   "methods": {
+    "similarity": {
+     "n": 25,
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.0
+     ],
+     "coverage": 1.0,
+     "selective_acc": 0.0,
+     "wrong_named": 1.0,
+     "brier_top1": 0.8531,
+     "confident_correct": 0.0,
+     "confident_wrong": 0.92,
+     "decoy_named": 1.0,
+     "decoy_confident": 0.92
+    },
+    "dragnet": {
+     "n": 25,
+     "top1": 0.04,
+     "top1_ci": [
+      0.0,
+      0.12
+     ],
+     "coverage": 0.04,
+     "selective_acc": 1.0,
+     "wrong_named": 0.0,
+     "brier_top1": 0.0018,
+     "confident_correct": 0.0,
+     "confident_wrong": 0.0,
+     "decoy_named": 0.0,
+     "decoy_confident": 0.0
+    },
+    "occam": {
+     "n": 25,
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.0
+     ],
+     "coverage": 0.04,
+     "selective_acc": 0.0,
+     "wrong_named": 0.04,
+     "brier_top1": 0.0182,
+     "confident_correct": 0.0,
+     "confident_wrong": 0.04,
+     "decoy_named": 0.04,
+     "decoy_confident": 0.04
+    },
+    "fused": {
+     "n": 25,
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.0
+     ],
+     "coverage": 0.04,
+     "selective_acc": 0.0,
+     "wrong_named": 0.04,
+     "brier_top1": 0.0078,
+     "confident_correct": 0.0,
+     "confident_wrong": 0.0,
+     "decoy_named": 0.04,
+     "decoy_confident": 0.0
+    }
+   },
+   "rows": [
+    {
+     "case": "C0011",
+     "name": "C0011",
+     "truth": [
+      "Transparent Tribe"
+     ],
+     "decoy": "Threat Group-3390",
+     "dragnet": {
+      "named": null,
+      "p": 0.7056,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Threat Group-3390",
+      "p": 0.8781,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4975,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0017",
+     "name": "C0017",
+     "truth": [
+      "APT41"
+     ],
+     "decoy": "Sea Turtle",
+     "dragnet": {
+      "named": null,
+      "p": 1.0,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Sea Turtle",
+      "p": 0.9245,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.7018,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0022",
+     "name": "Operation Dream Job",
+     "truth": [
+      "Lazarus Group"
+     ],
+     "decoy": "Indrik Spider",
+     "dragnet": {
+      "named": null,
+      "p": 0.6002,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Indrik Spider",
+      "p": 0.959,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4681,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0023",
+     "name": "Operation Ghost",
+     "truth": [
+      "APT29"
+     ],
+     "decoy": "APT42",
+     "dragnet": {
+      "named": null,
+      "p": 1.0,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "APT42",
+      "p": 0.961,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.7018,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0024",
+     "name": "SolarWinds Compromise",
+     "truth": [
+      "APT29"
+     ],
+     "decoy": "Lotus Blossom",
+     "dragnet": {
+      "named": "APT29",
+      "p": 0.7864,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Lotus Blossom",
+      "p": 0.9857,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.3629,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0025",
+     "name": "2016 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "decoy": "CopyKittens",
+     "dragnet": {
+      "named": null,
+      "p": 1.0,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "CopyKittens",
+      "p": 0.9306,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.7018,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0027",
+     "name": "C0027",
+     "truth": [
+      "Scattered Spider"
+     ],
+     "decoy": "APT30",
+     "dragnet": {
+      "named": null,
+      "p": 0.6395,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "APT30",
+      "p": 0.8338,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6326,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0028",
+     "name": "2015 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "decoy": "Contagious Interview",
+     "dragnet": {
+      "named": null,
+      "p": 1.0,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Contagious Interview",
+      "p": 0.9301,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.5772,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0030",
+     "name": "Triton Safety Instrumented System Attack",
+     "truth": [
+      "TEMP.Veles"
+     ],
+     "decoy": "OilRig",
+     "dragnet": {
+      "named": null,
+      "p": 0.5433,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": "OilRig",
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "OilRig",
+      "p": 0.9907,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "OilRig",
+      "p": 0.4403,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0032",
+     "name": "C0032",
+     "truth": [
+      "TEMP.Veles"
+     ],
+     "decoy": "Tropic Trooper",
+     "dragnet": {
+      "named": null,
+      "p": 0.5979,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Tropic Trooper",
+      "p": 0.9286,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4674,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0033",
+     "name": "C0033",
+     "truth": [
+      "PROMETHIUM"
+     ],
+     "decoy": "MuddyWater",
+     "dragnet": {
+      "named": null,
+      "p": 0.7067,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "MuddyWater",
+      "p": 0.715,
+      "grade": "moderate"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4979,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0034",
+     "name": "2022 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "decoy": "Lotus Blossom",
+     "dragnet": {
+      "named": null,
+      "p": 0.6328,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Lotus Blossom",
+      "p": 0.9331,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4772,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0035",
+     "name": "KV Botnet Activity",
+     "truth": [
+      "Volt Typhoon"
+     ],
+     "decoy": "TA577",
+     "dragnet": {
+      "named": null,
+      "p": 0.64,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "TA577",
+      "p": 0.9042,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4792,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0038",
+     "name": "HomeLand Justice",
+     "truth": [
+      "VOID MANTICORE"
+     ],
+     "decoy": "APT16",
+     "dragnet": {
+      "named": null,
+      "p": 0.7056,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "APT16",
+      "p": 0.8487,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6456,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0039",
+     "name": "Versa Director Zero Day Exploitation",
+     "truth": [
+      "Volt Typhoon"
+     ],
+     "decoy": "PROMETHIUM",
+     "dragnet": {
+      "named": null,
+      "p": 1.0,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "PROMETHIUM",
+      "p": 0.9361,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.7018,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0040",
+     "name": "APT41 DUST",
+     "truth": [
+      "APT41"
+     ],
+     "decoy": "Fox Kitten",
+     "dragnet": {
+      "named": null,
+      "p": 0.7067,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Fox Kitten",
+      "p": 0.9848,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4979,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0042",
+     "name": "Outer Space",
+     "truth": [
+      "OilRig"
+     ],
+     "decoy": "APT-C-23",
+     "dragnet": {
+      "named": null,
+      "p": 1.0,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "APT-C-23",
+      "p": 0.9392,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.7018,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0044",
+     "name": "Juicy Mix",
+     "truth": [
+      "OilRig"
+     ],
+     "decoy": "Lazarus Group",
+     "dragnet": {
+      "named": null,
+      "p": 0.7079,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Lazarus Group",
+      "p": 0.985,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6461,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0047",
+     "name": "RedDelta Modified PlugX Infection Chain Operations",
+     "truth": [
+      "Mustang Panda"
+     ],
+     "decoy": "Wizard Spider",
+     "dragnet": {
+      "named": null,
+      "p": 0.5982,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Wizard Spider",
+      "p": 0.9484,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4675,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0049",
+     "name": "Leviathan Australian Intrusions",
+     "truth": [
+      "Leviathan"
+     ],
+     "decoy": "Kimsuky",
+     "dragnet": {
+      "named": null,
+      "p": 0.5759,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Kimsuky",
+      "p": 0.9906,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4613,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0051",
+     "name": "APT28 Nearest Neighbor Campaign",
+     "truth": [
+      "APT28"
+     ],
+     "decoy": "BRONZE BUTLER",
+     "dragnet": {
+      "named": null,
+      "p": 0.6925,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "BRONZE BUTLER",
+      "p": 0.9686,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6431,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0052",
+     "name": "SPACEHOP Activity",
+     "truth": [
+      "APT5"
+     ],
+     "decoy": "APT32",
+     "dragnet": {
+      "named": null,
+      "p": 0.5368,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "APT32",
+      "p": 0.9377,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4503,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0056",
+     "name": "RedPenguin",
+     "truth": [
+      "UNC3886"
+     ],
+     "decoy": "APT-C-23",
+     "dragnet": {
+      "named": null,
+      "p": 0.7092,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "APT-C-23",
+      "p": 0.7082,
+      "grade": "moderate"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6464,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0057",
+     "name": "3CX Supply Chain Attack",
+     "truth": [
+      "AppleJeus"
+     ],
+     "decoy": "WIRTE",
+     "dragnet": {
+      "named": null,
+      "p": 0.6241,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "WIRTE",
+      "p": 0.9579,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6296,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0060",
+     "name": "Operation AkaiRy\u016b",
+     "truth": [
+      "MirrorFace"
+     ],
+     "decoy": "Dark Caracal",
+     "dragnet": {
+      "named": null,
+      "p": 0.7092,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Dark Caracal",
+      "p": 0.939,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6464,
+      "grade": ""
+     }
+    }
+   ]
+  },
+  "false_flag_l2": {
+   "methods": {
+    "similarity": {
+     "n": 25,
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.0
+     ],
+     "coverage": 1.0,
+     "selective_acc": 0.0,
+     "wrong_named": 1.0,
+     "brier_top1": 0.9841,
+     "confident_correct": 0.0,
+     "confident_wrong": 1.0,
+     "decoy_named": 1.0,
+     "decoy_confident": 1.0
+    },
+    "dragnet": {
+     "n": 25,
+     "top1": 0.16,
+     "top1_ci": [
+      0.04,
+      0.32
+     ],
+     "coverage": 0.72,
+     "selective_acc": 0.2222,
+     "wrong_named": 0.56,
+     "brier_top1": 0.2742,
+     "confident_correct": 0.0,
+     "confident_wrong": 0.24,
+     "decoy_named": 0.56,
+     "decoy_confident": 0.24
+    },
+    "occam": {
+     "n": 25,
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.0
+     ],
+     "coverage": 0.08,
+     "selective_acc": 0.0,
+     "wrong_named": 0.08,
+     "brier_top1": 0.0282,
+     "confident_correct": 0.0,
+     "confident_wrong": 0.04,
+     "decoy_named": 0.08,
+     "decoy_confident": 0.04
+    },
+    "fused": {
+     "n": 25,
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.0
+     ],
+     "coverage": 0.36,
+     "selective_acc": 0.0,
+     "wrong_named": 0.36,
+     "brier_top1": 0.07,
+     "confident_correct": 0.0,
+     "confident_wrong": 0.04,
+     "decoy_named": 0.36,
+     "decoy_confident": 0.04
+    }
+   },
+   "rows": [
+    {
+     "case": "C0011",
+     "name": "C0011",
+     "truth": [
+      "Transparent Tribe"
+     ],
+     "decoy": "Threat Group-3390",
+     "dragnet": {
+      "named": null,
+      "p": 0.7056,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": "Threat Group-3390",
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Threat Group-3390",
+      "p": 0.9877,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "Threat Group-3390",
+      "p": 0.2492,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0017",
+     "name": "C0017",
+     "truth": [
+      "APT41"
+     ],
+     "decoy": "Sea Turtle",
+     "dragnet": {
+      "named": null,
+      "p": 1.0,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Sea Turtle",
+      "p": 0.9811,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.7018,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0022",
+     "name": "Operation Dream Job",
+     "truth": [
+      "Lazarus Group"
+     ],
+     "decoy": "Indrik Spider",
+     "dragnet": {
+      "named": "Indrik Spider",
+      "p": 0.6699,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Indrik Spider",
+      "p": 0.9845,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "Indrik Spider",
+      "p": 0.3296,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0023",
+     "name": "Operation Ghost",
+     "truth": [
+      "APT29"
+     ],
+     "decoy": "APT42",
+     "dragnet": {
+      "named": null,
+      "p": 0.7067,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "APT42",
+      "p": 0.9939,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6459,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0024",
+     "name": "SolarWinds Compromise",
+     "truth": [
+      "APT29"
+     ],
+     "decoy": "Lotus Blossom",
+     "dragnet": {
+      "named": "APT29",
+      "p": 0.5926,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Lotus Blossom",
+      "p": 0.9938,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.3983,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0025",
+     "name": "2016 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "decoy": "CopyKittens",
+     "dragnet": {
+      "named": "CopyKittens",
+      "p": 0.4789,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "CopyKittens",
+      "p": 0.9954,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.419,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0027",
+     "name": "C0027",
+     "truth": [
+      "Scattered Spider"
+     ],
+     "decoy": "APT30",
+     "dragnet": {
+      "named": "APT30",
+      "p": 0.6753,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "APT30",
+      "p": 0.9782,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.3832,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0028",
+     "name": "2015 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "decoy": "Contagious Interview",
+     "dragnet": {
+      "named": null,
+      "p": 0.7079,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Contagious Interview",
+      "p": 0.984,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4982,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0030",
+     "name": "Triton Safety Instrumented System Attack",
+     "truth": [
+      "TEMP.Veles"
+     ],
+     "decoy": "OilRig",
+     "dragnet": {
+      "named": "OilRig",
+      "p": 0.7283,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": "OilRig",
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "OilRig",
+      "p": 0.9972,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "OilRig",
+      "p": 0.776,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0032",
+     "name": "C0032",
+     "truth": [
+      "TEMP.Veles"
+     ],
+     "decoy": "Tropic Trooper",
+     "dragnet": {
+      "named": "Tropic Trooper",
+      "p": 0.6993,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Tropic Trooper",
+      "p": 0.9904,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "Tropic Trooper",
+      "p": 0.4301,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0033",
+     "name": "C0033",
+     "truth": [
+      "PROMETHIUM"
+     ],
+     "decoy": "MuddyWater",
+     "dragnet": {
+      "named": "MuddyWater",
+      "p": 0.4745,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "MuddyWater",
+      "p": 0.9939,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.2488,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0034",
+     "name": "2022 Ukraine Electric Power Attack",
+     "truth": [
+      "Sandworm Team"
+     ],
+     "decoy": "Lotus Blossom",
+     "dragnet": {
+      "named": "Lotus Blossom",
+      "p": 0.6836,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Lotus Blossom",
+      "p": 0.9935,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "Lotus Blossom",
+      "p": 0.4204,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0035",
+     "name": "KV Botnet Activity",
+     "truth": [
+      "Volt Typhoon"
+     ],
+     "decoy": "TA577",
+     "dragnet": {
+      "named": "TA577",
+      "p": 0.68,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "TA577",
+      "p": 0.9947,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "TA577",
+      "p": 0.3346,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0038",
+     "name": "HomeLand Justice",
+     "truth": [
+      "VOID MANTICORE"
+     ],
+     "decoy": "APT16",
+     "dragnet": {
+      "named": null,
+      "p": 0.7056,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "APT16",
+      "p": 0.9975,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6456,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0039",
+     "name": "Versa Director Zero Day Exploitation",
+     "truth": [
+      "Volt Typhoon"
+     ],
+     "decoy": "PROMETHIUM",
+     "dragnet": {
+      "named": null,
+      "p": 1.0,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "PROMETHIUM",
+      "p": 0.9983,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.7018,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0040",
+     "name": "APT41 DUST",
+     "truth": [
+      "APT41"
+     ],
+     "decoy": "Fox Kitten",
+     "dragnet": {
+      "named": "APT41",
+      "p": 0.4728,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Fox Kitten",
+      "p": 0.9959,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.2489,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0042",
+     "name": "Outer Space",
+     "truth": [
+      "OilRig"
+     ],
+     "decoy": "APT-C-23",
+     "dragnet": {
+      "named": null,
+      "p": 0.7092,
+      "grade": "INSUFFICIENT"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "APT-C-23",
+      "p": 1.0,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.6464,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0044",
+     "name": "Juicy Mix",
+     "truth": [
+      "OilRig"
+     ],
+     "decoy": "Lazarus Group",
+     "dragnet": {
+      "named": "Lazarus Group",
+      "p": 0.5079,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Lazarus Group",
+      "p": 0.9949,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4137,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0047",
+     "name": "RedDelta Modified PlugX Infection Chain Operations",
+     "truth": [
+      "Mustang Panda"
+     ],
+     "decoy": "Wizard Spider",
+     "dragnet": {
+      "named": "Wizard Spider",
+      "p": 0.6728,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Wizard Spider",
+      "p": 0.9845,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "Wizard Spider",
+      "p": 0.331,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0049",
+     "name": "Leviathan Australian Intrusions",
+     "truth": [
+      "Leviathan"
+     ],
+     "decoy": "Kimsuky",
+     "dragnet": {
+      "named": "Kimsuky",
+      "p": 0.712,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "Kimsuky",
+      "p": 0.9949,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "Kimsuky",
+      "p": 0.4379,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0051",
+     "name": "APT28 Nearest Neighbor Campaign",
+     "truth": [
+      "APT28"
+     ],
+     "decoy": "BRONZE BUTLER",
+     "dragnet": {
+      "named": "BRONZE BUTLER",
+      "p": 0.5547,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "BRONZE BUTLER",
+      "p": 0.991,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4052,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0052",
+     "name": "SPACEHOP Activity",
+     "truth": [
+      "APT5"
+     ],
+     "decoy": "APT32",
+     "dragnet": {
+      "named": "APT32",
+      "p": 0.7316,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.5,
+      "grade": "low"
+     },
+     "similarity": {
+      "named": "APT32",
+      "p": 0.9956,
+      "grade": "high"
+     },
+     "fused": {
+      "named": "APT32",
+      "p": 0.4499,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0056",
+     "name": "RedPenguin",
+     "truth": [
+      "UNC3886"
+     ],
+     "decoy": "APT-C-23",
+     "dragnet": {
+      "named": "UNC3886",
+      "p": 0.4789,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "APT-C-23",
+      "p": 0.9984,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.419,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0057",
+     "name": "3CX Supply Chain Attack",
+     "truth": [
+      "AppleJeus"
+     ],
+     "decoy": "WIRTE",
+     "dragnet": {
+      "named": "WIRTE",
+      "p": 0.6579,
+      "grade": "MEDIUM"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "WIRTE",
+      "p": 0.99,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.3564,
+      "grade": ""
+     }
+    },
+    {
+     "case": "C0060",
+     "name": "Operation AkaiRy\u016b",
+     "truth": [
+      "MirrorFace"
+     ],
+     "decoy": "Dark Caracal",
+     "dragnet": {
+      "named": "MirrorFace",
+      "p": 0.4191,
+      "grade": "LOW"
+     },
+     "occam": {
+      "named": null,
+      "p": 0.675,
+      "grade": "moderate"
+     },
+     "similarity": {
+      "named": "Dark Caracal",
+      "p": 0.9909,
+      "grade": "high"
+     },
+     "fused": {
+      "named": null,
+      "p": 0.4299,
+      "grade": ""
+     }
+    }
+   ]
+  }
+ },
+ "committed_calibration": {
+  "similarity": {
+   "n": 126,
+   "positives": 23,
+   "brier": 0.6471,
+   "ece": 0.6608,
+   "auc": 0.3136
+  },
+  "dragnet": {
+   "n": 56,
+   "positives": 30,
+   "brier": 0.2556,
+   "ece": 0.2323,
+   "auc": 0.5545
+  },
+  "occam": {
+   "n": 31,
+   "positives": 19,
+   "brier": 0.2295,
+   "ece": 0.0581,
+   "auc": 0.5833
+  },
+  "fused": {
+   "n": 45,
+   "positives": 26,
+   "brier": 0.2272,
+   "ece": 0.2124,
+   "auc": 0.6721
+  }
+ }
+}
