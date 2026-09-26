@@ -10,7 +10,9 @@ we score four "analysts":
 * ``revenant``  - siloed provenance heuristics (REVENANT alone)
 * ``max``       - both engines, no fusion (take the more confident one)
 * ``fused``     - THROUGHLINE: incident-level noisy-OR over independent engines
-* ``fused+cal`` - ``fused`` with a Platt map fitted on the other folds (5-fold by capture)
+* ``<method>+cal`` - that method's confidence through a Platt map fitted on the other
+  folds (5-fold by capture), reported for every method so calibration and fusion are
+  not confused
 
 Metrics: capture recall (the emulated technique is claimed at all), hit@1 and
 MRR (is it the top-ranked claim?), and calibration of the claimed confidences
@@ -134,31 +136,28 @@ def score_all(per_capture: list[dict], meta: dict, subset: str) -> int:
 
     # ---- calibration over claimed (capture, technique) pairs
     folds = 5
-    pairs: dict[str, list[tuple[float, bool]]] = {m: [] for m in METHODS}
-    fold_of: list[int] = []
+    pairs: dict[str, list[tuple[float, bool, int]]] = {m: [] for m in METHODS}
     for i, pc in enumerate(per_capture):
         for t, r in pc["rows"].items():
             y = correct(t, pc["truth"])
             for m in METHODS:
                 if r[m] > 0:
-                    pairs[m].append((r[m], y))
-            if r["fused"] > 0:
-                fold_of.append(i % folds)
+                    pairs[m].append((r[m], y, i % folds))
     for m in METHODS:
-        res["methods"][m]["calibration"] = cal.summary(pairs[m])
-        res["methods"][m]["reliability"] = cal.reliability(pairs[m])
-    # cross-validated Platt scaling of the fused confidence (folds by capture)
-    fused = pairs["fused"]
-    calibrated: list[tuple[float, bool]] = []
-    params = []
-    for f in range(folds):
-        train = [p for p, fo in zip(fused, fold_of) if fo != f]
-        test = [p for p, fo in zip(fused, fold_of) if fo == f]
-        pl = cal.Platt.fit(train)
-        params.append({"a": pl.a, "b": pl.b})
-        calibrated += [(pl(p), y) for p, y in test]
-    res["methods"]["fused+cal"] = {"calibration": cal.summary(calibrated),
-                                   "reliability": cal.reliability(calibrated), "platt_folds": params}
+        pm = [(p, y) for p, y, _ in pairs[m]]
+        res["methods"][m]["calibration"] = cal.summary(pm)
+        res["methods"][m]["reliability"] = cal.reliability(pm)
+        # cross-validated Platt scaling (folds by capture), for every method, so the effect
+        # of calibration is not confused with the effect of fusion
+        calibrated: list[tuple[float, bool]] = []
+        params = []
+        for f in range(folds):
+            pl = cal.Platt.fit([(p, y) for p, y, fo in pairs[m] if fo != f])
+            params.append({"a": pl.a, "b": pl.b})
+            calibrated += [(pl(p), y) for p, y, fo in pairs[m] if fo == f]
+        res["methods"][f"{m}+cal"] = {"calibration": cal.summary(calibrated),
+                                      "reliability": cal.reliability(calibrated), "platt_folds": params}
+    fused = [(p, y) for p, y, _ in pairs["fused"]]
     full = cal.Platt.fit(fused)
     res["platt_full"] = {"a": full.a, "b": full.b, "n": full.n}
     res["p_fused_vs_sigma_mrr"] = paired_bootstrap(res["methods"]["fused"]["_rr"], res["methods"]["sigma"]["_rr"])
