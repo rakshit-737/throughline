@@ -1,6 +1,9 @@
 """Ingest -> normalize -> graph -> engines, and the one-query investigation."""
 from __future__ import annotations
 
+from collections import Counter
+
+from .connectors.windows import Skip
 from .contracts import ContractError
 from .graph import KnowledgeGraph
 from .modules import EngineRegistry, default_registry
@@ -18,20 +21,46 @@ def _raw_context(connector: str, raw: dict) -> dict:
     return ctx
 
 
-def build(records, registry: EngineRegistry | None = None) -> tuple[KnowledgeGraph, dict]:
+def build(records, registry: EngineRegistry | None = None, *, context: dict | None = None,
+          max_rejected: int = 100) -> tuple[KnowledgeGraph, dict]:
+    """Normalize -> graph -> engines.
+
+    ``records`` are ``(connector, raw, reliability)`` tuples. Every raw record is kept in
+    ``context["records"]`` as ``(connector, raw, reliability, raw_ref)`` so engines that
+    need full event fields (Sigma, provenance) read the event store, while everything
+    they *conclude* goes into the graph. Records a connector deliberately does not model
+    (:class:`Skip`) are counted, not rejected.
+    """
     kg = KnowledgeGraph()
-    raw_ctx, rejected = {}, []
+    kg.defer_confidence = True
+    raw_ctx: dict = {}
+    rejected: list[dict] = []
+    n_rejected = 0
+    skipped: Counter = Counter()
+    kept: list[tuple] = []
     for connector, raw, rel in records:
         try:
             ev = normalize(raw, connector, reliability=rel)
+        except Skip as e:
+            skipped[str(e).split(":")[0][:60]] += 1
+            kept.append((connector, raw, rel, None))
+            continue
         except (ContractError, KeyError) as e:
-            rejected.append({"connector": connector, "error": str(e)})
+            n_rejected += 1
+            if len(rejected) < max_rejected:
+                rejected.append({"connector": connector, "error": str(e)})
             continue
         kg.ingest(ev)
         raw_ctx[ev.event_id] = _raw_context(connector, raw)
+        kept.append((connector, raw, rel, ev.raw_ref))
+    kg.finalize()
+    ctx = context if context is not None else {}
+    ctx.update(raw_context=raw_ctx, records=kept)
     reg = registry or default_registry()
-    engine_counts = reg.run_all(kg, {"raw_context": raw_ctx})
-    return kg, {"rejected": rejected, "engines": engine_counts, **kg.stats()}
+    engine_counts = reg.run_all(kg, ctx)
+    summary = {"rejected": rejected, "rejected_total": n_rejected, "skipped": dict(skipped),
+               "engines": engine_counts, **kg.stats()}
+    return kg, summary
 
 
 def resolve(kg: KnowledgeGraph, query: str) -> str:

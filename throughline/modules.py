@@ -7,6 +7,7 @@ declared so the contract is visible, and return no claims until wired up.
 """
 from __future__ import annotations
 
+import time
 from dataclasses import dataclass, field
 from typing import Protocol, runtime_checkable
 
@@ -80,8 +81,21 @@ class EngineRegistry:
         self.engines.append(engine)
 
     def run_all(self, kg: KnowledgeGraph, context: dict | None = None) -> dict[str, int]:
+        """Run engines in registration order. Confidence is recomputed in bulk after each
+        engine, so later engines (correlation, intel) read settled confidences."""
         ctx = context or {}
-        return {e.name: len(e.run(kg, ctx)) for e in self.engines}
+        out: dict[str, int] = {}
+        timings: dict[str, float] = ctx.setdefault("timings_s", {})
+        for e in self.engines:
+            t0 = time.perf_counter()
+            kg.defer_confidence = True
+            try:
+                out[e.name] = len(e.run(kg, ctx))
+            finally:
+                kg.finalize()
+                kg.defer_confidence = False
+            timings[e.name] = round(time.perf_counter() - t0, 3)
+        return out
 
 
 def default_registry() -> EngineRegistry:
