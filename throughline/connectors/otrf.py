@@ -81,7 +81,7 @@ def _techniques(meta: dict[str, Any]) -> list[str]:
     out = []
     for m in meta.get("attack_mappings") or []:
         t = str(m.get("technique") or "").strip().upper()
-        if not t:
+        if not t or t == "T0000":  # T0000 = OTRF's "unmapped" placeholder
             continue
         sub = m.get("sub-technique")
         out.append(f"{t}.{int(sub):03d}" if sub not in (None, "", "null") and str(sub).isdigit() else t)
