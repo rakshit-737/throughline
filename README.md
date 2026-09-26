@@ -116,6 +116,7 @@ Cases are MITRE ATT&CK campaigns with an `attributed-to` group; evidence is the 
 
 | temporal hold-out (n = 17) | TTP similarity | DRAGNET | OCCAM | **THROUGHLINE fused** |
 | --- | ---: | ---: | ---: | ---: |
+| clean: top-1 (named the right actor, any confidence) | **0.53** | 0.41 | 0.47 | 0.41 |
 | clean: confident and right | 0.18 | 0.24 | 0.24 | **0.41** |
 | clean: named a wrong actor (any confidence) | 0.47 | 0.12 | 0.24 | **0.06** |
 | false flag L1: confidently wrong | 0.71 | 0.00 | 0.00 | 0.00 |
@@ -130,7 +131,7 @@ Cases are MITRE ATT&CK campaigns with an `attributed-to` group; evidence is the 
 
 ![attribution](results/figures/attribution.png)
 
-When the two engines agree, fused confidence rises past 0.5 and the platform commits; when either abstains or they disagree, `UNKNOWN` competes and it does not. That doubles the confident-and-right rate on the clean temporal cases without adding a confident error. It does **not** make the platform robust at the "name anyone" operating point: a planted exclusive malware family pulls DRAGNET, and with it the top-ranked fused hypothesis, onto the decoy in 41% of level-2 cases, while OCCAM alone never names the decoy. n is small (17 and 25 cases), so one case moves a rate by 4-6 points.
+When the two engines agree, fused confidence rises past 0.5 and the platform commits; when either abstains or they disagree, `UNKNOWN` competes and it does not. That doubles the confident-and-right rate on the clean temporal cases without adding a confident error. It does **not** improve plain top-1 accuracy on the temporal hold-out: the naive TTP-similarity baseline names the right actor first more often (0.53 vs 0.41), but it also names a wrong one in 47% of clean cases and is confidently wrong under every level of false flag; the fused verdict trades some top-1 hits for abstaining (`UNKNOWN`) when the engines disagree. It does **not** make the platform robust at the "name anyone" operating point: a planted exclusive malware family pulls DRAGNET, and with it the top-ranked fused hypothesis, onto the decoy in 41% of level-2 cases, while OCCAM alone never names the decoy. n is small (17 and 25 cases), so one case moves a rate by 4-6 points.
 
 ### B4 - End to end on the APT29 evaluation (day 1, 196,081 events)
 
