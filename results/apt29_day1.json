@@ -1,12 +1,12 @@
 {
- "generated": "2026-09-26 19:33:01",
+ "generated": "2026-09-26 20:05:31",
  "python": "3.14.3",
  "capture": "apt29_evals_day1_manual.zip",
  "day": 1,
  "records": 196081,
- "load_seconds": 11.9,
- "engine_setup_seconds": 30.6,
- "pipeline_seconds": 880.7,
+ "load_seconds": 10.8,
+ "engine_setup_seconds": 110.4,
+ "pipeline_seconds": 802.6,
  "peak_python_mem_mb": 1126.4,
  "graph": {
   "nodes": 25453,
@@ -27,14 +27,14 @@
   "simulation:gauntlet": 0
  },
  "engine_seconds": {
-  "detection:anvil": 223.282,
-  "provenance:revenant": 354.308,
-  "correlation": 0.7,
-  "provenance:rootline": 52.031,
-  "intel:dragnet": 0.153,
-  "intel:occam": 0.124,
-  "posture:vantage": 0.462,
-  "simulation:gauntlet": 0.044
+  "detection:anvil": 216.444,
+  "provenance:revenant": 345.948,
+  "correlation": 0.72,
+  "provenance:rootline": 48.802,
+  "intel:dragnet": 0.141,
+  "intel:occam": 0.116,
+  "posture:vantage": 0.452,
+  "simulation:gauntlet": 0.105
  },
  "skipped_engines": {},
  "alerts": 2888,
@@ -1183,11 +1183,11 @@
   }
  ],
  "investigate_latency_ms": [
-  133.5,
-  55.3,
-  103.9,
-  104.1,
-  105.0
+  113.6,
+  49.1,
+  89.5,
+  91.0,
+  89.3
  ],
  "top_incidents": [
   {
@@ -1373,7 +1373,7 @@
    "dragnet": "UNKNOWN (INSUFFICIENT, p=0.76)",
    "occam": "OilRig (low, p=0.50)",
    "rootline_root_causes": "192.168.0.5:443, 192.168.0.5:1234",
-   "report": "Investigation of Incident:scranton/8524/\u00e2\u20ac\u00aecod.3aka3.scr (Incident:scranton/8524/\u00e2\u20ac\u00aecod.3aka3.scr).\n1. incident: 42 processes grouped under story root Process:scranton/8524/\u00e2\u20ac\u00aecod.3aka3.scr; 1048 alerts; strongest member Process:scranton/2976/powershell.exe [c151668, c151679, c151670]\n2. techniques: T1003.001 OS Credential Dumping: LSASS Memory (0.87); T1059.001 Command and Scripting Interpreter: PowerShell (0.82); T1003.002 OS Credential Dumping: Security Account Manager (0.63); T1003.003 OS Credential Dumping: NTDS (0.63); T1003.004 OS Credential Dumping: LSA Secrets (0.63) [c151692, c151706, c151693]\n3. attribution: UNKNOWN 0.25 [dragnet]; OilRig 0.25 [occam] [c152021, c152027]\n4. posture: coverage gaps: T1055=missed, T1070.006=missed, T1071.001=missed\n5. root_cause: C:\\windows\\Explorer.EXE -> \"C:\\ProgramData\\victim\\\u00e2\u20ac\u00aecod.3aka3.scr\" /S -> \"C:\\windows\\system32\\cmd.exe\" -> \"C:\\windows\\system32\\sdclt.exe\"  -> \"C:\\Windows\\System32\\control.exe\"  /name Microsoft.BackupAndRestoreCenter -> \"PowerShell.exe\" -noni -noexit -ep bypass -window hidden -c \"sal a New-Object;Ad [c00362, c00363, c02840]\n6. corroboration: T1003.001 is supported by 0 independent engine(s): none\n7. blast_radius: 15044 downstream entities: 14 Domain, 628 File, 35 IPAddress, 804 ModuleLoad, 353 Process, 13210 RegistryKey"
+   "report": "Investigation of Incident:scranton/8524/\u00e2\u20ac\u00aecod.3aka3.scr (Incident:scranton/8524/\u00e2\u20ac\u00aecod.3aka3.scr).\n1. incident: 42 processes grouped under story root Process:scranton/8524/\u00e2\u20ac\u00aecod.3aka3.scr; 1048 alerts; strongest member Process:scranton/2976/powershell.exe [c151668, c151679, c151670]\n2. techniques: T1003.001 OS Credential Dumping: LSASS Memory (0.87); T1059.001 Command and Scripting Interpreter: PowerShell (0.82); T1003.002 OS Credential Dumping: Security Account Manager (0.63); T1003.003 OS Credential Dumping: NTDS (0.63); T1003.004 OS Credential Dumping: LSA Secrets (0.63) [c151692, c151706, c151693]\n3. attribution: UNKNOWN 0.25 [dragnet]; OilRig 0.25 [occam] [c152021, c152027]\n4. posture: coverage gaps: T1055=missed, T1070.006=missed, T1071.001=missed\n5. root_cause: C:\\windows\\Explorer.EXE -> \"C:\\ProgramData\\victim\\\u00e2\u20ac\u00aecod.3aka3.scr\" /S -> \"C:\\windows\\system32\\cmd.exe\" -> \"C:\\windows\\system32\\sdclt.exe\"  -> \"C:\\Windows\\System32\\control.exe\"  /name Microsoft.BackupAndRestoreCenter -> \"PowerShell.exe\" -noni -noexit -ep bypass -window hidden -c \"sal a New-Object;Ad [c00362, c00363, c02840]\n6. corroboration: T1003.001 is supported by 2 independent engine(s): anvil, revenant [c148379, c151172]\n7. blast_radius: 15044 downstream entities: 14 Domain, 628 File, 35 IPAddress, 804 ModuleLoad, 353 Process, 13210 RegistryKey"
   },
   {
    "incident": "Incident:nashua/7720/wsmprovhost.exe",
@@ -1425,7 +1425,7 @@
    "dragnet": "UNKNOWN (INSUFFICIENT, p=0.81)",
    "occam": "Threat Group-3390 (low, p=0.50)",
    "rootline_root_causes": "",
-   "report": "Investigation of Incident:nashua/7720/wsmprovhost.exe (Incident:nashua/7720/wsmprovhost.exe).\n1. incident: 2 processes grouped under story root Process:nashua/7720/wsmprovhost.exe; 81 alerts; strongest member Process:nashua/7720/wsmprovhost.exe [c151766, c151942]\n2. techniques: T1003.001 OS Credential Dumping: LSASS Memory (0.87); T1021.006 Remote Services: Windows Remote Management (0.63); T1059.001 Command and Scripting Interpreter: PowerShell (0.63); T1685.001 Disable or Modify Tools: Disable or Modify Windows Event Log (0.63); T1021.003 Remote Services: Distributed Component Object Model (0.53) [c151767, c151769, c151770]\n3. attribution: UNKNOWN 0.27 [dragnet]; Threat Group-3390 0.24 [occam] [c152022, c152028]\n4. posture: every observed technique had a detection fire\n5. root_cause: C:\\windows\\system32\\svchost.exe -k DcomLaunch -p -> C:\\windows\\system32\\wsmprovhost.exe -Embedding [c62750, c62776]\n6. corroboration: T1003.001 is supported by 0 independent engine(s): none\n7. blast_radius: 3452 downstream entities: 10 Domain, 194 File, 18 IPAddress, 411 ModuleLoad, 181 Process, 2638 RegistryKey"
+   "report": "Investigation of Incident:nashua/7720/wsmprovhost.exe (Incident:nashua/7720/wsmprovhost.exe).\n1. incident: 2 processes grouped under story root Process:nashua/7720/wsmprovhost.exe; 81 alerts; strongest member Process:nashua/7720/wsmprovhost.exe [c151766, c151943]\n2. techniques: T1003.001 OS Credential Dumping: LSASS Memory (0.87); T1021.006 Remote Services: Windows Remote Management (0.63); T1059.001 Command and Scripting Interpreter: PowerShell (0.63); T1685.001 Disable or Modify Tools: Disable or Modify Windows Event Log (0.63); T1021.003 Remote Services: Distributed Component Object Model (0.53) [c151767, c151769, c151770]\n3. attribution: UNKNOWN 0.27 [dragnet]; Threat Group-3390 0.24 [occam] [c152022, c152028]\n4. posture: every observed technique had a detection fire\n5. root_cause: C:\\windows\\system32\\svchost.exe -k DcomLaunch -p -> C:\\windows\\system32\\wsmprovhost.exe -Embedding [c62750, c62776]\n6. corroboration: T1003.001 is supported by 2 independent engine(s): anvil, revenant [c148584, c151202]\n7. blast_radius: 3452 downstream entities: 10 Domain, 194 File, 18 IPAddress, 411 ModuleLoad, 181 Process, 2638 RegistryKey"
   },
   {
    "incident": "Incident:scranton/532/csrss.exe",
@@ -1446,7 +1446,7 @@
    "dragnet": null,
    "occam": null,
    "rootline_root_causes": "",
-   "report": "Investigation of Incident:scranton/532/csrss.exe (Incident:scranton/532/csrss.exe).\n1. incident: 2 processes grouped under story root Process:scranton/532/csrss.exe; 1 alerts; strongest member Process:scranton/532/csrss.exe [c151813, c151944]\n2. techniques: T1003.001 OS Credential Dumping: LSASS Memory (0.83) [c151814]\n3. attribution: no attribution claims (too few techniques, or intel engines not installed)\n4. posture: every observed technique had a detection fire\n5. root_cause: ? -> \\SystemRoot\\System32\\smss.exe -> \\SystemRoot\\System32\\smss.exe 00000118 00000084  -> %%SystemRoot%%\\system32\\csrss.exe ObjectDirectory=\\Windows SharedSection=1024,20 [c88128, c85358, c88699]\n6. corroboration: T1003.001 is supported by 0 independent engine(s): none\n7. blast_radius: 13747 downstream entities: 3 Domain, 114 File, 21 IPAddress, 708 ModuleLoad, 178 Process, 12723 RegistryKey"
+   "report": "Investigation of Incident:scranton/532/csrss.exe (Incident:scranton/532/csrss.exe).\n1. incident: 2 processes grouped under story root Process:scranton/532/csrss.exe; 1 alerts; strongest member Process:scranton/532/csrss.exe [c151813, c151944]\n2. techniques: T1003.001 OS Credential Dumping: LSASS Memory (0.83) [c151814]\n3. attribution: no attribution claims (too few techniques, or intel engines not installed)\n4. posture: every observed technique had a detection fire\n5. root_cause: ? -> \\SystemRoot\\System32\\smss.exe -> \\SystemRoot\\System32\\smss.exe 00000118 00000084  -> %%SystemRoot%%\\system32\\csrss.exe ObjectDirectory=\\Windows SharedSection=1024,20 [c88128, c85358, c88699]\n6. corroboration: T1003.001 is supported by 2 independent engine(s): anvil, revenant [c150754, c151307]\n7. blast_radius: 13747 downstream entities: 3 Domain, 114 File, 21 IPAddress, 708 ModuleLoad, 178 Process, 12723 RegistryKey"
   },
   {
    "incident": "Incident:scranton/604/wininit.exe",
@@ -1467,7 +1467,7 @@
    "dragnet": null,
    "occam": null,
    "rootline_root_causes": "",
-   "report": "Investigation of Incident:scranton/604/wininit.exe (Incident:scranton/604/wininit.exe).\n1. incident: 3 processes grouped under story root Process:scranton/604/wininit.exe; 1 alerts; strongest member Process:scranton/604/wininit.exe [c151815, c151946, c151947]\n2. techniques: T1003.001 OS Credential Dumping: LSASS Memory (0.83) [c151816]\n3. attribution: no attribution claims (too few techniques, or intel engines not installed)\n4. posture: every observed technique had a detection fire\n5. root_cause: ? -> \\SystemRoot\\System32\\smss.exe -> \\SystemRoot\\System32\\smss.exe 00000118 00000084  -> wininit.exe [c88128, c85358, c88699]\n6. corroboration: T1003.001 is supported by 0 independent engine(s): none\n7. blast_radius: 13747 downstream entities: 3 Domain, 114 File, 21 IPAddress, 708 ModuleLoad, 178 Process, 12723 RegistryKey"
+   "report": "Investigation of Incident:scranton/604/wininit.exe (Incident:scranton/604/wininit.exe).\n1. incident: 3 processes grouped under story root Process:scranton/604/wininit.exe; 1 alerts; strongest member Process:scranton/604/wininit.exe [c151815, c151946, c151947]\n2. techniques: T1003.001 OS Credential Dumping: LSASS Memory (0.83) [c151816]\n3. attribution: no attribution claims (too few techniques, or intel engines not installed)\n4. posture: every observed technique had a detection fire\n5. root_cause: ? -> \\SystemRoot\\System32\\smss.exe -> \\SystemRoot\\System32\\smss.exe 00000118 00000084  -> wininit.exe [c88128, c85358, c88699]\n6. corroboration: T1003.001 is supported by 2 independent engine(s): anvil, revenant [c150752, c151308]\n7. blast_radius: 13747 downstream entities: 3 Domain, 114 File, 21 IPAddress, 708 ModuleLoad, 178 Process, 12723 RegistryKey"
   },
   {
    "incident": "Incident:scranton/3644/cmd.exe",
@@ -1531,7 +1531,7 @@
    "dragnet": "UNKNOWN (INSUFFICIENT, p=0.71)",
    "occam": "Lazarus Group (moderate, p=0.68)",
    "rootline_root_causes": "",
-   "report": "Investigation of Incident:scranton/3644/cmd.exe (Incident:scranton/3644/cmd.exe).\n1. incident: 8 processes grouped under story root Process:scranton/3644/cmd.exe; 28 alerts; strongest member Process:scranton/8704/powershell.exe [c151862, c151861, c151863]\n2. techniques: T1059.001 Command and Scripting Interpreter: PowerShell (0.82); T1027 Obfuscated Files or Information (0.63); T1140 Deobfuscate/Decode Files or Information (0.63); T1132.001 Data Encoding: Standard Encoding (0.53); T1564.003 Hide Artifacts: Hidden Window (0.53) [c151866, c151865, c151869]\n3. attribution: Lazarus Group 0.42 [occam]; UNKNOWN 0.20 [dragnet] [c152029, c152023]\n4. posture: coverage gaps: T1071.001=missed\n5. root_cause: ? -> \\SystemRoot\\System32\\smss.exe -> \\SystemRoot\\System32\\smss.exe 000000c4 00000084  -> winlogon.exe -> C:\\windows\\system32\\userinit.exe -> C:\\windows\\Explorer.EXE -> C:\\windows\\system32\\cmd.exe /c \"\"C:\\Windows\\System32\\hostui.bat\" \" -> powershell.exe  -c \"Start-Process C:\\Windows\\System32\\hostui.exe -verb runas\" -> \"C:\\Windows\\System32\\hostui.exe\"  -> powershell.exe -c \"Get-ItemPropertyValue 'HKLM:\\\\SOFTWARE\\Javasoft' 'value Suppl -> \"C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -nop -w hidden -e aQ [c88128, c111255, c121580]\n6. corroboration: T1059.001 is supported by 0 independent engine(s): none\n7. blast_radius: 13747 downstream entities: 3 Domain, 114 File, 21 IPAddress, 708 ModuleLoad, 178 Process, 12723 RegistryKey"
+   "report": "Investigation of Incident:scranton/3644/cmd.exe (Incident:scranton/3644/cmd.exe).\n1. incident: 8 processes grouped under story root Process:scranton/3644/cmd.exe; 28 alerts; strongest member Process:scranton/8704/powershell.exe [c151862, c151861, c151863]\n2. techniques: T1059.001 Command and Scripting Interpreter: PowerShell (0.82); T1027 Obfuscated Files or Information (0.63); T1140 Deobfuscate/Decode Files or Information (0.63); T1132.001 Data Encoding: Standard Encoding (0.53); T1564.003 Hide Artifacts: Hidden Window (0.53) [c151866, c151865, c151869]\n3. attribution: Lazarus Group 0.42 [occam]; UNKNOWN 0.20 [dragnet] [c152029, c152023]\n4. posture: coverage gaps: T1071.001=missed\n5. root_cause: ? -> \\SystemRoot\\System32\\smss.exe -> \\SystemRoot\\System32\\smss.exe 000000c4 00000084  -> winlogon.exe -> C:\\windows\\system32\\userinit.exe -> C:\\windows\\Explorer.EXE -> C:\\windows\\system32\\cmd.exe /c \"\"C:\\Windows\\System32\\hostui.bat\" \" -> powershell.exe  -c \"Start-Process C:\\Windows\\System32\\hostui.exe -verb runas\" -> \"C:\\Windows\\System32\\hostui.exe\"  -> powershell.exe -c \"Get-ItemPropertyValue 'HKLM:\\\\SOFTWARE\\Javasoft' 'value Suppl -> \"C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -nop -w hidden -e aQ [c88128, c111255, c121580]\n6. corroboration: T1059.001 is supported by 2 independent engine(s): anvil, revenant [c150891, c151466]\n7. blast_radius: 13747 downstream entities: 3 Domain, 114 File, 21 IPAddress, 708 ModuleLoad, 178 Process, 12723 RegistryKey"
   }
  ],
  "rootline": {
