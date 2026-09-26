@@ -1,0 +1,1544 @@
+{
+"type": "bundle",
+"id": "bundle--throughline-test-mini",
+"objects": [
+{
+"type": "x-mitre-collection",
+"id": "x-mitre-collection--1f5f1533-f617-4ca8-9ab4-6a02367fa019",
+"name": "Enterprise ATT&CK",
+"x_mitre_version": "19.2",
+"created": "2018-01-17T12:56:55.080Z",
+"modified": "2026-08-05T21:33:58.496Z",
+"spec_version": "2.1"
+},
+{
+"type": "intrusion-set",
+"spec_version": "2.1",
+"id": "intrusion-set--3753cc21-2dae-4dfb-8481-d004e74502cc",
+"created": "2017-05-31T21:32:09.460Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/groups/G0046",
+"external_id": "G0046"
+}
+],
+"modified": "2026-07-31T20:48:31.412Z",
+"name": "FIN7",
+"aliases": [
+"FIN7",
+"GOLD NIAGARA",
+"ITG14",
+"Carbon Spider",
+"ELBRUS",
+"Sangria Tempest"
+],
+"x_mitre_version": "4.1"
+},
+{
+"type": "intrusion-set",
+"spec_version": "2.1",
+"id": "intrusion-set--899ce53f-13a0-479b-a0e4-67d46e241542",
+"created": "2017-05-31T21:31:52.748Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/groups/G0016",
+"external_id": "G0016"
+}
+],
+"modified": "2026-07-31T18:48:06.517Z",
+"name": "APT29",
+"aliases": [
+"APT29",
+"IRON RITUAL",
+"IRON HEMLOCK",
+"NobleBaron",
+"Dark Halo",
+"NOBELIUM",
+"UNC2452",
+"YTTRIUM",
+"The Dukes",
+"Cozy Bear",
+"CozyDuke",
+"SolarStorm",
+"Blue Kitsune",
+"UNC3524",
+"Midnight Blizzard"
+],
+"x_mitre_version": "6.2"
+},
+{
+"type": "intrusion-set",
+"spec_version": "2.1",
+"id": "intrusion-set--c93fccb1-e8e8-42cf-ae33-2ad1d183913a",
+"created": "2017-05-31T21:32:03.807Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/groups/G0032",
+"external_id": "G0032"
+}
+],
+"modified": "2026-07-31T20:48:46.106Z",
+"name": "Lazarus Group",
+"aliases": [
+"Lazarus Group",
+"Labyrinth Chollima",
+"HIDDEN COBRA",
+"Guardians of Peace",
+"ZINC",
+"NICKEL ACADEMY",
+"Diamond Sleet"
+],
+"x_mitre_version": "5.0"
+},
+{
+"type": "malware",
+"spec_version": "2.1",
+"id": "malware--a7881f21-e978-4fe4-af56-92c9416a2616",
+"created": "2017-12-14T16:46:06.044Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/software/S0154",
+"external_id": "S0154"
+}
+],
+"modified": "2026-04-23T21:14:18.712Z",
+"name": "Cobalt Strike",
+"x_mitre_platforms": [
+"Linux",
+"macOS",
+"Windows"
+],
+"x_mitre_version": "1.14",
+"x_mitre_aliases": [
+"Cobalt Strike"
+]
+},
+{
+"type": "tool",
+"spec_version": "2.1",
+"id": "tool--afc079f3-c0ea-4096-b75d-3f05338b7f60",
+"created": "2017-05-31T21:32:11.544Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/software/S0002",
+"external_id": "S0002"
+}
+],
+"modified": "2026-05-12T15:12:00.740Z",
+"name": "Mimikatz",
+"x_mitre_platforms": [
+"Windows"
+],
+"x_mitre_version": "1.11",
+"x_mitre_aliases": [
+"Mimikatz"
+]
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9",
+"created": "2019-11-27T14:58:00.429Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1053/005",
+"external_id": "T1053.005"
+}
+],
+"modified": "2026-05-12T15:12:00.618Z",
+"name": "Scheduled Task",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "execution"
+},
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "persistence"
+},
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "privilege-escalation"
+}
+],
+"x_mitre_is_subtechnique": true,
+"x_mitre_platforms": [
+"Windows"
+],
+"x_mitre_version": "1.8"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
+"created": "2017-05-31T21:30:44.329Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1047",
+"external_id": "T1047"
+}
+],
+"modified": "2026-05-12T15:12:00.619Z",
+"name": "Windows Management Instrumentation",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "execution"
+}
+],
+"x_mitre_is_subtechnique": false,
+"x_mitre_platforms": [
+"Windows"
+],
+"x_mitre_version": "1.6"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--03d7999c-1f4c-42cc-8373-e7690d318104",
+"created": "2017-05-31T21:30:35.733Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1033",
+"external_id": "T1033"
+}
+],
+"modified": "2026-05-12T15:12:00.620Z",
+"name": "System Owner/User Discovery",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "discovery"
+}
+],
+"x_mitre_is_subtechnique": false,
+"x_mitre_platforms": [
+"Linux",
+"macOS",
+"Network Devices",
+"Windows"
+],
+"x_mitre_version": "1.6"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--045d0922-2310-4e60-b5e4-3302302cb3c5",
+"created": "2020-01-23T18:03:46.248Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1218/011",
+"external_id": "T1218.011"
+}
+],
+"modified": "2026-05-12T15:12:00.620Z",
+"name": "Rundll32",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "stealth"
+}
+],
+"x_mitre_is_subtechnique": true,
+"x_mitre_platforms": [
+"Windows"
+],
+"x_mitre_version": "3.0"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--0a3ead4e-6d47-4ccb-854c-a6a4f9d96b22",
+"created": "2017-05-31T21:30:19.735Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1003",
+"external_id": "T1003"
+}
+],
+"modified": "2025-10-24T17:48:22.201Z",
+"name": "OS Credential Dumping",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "credential-access"
+}
+],
+"x_mitre_is_subtechnique": false,
+"x_mitre_platforms": [
+"Linux",
+"macOS",
+"Windows"
+],
+"x_mitre_version": "2.2"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--191cc6af-1bb2-4344-ab5f-28e496638720",
+"created": "2020-03-11T14:13:42.916Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1195/001",
+"external_id": "T1195.001"
+}
+],
+"modified": "2026-05-12T15:12:00.622Z",
+"name": "Compromise Software Dependencies and Development Tools",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "initial-access"
+}
+],
+"x_mitre_is_subtechnique": true,
+"x_mitre_platforms": [
+"Linux",
+"macOS",
+"Windows"
+],
+"x_mitre_version": "1.3"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--354a7f88-63fb-41b5-a801-ce3b377b36f1",
+"created": "2017-05-31T21:31:04.307Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1082",
+"external_id": "T1082"
+}
+],
+"modified": "2026-05-12T15:12:00.625Z",
+"name": "System Information Discovery",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "discovery"
+}
+],
+"x_mitre_is_subtechnique": false,
+"x_mitre_platforms": [
+"ESXi",
+"IaaS",
+"Linux",
+"macOS",
+"Network Devices",
+"Windows"
+],
+"x_mitre_version": "3.0"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--355be19c-ffc9-46d5-8d50-d6a036c675b6",
+"created": "2017-05-31T21:30:56.776Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1071",
+"external_id": "T1071"
+}
+],
+"modified": "2025-10-24T17:48:38.368Z",
+"name": "Application Layer Protocol",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "command-and-control"
+}
+],
+"x_mitre_is_subtechnique": false,
+"x_mitre_platforms": [
+"Linux",
+"macOS",
+"Windows",
+"Network Devices",
+"ESXi"
+],
+"x_mitre_version": "2.4"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--35dd844a-b219-4e2b-a6bb-efa9a75995a9",
+"created": "2017-05-31T21:30:46.977Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1053",
+"external_id": "T1053"
+}
+],
+"modified": "2026-05-12T15:12:00.626Z",
+"name": "Scheduled Task/Job",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "execution"
+},
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "persistence"
+},
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "privilege-escalation"
+}
+],
+"x_mitre_is_subtechnique": false,
+"x_mitre_platforms": [
+"Containers",
+"ESXi",
+"Linux",
+"macOS",
+"Network Devices",
+"Windows"
+],
+"x_mitre_version": "2.5"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--3f18edba-28f4-4bb9-82c3-8aa60dcac5f7",
+"created": "2018-04-18T17:59:24.739Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1195",
+"external_id": "T1195"
+}
+],
+"modified": "2025-10-24T17:48:41.675Z",
+"name": "Supply Chain Compromise",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "initial-access"
+}
+],
+"x_mitre_is_subtechnique": false,
+"x_mitre_platforms": [
+"Linux",
+"Windows",
+"macOS",
+"SaaS"
+],
+"x_mitre_version": "1.7"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--42e8de7b-37b2-4258-905a-6897815e58e0",
+"created": "2017-05-31T21:30:38.511Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1036",
+"external_id": "T1036"
+}
+],
+"modified": "2026-05-12T15:12:00.629Z",
+"name": "Masquerading",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "stealth"
+}
+],
+"x_mitre_is_subtechnique": false,
+"x_mitre_platforms": [
+"Containers",
+"ESXi",
+"Linux",
+"macOS",
+"Windows"
+],
+"x_mitre_version": "2.0"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--457c7820-d331-465a-915e-42f85500ccc4",
+"created": "2018-04-18T17:59:24.739Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1218",
+"external_id": "T1218"
+}
+],
+"modified": "2026-05-12T15:12:00.629Z",
+"name": "System Binary Proxy Execution",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "stealth"
+}
+],
+"x_mitre_is_subtechnique": false,
+"x_mitre_platforms": [
+"Linux",
+"macOS",
+"Windows"
+],
+"x_mitre_version": "4.0"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--4f9ca633-15c5-463c-9724-bdcd54fde541",
+"created": "2020-02-11T18:25:28.212Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1021/002",
+"external_id": "T1021.002"
+}
+],
+"modified": "2026-05-12T15:12:00.632Z",
+"name": "SMB/Windows Admin Shares",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "lateral-movement"
+}
+],
+"x_mitre_is_subtechnique": true,
+"x_mitre_platforms": [
+"Windows"
+],
+"x_mitre_version": "1.3"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--54a649ff-439a-41a4-9856-8d144a2551ba",
+"created": "2017-05-31T21:30:29.858Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1021",
+"external_id": "T1021"
+}
+],
+"modified": "2025-10-24T17:48:48.472Z",
+"name": "Remote Services",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "lateral-movement"
+}
+],
+"x_mitre_is_subtechnique": false,
+"x_mitre_platforms": [
+"Linux",
+"macOS",
+"Windows",
+"IaaS",
+"ESXi"
+],
+"x_mitre_version": "1.6"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--65f2d882-3f41-4d48-8a06-29af77ec9f90",
+"created": "2020-02-11T18:41:44.783Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1003/001",
+"external_id": "T1003.001"
+}
+],
+"modified": "2026-05-12T15:12:00.637Z",
+"name": "LSASS Memory",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "credential-access"
+}
+],
+"x_mitre_is_subtechnique": true,
+"x_mitre_platforms": [
+"Windows"
+],
+"x_mitre_version": "1.5"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--7385dfaf-6886-4229-9ecd-6fd678040830",
+"created": "2017-05-31T21:30:49.546Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1059",
+"external_id": "T1059"
+}
+],
+"modified": "2026-05-12T15:12:00.641Z",
+"name": "Command and Scripting Interpreter",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "execution"
+}
+],
+"x_mitre_is_subtechnique": false,
+"x_mitre_platforms": [
+"Containers",
+"ESXi",
+"IaaS",
+"Identity Provider",
+"Linux",
+"macOS",
+"Network Devices",
+"Office Suite",
+"SaaS",
+"Windows"
+],
+"x_mitre_version": "2.7"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--970a3432-3237-47ad-bcca-7d8cbb217736",
+"created": "2020-03-09T13:48:55.078Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1059/001",
+"external_id": "T1059.001"
+}
+],
+"modified": "2026-05-12T15:12:00.706Z",
+"name": "PowerShell",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "execution"
+}
+],
+"x_mitre_is_subtechnique": true,
+"x_mitre_platforms": [
+"Windows"
+],
+"x_mitre_version": "1.5"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--df8b2a25-8bdf-4856-953c-a04372b1c161",
+"created": "2020-03-15T16:13:46.151Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1071/001",
+"external_id": "T1071.001"
+}
+],
+"modified": "2026-05-12T15:12:00.722Z",
+"name": "Web Protocols",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "command-and-control"
+}
+],
+"x_mitre_is_subtechnique": true,
+"x_mitre_platforms": [
+"ESXi",
+"Linux",
+"macOS",
+"Network Devices",
+"Windows"
+],
+"x_mitre_version": "1.5"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--e3b6daca-e963-4a69-aee6-ed4fd653ad58",
+"created": "2019-09-16T17:52:44.147Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1518",
+"external_id": "T1518"
+}
+],
+"modified": "2026-05-12T15:12:00.723Z",
+"name": "Software Discovery",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "discovery"
+}
+],
+"x_mitre_is_subtechnique": false,
+"x_mitre_platforms": [
+"ESXi",
+"IaaS",
+"Linux",
+"macOS",
+"Windows"
+],
+"x_mitre_version": "1.5"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--e6919abc-99f9-4c6c-95a5-14761e7b2add",
+"created": "2017-05-31T21:31:16.408Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1105",
+"external_id": "T1105"
+}
+],
+"modified": "2026-05-12T15:12:00.723Z",
+"name": "Ingress Tool Transfer",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "command-and-control"
+}
+],
+"x_mitre_is_subtechnique": false,
+"x_mitre_platforms": [
+"ESXi",
+"Linux",
+"macOS",
+"Network Devices",
+"Windows"
+],
+"x_mitre_version": "2.6"
+},
+{
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--2558fd61-8c75-4730-94c4-11926db2a263",
+"created": "2018-10-17T00:14:20.652Z",
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0006",
+"external_id": "TA0006"
+}
+],
+"modified": "2025-04-25T14:45:32.408Z",
+"name": "Credential Access",
+"x_mitre_version": "1.0",
+"x_mitre_shortname": "credential-access"
+},
+{
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--43c49635-f2fa-44f2-92b9-0ee980bbf4ef",
+"created": "2026-04-14T22:53:16.228Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0112",
+"external_id": "TA0112"
+}
+],
+"modified": "2026-05-12T15:12:00.780Z",
+"name": "Defense Impairment",
+"x_mitre_version": "1.0",
+"x_mitre_shortname": "defense-impairment"
+},
+{
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--4ca45d45-df4d-4613-8980-bac22d278fa5",
+"created": "2018-10-17T00:14:20.652Z",
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0002",
+"external_id": "TA0002"
+}
+],
+"modified": "2025-04-25T14:45:32.769Z",
+"name": "Execution",
+"x_mitre_version": "1.0",
+"x_mitre_shortname": "execution"
+},
+{
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--5569339b-94c2-49ee-afb3-2222936582c8",
+"created": "2019-03-14T18:44:44.639Z",
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0040",
+"external_id": "TA0040"
+}
+],
+"modified": "2025-04-25T14:45:33.130Z",
+"name": "Impact",
+"x_mitre_version": "1.0",
+"x_mitre_shortname": "impact"
+},
+{
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--5bc1d813-693e-4823-9961-abf9af4b0e92",
+"created": "2018-10-17T00:14:20.652Z",
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0003",
+"external_id": "TA0003"
+}
+],
+"modified": "2025-04-25T14:45:33.492Z",
+"name": "Persistence",
+"x_mitre_version": "1.0",
+"x_mitre_shortname": "persistence"
+},
+{
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--5e29b093-294e-49e9-a803-dab3d73b77dd",
+"created": "2018-10-17T00:14:20.652Z",
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0004",
+"external_id": "TA0004"
+}
+],
+"modified": "2025-04-25T14:45:33.853Z",
+"name": "Privilege Escalation",
+"x_mitre_version": "1.0",
+"x_mitre_shortname": "privilege-escalation"
+},
+{
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--7141578b-e50b-4dcc-bfa4-08a8dd689e9e",
+"created": "2018-10-17T00:14:20.652Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0008",
+"external_id": "TA0008"
+}
+],
+"modified": "2025-08-11T19:25:08.016Z",
+"name": "Lateral Movement",
+"x_mitre_version": "1.1",
+"x_mitre_shortname": "lateral-movement"
+},
+{
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--78b23412-0651-46d7-a540-170a1ce8bd5a",
+"created": "2018-10-17T00:14:20.652Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0005",
+"external_id": "TA0005"
+}
+],
+"modified": "2026-05-12T15:12:00.780Z",
+"name": "Stealth",
+"x_mitre_version": "1.0",
+"x_mitre_shortname": "stealth"
+},
+{
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--9a4e74ab-5008-408c-84bf-a10dfbc53462",
+"created": "2018-10-17T00:14:20.652Z",
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0010",
+"external_id": "TA0010"
+}
+],
+"modified": "2025-04-25T14:45:34.933Z",
+"name": "Exfiltration",
+"x_mitre_version": "1.0",
+"x_mitre_shortname": "exfiltration"
+},
+{
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--c17c5845-175e-4421-9713-829d0573dbc9",
+"created": "2018-10-17T00:14:20.652Z",
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0007",
+"external_id": "TA0007"
+}
+],
+"modified": "2025-04-25T14:45:35.302Z",
+"name": "Discovery",
+"x_mitre_version": "1.0",
+"x_mitre_shortname": "discovery"
+},
+{
+"modified": "2024-09-05T18:27:09.070Z",
+"name": "Collection",
+"x_mitre_version": "1.1",
+"x_mitre_shortname": "collection",
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--d108ce10-2419-4cf9-a774-46161d6c6cfe",
+"created": "2018-10-17T00:14:20.652Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0009",
+"external_id": "TA0009"
+}
+]
+},
+{
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--d679bca2-e57d-4935-8650-8031c87a4400",
+"created": "2020-09-30T16:11:59.650Z",
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0042",
+"external_id": "TA0042"
+}
+],
+"modified": "2025-04-25T14:45:35.841Z",
+"name": "Resource Development",
+"x_mitre_version": "1.0",
+"x_mitre_shortname": "resource-development"
+},
+{
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--daa4cbb1-b4f4-4723-a824-7f1efd6e0592",
+"created": "2020-10-02T14:48:41.809Z",
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0043",
+"external_id": "TA0043"
+}
+],
+"modified": "2025-04-25T14:45:36.201Z",
+"name": "Reconnaissance",
+"x_mitre_version": "1.0",
+"x_mitre_shortname": "reconnaissance"
+},
+{
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--f72804c5-f15a-449e-a5da-2eecd181f813",
+"created": "2018-10-17T00:14:20.652Z",
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0011",
+"external_id": "TA0011"
+}
+],
+"modified": "2025-04-25T14:45:36.561Z",
+"name": "Command and Control",
+"x_mitre_version": "1.0",
+"x_mitre_shortname": "command-and-control"
+},
+{
+"type": "x-mitre-tactic",
+"spec_version": "2.1",
+"id": "x-mitre-tactic--ffd5bcee-6e16-4dd2-8eca-7b3beedf33ca",
+"created": "2018-10-17T00:14:20.652Z",
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/tactics/TA0001",
+"external_id": "TA0001"
+}
+],
+"modified": "2025-04-25T14:45:36.917Z",
+"name": "Initial Access",
+"x_mitre_version": "1.0",
+"x_mitre_shortname": "initial-access"
+},
+{
+"type": "campaign",
+"spec_version": "2.1",
+"id": "campaign--7854c1a0-f06c-4876-98a4-4bbd34751b05",
+"created": "2023-03-23T17:51:58.539Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/campaigns/C0023",
+"external_id": "C0023"
+}
+],
+"modified": "2026-07-31T18:47:24.650Z",
+"name": "Operation Ghost",
+"aliases": [
+"Operation Ghost"
+],
+"first_seen": "2013-09-01T04:00:00.000Z",
+"last_seen": "2019-10-01T04:00:00.000Z",
+"x_mitre_version": "1.0"
+},
+{
+"type": "attack-pattern",
+"spec_version": "2.1",
+"id": "attack-pattern--f4882e23-8aa7-4b12-b28a-b349c12ee9e0",
+"created": "2017-05-31T21:31:06.512Z",
+"revoked": true,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/techniques/T1086",
+"external_id": "T1086"
+}
+],
+"modified": "2025-10-24T17:49:36.765Z",
+"name": "PowerShell",
+"kill_chain_phases": [
+{
+"kill_chain_name": "mitre-attack",
+"phase_name": "execution"
+}
+],
+"x_mitre_is_subtechnique": false,
+"x_mitre_platforms": [
+"Windows"
+],
+"x_mitre_version": "1.2"
+},
+{
+"modified": "2024-12-10T18:55:27.646Z",
+"name": "Credential Access Protection",
+"x_mitre_version": "1.2",
+"type": "course-of-action",
+"spec_version": "2.1",
+"id": "course-of-action--49c06d54-9002-491d-9147-8efb537fbd26",
+"created": "2019-06-11T16:47:12.859Z",
+"revoked": false,
+"external_references": [
+{
+"source_name": "mitre-attack",
+"url": "https://attack.mitre.org/mitigations/M1043",
+"external_id": "M1043"
+}
+]
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--a3adcf1b-a48a-4fab-bc61-5e0b0aeaaca6",
+"created": "2023-03-23T17:56:18.641Z",
+"modified": "2026-07-31T18:48:08.487Z",
+"relationship_type": "attributed-to",
+"source_ref": "campaign--7854c1a0-f06c-4876-98a4-4bbd34751b05",
+"target_ref": "intrusion-set--899ce53f-13a0-479b-a0e4-67d46e241542"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--72f97322-c7d1-41ea-a654-50e8039a8665",
+"created": "2020-02-20T18:39:33.164Z",
+"modified": "2026-04-29T14:23:06.082Z",
+"relationship_type": "mitigates",
+"source_ref": "course-of-action--49c06d54-9002-491d-9147-8efb537fbd26",
+"target_ref": "attack-pattern--65f2d882-3f41-4d48-8a06-29af77ec9f90"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--0ea53e8d-743e-4828-8c65-9b610593270a",
+"created": "2021-09-23T12:44:50.875Z",
+"modified": "2026-07-31T20:48:31.699Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--3753cc21-2dae-4dfb-8481-d004e74502cc",
+"target_ref": "tool--afc079f3-c0ea-4096-b75d-3f05338b7f60"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--1332e859-38be-45ed-9ebc-09efd7117c17",
+"created": "2018-10-17T00:14:20.652Z",
+"modified": "2026-07-31T20:48:31.706Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--3753cc21-2dae-4dfb-8481-d004e74502cc",
+"target_ref": "attack-pattern--7385dfaf-6886-4229-9ecd-6fd678040830"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--1f548074-df9e-4029-842b-7d774e2f1093",
+"created": "2023-08-17T18:35:41.252Z",
+"modified": "2026-07-31T20:48:31.743Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--3753cc21-2dae-4dfb-8481-d004e74502cc",
+"target_ref": "attack-pattern--03d7999c-1f4c-42cc-8373-e7690d318104"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--1f7b17e9-9ad3-42dd-ab92-e3afe752247b",
+"created": "2017-12-14T16:46:06.044Z",
+"modified": "2026-07-31T20:48:31.750Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--3753cc21-2dae-4dfb-8481-d004e74502cc",
+"target_ref": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--3832d04e-41aa-456d-8104-b0a1fa2c12bb",
+"created": "2023-08-17T18:16:23.396Z",
+"modified": "2026-07-31T20:48:31.802Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--3753cc21-2dae-4dfb-8481-d004e74502cc",
+"target_ref": "attack-pattern--045d0922-2310-4e60-b5e4-3302302cb3c5"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--3a30af61-b9b4-488e-aebc-dee4dfce52b6",
+"created": "2021-09-22T13:52:51.063Z",
+"modified": "2026-07-31T20:48:31.809Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--3753cc21-2dae-4dfb-8481-d004e74502cc",
+"target_ref": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--4856de0a-2635-4081-97a8-3f15593c2aa5",
+"created": "2017-12-14T16:46:06.044Z",
+"modified": "2026-07-31T20:48:31.863Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--3753cc21-2dae-4dfb-8481-d004e74502cc",
+"target_ref": "attack-pattern--970a3432-3237-47ad-bcca-7d8cbb217736"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--8fa843c8-bd61-48a2-8c65-587f6d96e238",
+"created": "2025-07-11T17:45:36.131Z",
+"modified": "2026-07-31T20:48:32.029Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--3753cc21-2dae-4dfb-8481-d004e74502cc",
+"target_ref": "attack-pattern--354a7f88-63fb-41b5-a801-ce3b377b36f1"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--9c61749d-ad78-476d-8cd6-ba4eafc8f74e",
+"created": "2021-09-23T12:35:23.324Z",
+"modified": "2026-07-31T20:48:32.096Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--3753cc21-2dae-4dfb-8481-d004e74502cc",
+"target_ref": "malware--a7881f21-e978-4fe4-af56-92c9416a2616"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--b077d81d-0449-493f-9b93-23dc0fb0b62d",
+"created": "2017-12-14T16:46:06.044Z",
+"modified": "2026-07-31T20:48:32.125Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--3753cc21-2dae-4dfb-8481-d004e74502cc",
+"target_ref": "attack-pattern--e6919abc-99f9-4c6c-95a5-14761e7b2add"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--067814b5-aa57-45e0-9bdf-5536b077c224",
+"created": "2017-05-31T21:33:27.050Z",
+"modified": "2026-07-31T18:48:07.319Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--899ce53f-13a0-479b-a0e4-67d46e241542",
+"target_ref": "tool--afc079f3-c0ea-4096-b75d-3f05338b7f60"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--3c89c7b8-facc-4225-94ba-4a5126a31adc",
+"created": "2021-04-16T21:33:50.934Z",
+"modified": "2026-07-31T18:48:07.781Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--899ce53f-13a0-479b-a0e4-67d46e241542",
+"target_ref": "attack-pattern--e6919abc-99f9-4c6c-95a5-14761e7b2add"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--4a0887ab-3ec3-436a-b378-6e28847dfb1e",
+"created": "2017-05-31T21:33:27.049Z",
+"modified": "2026-07-31T18:48:07.888Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--899ce53f-13a0-479b-a0e4-67d46e241542",
+"target_ref": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--7f78df2e-e6e9-43f1-815b-58e4a10fc594",
+"created": "2017-05-31T21:33:27.048Z",
+"modified": "2026-07-31T18:48:08.302Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--899ce53f-13a0-479b-a0e4-67d46e241542",
+"target_ref": "attack-pattern--970a3432-3237-47ad-bcca-7d8cbb217736"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--ab51525b-93c6-4ea8-bd83-b9547f1317bb",
+"created": "2017-05-31T21:33:27.049Z",
+"modified": "2026-07-31T18:48:08.645Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--899ce53f-13a0-479b-a0e4-67d46e241542",
+"target_ref": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--d9beae20-bd32-4141-95ff-053cf46e8210",
+"created": "2020-11-06T18:40:38.501Z",
+"modified": "2026-07-31T18:48:09.072Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--899ce53f-13a0-479b-a0e4-67d46e241542",
+"target_ref": "malware--a7881f21-e978-4fe4-af56-92c9416a2616"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--115562b8-9d7c-435e-af6e-0be6249742d0",
+"created": "2017-05-31T21:33:27.067Z",
+"modified": "2026-07-31T20:48:46.423Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--c93fccb1-e8e8-42cf-ae33-2ad1d183913a",
+"target_ref": "attack-pattern--e6919abc-99f9-4c6c-95a5-14761e7b2add"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--4eec017c-8bf2-4eda-8c92-15926fc7e5aa",
+"created": "2017-05-31T21:33:27.066Z",
+"modified": "2026-07-31T20:48:46.682Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--c93fccb1-e8e8-42cf-ae33-2ad1d183913a",
+"target_ref": "attack-pattern--354a7f88-63fb-41b5-a801-ce3b377b36f1"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--500130c0-d049-4e67-9bcc-d60a5f6dfd4c",
+"created": "2017-05-31T21:33:27.069Z",
+"modified": "2026-07-31T20:48:46.690Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--c93fccb1-e8e8-42cf-ae33-2ad1d183913a",
+"target_ref": "attack-pattern--03d7999c-1f4c-42cc-8373-e7690d318104"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--5df525ae-d983-4fde-ac10-b07a820d9046",
+"created": "2022-02-01T14:23:04.463Z",
+"modified": "2026-07-31T20:48:46.739Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--c93fccb1-e8e8-42cf-ae33-2ad1d183913a",
+"target_ref": "attack-pattern--970a3432-3237-47ad-bcca-7d8cbb217736"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--64a17aba-5182-4666-bd37-dafa9d835fe8",
+"created": "2017-05-31T21:33:27.069Z",
+"modified": "2026-07-31T20:48:46.783Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--c93fccb1-e8e8-42cf-ae33-2ad1d183913a",
+"target_ref": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--6549c38d-46b4-4633-a479-0cbeb405f186",
+"created": "2018-04-18T17:59:24.739Z",
+"modified": "2026-07-31T20:48:46.791Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--c93fccb1-e8e8-42cf-ae33-2ad1d183913a",
+"target_ref": "attack-pattern--df8b2a25-8bdf-4856-953c-a04372b1c161"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--7cd04afd-b216-468b-a4af-71700c9fbefd",
+"created": "2022-02-01T15:24:07.945Z",
+"modified": "2026-07-31T20:48:46.905Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--c93fccb1-e8e8-42cf-ae33-2ad1d183913a",
+"target_ref": "attack-pattern--045d0922-2310-4e60-b5e4-3302302cb3c5"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--883e2f79-5bf5-4e08-bb83-f1cd36907958",
+"created": "2022-03-23T16:57:13.626Z",
+"modified": "2026-07-31T20:48:46.982Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--c93fccb1-e8e8-42cf-ae33-2ad1d183913a",
+"target_ref": "attack-pattern--457c7820-d331-465a-915e-42f85500ccc4"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--b9259830-1b82-4303-bb5a-c0285a71f5ef",
+"created": "2022-02-01T14:23:04.716Z",
+"modified": "2026-07-31T20:48:47.089Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--c93fccb1-e8e8-42cf-ae33-2ad1d183913a",
+"target_ref": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--e6cafa6a-22ce-49f7-8136-dc5a51c3aaeb",
+"created": "2017-05-31T21:33:27.068Z",
+"modified": "2026-07-31T20:48:47.261Z",
+"relationship_type": "uses",
+"source_ref": "intrusion-set--c93fccb1-e8e8-42cf-ae33-2ad1d183913a",
+"target_ref": "attack-pattern--4f9ca633-15c5-463c-9724-bdcd54fde541"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--3407bbe8-bceb-42f1-824b-d92d9972d917",
+"created": "2021-05-18T17:50:19.340Z",
+"modified": "2026-04-29T14:23:05.988Z",
+"relationship_type": "uses",
+"source_ref": "malware--a7881f21-e978-4fe4-af56-92c9416a2616",
+"target_ref": "attack-pattern--e3b6daca-e963-4a69-aee6-ed4fd653ad58"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--7396dd25-432c-4285-8149-1237b1273a53",
+"created": "2020-11-06T18:40:38.038Z",
+"modified": "2026-04-29T14:23:06.083Z",
+"relationship_type": "uses",
+"source_ref": "malware--a7881f21-e978-4fe4-af56-92c9416a2616",
+"target_ref": "attack-pattern--970a3432-3237-47ad-bcca-7d8cbb217736"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--82a7e330-e4b1-4db8-8c73-03cabd9b8991",
+"created": "2021-05-19T15:50:22.487Z",
+"modified": "2026-04-29T14:23:06.104Z",
+"relationship_type": "uses",
+"source_ref": "malware--a7881f21-e978-4fe4-af56-92c9416a2616",
+"target_ref": "attack-pattern--65f2d882-3f41-4d48-8a06-29af77ec9f90"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--a3567e77-aa1c-45dd-8217-e24df76e5def",
+"created": "2020-11-06T18:40:38.332Z",
+"modified": "2026-04-29T14:23:06.147Z",
+"relationship_type": "uses",
+"source_ref": "malware--a7881f21-e978-4fe4-af56-92c9416a2616",
+"target_ref": "attack-pattern--df8b2a25-8bdf-4856-953c-a04372b1c161"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--cecb2ce6-cb40-453d-9487-9f59f156a98c",
+"created": "2021-04-07T13:58:01.911Z",
+"modified": "2026-04-29T14:23:06.208Z",
+"relationship_type": "uses",
+"source_ref": "malware--a7881f21-e978-4fe4-af56-92c9416a2616",
+"target_ref": "attack-pattern--e6919abc-99f9-4c6c-95a5-14761e7b2add"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--d486dd75-bb96-44e6-9898-c256b9f1b8ba",
+"created": "2020-11-06T18:40:38.078Z",
+"modified": "2026-04-29T14:23:06.216Z",
+"relationship_type": "uses",
+"source_ref": "malware--a7881f21-e978-4fe4-af56-92c9416a2616",
+"target_ref": "attack-pattern--4f9ca633-15c5-463c-9724-bdcd54fde541"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--d4e351be-ccdc-4c51-a52a-b4d6a55cbeca",
+"created": "2021-05-18T18:19:23.351Z",
+"modified": "2026-04-29T14:23:06.216Z",
+"relationship_type": "uses",
+"source_ref": "malware--a7881f21-e978-4fe4-af56-92c9416a2616",
+"target_ref": "attack-pattern--045d0922-2310-4e60-b5e4-3302302cb3c5"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--db1a20ca-55a0-42db-b0e5-d600478baddd",
+"created": "2020-11-06T18:40:38.081Z",
+"modified": "2026-04-29T14:23:06.224Z",
+"relationship_type": "uses",
+"source_ref": "malware--a7881f21-e978-4fe4-af56-92c9416a2616",
+"target_ref": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--b7930db8-2cb9-4ecf-b3d3-7425f99140d8",
+"created": "2017-12-14T16:46:06.044Z",
+"modified": "2026-04-29T14:23:06.176Z",
+"relationship_type": "uses",
+"source_ref": "tool--afc079f3-c0ea-4096-b75d-3f05338b7f60",
+"target_ref": "attack-pattern--65f2d882-3f41-4d48-8a06-29af77ec9f90"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--d5ffcd6e-be9e-4efe-9822-974f3838c7db",
+"created": "2019-11-27T14:58:00.700Z",
+"modified": "2026-04-29T14:23:06.218Z",
+"relationship_type": "subtechnique-of",
+"source_ref": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9",
+"target_ref": "attack-pattern--35dd844a-b219-4e2b-a6bb-efa9a75995a9"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--769b2668-2e16-4300-89f4-f45124896fb8",
+"created": "2020-03-27T21:02:29.469Z",
+"modified": "2026-04-29T14:23:06.087Z",
+"relationship_type": "subtechnique-of",
+"source_ref": "attack-pattern--045d0922-2310-4e60-b5e4-3302302cb3c5",
+"target_ref": "attack-pattern--457c7820-d331-465a-915e-42f85500ccc4"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--3d784d79-7e84-4760-88d4-78039fbb4de4",
+"created": "2020-03-11T14:13:43.032Z",
+"modified": "2026-04-29T14:23:06.009Z",
+"relationship_type": "subtechnique-of",
+"source_ref": "attack-pattern--191cc6af-1bb2-4344-ab5f-28e496638720",
+"target_ref": "attack-pattern--3f18edba-28f4-4bb9-82c3-8aa60dcac5f7"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--5071c70a-5aa8-4534-8cc4-676192728151",
+"created": "2020-02-11T18:25:28.308Z",
+"modified": "2026-04-29T14:23:06.035Z",
+"relationship_type": "subtechnique-of",
+"source_ref": "attack-pattern--4f9ca633-15c5-463c-9724-bdcd54fde541",
+"target_ref": "attack-pattern--54a649ff-439a-41a4-9856-8d144a2551ba"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--c3d30e12-d4e1-468d-9142-3e925c38658e",
+"created": "2020-03-15T16:13:46.278Z",
+"modified": "2026-04-29T14:23:06.193Z",
+"relationship_type": "subtechnique-of",
+"source_ref": "attack-pattern--df8b2a25-8bdf-4856-953c-a04372b1c161",
+"target_ref": "attack-pattern--355be19c-ffc9-46d5-8d50-d6a036c675b6"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--b7dc0db4-b1fb-4235-8b49-0792e7019377",
+"created": "2020-03-09T13:48:55.816Z",
+"modified": "2026-04-29T14:23:06.176Z",
+"relationship_type": "subtechnique-of",
+"source_ref": "attack-pattern--970a3432-3237-47ad-bcca-7d8cbb217736",
+"target_ref": "attack-pattern--7385dfaf-6886-4229-9ecd-6fd678040830"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--d948a3b2-4873-4175-be18-ddef1c20347d",
+"created": "2020-03-09T13:51:07.152Z",
+"modified": "2026-04-29T14:23:06.222Z",
+"relationship_type": "revoked-by",
+"source_ref": "attack-pattern--f4882e23-8aa7-4b12-b28a-b349c12ee9e0",
+"target_ref": "attack-pattern--970a3432-3237-47ad-bcca-7d8cbb217736"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--ee212490-822c-4851-bf2f-06b8179a9a38",
+"created": "2020-02-11T18:41:44.872Z",
+"modified": "2026-04-29T14:23:06.249Z",
+"relationship_type": "subtechnique-of",
+"source_ref": "attack-pattern--65f2d882-3f41-4d48-8a06-29af77ec9f90",
+"target_ref": "attack-pattern--0a3ead4e-6d47-4ccb-854c-a6a4f9d96b22"
+},
+{
+"type": "relationship",
+"spec_version": "2.1",
+"id": "relationship--ee8ef62a-fcde-44b0-aa63-4028dad703aa",
+"created": "2019-06-14T17:21:38.632Z",
+"modified": "2026-04-29T14:23:06.250Z",
+"relationship_type": "mitigates",
+"source_ref": "course-of-action--49c06d54-9002-491d-9147-8efb537fbd26",
+"target_ref": "attack-pattern--0a3ead4e-6d47-4ccb-854c-a6a4f9d96b22"
+}
+]
+}
