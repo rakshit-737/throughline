@@ -1,0 +1,131 @@
+"""Graph mechanics, correlation, the investigator, calibration and the event store."""
+from __future__ import annotations
+
+import json
+import random
+
+import pytest
+
+from throughline import synth
+from throughline.eventstore import EventStore
+from throughline.graph import KnowledgeGraph
+from throughline.pipeline import build
+from throughline.reasoning import calibration as cal
+from throughline.reasoning.correlation import CorrelationEngine, noisy_or, story_root
+from throughline.reasoning.investigator import Investigator
+
+TS = "2020-01-01T00:00:00Z"
+
+
+def _proc(kg, parent, child, src="sysmon"):
+    pt, pid = parent.split(":", 1)
+    ct, cid = child.split(":", 1)
+    return kg.add_claim(pt, pid, "SPAWNED", ct, cid, source=src, method="observed", reliability="B", timestamp=TS)
+
+
+def test_deferred_confidence_equals_eager():
+    recs = synth.generate(false_flag=True)["records"]
+    eager, _ = build(recs)
+    kg = KnowledgeGraph()
+    kg.defer_confidence = True
+    from throughline.normalizer import normalize
+    for c, raw, rel in recs:
+        kg.ingest(normalize(raw, c, reliability=rel))
+    kg.finalize()
+    # same assertions, same confidences (engines are not run on the deferred copy)
+    for cid, c in kg.claims.items():
+        assert eager.claims[cid].confidence == pytest.approx(c.confidence) or c.predicate == "EXHIBITS"
+
+
+def test_engine_score_sets_base_confidence():
+    kg = KnowledgeGraph()
+    c = kg.add_claim("Incident", "i", "ATTRIBUTED_TO", "Actor", "X", source="e", method="inferred",
+                     reliability="A", timestamp=TS, score=0.8)
+    assert c.base_confidence == 0.8
+
+
+def test_root_cause_ignores_annotation_edges():
+    kg = KnowledgeGraph()
+    _proc(kg, "Process:h/1/explorer.exe", "Process:h/2/cmd.exe")
+    kg.add_claim("Detection", "r1", "ALERTED_ON", "Process", "h/2/cmd.exe", source="anvil", method="inferred",
+                 reliability="B", timestamp="2019-01-01T00:00:00Z")  # earlier, but not a cause
+    assert kg.root_cause_chain("Process:h/2/cmd.exe") == ["Process:h/1/explorer.exe", "Process:h/2/cmd.exe"]
+    assert "Detection:r1" not in kg.blast_radius("Process:h/1/explorer.exe")
+
+
+def _two_engine_world():
+    kg = KnowledgeGraph()
+    _proc(kg, "Process:h/1/explorer.exe", "Process:h/2/powershell.exe")
+    _proc(kg, "Process:h/2/powershell.exe", "Process:h/3/rundll32.exe")
+    _proc(kg, "Process:h/9/services.exe", "Process:h/10/svchost.exe")
+    kg.tag_technique("Process:h/3/rundll32.exe", "T1003.001", "sigma", source="anvil", ts=TS, reliability="B")
+    kg.tag_technique("Process:h/2/powershell.exe", "T1003.001", "heuristic", source="revenant", ts=TS,
+                     reliability="C", score=0.85)
+    kg.tag_technique("Process:h/10/svchost.exe", "T1053", "sigma", source="anvil", ts=TS, reliability="D")
+    return kg
+
+
+def test_story_root_stops_at_boundary_processes():
+    kg = _two_engine_world()
+    root, path = story_root(kg, "Process:h/3/rundll32.exe")
+    assert root == "Process:h/2/powershell.exe" and path[-1] == "Process:h/3/rundll32.exe"
+
+
+def test_correlation_fuses_independent_engines_per_incident():
+    kg = _two_engine_world()
+    ctx: dict = {}
+    CorrelationEngine().run(kg, ctx)
+    incs = {i["incident"]: i for i in ctx["incidents"]}
+    assert len(incs) == 2                                        # the svchost signal is its own incident
+    top = ctx["incidents"][0]
+    a, r = 0.9 * 0.7, 0.85 * 0.75
+    assert top["technique_conf"]["T1003.001"] == pytest.approx(noisy_or([a, r]), abs=1e-3)
+    assert top["technique_conf"]["T1003.001"] > max(a, r)       # agreement raises confidence
+    assert set(top["technique_sources"]["T1003.001"]) == {"anvil", "revenant"}
+    edge = kg.g.edges[top["incident"], "Technique:T1003.001", "EXHIBITS"]
+    assert edge["confidence"] == pytest.approx(top["technique_conf"]["T1003.001"], abs=1e-3)  # not re-counted
+
+
+def test_investigator_is_deterministic_and_cites_claims():
+    kg = _two_engine_world()
+    CorrelationEngine().run(kg, {})
+    a = Investigator(kg).investigate("rundll32.exe")
+    b = Investigator(kg).investigate("rundll32.exe")
+    assert a["trace"] == b["trace"]
+    assert a["incident"].startswith("Incident:h/2/")
+    tools = [s["tool"] for s in a["trace"]]
+    assert tools[:2] == ["incident", "techniques"] and "root_cause" in tools
+    assert any(s["cites"] for s in a["trace"])
+    before = kg.stats()
+    Investigator(kg).investigate("rundll32.exe")
+    assert kg.stats() == before                                 # read-only
+
+
+def test_calibration_metrics_and_platt():
+    assert cal.brier([(1.0, True), (0.0, False)]) == 0.0
+    assert cal.ece([(0.9, True)] * 9 + [(0.9, False)]) == pytest.approx(0.0)
+    assert cal.auc([(0.9, True), (0.1, False)]) == 1.0
+    rng = random.Random(0)
+    # over-confident scores: true rate is ~half the stated confidence
+    pairs = [(p, rng.random() < p / 2) for p in (rng.uniform(0.5, 1.0) for _ in range(600))]
+    pl = cal.Platt.fit(pairs)
+    fitted = [(pl(p), y) for p, y in pairs]
+    assert cal.brier(fitted) < cal.brier(pairs)
+    assert cal.ece(fitted) < cal.ece(pairs)
+
+
+def test_event_store_detects_tampering(tmp_path):
+    st = EventStore(tmp_path / "store")
+    refs = st.append([("windows", {"EventID": 1, "Image": "a.exe"}), ("windows", {"EventID": 3})], note="batch1")
+    st.append([("windows", {"EventID": 11})])
+    assert st.verify()["ok"] and len(st) == 3
+    assert st.get(refs[1])["raw"] == {"EventID": 3}
+    assert len(EventStore(tmp_path / "store")) == 3            # reopen keeps the sequence
+    shard = next((tmp_path / "store").glob("events-*.jsonl"))
+    lines = shard.read_text().splitlines()
+    rec = json.loads(lines[0])
+    rec["raw"]["Image"] = "evil.exe"
+    lines[0] = json.dumps(rec, sort_keys=True)
+    shard.write_text("\n".join(lines) + "\n")
+    rep = EventStore(tmp_path / "store").verify()
+    assert not rep["ok"] and rep["tampered_records"] == [0] and rep["broken_ledger_entries"] == [0]

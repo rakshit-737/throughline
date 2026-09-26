@@ -7,7 +7,7 @@ from throughline.api import create_app
 from throughline.cli import main
 from throughline.contracts import Claim, ContractError
 from throughline.graph import KnowledgeGraph
-from throughline.modules import EngineRegistry, SIBLING_SLOTS, default_registry
+from throughline.modules import SIBLING_SLOTS, EngineRegistry, default_registry
 from throughline.neo4j_adapter import statements
 from throughline.normalizer import normalize, verify
 from throughline.pipeline import build, investigate
