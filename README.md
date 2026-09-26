@@ -54,7 +54,7 @@ flowchart LR
   POS --> KG
   C --> SC[TRACEGATE lineage + OSV] --> KG
   KG --> INV[Investigator<br/>read-only, cites claims]
-  KG --> LOOP[Feedback loop<br/>draft -> FP gate]
+  KG --> LOOP[Feedback loop<br/>draft, then FP gate]
   INV --> API[FastAPI + console UI / CLI]
   KG -.optional.-> NEO[(Neo4j mirror)]
 ```

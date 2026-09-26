@@ -9,7 +9,7 @@ install:
 engines:            ## sibling projects as capability engines (pinned git commits)
 	$(PY) -m pip install -e ".[dev,api,engines]"
 
-data:               ## ~210 MB into ../../datasets/throughline (or $$THROUGHLINE_DATA)
+data:               ## ~290 MB into ../../datasets/throughline (or $$THROUGHLINE_DATA)
 	$(PY) scripts/download_data.py all
 
 test:
@@ -31,6 +31,7 @@ bench:              ## all benchmarks on real data (~45 min)
 	$(PY) benchmarks/bench_attribution.py
 	$(PY) benchmarks/bench_loop.py
 	$(PY) benchmarks/demo_apt29.py --day 1
+	$(PY) benchmarks/demo_supplychain.py
 	$(PY) benchmarks/figures.py
 
 serve:

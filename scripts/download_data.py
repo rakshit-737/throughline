@@ -5,7 +5,7 @@ Every source is pinned (git commit or release tag) and every file is checked
 against ``scripts/checksums.sha256``. Nothing here is executable content: the
 sources are YAML rules, JSON/EVTX *log records* and ATT&CK STIX bundles.
 
-    python scripts/download_data.py all              # ~210 MB download (everything but `baseline`)
+    python scripts/download_data.py all              # ~290 MB download (everything but `baseline`)
     python scripts/download_data.py attack otrf      # just some sources
     python scripts/download_data.py all --record     # (maintainers) pin checksums of new files
 

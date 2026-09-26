@@ -8,7 +8,7 @@ Thanks for looking. THROUGHLINE is small on purpose: one graph, frozen contracts
 python -m venv .venv && . .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -e ".[dev,api]"                          # core: no sibling engines needed
 pip install -e ".[dev,api,engines]"                  # + the sibling projects at pinned commits
-python scripts/download_data.py all                  # optional: ~210 MB of real data, checksummed
+python scripts/download_data.py all                  # optional: ~290 MB of real data, checksummed
 ```
 
 ## Before you open a PR
