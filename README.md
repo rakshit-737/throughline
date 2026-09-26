@@ -3,6 +3,8 @@
 [![ci](https://github.com/rakshit-737/throughline/actions/workflows/ci.yml/badge.svg)](https://github.com/rakshit-737/throughline/actions/workflows/ci.yml)
 ![python](https://img.shields.io/badge/python-3.10%E2%80%933.14-blue)
 [![license: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![docs](https://img.shields.io/badge/docs-github%20pages-blue)](https://rakshit-737.github.io/throughline/)
+[![release](https://img.shields.io/github/v/release/rakshit-737/throughline)](https://github.com/rakshit-737/throughline/releases)
 
 **One evidence-first security knowledge graph that thirteen separate tools write into, so "what happened, how did it start, who did it, and how sure are we?" becomes a single query with a cited, confidence-graded answer.**
 
@@ -76,7 +78,7 @@ Engines talk to each other **only through the graph and the frozen contracts** (
 | supply chain | [STRATUM](https://github.com/rakshit-737/stratum) `1341f1c` | code -> build -> image -> workload -> pod lifecycle, Zero-Trust findings, incidents | STRATUM's synthetic cluster |
 | attack path | [LINCHPIN](https://github.com/rakshit-737/linchpin) `dc16710` | `CAN_REACH` hops, `Vulnerability AFFECTS Host`, ranked fixes | LINCHPIN's synthetic network |
 | malware | [VITRINE](https://github.com/rakshit-737/vitrine) `76ee8dd` | `Sample EXHIBITS`, `ATTRIBUTED_TO MalwareFamily`, `Process USES Sample` by hash | inert synthetic samples |
-| malware | [SPECIMEN](https://github.com/rakshit-737/specimen) `fd01f88` | same, from a CAPE/Cuckoo report | report mapping (unit test) |
+| malware | [SPECIMEN](https://github.com/rakshit-737/specimen) `e3dc7de` | same, from a CAPE/Cuckoo report | report mapping (unit test) |
 | network | [FEINT](https://github.com/rakshit-737/feint) `ff76b5c` | `Host CONNECTED_TO`, `EXHIBITS` for flows over threshold | flow mapping (unit test) |
 
 The siblings are optional extras installed from those commits ([ADR-0007](docs/adr/0007-siblings-as-pinned-extras.md)); none of their code is vendored or modified. Without them the core still runs the synthetic demo, and each missing engine is reported as skipped.
@@ -208,7 +210,7 @@ Incident:workstation5/6100/powershell.exe  score=0.87  alerts=7  [T1003.001 0.87
 6. corroboration: T1003.001 is supported by 2 independent engine(s): anvil, revenant [c00151, c00172]
 ```
 
-Other entry points: `python -m throughline store ingest|verify DIR FILES` (append-only event store), `investigate`, `explain <claim>`, `export --format cypher`. The REST API (`/incidents`, `/investigator/{entity}`, `/investigate/{entity}`, `/claims/{id}/explain`, `/graph/{key}`, `/engines`, `/ingest`) binds to localhost and serves the console at `/ui`. `docker compose up` runs the same, published on 127.0.0.1 only; `--profile neo4j` adds a local Neo4j.
+Other entry points: `python -m throughline store ingest|verify DIR FILES` (append-only event store), `investigate`, `explain <claim>`, `export --format cypher`. The REST API (`/incidents`, `/investigator/{entity}`, `/investigate/{entity}`, `/claims/{id}/explain`, `/graph/{key}`, `/engines`, `/ingest`) binds to localhost and serves the console at `/ui`; set `THROUGHLINE_API_TOKEN` to require `Authorization: Bearer <token>` (open the console as `/ui#token=<token>`). Documentation: **<https://rakshit-737.github.io/throughline/>**, with a static, pre-rendered console at [`/demo/`](https://rakshit-737.github.io/throughline/demo/). `docker compose up` runs the same, published on 127.0.0.1 only (or pull `ghcr.io/rakshit-737/throughline`); `--profile neo4j` adds a local Neo4j.
 
 ## Reproducibility
 
@@ -236,15 +238,15 @@ python benchmarks/figures.py
 
 - **Labels are coarse.** OTRF captures carry one technique label, so incidental but genuine techniques count as errors. Calibration is fitted on emulated attacks where every capture contains an attack; it will over-state probabilities on ordinary production telemetry.
 - **Small attribution sample.** 17 temporal and 25 retrospective campaigns; rates move 4-6 points per case. False flags are simulated, following DRAGNET's protocol.
-- **Correlation is per host and per process lineage.** Lateral movement across hosts is not yet stitched into one incident (APT29 day 1 yields 60 incidents over several hosts).
+- **Cross-host correlation is shallow.** Incidents are built per host and process lineage; since 1.0.0 incidents on different hosts that contacted the same rare network destination (`CONNECTED_TO` an IP:port or `RESOLVED` a domain, shared by at most 3 incidents) are stitched into one `cluster`. That is a proposal with its shared destination as evidence, not a proven lateral-movement edge: logon (4624) and SMB/WinRM edges are not yet used, and the effect on APT29 day 1 (60 per-host incidents) has not been re-measured for this release (it needs the 13-minute full-engine run).
 - **Process identity** merges two processes that reuse a pid with the same image inside one capture ([ADR-0005](docs/adr/0005-windows-process-identity.md)); ROOTLINE cannot run on captures whose Sysmon export dropped the pid.
 - **Cross-layer joins on real data are partial.** The endpoint slice (OTRF) and the supply-chain slice (healthchecks) are real but unrelated datasets; the full code-to-runtime story is shown on STRATUM's and the built-in synthetic scenarios. LINCHPIN, VITRINE, SPECIMEN and FEINT are exercised on their own synthetic data or pure mappings, not on real inputs here.
 - **In-memory graph.** networkx is fine to ~150k claims on a laptop (the APT29 run peaks at ~2.6 GB resident, most of it the sibling engines' own copies of the events); a persistent store is the Neo4j mirror, which is not the primary backend yet ([ADR-0002](docs/adr/0002-networkx-first-neo4j-optional.md)).
-- **No authentication** on the API; localhost only.
+- **Authentication is a single optional bearer token** (`THROUGHLINE_API_TOKEN`); no users, roles or TLS. Keep the API on localhost or behind a TLS proxy.
 
 ## Roadmap
 
-- Cross-host incident stitching (logon + network edges between story roots) and a lateral-movement benchmark on APT29 day 2.
+- Cross-host stitching beyond shared destinations (logon + SMB/WinRM edges between story roots) and a lateral-movement benchmark on APT29 day 2.
 - An LLM hypothesis step inside the investigator, under the same "every sentence cites a claim" rule, evaluated against the deterministic trace.
 - Real inputs for the remaining adapters: STRATUM's public manifests, LINCHPIN's DefectDojo/BloodHound case study, SPECIMEN on CAPE reports, FEINT on CIC-IDS2017 flows.
 - Persistent graph backend and incremental ingest.

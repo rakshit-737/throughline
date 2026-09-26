@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [SemVer](https://semver.org/).
 
+## [1.0.0] - 2026-09-26
+
+First stable release: documentation site, container image and closed gaps from 0.2.0.
+
+### Added
+- **Cross-host stitching:** incidents on different hosts that contacted the same rare network destination (shared by at most 3 incidents) are joined into one `cluster` (`/incidents`, incident node attributes). A proposal with its shared destination as evidence, not a proven lateral-movement edge.
+- **Optional API authentication:** `THROUGHLINE_API_TOKEN` requires `Authorization: Bearer <token>` on every endpoint except `/health` and `/ui` (constant-time compare); the console reads `#token=` from its URL.
+- **Docs site** (MkDocs Material) at <https://rakshit-737.github.io/throughline/> with a static, pre-rendered investigation console at `/demo/` (`scripts/build_static_demo.py`).
+- **Release pipeline:** on `v*` tags, wheel + sdist, a GitHub Release with these notes, and `ghcr.io/rakshit-737/throughline`. Docker image runs as a non-root user with a health check.
+
+### Changed
+- SPECIMEN pin moved to `e3dc7de` (docs-only change upstream); all other sibling pins are unchanged and still equal their current `main`.
+- `throughline.__version__` and the API version now match the package version (they still said 0.1.0 / 0.2.0).
+
 ## [0.2.0] - 2026-09-26
 
 The spine becomes a platform: the sibling projects run as engines on real public data, and every headline claim is benchmarked against a single-engine baseline.

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "throughline"
-version = "0.2.0"
+version = "1.0.0"
 description = "Evidence-first security knowledge graph that fuses sibling engines (Sigma, provenance, ACH attribution, posture) into one confidence-graded investigation"
 readme = "README.md"
 license = { text = "MIT" }
@@ -34,7 +34,7 @@ engines = [
   "tracegate @ git+https://github.com/rakshit-737/tracegate@014faa3839544ae9ab95538199e80291a95cc9cb",
   "stratum @ git+https://github.com/rakshit-737/stratum@1341f1c9633636339b4190c8cd6679533702fcf0",
   "linchpin @ git+https://github.com/rakshit-737/linchpin@dc16710d7f07be2bde7fbfcf29dd31bfe798de04",
-  "specimen @ git+https://github.com/rakshit-737/specimen@fd01f88d952d07b971281311feaf491118032d37",
+  "specimen @ git+https://github.com/rakshit-737/specimen@e3dc7de3b0f68f4b86ced41eb7bd8b0389a9a99a",
   "vitrine @ git+https://github.com/rakshit-737/vitrine@76ee8dd8011a5764a86c0b22a7782b11cc863220",
   "openpyxl>=3.1",
 ]
@@ -45,6 +45,7 @@ dev = ["pytest>=8", "ruff>=0.5", "fastapi>=0.110", "httpx>=0.27"]
 
 [project.urls]
 Repository = "https://github.com/rakshit-737/throughline"
+Documentation = "https://rakshit-737.github.io/throughline/"
 
 [project.scripts]
 throughline = "throughline.cli:main"
