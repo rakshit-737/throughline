@@ -95,19 +95,22 @@ class Investigator:
         return " -> ".join(str(x)[:80] for x in imgs), cites, {"chain": chain}
 
     def t_corroboration(self, inc: str):
+        """Which independent engines back the incident's strongest technique (read from the
+        member claims the roll-up was fused from)."""
         techs = [(o, d) for _, o, k, d in self.kg.g.out_edges(inc, keys=True, data=True) if k == "EXHIBITS"]
         if not techs:
             return "nothing to corroborate", [], {"sources": []}
-        o, d = max(techs, key=lambda x: x[1].get("confidence", 0))
-        sources: set[str] = set()
-        cites = []
-        for cid in d.get("claims", []):
-            for sup in self.kg.claims[cid].corroboration[:50]:
-                if sup in self.kg.claims:
-                    sources.add(self.kg.claims[sup].source)
-                    cites.append(sup)
+        o, _ = max(techs, key=lambda x: x[1].get("confidence", 0))
+        sources: dict[str, str] = {}
+        for m, _, k in self.kg.g.in_edges(inc, keys=True):
+            if k != "PART_OF" or not self.kg.g.has_edge(m, o, "EXHIBITS"):
+                continue
+            for cid in self.kg.g.edges[m, o, "EXHIBITS"].get("claims", []):
+                c = self.kg.claims[cid]
+                if c.source not in sources or c.base_confidence > self.kg.claims[sources[c.source]].base_confidence:
+                    sources[c.source] = cid
         return (f"{o.split(':', 1)[1]} is supported by {len(sources)} independent engine(s): "
-                f"{', '.join(sorted(sources)) or 'none'}"), cites[:6], {"sources": sorted(sources)}
+                f"{', '.join(sorted(sources)) or 'none'}"), sorted(sources.values()), {"sources": sorted(sources)}
 
     def t_attribution(self, inc: str):
         rows = sorted(((o, d.get("confidence", 0.0), d.get("claims", []))
