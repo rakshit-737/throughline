@@ -1,0 +1,1541 @@
+{
+ "generated": "2026-09-26 19:33:01",
+ "python": "3.14.3",
+ "capture": "apt29_evals_day1_manual.zip",
+ "day": 1,
+ "records": 196081,
+ "load_seconds": 11.9,
+ "engine_setup_seconds": 30.6,
+ "pipeline_seconds": 880.7,
+ "peak_python_mem_mb": 1126.4,
+ "graph": {
+  "nodes": 25453,
+  "edges": 52415,
+  "claims": 152833,
+  "events": 145483
+ },
+ "rejected_total": 0,
+ "skipped_records": 50598,
+ "engine_claims": {
+  "detection:anvil": 5617,
+  "provenance:revenant": 551,
+  "correlation": 257,
+  "provenance:rootline": 112,
+  "intel:dragnet": 6,
+  "intel:occam": 6,
+  "posture:vantage": 801,
+  "simulation:gauntlet": 0
+ },
+ "engine_seconds": {
+  "detection:anvil": 223.282,
+  "provenance:revenant": 354.308,
+  "correlation": 0.7,
+  "provenance:rootline": 52.031,
+  "intel:dragnet": 0.153,
+  "intel:occam": 0.124,
+  "posture:vantage": 0.462,
+  "simulation:gauntlet": 0.044
+ },
+ "skipped_engines": {},
+ "alerts": 2888,
+ "incidents": 60,
+ "techniques_observed": [
+  "T1003.001",
+  "T1003.002",
+  "T1003.003",
+  "T1003.004",
+  "T1003.005",
+  "T1006",
+  "T1021",
+  "T1021.002",
+  "T1021.003",
+  "T1021.006",
+  "T1027",
+  "T1027.004",
+  "T1033",
+  "T1036.005",
+  "T1040",
+  "T1046",
+  "T1048.003",
+  "T1055",
+  "T1055.011",
+  "T1056.001",
+  "T1057",
+  "T1059",
+  "T1059.001",
+  "T1069",
+  "T1069.001",
+  "T1069.002",
+  "T1070.004",
+  "T1070.006",
+  "T1071.001",
+  "T1082",
+  "T1087",
+  "T1087.001",
+  "T1087.002",
+  "T1113",
+  "T1115",
+  "T1132.001",
+  "T1140",
+  "T1201",
+  "T1202",
+  "T1204.002",
+  "T1218",
+  "T1218.011",
+  "T1482",
+  "T1485",
+  "T1490",
+  "T1547.001",
+  "T1548",
+  "T1548.002",
+  "T1552.004",
+  "T1560.001",
+  "T1564.003",
+  "T1569",
+  "T1569.002",
+  "T1570",
+  "T1587.001",
+  "T1588.002",
+  "T1620",
+  "T1685",
+  "T1685.001"
+ ],
+ "posture": {
+  "T1003.001": {
+   "status": "detected",
+   "detections": 104,
+   "live": 91,
+   "fired": 6,
+   "controls": [
+    "CIS-11.3",
+    "CIS-14.1",
+    "CIS-14.3",
+    "CIS-16.1",
+    "CIS-16.9",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.6",
+    "CIS-3.11",
+    "CIS-3.12",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-4.8",
+    "CIS-5.2",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1003.002": {
+   "status": "detected",
+   "detections": 59,
+   "live": 47,
+   "fired": 1,
+   "controls": [
+    "CIS-11.3",
+    "CIS-14.1",
+    "CIS-14.3",
+    "CIS-16.1",
+    "CIS-16.9",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.6",
+    "CIS-3.11",
+    "CIS-3.12",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-4.8",
+    "CIS-5.2",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1003.003": {
+   "status": "detected",
+   "detections": 55,
+   "live": 42,
+   "fired": 1,
+   "controls": [
+    "CIS-11.3",
+    "CIS-14.1",
+    "CIS-14.3",
+    "CIS-16.1",
+    "CIS-16.9",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.6",
+    "CIS-3.11",
+    "CIS-3.12",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-4.8",
+    "CIS-5.2",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1003.004": {
+   "status": "detected",
+   "detections": 45,
+   "live": 34,
+   "fired": 1,
+   "controls": [
+    "CIS-11.3",
+    "CIS-14.1",
+    "CIS-14.3",
+    "CIS-16.1",
+    "CIS-16.9",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.6",
+    "CIS-3.11",
+    "CIS-3.12",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-4.8",
+    "CIS-5.2",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1003.005": {
+   "status": "detected",
+   "detections": 42,
+   "live": 32,
+   "fired": 1,
+   "controls": [
+    "CIS-11.3",
+    "CIS-14.1",
+    "CIS-14.3",
+    "CIS-16.1",
+    "CIS-16.9",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.6",
+    "CIS-3.11",
+    "CIS-3.12",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-4.8",
+    "CIS-5.2",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1006": {
+   "status": "detected",
+   "detections": 1,
+   "live": 1,
+   "fired": 1,
+   "controls": []
+  },
+  "T1021": {
+   "status": "detected",
+   "detections": 10,
+   "live": 4,
+   "fired": 1,
+   "controls": [
+    "CIS-4.7",
+    "CIS-5.3",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.4",
+    "CIS-6.5",
+    "CIS-6.8"
+   ]
+  },
+  "T1021.002": {
+   "status": "detected",
+   "detections": 46,
+   "live": 36,
+   "fired": 4,
+   "controls": [
+    "CIS-12.2",
+    "CIS-13.4",
+    "CIS-18.2",
+    "CIS-18.3",
+    "CIS-4.1",
+    "CIS-4.2",
+    "CIS-4.4",
+    "CIS-4.5",
+    "CIS-4.7",
+    "CIS-5.2",
+    "CIS-5.3",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.4",
+    "CIS-6.5",
+    "CIS-6.8",
+    "CIS-7.6",
+    "CIS-7.7"
+   ]
+  },
+  "T1021.003": {
+   "status": "detected",
+   "detections": 23,
+   "live": 16,
+   "fired": 2,
+   "controls": [
+    "CIS-12.2",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.3",
+    "CIS-2.5",
+    "CIS-4.1",
+    "CIS-4.4",
+    "CIS-4.5",
+    "CIS-4.7",
+    "CIS-4.8",
+    "CIS-5.3",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.4",
+    "CIS-6.5",
+    "CIS-6.8",
+    "CIS-7.7"
+   ]
+  },
+  "T1021.006": {
+   "status": "detected",
+   "detections": 20,
+   "live": 14,
+   "fired": 5,
+   "controls": [
+    "CIS-12.2",
+    "CIS-12.8",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.3",
+    "CIS-2.5",
+    "CIS-3.12",
+    "CIS-4.1",
+    "CIS-4.4",
+    "CIS-4.5",
+    "CIS-4.7",
+    "CIS-4.8",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.4",
+    "CIS-6.5",
+    "CIS-6.8",
+    "CIS-7.6",
+    "CIS-7.7"
+   ]
+  },
+  "T1027": {
+   "status": "detected",
+   "detections": 87,
+   "live": 84,
+   "fired": 2,
+   "controls": [
+    "CIS-10.1",
+    "CIS-10.2",
+    "CIS-10.7",
+    "CIS-13.2",
+    "CIS-13.7"
+   ]
+  },
+  "T1027.004": {
+   "status": "detected",
+   "detections": 92,
+   "live": 89,
+   "fired": 4,
+   "controls": [
+    "CIS-10.1",
+    "CIS-10.2",
+    "CIS-10.7",
+    "CIS-13.2",
+    "CIS-13.7"
+   ]
+  },
+  "T1033": {
+   "status": "detected",
+   "detections": 29,
+   "live": 20,
+   "fired": 1,
+   "controls": []
+  },
+  "T1036.005": {
+   "status": "detected",
+   "detections": 52,
+   "live": 48,
+   "fired": 1,
+   "controls": [
+    "CIS-2.5",
+    "CIS-2.7",
+    "CIS-3.3",
+    "CIS-4.1",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1040": {
+   "status": "detected",
+   "detections": 9,
+   "live": 6,
+   "fired": 1,
+   "controls": [
+    "CIS-3.10",
+    "CIS-4.2",
+    "CIS-4.6",
+    "CIS-6.4",
+    "CIS-6.5"
+   ]
+  },
+  "T1046": {
+   "status": "detected",
+   "detections": 19,
+   "live": 10,
+   "fired": 1,
+   "controls": [
+    "CIS-12.2",
+    "CIS-12.8",
+    "CIS-13.3",
+    "CIS-13.8",
+    "CIS-16.10",
+    "CIS-16.8",
+    "CIS-18.2",
+    "CIS-18.3",
+    "CIS-3.12",
+    "CIS-4.4",
+    "CIS-4.8",
+    "CIS-7.6",
+    "CIS-7.7"
+   ]
+  },
+  "T1048.003": {
+   "status": "detected",
+   "detections": 17,
+   "live": 12,
+   "fired": 1,
+   "controls": [
+    "CIS-12.2",
+    "CIS-12.8",
+    "CIS-13.3",
+    "CIS-13.4",
+    "CIS-13.8",
+    "CIS-4.2",
+    "CIS-4.4",
+    "CIS-7.6",
+    "CIS-7.7",
+    "CIS-9.2"
+   ]
+  },
+  "T1055": {
+   "status": "missed",
+   "detections": 26,
+   "live": 26,
+   "fired": 0,
+   "controls": [
+    "CIS-13.2",
+    "CIS-13.7",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1055.011": {
+   "status": "detected",
+   "detections": 27,
+   "live": 27,
+   "fired": 1,
+   "controls": [
+    "CIS-13.2",
+    "CIS-13.7",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1056.001": {
+   "status": "detected",
+   "detections": 5,
+   "live": 3,
+   "fired": 1,
+   "controls": []
+  },
+  "T1057": {
+   "status": "detected",
+   "detections": 6,
+   "live": 4,
+   "fired": 1,
+   "controls": []
+  },
+  "T1059": {
+   "status": "detected",
+   "detections": 74,
+   "live": 54,
+   "fired": 1,
+   "controls": [
+    "CIS-10.1",
+    "CIS-10.2",
+    "CIS-10.7",
+    "CIS-13.2",
+    "CIS-13.7",
+    "CIS-16.10",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.3",
+    "CIS-2.5",
+    "CIS-2.7",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-4.8",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8",
+    "CIS-9.3",
+    "CIS-9.6",
+    "CIS-9.7"
+   ]
+  },
+  "T1059.001": {
+   "status": "detected",
+   "detections": 254,
+   "live": 231,
+   "fired": 20,
+   "controls": [
+    "CIS-10.1",
+    "CIS-10.2",
+    "CIS-10.7",
+    "CIS-13.2",
+    "CIS-13.7",
+    "CIS-16.10",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.3",
+    "CIS-2.5",
+    "CIS-2.7",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-4.8",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8",
+    "CIS-9.3",
+    "CIS-9.6",
+    "CIS-9.7"
+   ]
+  },
+  "T1069": {
+   "status": "detected",
+   "detections": 3,
+   "live": 3,
+   "fired": 1,
+   "controls": []
+  },
+  "T1069.001": {
+   "status": "detected",
+   "detections": 15,
+   "live": 13,
+   "fired": 1,
+   "controls": []
+  },
+  "T1069.002": {
+   "status": "detected",
+   "detections": 14,
+   "live": 13,
+   "fired": 1,
+   "controls": []
+  },
+  "T1070.004": {
+   "status": "detected",
+   "detections": 33,
+   "live": 26,
+   "fired": 1,
+   "controls": [
+    "CIS-12.8",
+    "CIS-3.1",
+    "CIS-3.10",
+    "CIS-3.11",
+    "CIS-3.12",
+    "CIS-3.3",
+    "CIS-3.4",
+    "CIS-4.1",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8",
+    "CIS-8.1",
+    "CIS-8.10",
+    "CIS-8.2",
+    "CIS-8.3",
+    "CIS-8.9"
+   ]
+  },
+  "T1070.006": {
+   "status": "missed",
+   "detections": 25,
+   "live": 18,
+   "fired": 0,
+   "controls": [
+    "CIS-12.8",
+    "CIS-3.1",
+    "CIS-3.10",
+    "CIS-3.11",
+    "CIS-3.12",
+    "CIS-3.3",
+    "CIS-3.4",
+    "CIS-4.1",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8",
+    "CIS-8.1",
+    "CIS-8.10",
+    "CIS-8.2",
+    "CIS-8.3",
+    "CIS-8.9"
+   ]
+  },
+  "T1071.001": {
+   "status": "missed",
+   "detections": 35,
+   "live": 14,
+   "fired": 0,
+   "controls": [
+    "CIS-13.3",
+    "CIS-13.8"
+   ]
+  },
+  "T1082": {
+   "status": "missed",
+   "detections": 31,
+   "live": 15,
+   "fired": 0,
+   "controls": []
+  },
+  "T1087": {
+   "status": "detected",
+   "detections": 15,
+   "live": 14,
+   "fired": 2,
+   "controls": [
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-4.1",
+    "CIS-4.8"
+   ]
+  },
+  "T1087.001": {
+   "status": "detected",
+   "detections": 23,
+   "live": 19,
+   "fired": 2,
+   "controls": [
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-4.1",
+    "CIS-4.8"
+   ]
+  },
+  "T1087.002": {
+   "status": "detected",
+   "detections": 31,
+   "live": 29,
+   "fired": 2,
+   "controls": [
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-4.1",
+    "CIS-4.8"
+   ]
+  },
+  "T1113": {
+   "status": "detected",
+   "detections": 9,
+   "live": 6,
+   "fired": 1,
+   "controls": []
+  },
+  "T1115": {
+   "status": "detected",
+   "detections": 7,
+   "live": 3,
+   "fired": 1,
+   "controls": []
+  },
+  "T1132.001": {
+   "status": "detected",
+   "detections": 4,
+   "live": 4,
+   "fired": 3,
+   "controls": [
+    "CIS-13.3",
+    "CIS-13.8"
+   ]
+  },
+  "T1140": {
+   "status": "detected",
+   "detections": 14,
+   "live": 8,
+   "fired": 3,
+   "controls": []
+  },
+  "T1201": {
+   "status": "detected",
+   "detections": 5,
+   "live": 3,
+   "fired": 1,
+   "controls": [
+    "CIS-4.1"
+   ]
+  },
+  "T1202": {
+   "status": "detected",
+   "detections": 39,
+   "live": 39,
+   "fired": 2,
+   "controls": []
+  },
+  "T1204.002": {
+   "status": "detected",
+   "detections": 35,
+   "live": 24,
+   "fired": 1,
+   "controls": [
+    "CIS-13.3",
+    "CIS-13.8",
+    "CIS-14.1",
+    "CIS-14.2",
+    "CIS-14.6",
+    "CIS-2.3",
+    "CIS-2.5",
+    "CIS-2.7",
+    "CIS-9.3",
+    "CIS-9.6"
+   ]
+  },
+  "T1218": {
+   "status": "detected",
+   "detections": 135,
+   "live": 132,
+   "fired": 1,
+   "controls": [
+    "CIS-10.5",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.3",
+    "CIS-2.5",
+    "CIS-2.7",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-4.8",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1218.011": {
+   "status": "detected",
+   "detections": 160,
+   "live": 157,
+   "fired": 3,
+   "controls": [
+    "CIS-10.5",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.3",
+    "CIS-2.5",
+    "CIS-2.7",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-4.8",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1482": {
+   "status": "detected",
+   "detections": 17,
+   "live": 16,
+   "fired": 1,
+   "controls": [
+    "CIS-11.3",
+    "CIS-11.4",
+    "CIS-12.2",
+    "CIS-12.8",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-3.12",
+    "CIS-4.1",
+    "CIS-4.4"
+   ]
+  },
+  "T1485": {
+   "status": "detected",
+   "detections": 19,
+   "live": 5,
+   "fired": 1,
+   "controls": [
+    "CIS-11.1",
+    "CIS-11.2",
+    "CIS-11.3",
+    "CIS-11.4",
+    "CIS-11.5"
+   ]
+  },
+  "T1490": {
+   "status": "detected",
+   "detections": 23,
+   "live": 18,
+   "fired": 1,
+   "controls": [
+    "CIS-11.1",
+    "CIS-11.2",
+    "CIS-11.3",
+    "CIS-11.4",
+    "CIS-11.5",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-4.1"
+   ]
+  },
+  "T1531": {
+   "status": "detected",
+   "detections": 9,
+   "live": 2,
+   "fired": 1,
+   "controls": []
+  },
+  "T1546.003": {
+   "status": "detected",
+   "detections": 18,
+   "live": 16,
+   "fired": 1,
+   "controls": [
+    "CIS-4.7",
+    "CIS-5.2",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1547.001": {
+   "status": "detected",
+   "detections": 38,
+   "live": 38,
+   "fired": 2,
+   "controls": []
+  },
+  "T1548": {
+   "status": "detected",
+   "detections": 23,
+   "live": 9,
+   "fired": 1,
+   "controls": [
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.5",
+    "CIS-3.3",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1548.002": {
+   "status": "detected",
+   "detections": 79,
+   "live": 65,
+   "fired": 4,
+   "controls": [
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.5",
+    "CIS-3.3",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8",
+    "CIS-7.1",
+    "CIS-7.2",
+    "CIS-7.3",
+    "CIS-7.5"
+   ]
+  },
+  "T1550.002": {
+   "status": "detected",
+   "detections": 9,
+   "live": 5,
+   "fired": 1,
+   "controls": [
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-5.2",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-7.1",
+    "CIS-7.2",
+    "CIS-7.3",
+    "CIS-7.5"
+   ]
+  },
+  "T1552.004": {
+   "status": "detected",
+   "detections": 18,
+   "live": 7,
+   "fired": 1,
+   "controls": [
+    "CIS-11.3",
+    "CIS-13.10",
+    "CIS-14.3",
+    "CIS-14.4",
+    "CIS-14.9",
+    "CIS-16.1",
+    "CIS-16.9",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-3.1",
+    "CIS-3.11",
+    "CIS-3.12",
+    "CIS-3.2",
+    "CIS-3.3",
+    "CIS-4.1",
+    "CIS-4.2",
+    "CIS-4.5",
+    "CIS-4.7",
+    "CIS-5.2",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8",
+    "CIS-7.1",
+    "CIS-7.2",
+    "CIS-7.3",
+    "CIS-7.5"
+   ]
+  },
+  "T1560.001": {
+   "status": "detected",
+   "detections": 13,
+   "live": 10,
+   "fired": 2,
+   "controls": [
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.1",
+    "CIS-2.2",
+    "CIS-2.3",
+    "CIS-2.4"
+   ]
+  },
+  "T1564.003": {
+   "status": "detected",
+   "detections": 18,
+   "live": 16,
+   "fired": 1,
+   "controls": [
+    "CIS-2.5"
+   ]
+  },
+  "T1569": {
+   "status": "detected",
+   "detections": 1,
+   "live": 1,
+   "fired": 1,
+   "controls": [
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1569.002": {
+   "status": "detected",
+   "detections": 40,
+   "live": 36,
+   "fired": 4,
+   "controls": [
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1570": {
+   "status": "detected",
+   "detections": 4,
+   "live": 4,
+   "fired": 1,
+   "controls": [
+    "CIS-13.3",
+    "CIS-13.4",
+    "CIS-13.8",
+    "CIS-18.2",
+    "CIS-18.3",
+    "CIS-4.2",
+    "CIS-4.4",
+    "CIS-4.5",
+    "CIS-7.6",
+    "CIS-7.7"
+   ]
+  },
+  "T1587.001": {
+   "status": "detected",
+   "detections": 10,
+   "live": 7,
+   "fired": 1,
+   "controls": []
+  },
+  "T1588.002": {
+   "status": "detected",
+   "detections": 11,
+   "live": 9,
+   "fired": 4,
+   "controls": []
+  },
+  "T1620": {
+   "status": "detected",
+   "detections": 3,
+   "live": 3,
+   "fired": 1,
+   "controls": []
+  },
+  "T1685": {
+   "status": "detected",
+   "detections": 157,
+   "live": 118,
+   "fired": 2,
+   "controls": [
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-3.3",
+    "CIS-4.1",
+    "CIS-4.2",
+    "CIS-4.7",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1685.001": {
+   "status": "detected",
+   "detections": 180,
+   "live": 137,
+   "fired": 4,
+   "controls": [
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-3.3",
+    "CIS-4.1",
+    "CIS-4.2",
+    "CIS-4.7",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1686.003": {
+   "status": "detected",
+   "detections": 24,
+   "live": 17,
+   "fired": 1,
+   "controls": [
+    "CIS-3.3",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  }
+ },
+ "emulation_plan": [
+  {
+   "order": 1,
+   "technique": "T1055",
+   "atomic_tests": [
+    {
+     "name": "Shellcode execution via VBA",
+     "guid": "1c91e740-1729-4329-b779-feba6e71d048",
+     "executor": "powershell"
+    },
+    {
+     "name": "Remote Process Injection in LSASS via mimikatz",
+     "guid": "3203ad24-168e-4bec-be36-f79b13ef8a83",
+     "executor": "command_prompt"
+    }
+   ],
+   "invoke": [
+    "Invoke-AtomicTest T1055 -TestGuids 1c91e740-1729-4329-b779-feba6e71d048",
+    "Invoke-AtomicTest T1055 -TestGuids 3203ad24-168e-4bec-be36-f79b13ef8a83"
+   ]
+  },
+  {
+   "order": 2,
+   "technique": "T1070.006",
+   "atomic_tests": [
+    {
+     "name": "Windows - Modify file creation timestamp with PowerShell",
+     "guid": "b3b2c408-2ff0-4a33-b89b-1cb46a9e6a9c",
+     "executor": "powershell"
+    },
+    {
+     "name": "Windows - Modify file last modified timestamp with PowerShell",
+     "guid": "f8f6634d-93e1-4238-8510-f8a90a20dcf2",
+     "executor": "powershell"
+    }
+   ],
+   "invoke": [
+    "Invoke-AtomicTest T1070.006 -TestGuids b3b2c408-2ff0-4a33-b89b-1cb46a9e6a9c",
+    "Invoke-AtomicTest T1070.006 -TestGuids f8f6634d-93e1-4238-8510-f8a90a20dcf2"
+   ]
+  },
+  {
+   "order": 3,
+   "technique": "T1071.001",
+   "atomic_tests": [
+    {
+     "name": "Malicious User Agents - Powershell",
+     "guid": "81c13829-f6c9-45b8-85a6-053366d55297",
+     "executor": "powershell"
+    },
+    {
+     "name": "Malicious User Agents - CMD",
+     "guid": "dc3488b0-08c7-4fea-b585-905c83b48180",
+     "executor": "command_prompt"
+    }
+   ],
+   "invoke": [
+    "Invoke-AtomicTest T1071.001 -TestGuids 81c13829-f6c9-45b8-85a6-053366d55297",
+    "Invoke-AtomicTest T1071.001 -TestGuids dc3488b0-08c7-4fea-b585-905c83b48180"
+   ]
+  },
+  {
+   "order": 4,
+   "technique": "T1082",
+   "atomic_tests": [
+    {
+     "name": "System Information Discovery",
+     "guid": "66703791-c902-4560-8770-42b8a91f7667",
+     "executor": "command_prompt"
+    },
+    {
+     "name": "Hostname Discovery (Windows)",
+     "guid": "85cfbf23-4a1e-4342-8792-007e004b975f",
+     "executor": "command_prompt"
+    }
+   ],
+   "invoke": [
+    "Invoke-AtomicTest T1082 -TestGuids 66703791-c902-4560-8770-42b8a91f7667",
+    "Invoke-AtomicTest T1082 -TestGuids 85cfbf23-4a1e-4342-8792-007e004b975f"
+   ]
+  }
+ ],
+ "investigate_latency_ms": [
+  133.5,
+  55.3,
+  103.9,
+  104.1,
+  105.0
+ ],
+ "top_incidents": [
+  {
+   "incident": "Incident:scranton/8524/\u00e2\u20ac\u00aecod.3aka3.scr",
+   "score": 0.8659,
+   "breadth": 38,
+   "alerts": 1048,
+   "members": 28,
+   "techniques": {
+    "T1003.001": 0.865875,
+    "T1003.002": 0.63,
+    "T1003.003": 0.63,
+    "T1003.004": 0.63,
+    "T1003.005": 0.63,
+    "T1021": 0.525,
+    "T1021.002": 0.525,
+    "T1021.006": 0.63,
+    "T1027.004": 0.525,
+    "T1033": 0.41999999999999993,
+    "T1036.005": 0.525,
+    "T1055": 0.525,
+    "T1056.001": 0.525,
+    "T1057": 0.41999999999999993,
+    "T1059.001": 0.82425,
+    "T1069": 0.63,
+    "T1069.001": 0.63,
+    "T1069.002": 0.63,
+    "T1070.004": 0.525,
+    "T1070.006": 0.375,
+    "T1071.001": 0.3375,
+    "T1087": 0.63,
+    "T1087.001": 0.63,
+    "T1087.002": 0.63,
+    "T1113": 0.525,
+    "T1115": 0.525,
+    "T1140": 0.28,
+    "T1202": 0.525,
+    "T1218": 0.525,
+    "T1482": 0.63,
+    "T1485": 0.63,
+    "T1547.001": 0.63,
+    "T1548.002": 0.63,
+    "T1552.004": 0.525,
+    "T1569": 0.525,
+    "T1587.001": 0.63,
+    "T1588.002": 0.63,
+    "T1620": 0.525
+   },
+   "technique_sources": {
+    "T1003.001": [
+     "anvil",
+     "revenant"
+    ],
+    "T1003.002": [
+     "anvil"
+    ],
+    "T1003.003": [
+     "anvil"
+    ],
+    "T1003.004": [
+     "anvil"
+    ],
+    "T1003.005": [
+     "anvil"
+    ],
+    "T1021": [
+     "anvil"
+    ],
+    "T1021.002": [
+     "anvil"
+    ],
+    "T1021.006": [
+     "anvil"
+    ],
+    "T1027.004": [
+     "anvil"
+    ],
+    "T1033": [
+     "anvil"
+    ],
+    "T1036.005": [
+     "anvil"
+    ],
+    "T1055": [
+     "revenant"
+    ],
+    "T1056.001": [
+     "anvil"
+    ],
+    "T1057": [
+     "anvil"
+    ],
+    "T1059.001": [
+     "anvil",
+     "revenant"
+    ],
+    "T1069": [
+     "anvil"
+    ],
+    "T1069.001": [
+     "anvil"
+    ],
+    "T1069.002": [
+     "anvil"
+    ],
+    "T1070.004": [
+     "anvil"
+    ],
+    "T1070.006": [
+     "revenant"
+    ],
+    "T1071.001": [
+     "revenant"
+    ],
+    "T1087": [
+     "anvil"
+    ],
+    "T1087.001": [
+     "anvil"
+    ],
+    "T1087.002": [
+     "anvil"
+    ],
+    "T1113": [
+     "anvil"
+    ],
+    "T1115": [
+     "anvil"
+    ],
+    "T1140": [
+     "anvil"
+    ],
+    "T1202": [
+     "anvil"
+    ],
+    "T1218": [
+     "anvil"
+    ],
+    "T1482": [
+     "anvil"
+    ],
+    "T1485": [
+     "anvil"
+    ],
+    "T1547.001": [
+     "anvil"
+    ],
+    "T1548.002": [
+     "anvil"
+    ],
+    "T1552.004": [
+     "anvil"
+    ],
+    "T1569": [
+     "anvil"
+    ],
+    "T1587.001": [
+     "anvil"
+    ],
+    "T1588.002": [
+     "anvil"
+    ],
+    "T1620": [
+     "anvil"
+    ]
+   },
+   "attribution": [
+    [
+     "UNKNOWN",
+     0.25,
+     [
+      "dragnet"
+     ]
+    ],
+    [
+     "OilRig",
+     0.245,
+     [
+      "occam"
+     ]
+    ]
+   ],
+   "dragnet": "UNKNOWN (INSUFFICIENT, p=0.76)",
+   "occam": "OilRig (low, p=0.50)",
+   "rootline_root_causes": "192.168.0.5:443, 192.168.0.5:1234",
+   "report": "Investigation of Incident:scranton/8524/\u00e2\u20ac\u00aecod.3aka3.scr (Incident:scranton/8524/\u00e2\u20ac\u00aecod.3aka3.scr).\n1. incident: 42 processes grouped under story root Process:scranton/8524/\u00e2\u20ac\u00aecod.3aka3.scr; 1048 alerts; strongest member Process:scranton/2976/powershell.exe [c151668, c151679, c151670]\n2. techniques: T1003.001 OS Credential Dumping: LSASS Memory (0.87); T1059.001 Command and Scripting Interpreter: PowerShell (0.82); T1003.002 OS Credential Dumping: Security Account Manager (0.63); T1003.003 OS Credential Dumping: NTDS (0.63); T1003.004 OS Credential Dumping: LSA Secrets (0.63) [c151692, c151706, c151693]\n3. attribution: UNKNOWN 0.25 [dragnet]; OilRig 0.25 [occam] [c152021, c152027]\n4. posture: coverage gaps: T1055=missed, T1070.006=missed, T1071.001=missed\n5. root_cause: C:\\windows\\Explorer.EXE -> \"C:\\ProgramData\\victim\\\u00e2\u20ac\u00aecod.3aka3.scr\" /S -> \"C:\\windows\\system32\\cmd.exe\" -> \"C:\\windows\\system32\\sdclt.exe\"  -> \"C:\\Windows\\System32\\control.exe\"  /name Microsoft.BackupAndRestoreCenter -> \"PowerShell.exe\" -noni -noexit -ep bypass -window hidden -c \"sal a New-Object;Ad [c00362, c00363, c02840]\n6. corroboration: T1003.001 is supported by 0 independent engine(s): none\n7. blast_radius: 15044 downstream entities: 14 Domain, 628 File, 35 IPAddress, 804 ModuleLoad, 353 Process, 13210 RegistryKey"
+  },
+  {
+   "incident": "Incident:nashua/7720/wsmprovhost.exe",
+   "score": 0.8659,
+   "breadth": 5,
+   "alerts": 81,
+   "members": 1,
+   "techniques": {
+    "T1003.001": 0.865875,
+    "T1021.003": 0.525,
+    "T1021.006": 0.63,
+    "T1059.001": 0.63,
+    "T1685.001": 0.63
+   },
+   "technique_sources": {
+    "T1003.001": [
+     "anvil",
+     "revenant"
+    ],
+    "T1021.003": [
+     "anvil"
+    ],
+    "T1021.006": [
+     "anvil"
+    ],
+    "T1059.001": [
+     "anvil"
+    ],
+    "T1685.001": [
+     "anvil"
+    ]
+   },
+   "attribution": [
+    [
+     "UNKNOWN",
+     0.266,
+     [
+      "dragnet"
+     ]
+    ],
+    [
+     "Threat Group-3390",
+     0.242,
+     [
+      "occam"
+     ]
+    ]
+   ],
+   "dragnet": "UNKNOWN (INSUFFICIENT, p=0.81)",
+   "occam": "Threat Group-3390 (low, p=0.50)",
+   "rootline_root_causes": "",
+   "report": "Investigation of Incident:nashua/7720/wsmprovhost.exe (Incident:nashua/7720/wsmprovhost.exe).\n1. incident: 2 processes grouped under story root Process:nashua/7720/wsmprovhost.exe; 81 alerts; strongest member Process:nashua/7720/wsmprovhost.exe [c151766, c151942]\n2. techniques: T1003.001 OS Credential Dumping: LSASS Memory (0.87); T1021.006 Remote Services: Windows Remote Management (0.63); T1059.001 Command and Scripting Interpreter: PowerShell (0.63); T1685.001 Disable or Modify Tools: Disable or Modify Windows Event Log (0.63); T1021.003 Remote Services: Distributed Component Object Model (0.53) [c151767, c151769, c151770]\n3. attribution: UNKNOWN 0.27 [dragnet]; Threat Group-3390 0.24 [occam] [c152022, c152028]\n4. posture: every observed technique had a detection fire\n5. root_cause: C:\\windows\\system32\\svchost.exe -k DcomLaunch -p -> C:\\windows\\system32\\wsmprovhost.exe -Embedding [c62750, c62776]\n6. corroboration: T1003.001 is supported by 0 independent engine(s): none\n7. blast_radius: 3452 downstream entities: 10 Domain, 194 File, 18 IPAddress, 411 ModuleLoad, 181 Process, 2638 RegistryKey"
+  },
+  {
+   "incident": "Incident:scranton/532/csrss.exe",
+   "score": 0.8278,
+   "breadth": 1,
+   "alerts": 1,
+   "members": 1,
+   "techniques": {
+    "T1003.001": 0.8278125
+   },
+   "technique_sources": {
+    "T1003.001": [
+     "anvil",
+     "revenant"
+    ]
+   },
+   "attribution": [],
+   "dragnet": null,
+   "occam": null,
+   "rootline_root_causes": "",
+   "report": "Investigation of Incident:scranton/532/csrss.exe (Incident:scranton/532/csrss.exe).\n1. incident: 2 processes grouped under story root Process:scranton/532/csrss.exe; 1 alerts; strongest member Process:scranton/532/csrss.exe [c151813, c151944]\n2. techniques: T1003.001 OS Credential Dumping: LSASS Memory (0.83) [c151814]\n3. attribution: no attribution claims (too few techniques, or intel engines not installed)\n4. posture: every observed technique had a detection fire\n5. root_cause: ? -> \\SystemRoot\\System32\\smss.exe -> \\SystemRoot\\System32\\smss.exe 00000118 00000084  -> %%SystemRoot%%\\system32\\csrss.exe ObjectDirectory=\\Windows SharedSection=1024,20 [c88128, c85358, c88699]\n6. corroboration: T1003.001 is supported by 0 independent engine(s): none\n7. blast_radius: 13747 downstream entities: 3 Domain, 114 File, 21 IPAddress, 708 ModuleLoad, 178 Process, 12723 RegistryKey"
+  },
+  {
+   "incident": "Incident:scranton/604/wininit.exe",
+   "score": 0.8278,
+   "breadth": 1,
+   "alerts": 1,
+   "members": 1,
+   "techniques": {
+    "T1003.001": 0.8278125
+   },
+   "technique_sources": {
+    "T1003.001": [
+     "anvil",
+     "revenant"
+    ]
+   },
+   "attribution": [],
+   "dragnet": null,
+   "occam": null,
+   "rootline_root_causes": "",
+   "report": "Investigation of Incident:scranton/604/wininit.exe (Incident:scranton/604/wininit.exe).\n1. incident: 3 processes grouped under story root Process:scranton/604/wininit.exe; 1 alerts; strongest member Process:scranton/604/wininit.exe [c151815, c151946, c151947]\n2. techniques: T1003.001 OS Credential Dumping: LSASS Memory (0.83) [c151816]\n3. attribution: no attribution claims (too few techniques, or intel engines not installed)\n4. posture: every observed technique had a detection fire\n5. root_cause: ? -> \\SystemRoot\\System32\\smss.exe -> \\SystemRoot\\System32\\smss.exe 00000118 00000084  -> wininit.exe [c88128, c85358, c88699]\n6. corroboration: T1003.001 is supported by 0 independent engine(s): none\n7. blast_radius: 13747 downstream entities: 3 Domain, 114 File, 21 IPAddress, 708 ModuleLoad, 178 Process, 12723 RegistryKey"
+  },
+  {
+   "incident": "Incident:scranton/3644/cmd.exe",
+   "score": 0.8243,
+   "breadth": 8,
+   "alerts": 28,
+   "members": 7,
+   "techniques": {
+    "T1021.003": 0.4125,
+    "T1027": 0.63,
+    "T1059.001": 0.82425,
+    "T1071.001": 0.3375,
+    "T1132.001": 0.525,
+    "T1140": 0.63,
+    "T1202": 0.28,
+    "T1564.003": 0.525
+   },
+   "technique_sources": {
+    "T1021.003": [
+     "revenant"
+    ],
+    "T1027": [
+     "anvil"
+    ],
+    "T1059.001": [
+     "anvil",
+     "revenant"
+    ],
+    "T1071.001": [
+     "revenant"
+    ],
+    "T1132.001": [
+     "anvil"
+    ],
+    "T1140": [
+     "anvil"
+    ],
+    "T1202": [
+     "anvil"
+    ],
+    "T1564.003": [
+     "anvil"
+    ]
+   },
+   "attribution": [
+    [
+     "Lazarus Group",
+     0.42,
+     [
+      "occam"
+     ]
+    ],
+    [
+     "UNKNOWN",
+     0.198,
+     [
+      "dragnet"
+     ]
+    ]
+   ],
+   "dragnet": "UNKNOWN (INSUFFICIENT, p=0.71)",
+   "occam": "Lazarus Group (moderate, p=0.68)",
+   "rootline_root_causes": "",
+   "report": "Investigation of Incident:scranton/3644/cmd.exe (Incident:scranton/3644/cmd.exe).\n1. incident: 8 processes grouped under story root Process:scranton/3644/cmd.exe; 28 alerts; strongest member Process:scranton/8704/powershell.exe [c151862, c151861, c151863]\n2. techniques: T1059.001 Command and Scripting Interpreter: PowerShell (0.82); T1027 Obfuscated Files or Information (0.63); T1140 Deobfuscate/Decode Files or Information (0.63); T1132.001 Data Encoding: Standard Encoding (0.53); T1564.003 Hide Artifacts: Hidden Window (0.53) [c151866, c151865, c151869]\n3. attribution: Lazarus Group 0.42 [occam]; UNKNOWN 0.20 [dragnet] [c152029, c152023]\n4. posture: coverage gaps: T1071.001=missed\n5. root_cause: ? -> \\SystemRoot\\System32\\smss.exe -> \\SystemRoot\\System32\\smss.exe 000000c4 00000084  -> winlogon.exe -> C:\\windows\\system32\\userinit.exe -> C:\\windows\\Explorer.EXE -> C:\\windows\\system32\\cmd.exe /c \"\"C:\\Windows\\System32\\hostui.bat\" \" -> powershell.exe  -c \"Start-Process C:\\Windows\\System32\\hostui.exe -verb runas\" -> \"C:\\Windows\\System32\\hostui.exe\"  -> powershell.exe -c \"Get-ItemPropertyValue 'HKLM:\\\\SOFTWARE\\Javasoft' 'value Suppl -> \"C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -nop -w hidden -e aQ [c88128, c111255, c121580]\n6. corroboration: T1059.001 is supported by 0 independent engine(s): none\n7. blast_radius: 13747 downstream entities: 3 Domain, 114 File, 21 IPAddress, 708 ModuleLoad, 178 Process, 12723 RegistryKey"
+  }
+ ],
+ "rootline": {
+  "reconstructions": 23,
+  "pivot_not_found": 2
+ }
+}
