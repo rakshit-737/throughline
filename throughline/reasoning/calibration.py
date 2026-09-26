@@ -103,7 +103,17 @@ class Platt:
         t_pos, t_neg = (n_pos + 1) / (n_pos + 2), 1 / (n_neg + 2)
         xs = [_logit(p) for p, _ in pairs]
         ts = [t_pos if y else t_neg for _, y in pairs]
+
+        def loss(a: float, b: float) -> float:
+            tot = 0.5 * l2 * a * a
+            for x, t in zip(xs, ts):
+                z = a * x + b
+                # log(1 + e^z) - t z, computed stably
+                tot += (z if z > 0 else 0.0) + math.log1p(math.exp(-abs(z))) - t * z
+            return tot
+
         a, b = 1.0, 0.0
+        cur = loss(a, b)
         for _ in range(iters):
             ga = gb = haa = hab = hbb = 0.0
             for x, t in zip(xs, ts):
@@ -123,8 +133,17 @@ class Platt:
                 break
             da = (hbb * ga - hab * gb) / det
             db = (haa * gb - hab * ga) / det
-            a, b = a - da, b - db
-            if abs(da) < 1e-9 and abs(db) < 1e-9:
+            step = 1.0
+            while step > 1e-6:  # backtracking: never accept a step that increases the loss
+                na, nb = a - step * da, b - step * db
+                new = loss(na, nb)
+                if new <= cur:
+                    break
+                step /= 2
+            else:
+                break
+            a, b, prev, cur = na, nb, cur, new
+            if prev - cur < 1e-10:
                 break
         return cls(round(a, 6), round(b, 6), len(pairs))
 
