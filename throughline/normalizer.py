@@ -5,7 +5,7 @@ by reference; nothing reaches the graph without passing `CanonicalEvent.validate
 """
 from __future__ import annotations
 
-from typing import Callable
+from collections.abc import Callable
 
 from .confidence import base_confidence
 from .contracts import CanonicalEvent, ContractError, canonical_hash
@@ -103,18 +103,35 @@ def normalize(raw: dict, connector: str, source: str | None = None,
     except KeyError as e:
         raise ContractError(f"{connector}: missing field {e}") from None
     h = canonical_hash(raw)
+    attributes = {str(k): ("".join(ch if ch.isprintable() else " " for ch in v) if isinstance(v, str) else v)
+                  for k, v in (mapped.pop("attributes", None) or {}).items()}
+    ts = mapped.pop("ts", None)
     method = mapped.pop("method", raw.get("method", "observed"))
     rel = mapped.pop("reliability", raw.get("reliability", reliability))
     src = mapped.pop("source", source or raw.get("source") or connector)
     ev = CanonicalEvent(
         event_id=f"ev-{h[:16]}",
-        ts=str(raw.get("ts", mapped.get("ts", "1970-01-01T00:00:00Z"))),
+        ts=str(raw.get("ts") or ts or "1970-01-01T00:00:00Z"),
         layer=mapped["layer"], actor_type=mapped["actor_type"], actor_id=str(mapped["actor_id"]),
         action=mapped["action"], object_type=mapped["object_type"], object_id=str(mapped["object_id"]),
         source=str(src), method=method, confidence=base_confidence(method, rel),
         raw_ref=raw_ref or f"raw://{connector}/{h}", hash=h, reliability=rel,
+        attributes=dict(attributes),
     )
     return ev.validate()
+
+
+@register_connector("windows")
+def _windows(raw: dict) -> dict:
+    """Sysmon / Security event log records (OTRF, Winlogbeat, NXLog JSON)."""
+    from .connectors.windows import map_windows
+    return map_windows(raw)
+
+
+@register_connector("ocsf")
+def _ocsf(raw: dict) -> dict:
+    from .connectors.ocsf import map_ocsf
+    return map_ocsf(raw)
 
 
 def verify(event: CanonicalEvent, raw: dict) -> bool:
