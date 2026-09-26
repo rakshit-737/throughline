@@ -53,7 +53,7 @@ throughline = "throughline.cli:main"
 include = ["throughline*"]
 
 [tool.setuptools.package-data]
-throughline = ["ui/*.html"]
+throughline = ["ui/*.html", "data/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

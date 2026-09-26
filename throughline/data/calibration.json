@@ -1,0 +1,7 @@
+{
+ "a": 1.581569,
+ "b": -2.312104,
+ "n": 769,
+ "fitted_on": "95 OTRF atomic captures (results/otrf_core.json), fused technique claims",
+ "caveat": "fitted on emulated attacks where every capture contains an attack; over-states probability on ordinary telemetry"
+}

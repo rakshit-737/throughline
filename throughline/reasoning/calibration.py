@@ -158,3 +158,15 @@ class Platt:
 def summary(pairs: list[tuple[float, bool]]) -> dict:
     return {"n": len(pairs), "positives": sum(1 for _, y in pairs if y),
             "brier": round(brier(pairs), 4), "ece": round(ece(pairs), 4), "auc": round(auc(pairs), 4)}
+
+
+_DEFAULT = Path(__file__).resolve().parents[1] / "data" / "calibration.json"
+
+
+def default_map() -> Platt | None:
+    """The Platt map fitted by ``benchmarks/bench_otrf.py`` (shipped in the package), or None."""
+    try:
+        d = json.loads(_DEFAULT.read_text(encoding="utf-8"))
+        return Platt(float(d["a"]), float(d["b"]), int(d.get("n", 0)))
+    except (OSError, ValueError, KeyError):
+        return None

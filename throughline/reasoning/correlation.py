@@ -24,6 +24,7 @@ from collections import defaultdict
 
 from ..contracts import Claim
 from ..graph import KnowledgeGraph
+from .calibration import default_map
 
 SOURCE = "correlation"
 # processes that sit above user/service activity: a story root is a child of one
@@ -119,6 +120,7 @@ class CorrelationEngine:
                     best[src] = max(best.get(src, 0.0), v)
         out: list[Claim] = []
         self.incidents = []
+        platt = default_map()
         for root, g in groups.items():
             inc_id = f"{g['host']}/{root.split('/', 1)[1] if '/' in root else root}"
             inc_key = f"Incident:{inc_id}"
@@ -148,7 +150,11 @@ class CorrelationEngine:
                     "pivot": pivot, "alerts": g["alerts"], "signals": len(g["signals"]),
                     "members": len(g["members"]), "techniques": ",".join(sorted(tconf))[:1000]}
             kg.set_attrs(inc_key, info)
+            if platt:
+                kg.set_attrs(inc_key, {"calibrated_score": round(platt(info["score"]), 4)})
             self.incidents.append({"incident": inc_key, **info, "technique_conf": dict(sorted(tconf.items())),
+                                   "technique_prob": {t: round(platt(c), 4) for t, c in sorted(tconf.items())}
+                                   if platt else {},
                                    "technique_sources": {t: dict(b) for t, b in sorted(g["sources"].items())}})
         self.incidents.sort(key=lambda i: (-i["score"], -i["breadth"], -i["alerts"], i["incident"]))
         context["incidents"] = self.incidents
