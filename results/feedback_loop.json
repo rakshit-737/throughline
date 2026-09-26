@@ -1,0 +1,870 @@
+{
+ "generated": "2026-09-26 20:00:45",
+ "python": "3.14.3",
+ "captures": 95,
+ "detected_before": 64,
+ "gaps": 31,
+ "backends": {
+  "heuristic": {
+   "gaps_with_novel_behaviour": 21,
+   "gaps_with_drafts": 17,
+   "drafts": 25,
+   "accepted_drafts": 4,
+   "rejected_fp": 20,
+   "rejected_no_own_hit": 1,
+   "gaps_closed": 4,
+   "coverage_before": 0.6737,
+   "coverage_after_in_sample": 0.7158,
+   "closed_with_same_technique_elsewhere": 0,
+   "rows": [
+    {
+     "capture": "SDWIN-190301125905",
+     "technique": "T1222.001",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-190319021158",
+     "technique": "T1087.002",
+     "novel": 2,
+     "drafted": 2,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Drafted: net /domain (THROUGHLINE gap SDWIN-190319021158)",
+       "own_hits": 2,
+       "fp_hits": 2
+      },
+      {
+       "title": "Drafted: net1 /domain (THROUGHLINE gap SDWIN-190319021158)",
+       "own_hits": 2,
+       "fp_hits": 2
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-190518201207",
+     "technique": "T1069.002",
+     "novel": 2,
+     "drafted": 2,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Drafted: net /domain (THROUGHLINE gap SDWIN-190518201207)",
+       "own_hits": 2,
+       "fp_hits": 2
+      },
+      {
+       "title": "Drafted: net1 /domain (THROUGHLINE gap SDWIN-190518201207)",
+       "own_hits": 2,
+       "fp_hits": 2
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-190518201922",
+     "technique": "T1112",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-190518203650",
+     "technique": "T1112",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-190518211052",
+     "technique": "T1021.003",
+     "novel": 20,
+     "drafted": 2,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Drafted: sc start (THROUGHLINE gap SDWIN-190518211052)",
+       "own_hits": 1,
+       "fp_hits": 5
+      },
+      {
+       "title": "Drafted: PowerShell New-ObjECt (THROUGHLINE gap SDWIN-190518211052)",
+       "own_hits": 1,
+       "fp_hits": 47
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-190519005224",
+     "technique": "T1049",
+     "novel": 5,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Drafted: PowerShell Get-ADCommonParameters, New-Object, Test-ADReplicationSite (THROUGHLINE gap SDWIN-19051900",
+       "own_hits": 2,
+       "fp_hits": 54
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200805034820",
+     "technique": "T1021.002",
+     "novel": 2,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Drafted: sc query (THROUGHLINE gap SDWIN-200805034820)",
+       "own_hits": 2,
+       "fp_hits": 8
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200806012009",
+     "technique": "T1021.002",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200806022635",
+     "technique": "T1021.002",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200806031938",
+     "technique": "T1021.002",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200806130039",
+     "technique": "T1069.002",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200916232559",
+     "technique": "T1210",
+     "novel": 2,
+     "drafted": 1,
+     "accepted": [
+      {
+       "title": "Drafted: mimikatz lsadump::zerologon /target:MORDORDC.theshire.local /account:MORDORDC$ (THROUGHLINE gap SDWIN",
+       "own_hits": 2,
+       "fp_hits": 0
+      }
+     ],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200917174542",
+     "technique": "T1021.003",
+     "novel": 6,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200918145959",
+     "technique": "T1021.003",
+     "novel": 7,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Drafted: PowerShell Get-ADCommonParameters, New-Object (THROUGHLINE gap SDWIN-200918145959)",
+       "own_hits": 2,
+       "fp_hits": 47
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201020013208",
+     "technique": "T1056.002",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201021001911",
+     "technique": "T1562.004",
+     "novel": 2,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Drafted: netsh advfirewall (THROUGHLINE gap SDWIN-201021001911)",
+       "own_hits": 4,
+       "fp_hits": 12
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201023020513",
+     "technique": "T1218",
+     "novel": 2,
+     "drafted": 2,
+     "accepted": [
+      {
+       "title": "Drafted: register-cimprovider -Path (THROUGHLINE gap SDWIN-201023020513)",
+       "own_hits": 2,
+       "fp_hits": 0
+      }
+     ],
+     "rejected": [
+      {
+       "title": "Drafted: PowerShell Register-CimProvider (THROUGHLINE gap SDWIN-201023020513)",
+       "own_hits": 0,
+       "fp_hits": 0
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201026235835",
+     "technique": "T1055",
+     "novel": 2,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201028191914",
+     "technique": "T1055",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201029001615",
+     "technique": "T1059",
+     "novel": 3,
+     "drafted": 1,
+     "accepted": [
+      {
+       "title": "Drafted: netsh name=python.exe description=python.exe (THROUGHLINE gap SDWIN-201029001615)",
+       "own_hits": 4,
+       "fp_hits": 0
+      }
+     ],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201102041306",
+     "technique": "T1059.001",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201102163918",
+     "technique": "T1012",
+     "novel": 1,
+     "drafted": 1,
+     "accepted": [
+      {
+       "title": "Drafted: seatbelt -group=user (THROUGHLINE gap SDWIN-201102163918)",
+       "own_hits": 2,
+       "fp_hits": 0
+      }
+     ],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201219075059",
+     "technique": "T1053.005",
+     "novel": 4,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-220630130349",
+     "technique": "T1562.002",
+     "novel": 9,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-220703123711",
+     "technique": "T1562.002",
+     "novel": 5,
+     "drafted": 2,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Drafted: reg add (THROUGHLINE gap SDWIN-220703123711)",
+       "own_hits": 2,
+       "fp_hits": 2
+      },
+      {
+       "title": "Drafted: PowerShell Export-WinEvents (THROUGHLINE gap SDWIN-220703123711)",
+       "own_hits": 1,
+       "fp_hits": 2
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-220705170038",
+     "technique": "T1562.002",
+     "novel": 18,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Drafted: wevtutil Security (THROUGHLINE gap SDWIN-220705170038)",
+       "own_hits": 4,
+       "fp_hits": 4
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-220708104215",
+     "technique": "T1562.002",
+     "novel": 20,
+     "drafted": 2,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Drafted: reg ADD (THROUGHLINE gap SDWIN-220708104215)",
+       "own_hits": 2,
+       "fp_hits": 2
+      },
+      {
+       "title": "Drafted: PowerShell Add-TcpTransport, Add-WebTransport, Export-WinEvents (THROUGHLINE gap SDWIN-220708104215)",
+       "own_hits": 8,
+       "fp_hits": 2
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-220708104300",
+     "technique": "T1562.002",
+     "novel": 32,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Drafted: PowerShell Add-TcpTransport, Add-WebTransport, Export-WinEvents (THROUGHLINE gap SDWIN-220708104300)",
+       "own_hits": 17,
+       "fp_hits": 3
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-220803205800",
+     "technique": "T1562.002",
+     "novel": 27,
+     "drafted": 3,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Drafted: reg ADD (THROUGHLINE gap SDWIN-220803205800)",
+       "own_hits": 2,
+       "fp_hits": 2
+      },
+      {
+       "title": "Drafted: sc start (THROUGHLINE gap SDWIN-220803205800)",
+       "own_hits": 1,
+       "fp_hits": 5
+      },
+      {
+       "title": "Drafted: PowerShell Add-TcpTransport, Add-WebTransport, Export-WinEvents (THROUGHLINE gap SDWIN-220803205800)",
+       "own_hits": 16,
+       "fp_hits": 2
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-230720004300",
+     "technique": "T1003.003",
+     "novel": 121,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Drafted: PowerShell Disable-NetAdapterChecksumOffload, Disable-NetAdapterIPsecOffload, Enable-NetAdapterBindin",
+       "own_hits": 101,
+       "fp_hits": 129
+      }
+     ],
+     "generalises_to": []
+    }
+   ],
+   "example_yaml": [
+    "title: 'Drafted: mimikatz lsadump::zerologon /target:MORDORDC.theshire.local /account:MORDORDC$ (THROUGHLINE gap\n  SDWIN'\nid: 5377b17c-1ac8-45e4-a943-87bc22714245\nstatus: experimental\ndescription: 'Auto-drafted from CTI: THROUGHLINE gap SDWIN-200916232559. Behaviour: `C:\\Users\\pgustavo\\Downloads\\mimikatz_trunk\\x64\\mimikatz.exe  \"lsadump::zerologon\n  /target:MORDORDC.theshire.local /account:MORDORDC$ /exploit\" exit`'\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1210\nlogsource:\n  product: windows\n  category: process_creation\ndetection:\n  selection_img:\n  - Image|endswith: \\mimikatz.exe\n  - OriginalFileName: mimikatz.exe\n  selection_cli:\n    CommandLine|contains|all:\n    - lsadump::zerologon\n    - /target:MORDORDC.theshire.local\n    - /account:MORDORDC$\n  condition: all of selection_*\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-200916232559\n",
+    "title: 'Drafted: register-cimprovider -Path (THROUGHLINE gap SDWIN-201023020513)'\nid: d5235e43-eaf2-4d43-bf53-a3edb41a3bd1\nstatus: experimental\ndescription: 'Auto-drafted from CTI: THROUGHLINE gap SDWIN-201023020513. Behaviour: `\"C:\\Windows\\SysWow64\\Register-CimProvider.exe\"\n  -Path C:\\ProgramData\\T1218-2.dll`'\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1218\nlogsource:\n  product: windows\n  category: process_creation\ndetection:\n  selection_img:\n  - Image|endswith: \\register-cimprovider.exe\n  - OriginalFileName: register-cimprovider.exe\n  selection_cli:\n    CommandLine|contains|all:\n    - -Path\n  condition: all of selection_*\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-201023020513\n"
+   ]
+  },
+  "keywords": {
+   "gaps_with_novel_behaviour": 21,
+   "gaps_with_drafts": 20,
+   "drafts": 20,
+   "accepted_drafts": 3,
+   "rejected_fp": 17,
+   "rejected_no_own_hit": 0,
+   "gaps_closed": 3,
+   "coverage_before": 0.6737,
+   "coverage_after_in_sample": 0.7053,
+   "closed_with_same_technique_elsewhere": 1,
+   "rows": [
+    {
+     "capture": "SDWIN-190301125905",
+     "technique": "T1222.001",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-190319021158",
+     "technique": "T1087.002",
+     "novel": 2,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-190319021158)",
+       "own_hits": 4,
+       "fp_hits": 13
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-190518201207",
+     "technique": "T1069.002",
+     "novel": 2,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-190518201207)",
+       "own_hits": 4,
+       "fp_hits": 13
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-190518201922",
+     "technique": "T1112",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-190518203650",
+     "technique": "T1112",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-190518211052",
+     "technique": "T1021.003",
+     "novel": 20,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-190518211052)",
+       "own_hits": 66,
+       "fp_hits": 1365
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-190519005224",
+     "technique": "T1049",
+     "novel": 5,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-190519005224)",
+       "own_hits": 4,
+       "fp_hits": 74
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200805034820",
+     "technique": "T1021.002",
+     "novel": 2,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-200805034820)",
+       "own_hits": 5,
+       "fp_hits": 60
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200806012009",
+     "technique": "T1021.002",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200806022635",
+     "technique": "T1021.002",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200806031938",
+     "technique": "T1021.002",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200806130039",
+     "technique": "T1069.002",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200916232559",
+     "technique": "T1210",
+     "novel": 2,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-200916232559)",
+       "own_hits": 5,
+       "fp_hits": 3
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-200917174542",
+     "technique": "T1021.003",
+     "novel": 6,
+     "drafted": 1,
+     "accepted": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-200917174542)",
+       "own_hits": 13,
+       "fp_hits": 0
+      }
+     ],
+     "rejected": [],
+     "generalises_to": [
+      "SDWIN-200918145959",
+      "SDWIN-201009183000"
+     ]
+    },
+    {
+     "capture": "SDWIN-200918145959",
+     "technique": "T1021.003",
+     "novel": 7,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-200918145959)",
+       "own_hits": 9,
+       "fp_hits": 47
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201020013208",
+     "technique": "T1056.002",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201021001911",
+     "technique": "T1562.004",
+     "novel": 2,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201023020513",
+     "technique": "T1218",
+     "novel": 2,
+     "drafted": 1,
+     "accepted": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-201023020513)",
+       "own_hits": 6,
+       "fp_hits": 0
+      }
+     ],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201026235835",
+     "technique": "T1055",
+     "novel": 2,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-201026235835)",
+       "own_hits": 5,
+       "fp_hits": 5
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201028191914",
+     "technique": "T1055",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201029001615",
+     "technique": "T1059",
+     "novel": 3,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-201029001615)",
+       "own_hits": 6,
+       "fp_hits": 66
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201102041306",
+     "technique": "T1059.001",
+     "novel": 0,
+     "drafted": 0,
+     "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201102163918",
+     "technique": "T1012",
+     "novel": 1,
+     "drafted": 1,
+     "accepted": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-201102163918)",
+       "own_hits": 2,
+       "fp_hits": 0
+      }
+     ],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-201219075059",
+     "technique": "T1053.005",
+     "novel": 4,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-201219075059)",
+       "own_hits": 9,
+       "fp_hits": 65
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-220630130349",
+     "technique": "T1562.002",
+     "novel": 9,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-220630130349)",
+       "own_hits": 30,
+       "fp_hits": 6
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-220703123711",
+     "technique": "T1562.002",
+     "novel": 5,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-220703123711)",
+       "own_hits": 15,
+       "fp_hits": 8
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-220705170038",
+     "technique": "T1562.002",
+     "novel": 18,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-220705170038)",
+       "own_hits": 20,
+       "fp_hits": 97
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-220708104215",
+     "technique": "T1562.002",
+     "novel": 20,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-220708104215)",
+       "own_hits": 31,
+       "fp_hits": 63
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-220708104300",
+     "technique": "T1562.002",
+     "novel": 32,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-220708104300)",
+       "own_hits": 61,
+       "fp_hits": 50
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-220803205800",
+     "technique": "T1562.002",
+     "novel": 27,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-220803205800)",
+       "own_hits": 46,
+       "fp_hits": 261
+      }
+     ],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-230720004300",
+     "technique": "T1003.003",
+     "novel": 121,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-230720004300)",
+       "own_hits": 103,
+       "fp_hits": 151
+      }
+     ],
+     "generalises_to": []
+    }
+   ],
+   "example_yaml": [
+    "title: Keyword baseline (THROUGHLINE gap SDWIN-200917174542)\nid: a1fbc1db-5986-4b70-a0fd-adb487d8a8b9\nstatus: experimental\ndescription: naive keyword rule\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1021.003\nlogsource:\n  product: windows\ndetection:\n  keywords:\n  - appvdllsurrogate64.exe\n  - excel.exe\n  - filesyncconfig.exe\n  - moveexcel4.exe\n  condition: keywords\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-200917174542\n",
+    "title: Keyword baseline (THROUGHLINE gap SDWIN-201023020513)\nid: 5287b0cc-82ef-4e50-8739-a02783cfa906\nstatus: experimental\ndescription: naive keyword rule\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1218\nlogsource:\n  product: windows\ndetection:\n  keywords:\n  - Register-CimProvider\n  - register-cimprovider.exe\n  - t1218-2.dll\n  condition: keywords\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-201023020513\n"
+   ]
+  }
+ },
+ "seconds": 580.8
+}
