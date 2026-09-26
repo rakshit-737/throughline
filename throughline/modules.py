@@ -1,9 +1,10 @@
 """Pluggable capability-engine interface.
 
-Engines interact ONLY through the graph + canonical contracts. Each sibling
-portfolio project slots in as one engine (see README "Roadmap"). Built-in
-engines here are minimal reference implementations; the sibling stubs are
-declared so the contract is visible, and return no claims until wired up.
+Engines interact ONLY through the graph + canonical contracts. The real
+sibling engines live in :mod:`throughline.engines` and are assembled by
+:class:`throughline.stack.Stack`. The default registry here serves the
+synthetic demo: the built-in ATT&CK mapper plus the declared slots, which keep
+the contract visible and return no claims on synthetic data.
 """
 from __future__ import annotations
 
@@ -47,7 +48,8 @@ class AttackMappingEngine:
 
 @dataclass
 class SiblingEngineStub:
-    """Declared slot for a sibling project; returns nothing until integrated."""
+    """Declared slot for a sibling project in the synthetic demo (the real adapter lives in
+    ``throughline.engines`` and runs through ``Stack``)."""
     name: str
     project: str
     reads: tuple[str, ...]
