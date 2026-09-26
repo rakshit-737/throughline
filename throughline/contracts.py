@@ -10,7 +10,7 @@ import json
 from dataclasses import asdict, dataclass, field
 from enum import Enum
 
-SCHEMA_VERSION = "0.1.0"
+SCHEMA_VERSION = "0.2.0"  # additive over 0.1.0, see docs/adr/0004-schema-0.2.md
 
 
 class Method(str, Enum):
@@ -55,13 +55,23 @@ NODE_TYPES = frozenset({
     "Control", "Detection", "Policy", "Vulnerability",
     # network endpoint (remote address)
     "IPAddress",
+    # 0.2.0 (ADR-0004): DNS names and derived incident clusters
+    "Domain", "Incident",
 })
 
 EDGE_TYPES = frozenset({
     "INTRODUCED", "BUILT_INTO", "RUNS", "SPAWNED", "WROTE", "CONNECTED_TO",
     "EXHIBITS", "ATTRIBUTED_TO", "SHOULD_DETECT", "MITIGATES", "EXPLOITS",
     "DEPENDS_ON", "DEPLOYED_AS", "AUTHORED", "LOADED", "READ",
+    # 0.2.0 (ADR-0004): richer endpoint telemetry, detections, incidents, intel, posture
+    "MODIFIED", "ACCESSED", "INJECTED_INTO", "DELETED", "RESOLVED", "LOGGED_ON",
+    "ALERTED_ON", "DETECTS", "PART_OF", "USES", "AFFECTS", "CAN_REACH",
 })
+
+#: Display metadata a connector may attach to an event (process image, command
+#: line, hashes...). Bounded so an untrusted connector cannot bloat the graph.
+MAX_ATTRIBUTES = 16
+MAX_ATTRIBUTE_LEN = 1024
 
 
 class ContractError(ValueError):
@@ -89,9 +99,10 @@ class CanonicalEvent:
     raw_ref: str
     hash: str
     reliability: str = "C"
+    attributes: dict = field(default_factory=dict)  # 0.2.0: optional display metadata
 
-    def validate(self) -> "CanonicalEvent":
-        if self.layer not in {l.value for l in Layer}:
+    def validate(self) -> CanonicalEvent:
+        if self.layer not in {x.value for x in Layer}:
             raise ContractError(f"bad layer {self.layer!r}")
         for t in (self.actor_type, self.object_type):
             if t not in NODE_TYPES:
@@ -106,6 +117,14 @@ class CanonicalEvent:
             raise ContractError("confidence out of [0,1]")
         if not self.actor_id or not self.object_id:
             raise ContractError("actor_id/object_id required")
+        if not isinstance(self.attributes, dict) or len(self.attributes) > MAX_ATTRIBUTES:
+            raise ContractError("attributes must be a mapping of at most "
+                                f"{MAX_ATTRIBUTES} entries")
+        for k, v in self.attributes.items():
+            if not isinstance(k, str) or not isinstance(v, (str, int, float, bool)):
+                raise ContractError("attribute keys must be str and values scalar")
+            if isinstance(v, str) and len(v) > MAX_ATTRIBUTE_LEN:
+                raise ContractError(f"attribute {k!r} too long")
         return self
 
     def to_dict(self) -> dict:

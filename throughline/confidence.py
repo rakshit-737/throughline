@@ -21,6 +21,11 @@ def base_confidence(method: str, reliability: str) -> float:
     return round(METHOD_PRIOR.get(method, 0.3) * RELIABILITY_WEIGHT.get(reliability, 0.5), 4)
 
 
+def scored_confidence(score: float, reliability: str) -> float:
+    """Base confidence for an engine that reports its own probability (ADR-0006)."""
+    return round(max(0.0, min(float(score), CAP)) * RELIABILITY_WEIGHT.get(reliability, 0.5), 4)
+
+
 def _independent(claims: list[Claim]) -> list[float]:
     best: dict[str, float] = {}
     for c in claims:
