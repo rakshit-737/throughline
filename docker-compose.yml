@@ -1,0 +1,17 @@
+services:
+  throughline:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"   # localhost only: the API has no authentication
+    volumes:
+      - ${THROUGHLINE_DATA:-../../datasets/throughline}:/data:ro
+    # to serve a real capture instead of the synthetic demo:
+    # command: ["python", "-m", "throughline", "serve", "--host", "0.0.0.0", "--capture", "SDWIN-201018195009"]
+  neo4j:
+    profiles: ["neo4j"]
+    image: neo4j:5
+    ports:
+      - "127.0.0.1:7474:7474"
+      - "127.0.0.1:7687:7687"
+    environment:
+      NEO4J_AUTH: neo4j/change-me-please
