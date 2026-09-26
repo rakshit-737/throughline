@@ -66,13 +66,29 @@ class TracegateSupplyChainEngine:
     writes = ("AUTHORED", "INTRODUCED", "AFFECTS")
 
     def __init__(self, repo: str | Path, manifest: str = "requirements.txt", osv_cache: str | Path | None = None,
-                 online: bool = False, limit: int | None = None):
+                 online: bool = False, limit: int | None = None, osv_zip: str | Path | None = None):
         self.repo, self.manifest, self.limit = Path(repo), manifest, limit
         self.osv_cache = Path(osv_cache) if osv_cache else None
+        self.osv_zip = Path(osv_zip) if osv_zip else None
         self.online = online
         self.history: list = []
+        self.severity: dict[str, str] = {}
 
     def osv(self, deps: list[str]) -> dict[str, list[str]]:
+        """Advisory ids per ``name==version``: from an offline OSV dump (preferred), else the
+        cache / online API."""
+        if self.osv_zip and self.osv_zip.exists():
+            from tracegate.osv import OsvIndex
+            idx = OsvIndex.from_zip(self.osv_zip, "pypi")
+            out: dict[str, list[str]] = {}
+            for d in deps:
+                name, ver = d.split("==", 1)
+                vs = idx.vulns(name, ver)
+                if vs:
+                    out[d] = [v.id for v in vs]
+                    for v in vs:
+                        self.severity[v.id] = v.severity or "UNKNOWN"
+            return out
         cache: dict[str, list[str]] = {}
         if self.osv_cache and self.osv_cache.exists():
             cache = json.loads(self.osv_cache.read_text(encoding="utf-8"))
@@ -98,6 +114,8 @@ class TracegateSupplyChainEngine:
         deps = sorted({f"{n}=={v}" for mc in self.history for n, v in mc.added.items()})
         if self.history:
             out += osv_claims(kg, self.osv(deps), _iso(self.history[-1].timestamp))
+            for vid, sev in self.severity.items():
+                kg.set_attrs(f"Vulnerability:{vid}", {"severity": sev})
         return out
 
 

@@ -22,6 +22,8 @@ baseline  NextronSystems/evtx-baseline win10-client (benign)  public (repository
           not part of `all` (the loop's false-positive gate uses unrelated OTRF captures)
 cis       CIS Controls v8 -> ATT&CK v8.2 master mapping (xlsx)  CIS (free, attribution)
 misp      MISP galaxy threat-actor cluster (sponsor country)  CC0-1.0 / BSD-2-Clause
+osv       OSV.dev PyPI advisory dump (rolling; date + sha256 recorded in osv/MANIFEST.json)  CC-BY 4.0
+repos     healthchecks/healthchecks git history @ pinned commit (supply-chain demo)  BSD-3-Clause
 """
 from __future__ import annotations
 
@@ -311,8 +313,36 @@ def fetch_misp(f: Fetcher, d: Path) -> None:
           d / "misp" / "misp-threat-actor.json", "misp-threat-actor.json")
 
 
+OSV_URL = "https://osv-vulnerabilities.storage.googleapis.com/PyPI/all.zip"
+REPOS = {"healthchecks": ("https://github.com/healthchecks/healthchecks", "3731fc452b0ddca253e48d8ff7968b12539df125")}
+
+
+def fetch_osv(f: Fetcher, d: Path) -> None:
+    """Rolling feed: not pinned; the download date and digest are recorded instead."""
+    print("[osv] OSV.dev PyPI advisories (rolling snapshot)")
+    dest = d / "osv" / "PyPI-all.zip"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    if f.force or not dest.exists():
+        _download(OSV_URL, dest)
+    manifest = {"source": OSV_URL, "downloaded": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(dest.stat().st_mtime)),
+                "sha256": sha256(dest), "bytes": dest.stat().st_size}
+    (d / "osv" / "MANIFEST.json").write_text(json.dumps(manifest, indent=1))
+    print(f"  -> {dest} ({manifest['downloaded']})")
+
+
+def fetch_repos(f: Fetcher, d: Path) -> None:
+    for name, (url, commit) in REPOS.items():
+        print(f"[repos] {name} @ {commit[:10]}")
+        dest = d / "repos" / name
+        if not (dest / ".git").exists():
+            subprocess.run(["git", "clone", "-q", "--filter=blob:none", url, str(dest)], check=True)
+        subprocess.run(["git", "-C", str(dest), "checkout", "-q", commit], check=True)
+        print(f"  -> {dest}")
+
+
 SOURCES = {"attack": fetch_attack, "sigma": fetch_sigma, "otrf": fetch_otrf,
-           "baseline": fetch_baseline, "cis": fetch_cis, "misp": fetch_misp}
+           "baseline": fetch_baseline, "cis": fetch_cis, "misp": fetch_misp, "osv": fetch_osv,
+           "repos": fetch_repos}
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -331,7 +361,7 @@ def main(argv: list[str] | None = None) -> int:
         for n in names:
             try:
                 SOURCES[n](f, d)
-            except OSError as exc:  # keep going: one blocked host must not cost the other sources
+            except (OSError, subprocess.CalledProcessError) as exc:  # keep going: one blocked host must not cost the other sources
                 failed[n] = str(exc)[:200]
                 print(f"  FAILED {n}: {failed[n]}", flush=True)
     finally:
