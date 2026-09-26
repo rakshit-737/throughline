@@ -1,0 +1,92 @@
+"""Pluggable capability-engine interface.
+
+Engines interact ONLY through the graph + canonical contracts. Each sibling
+portfolio project slots in as one engine (see README "Roadmap"). Built-in
+engines here are minimal reference implementations; the sibling stubs are
+declared so the contract is visible, and return no claims until wired up.
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from typing import Protocol, runtime_checkable
+
+from .attack import map_event
+from .contracts import Claim, node_key
+from .graph import KnowledgeGraph
+
+
+@runtime_checkable
+class Engine(Protocol):
+    name: str
+    reads: tuple[str, ...]
+    writes: tuple[str, ...]
+
+    def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]: ...
+
+
+class AttackMappingEngine:
+    """Detection-ish engine: tags events' actor nodes with ATT&CK techniques."""
+    name = "attack-mapping"
+    reads = ("events",)
+    writes = ("EXHIBITS",)
+
+    def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
+        raw_ctx: dict = context.get("raw_context", {})
+        out = []
+        for ev in list(kg.events.values()):
+            for tech, reason in map_event(ev, raw_ctx.get(ev.event_id, {})):
+                subj = node_key(ev.object_type, ev.object_id) if ev.action in ("INTRODUCED", "SPAWNED") \
+                    else node_key(ev.actor_type, ev.actor_id)
+                base = kg._by_assertion.get(
+                    (node_key(ev.actor_type, ev.actor_id), ev.action, node_key(ev.object_type, ev.object_id)), [])
+                out.append(kg.tag_technique(subj, tech, reason, source=self.name, ts=ev.ts,
+                                            corroboration=list(base)))
+        return out
+
+
+@dataclass
+class SiblingEngineStub:
+    """Declared slot for a sibling project; returns nothing until integrated."""
+    name: str
+    project: str
+    reads: tuple[str, ...]
+    writes: tuple[str, ...]
+    todo: str = "integrate sibling project behind this interface"
+    grade: str = "B/C"
+
+    def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
+        return []
+
+
+SIBLING_SLOTS = [
+    SiblingEngineStub("attack-path", "LINCHPIN", ("Host", "Vulnerability", "User"), ("EXPLOITS",)),
+    SiblingEngineStub("posture", "VANTAGE", ("Control", "Detection", "Technique"), ("SHOULD_DETECT", "MITIGATES")),
+    SiblingEngineStub("provenance", "REVENANT + ROOTLINE", ("Process", "File"), ("SPAWNED", "WROTE")),
+    SiblingEngineStub("malware", "VITRINE + SPECIMEN", ("Sample",), ("EXHIBITS", "ATTRIBUTED_TO")),
+    SiblingEngineStub("supply-chain", "TRACEGATE", ("Commit", "Dependency", "Build"), ("INTRODUCED", "BUILT_INTO")),
+    SiblingEngineStub("detection", "FEINT + ANVIL", ("events", "Technique"), ("Detection",)),
+    SiblingEngineStub("intel", "OCCAM + DRAGNET", ("IOC", "Technique"), ("ATTRIBUTED_TO",)),
+    SiblingEngineStub("simulation", "GAUNTLET", ("Technique",), ("events",), grade="B/D"),
+]
+
+
+@dataclass
+class EngineRegistry:
+    engines: list = field(default_factory=list)
+
+    def register(self, engine) -> None:
+        if not isinstance(engine, Engine):
+            raise TypeError(f"{engine!r} does not satisfy the Engine protocol")
+        self.engines.append(engine)
+
+    def run_all(self, kg: KnowledgeGraph, context: dict | None = None) -> dict[str, int]:
+        ctx = context or {}
+        return {e.name: len(e.run(kg, ctx)) for e in self.engines}
+
+
+def default_registry() -> EngineRegistry:
+    reg = EngineRegistry()
+    reg.register(AttackMappingEngine())
+    for s in SIBLING_SLOTS:
+        reg.register(s)
+    return reg
