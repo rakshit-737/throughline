@@ -45,6 +45,24 @@ def combine(primary: Claim, supporting: list[Claim], contradicting: list[Claim])
     return round(min(combined, CAP), 4)
 
 
+def combine_best(best: dict[str, float], extra: list[Claim], worst_contra: float | None) -> float:
+    """``combine`` with the per-source maxima of an assertion's claims precomputed.
+
+    Every claim about one assertion shares the same independent-source maxima, so the
+    graph computes them once per assertion (linear) instead of once per claim (quadratic
+    when one process repeats the same action thousands of times)."""
+    vals = dict(best)
+    for c in extra:
+        vals[c.source] = max(vals.get(c.source, 0.0), c.base_confidence)
+    miss = 1.0
+    for v in vals.values():
+        miss *= 1.0 - v
+    combined = 1.0 - miss
+    if worst_contra is not None:
+        combined *= 1.0 - worst_contra * CONFLICT_WEIGHT
+    return round(min(combined, CAP), 4)
+
+
 def explain(primary: Claim, supporting: list[Claim], contradicting: list[Claim]) -> dict:
     return {
         "claim": primary.claim_id,

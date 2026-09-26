@@ -156,11 +156,15 @@ class KnowledgeGraph:
                 for o2, other in groups.items():
                     if o2 != o:
                         contra.extend(other)
+            best: dict[str, float] = {}
             for c in claims:
-                support = [x for x in claims if x is not c]
-                support += [self.claims[x] for x in c.corroboration if x in self.claims]
-                c.confidence = conf.combine(c, support, contra)
-                c.contradicts = [x.claim_id for x in contra]
+                best[c.source] = max(best.get(c.source, 0.0), c.base_confidence)
+            worst = max((x.base_confidence for x in contra), default=None)
+            contra_ids = [x.claim_id for x in contra]
+            for c in claims:
+                extra = [self.claims[x] for x in c.corroboration if x in self.claims]
+                c.confidence = conf.combine_best(best, extra, worst)
+                c.contradicts = list(contra_ids)
             if o is not None:
                 self.g.edges[s, o, predicate]["confidence"] = max(c.confidence for c in claims)
 
