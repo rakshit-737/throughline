@@ -3,7 +3,7 @@ on: [push, pull_request]
 permissions:
   contents: read
 jobs:
-  test:
+  core:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -13,6 +13,19 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - run: pip install -r requirements.txt
-      - run: make test
-      - run: make demo
+      - run: pip install -e ".[dev,api]"
+      - run: ruff check .
+      - run: python -m pytest -q
+      - run: python -m throughline demo && python -m throughline --false-flag demo
+  engines:
+    # the sibling projects installed from their pinned commits; runs the whole
+    # stack on the committed real fixture captures
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev,api,engines]"
+      - run: python -m pytest -q -rs
+      - run: python -m throughline capture SDWIN-201018195009 --data tests/fixtures/data
