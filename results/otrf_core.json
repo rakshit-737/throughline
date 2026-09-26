@@ -1,0 +1,3414 @@
+{
+ "generated": "2026-09-26 19:41:06",
+ "python": "3.14.3",
+ "captures": 95,
+ "sigma_subset": "core",
+ "sigma_rules": 2410,
+ "seconds_total": 887.0,
+ "seconds_setup": 1.9,
+ "engine_load_s": {
+  "attack": 0.41,
+  "sigma-core": 1.43
+ },
+ "methods": {
+  "sigma": {
+   "recall": 0.6737,
+   "recall_ci": [
+    0.5789,
+    0.7684
+   ],
+   "hit@1": 0.3368,
+   "hit@1_ci": [
+    0.2421,
+    0.4316
+   ],
+   "mrr": 0.4566,
+   "mrr_ci": [
+    0.3748,
+    0.5381
+   ],
+   "calibration": {
+    "n": 653,
+    "positives": 107,
+    "brier": 0.2691,
+    "ece": 0.3712,
+    "auc": 0.6648
+   },
+   "reliability": [
+    {
+     "bin": "0.2-0.3",
+     "n": 101,
+     "mean_conf": 0.28,
+     "accuracy": 0.0
+    },
+    {
+     "bin": "0.4-0.5",
+     "n": 67,
+     "mean_conf": 0.42,
+     "accuracy": 0.0597
+    },
+    {
+     "bin": "0.5-0.6",
+     "n": 135,
+     "mean_conf": 0.525,
+     "accuracy": 0.1852
+    },
+    {
+     "bin": "0.6-0.7",
+     "n": 327,
+     "mean_conf": 0.63,
+     "accuracy": 0.208
+    },
+    {
+     "bin": "0.7-0.8",
+     "n": 23,
+     "mean_conf": 0.7,
+     "accuracy": 0.4348
+    }
+   ]
+  },
+  "revenant": {
+   "recall": 0.4316,
+   "recall_ci": [
+    0.3368,
+    0.5263
+   ],
+   "hit@1": 0.3053,
+   "hit@1_ci": [
+    0.2105,
+    0.4
+   ],
+   "mrr": 0.3577,
+   "mrr_ci": [
+    0.2675,
+    0.446
+   ],
+   "calibration": {
+    "n": 189,
+    "positives": 43,
+    "brier": 0.1978,
+    "ece": 0.2164,
+    "auc": 0.724
+   },
+   "reliability": [
+    {
+     "bin": "0.2-0.3",
+     "n": 22,
+     "mean_conf": 0.2284,
+     "accuracy": 0.0455
+    },
+    {
+     "bin": "0.3-0.4",
+     "n": 65,
+     "mean_conf": 0.3548,
+     "accuracy": 0.0462
+    },
+    {
+     "bin": "0.4-0.5",
+     "n": 39,
+     "mean_conf": 0.4519,
+     "accuracy": 0.4872
+    },
+    {
+     "bin": "0.5-0.6",
+     "n": 40,
+     "mean_conf": 0.525,
+     "accuracy": 0.25
+    },
+    {
+     "bin": "0.6-0.7",
+     "n": 23,
+     "mean_conf": 0.6277,
+     "accuracy": 0.4348
+    }
+   ]
+  },
+  "max": {
+   "recall": 0.6947,
+   "recall_ci": [
+    0.6,
+    0.7789
+   ],
+   "hit@1": 0.3474,
+   "hit@1_ci": [
+    0.2526,
+    0.4421
+   ],
+   "mrr": 0.4638,
+   "mrr_ci": [
+    0.3814,
+    0.545
+   ],
+   "calibration": {
+    "n": 769,
+    "positives": 113,
+    "brier": 0.2522,
+    "ece": 0.3647,
+    "auc": 0.7071
+   },
+   "reliability": [
+    {
+     "bin": "0.2-0.3",
+     "n": 122,
+     "mean_conf": 0.2711,
+     "accuracy": 0.0082
+    },
+    {
+     "bin": "0.3-0.4",
+     "n": 61,
+     "mean_conf": 0.3553,
+     "accuracy": 0.0
+    },
+    {
+     "bin": "0.4-0.5",
+     "n": 85,
+     "mean_conf": 0.4255,
+     "accuracy": 0.0706
+    },
+    {
+     "bin": "0.5-0.6",
+     "n": 141,
+     "mean_conf": 0.525,
+     "accuracy": 0.1844
+    },
+    {
+     "bin": "0.6-0.7",
+     "n": 337,
+     "mean_conf": 0.6303,
+     "accuracy": 0.2077
+    },
+    {
+     "bin": "0.7-0.8",
+     "n": 23,
+     "mean_conf": 0.7,
+     "accuracy": 0.4348
+    }
+   ]
+  },
+  "fused": {
+   "recall": 0.6947,
+   "recall_ci": [
+    0.6,
+    0.7789
+   ],
+   "hit@1": 0.4,
+   "hit@1_ci": [
+    0.3053,
+    0.4947
+   ],
+   "mrr": 0.5105,
+   "mrr_ci": [
+    0.4259,
+    0.5943
+   ],
+   "calibration": {
+    "n": 769,
+    "positives": 113,
+    "brier": 0.2573,
+    "ece": 0.3791,
+    "auc": 0.7538
+   },
+   "reliability": [
+    {
+     "bin": "0.2-0.3",
+     "n": 123,
+     "mean_conf": 0.2712,
+     "accuracy": 0.0163
+    },
+    {
+     "bin": "0.3-0.4",
+     "n": 61,
+     "mean_conf": 0.3553,
+     "accuracy": 0.0
+    },
+    {
+     "bin": "0.4-0.5",
+     "n": 83,
+     "mean_conf": 0.4256,
+     "accuracy": 0.0602
+    },
+    {
+     "bin": "0.5-0.6",
+     "n": 135,
+     "mean_conf": 0.5252,
+     "accuracy": 0.1407
+    },
+    {
+     "bin": "0.6-0.7",
+     "n": 293,
+     "mean_conf": 0.6303,
+     "accuracy": 0.1672
+    },
+    {
+     "bin": "0.7-0.8",
+     "n": 32,
+     "mean_conf": 0.7337,
+     "accuracy": 0.625
+    },
+    {
+     "bin": "0.8-0.9",
+     "n": 42,
+     "mean_conf": 0.8349,
+     "accuracy": 0.4286
+    }
+   ]
+  },
+  "fused+cal": {
+   "calibration": {
+    "n": 769,
+    "positives": 113,
+    "brier": 0.1098,
+    "ece": 0.0359,
+    "auc": 0.7435
+   },
+   "reliability": [
+    {
+     "bin": "0.0-0.1",
+     "n": 314,
+     "mean_conf": 0.0454,
+     "accuracy": 0.0541
+    },
+    {
+     "bin": "0.1-0.2",
+     "n": 379,
+     "mean_conf": 0.1688,
+     "accuracy": 0.1504
+    },
+    {
+     "bin": "0.2-0.3",
+     "n": 17,
+     "mean_conf": 0.2756,
+     "accuracy": 0.4118
+    },
+    {
+     "bin": "0.3-0.4",
+     "n": 11,
+     "mean_conf": 0.3528,
+     "accuracy": 0.7273
+    },
+    {
+     "bin": "0.4-0.5",
+     "n": 8,
+     "mean_conf": 0.4632,
+     "accuracy": 1.0
+    },
+    {
+     "bin": "0.5-0.6",
+     "n": 28,
+     "mean_conf": 0.5304,
+     "accuracy": 0.3214
+    },
+    {
+     "bin": "0.6-0.7",
+     "n": 11,
+     "mean_conf": 0.6416,
+     "accuracy": 0.5455
+    },
+    {
+     "bin": "0.7-0.8",
+     "n": 1,
+     "mean_conf": 0.7431,
+     "accuracy": 1.0
+    }
+   ],
+   "platt_folds": [
+    {
+     "a": 1.54369,
+     "b": -2.242162
+    },
+    {
+     "a": 1.480343,
+     "b": -2.252406
+    },
+    {
+     "a": 1.696234,
+     "b": -2.411665
+    },
+    {
+     "a": 1.592412,
+     "b": -2.394453
+    },
+    {
+     "a": 1.576586,
+     "b": -2.254483
+    }
+   ]
+  }
+ },
+ "platt_full": {
+  "a": 1.581569,
+  "b": -2.312104,
+  "n": 769
+ },
+ "p_fused_vs_sigma_mrr": 0.013,
+ "p_fused_vs_max_mrr": 0.0215,
+ "compression": {
+  "alerts_total": 5994,
+  "incidents_total": 376,
+  "alerts_per_capture_median": 17,
+  "incidents_per_capture_median": 2,
+  "ratio": 15.94,
+  "truth_in_top_incident": 0.5579,
+  "truth_in_any_incident": 0.6737
+ },
+ "per_capture": [
+  {
+   "id": "SDWIN-190301125905",
+   "title": "Empire Powerview Add-DomainObjectAcl",
+   "truth": [
+    "T1222.001"
+   ],
+   "events": 9002,
+   "alerts": 44,
+   "incidents": 3,
+   "truth_incident_rank": null,
+   "seconds": 6.300999999999999,
+   "claimed": 12,
+   "fused_top": [
+    [
+     0.63,
+     "T1482"
+    ],
+    [
+     0.63,
+     "T1098"
+    ],
+    [
+     0.63,
+     "T1087.002"
+    ],
+    [
+     0.63,
+     "T1087.001"
+    ],
+    [
+     0.63,
+     "T1087"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190301174830",
+   "title": "Empire DCSync",
+   "truth": [
+    "T1003.006"
+   ],
+   "events": 8465,
+   "alerts": 13,
+   "incidents": 2,
+   "truth_incident_rank": 1,
+   "seconds": 5.291,
+   "claimed": 9,
+   "fused_top": [
+    [
+     0.63,
+     "T1003.006"
+    ],
+    [
+     0.63,
+     "T1003.004"
+    ],
+    [
+     0.63,
+     "T1003.002"
+    ],
+    [
+     0.63,
+     "T1003.001"
+    ],
+    [
+     0.42,
+     "T1087.001"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190319021158",
+   "title": "Empire Net Domain Users",
+   "truth": [
+    "T1087.002"
+   ],
+   "events": 633,
+   "alerts": 6,
+   "incidents": 2,
+   "truth_incident_rank": 2,
+   "seconds": 0.252,
+   "claimed": 3,
+   "fused_top": [
+    [
+     0.525,
+     "T1201"
+    ],
+    [
+     0.28,
+     "T1531"
+    ],
+    [
+     0.262,
+     "T1087"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190319023812",
+   "title": "Empire Userland Registry Run Keys",
+   "truth": [
+    "T1547.001"
+   ],
+   "events": 40569,
+   "alerts": 292,
+   "incidents": 19,
+   "truth_incident_rank": 4,
+   "seconds": 33.893,
+   "claimed": 32,
+   "fused_top": [
+    [
+     0.828,
+     "T1003.001"
+    ],
+    [
+     0.824,
+     "T1059.001"
+    ],
+    [
+     0.757,
+     "T1547.001"
+    ],
+    [
+     0.63,
+     "T1685"
+    ],
+    [
+     0.63,
+     "T1133"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190319024742",
+   "title": "Empire Userland Scheduled Tasks",
+   "truth": [
+    "T1053.005"
+   ],
+   "events": 1297,
+   "alerts": 15,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 0.93,
+   "claimed": 7,
+   "fused_top": [
+    [
+     0.796,
+     "T1053.005"
+    ],
+    [
+     0.63,
+     "T1218"
+    ],
+    [
+     0.63,
+     "T1140"
+    ],
+    [
+     0.63,
+     "T1059.005"
+    ],
+    [
+     0.63,
+     "T1059.001"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190319131123",
+   "title": "Empire Over-Pass-The-Hash",
+   "truth": [
+    "T1550.002"
+   ],
+   "events": 10271,
+   "alerts": 183,
+   "incidents": 3,
+   "truth_incident_rank": 2,
+   "seconds": 6.1899999999999995,
+   "claimed": 13,
+   "fused_top": [
+    [
+     0.866,
+     "T1003.001"
+    ],
+    [
+     0.63,
+     "T1550.002"
+    ],
+    [
+     0.63,
+     "T1003.006"
+    ],
+    [
+     0.63,
+     "T1003.004"
+    ],
+    [
+     0.63,
+     "T1003.002"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190319145126",
+   "title": "Rubeus Userland ASKTGT PTT",
+   "truth": [
+    "T1003.003"
+   ],
+   "events": 1179,
+   "alerts": 12,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 0.942,
+   "claimed": 5,
+   "fused_top": [
+    [
+     0.7,
+     "T1558.003"
+    ],
+    [
+     0.7,
+     "T1550.003"
+    ],
+    [
+     0.7,
+     "T1003"
+    ],
+    [
+     0.525,
+     "T1558"
+    ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190403133337",
+   "title": "IKEEXT Remote Service DLL Hijack",
+   "truth": [
+    "T1574.001"
+   ],
+   "events": 6349,
+   "alerts": 218,
+   "incidents": 5,
+   "truth_incident_rank": 1,
+   "seconds": 4.05,
+   "claimed": 7,
+   "fused_top": [
+    [
+     0.685,
+     "T1574.001"
+    ],
+    [
+     0.63,
+     "T1036"
+    ],
+    [
+     0.63,
+     "T1021.002"
+    ],
+    [
+     0.525,
+     "T1059.001"
+    ],
+    [
+     0.42,
+     "T1489"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190518182022",
+   "title": "Empire VBS Execution",
+   "truth": [
+    "T1059.005"
+   ],
+   "events": 2067,
+   "alerts": 17,
+   "incidents": 2,
+   "truth_incident_rank": 1,
+   "seconds": 2.106,
+   "claimed": 8,
+   "fused_top": [
+    [
+     0.824,
+     "T1059.001"
+    ],
+    [
+     0.63,
+     "T1685"
+    ],
+    [
+     0.45,
+     "T1059.003"
+    ],
+    [
+     0.42,
+     "T1087.001"
+    ],
+    [
+     0.42,
+     "T1033"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190518184306",
+   "title": "Empire Elevated WMI Eventing",
+   "truth": [
+    "T1546.003"
+   ],
+   "events": 79896,
+   "alerts": 376,
+   "incidents": 24,
+   "truth_incident_rank": 10,
+   "seconds": 74.101,
+   "claimed": 30,
+   "fused_top": [
+    [
+     0.828,
+     "T1003.001"
+    ],
+    [
+     0.824,
+     "T1059.001"
+    ],
+    [
+     0.739,
+     "T1047"
+    ],
+    [
+     0.63,
+     "T1685.001"
+    ],
+    [
+     0.63,
+     "T1685"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190518200432",
+   "title": "Empire PSInject",
+   "truth": [
+    "T1055.003"
+   ],
+   "events": 5898,
+   "alerts": 201,
+   "incidents": 4,
+   "truth_incident_rank": 1,
+   "seconds": 3.471,
+   "claimed": 7,
+   "fused_top": [
+    [
+     0.63,
+     "T1685"
+    ],
+    [
+     0.63,
+     "T1059.001"
+    ],
+    [
+     0.63,
+     "T1055"
+    ],
+    [
+     0.525,
+     "T1055.003"
+    ],
+    [
+     0.525,
+     "T1021.003"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190518201207",
+   "title": "Empire Shell Net Domain Admins",
+   "truth": [
+    "T1069.002"
+   ],
+   "events": 1749,
+   "alerts": 16,
+   "incidents": 2,
+   "truth_incident_rank": null,
+   "seconds": 1.214,
+   "claimed": 4,
+   "fused_top": [
+    [
+     0.63,
+     "T1087.002"
+    ],
+    [
+     0.525,
+     "T1087.001"
+    ],
+    [
+     0.28,
+     "T1531"
+    ],
+    [
+     0.262,
+     "T1087"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190518201922",
+   "title": "Empire WDigest Downgrade",
+   "truth": [
+    "T1112"
+   ],
+   "events": 2710,
+   "alerts": 0,
+   "incidents": 0,
+   "truth_incident_rank": null,
+   "seconds": 0.618,
+   "claimed": 0,
+   "fused_top": []
+  },
+  {
+   "id": "SDWIN-190518202151",
+   "title": "Empire Mimikatz LogonPasswords",
+   "truth": [
+    "T1003.001"
+   ],
+   "events": 6026,
+   "alerts": 15,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 3.08,
+   "claimed": 6,
+   "fused_top": [
+    [
+     0.828,
+     "T1003.001"
+    ],
+    [
+     0.42,
+     "T1087.001"
+    ],
+    [
+     0.42,
+     "T1033"
+    ],
+    [
+     0.338,
+     "T1071.001"
+    ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190518203650",
+   "title": "Empire Enable RDP",
+   "truth": [
+    "T1112"
+   ],
+   "events": 2668,
+   "alerts": 0,
+   "incidents": 0,
+   "truth_incident_rank": null,
+   "seconds": 0.512,
+   "claimed": 0,
+   "fused_top": []
+  },
+  {
+   "id": "SDWIN-190518210125",
+   "title": "Empire Invoke SMBExec",
+   "truth": [
+    "T1021.002"
+   ],
+   "events": 7504,
+   "alerts": 44,
+   "incidents": 7,
+   "truth_incident_rank": 4,
+   "seconds": 8.402,
+   "claimed": 17,
+   "fused_top": [
+    [
+     0.828,
+     "T1003.001"
+    ],
+    [
+     0.824,
+     "T1059.001"
+    ],
+    [
+     0.63,
+     "T1685"
+    ],
+    [
+     0.63,
+     "T1569.002"
+    ],
+    [
+     0.63,
+     "T1548"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190518210652",
+   "title": "Empire Invoke PsExec",
+   "truth": [
+    "T1021"
+   ],
+   "events": 4348,
+   "alerts": 40,
+   "incidents": 7,
+   "truth_incident_rank": 4,
+   "seconds": 4.644,
+   "claimed": 22,
+   "fused_top": [
+    [
+     0.824,
+     "T1059.001"
+    ],
+    [
+     0.63,
+     "T1685"
+    ],
+    [
+     0.63,
+     "T1569.002"
+    ],
+    [
+     0.63,
+     "T1548"
+    ],
+    [
+     0.63,
+     "T1543.003"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190518211052",
+   "title": "Empire Invoke DCOM ShellWindows",
+   "truth": [
+    "T1021.003"
+   ],
+   "events": 32706,
+   "alerts": 28,
+   "incidents": 10,
+   "truth_incident_rank": 1,
+   "seconds": 28.965,
+   "claimed": 16,
+   "fused_top": [
+    [
+     0.824,
+     "T1059.001"
+    ],
+    [
+     0.637,
+     "T1003.001"
+    ],
+    [
+     0.63,
+     "T1685"
+    ],
+    [
+     0.525,
+     "T1564.003"
+    ],
+    [
+     0.525,
+     "T1491.001"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190518211456",
+   "title": "Empire Invoke PSRemoting",
+   "truth": [
+    "T1021.006"
+   ],
+   "events": 2744,
+   "alerts": 33,
+   "incidents": 6,
+   "truth_incident_rank": 1,
+   "seconds": 2.7489999999999997,
+   "claimed": 11,
+   "fused_top": [
+    [
+     0.824,
+     "T1059.001"
+    ],
+    [
+     0.63,
+     "T1685"
+    ],
+    [
+     0.63,
+     "T1190"
+    ],
+    [
+     0.63,
+     "T1021.006"
+    ],
+    [
+     0.525,
+     "T1021.003"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190518213907",
+   "title": "Empire Invoke Execute MSBuild",
+   "truth": [
+    "T1047"
+   ],
+   "events": 4559,
+   "alerts": 40,
+   "incidents": 5,
+   "truth_incident_rank": 1,
+   "seconds": 3.98,
+   "claimed": 13,
+   "fused_top": [
+    [
+     0.824,
+     "T1059.001"
+    ],
+    [
+     0.739,
+     "T1047"
+    ],
+    [
+     0.63,
+     "T1685"
+    ],
+    [
+     0.63,
+     "T1021.002"
+    ],
+    [
+     0.525,
+     "T1027.004"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190518221344",
+   "title": "Empire Invoke DLLInjection",
+   "truth": [
+    "T1055.001"
+   ],
+   "events": 12200,
+   "alerts": 463,
+   "incidents": 5,
+   "truth_incident_rank": 2,
+   "seconds": 7.519,
+   "claimed": 8,
+   "fused_top": [
+    [
+     0.525,
+     "T1201"
+    ],
+    [
+     0.525,
+     "T1087"
+    ],
+    [
+     0.525,
+     "T1059.001"
+    ],
+    [
+     0.525,
+     "T1055.003"
+    ],
+    [
+     0.525,
+     "T1055"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190518224039",
+   "title": "Empire Find Local Admin Access",
+   "truth": [
+    "T1069.001"
+   ],
+   "events": 4570,
+   "alerts": 77,
+   "incidents": 6,
+   "truth_incident_rank": 1,
+   "seconds": 3.965,
+   "claimed": 13,
+   "fused_top": [
+    [
+     0.63,
+     "T1482"
+    ],
+    [
+     0.63,
+     "T1087.002"
+    ],
+    [
+     0.63,
+     "T1087.001"
+    ],
+    [
+     0.63,
+     "T1087"
+    ],
+    [
+     0.63,
+     "T1069.002"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190518230752",
+   "title": "Empire Mimikatz Extract Kerberos Keys",
+   "truth": [
+    "T1003.004"
+   ],
+   "events": 13199,
+   "alerts": 6,
+   "incidents": 2,
+   "truth_incident_rank": 2,
+   "seconds": 9.739,
+   "claimed": 9,
+   "fused_top": [
+    [
+     0.7,
+     "T1558"
+    ],
+    [
+     0.63,
+     "T1003.006"
+    ],
+    [
+     0.63,
+     "T1003.004"
+    ],
+    [
+     0.63,
+     "T1003.002"
+    ],
+    [
+     0.63,
+     "T1003.001"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190518235535",
+   "title": "Empire Mimikatz Backup Keys",
+   "truth": [
+    "T1003"
+   ],
+   "events": 7887,
+   "alerts": 13,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 5.045999999999999,
+   "claimed": 10,
+   "fused_top": [
+    [
+     0.63,
+     "T1555"
+    ],
+    [
+     0.63,
+     "T1552.004"
+    ],
+    [
+     0.63,
+     "T1003.006"
+    ],
+    [
+     0.63,
+     "T1003.004"
+    ],
+    [
+     0.63,
+     "T1003.002"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190519005224",
+   "title": "Empire Remote Get Session",
+   "truth": [
+    "T1049"
+   ],
+   "events": 5047,
+   "alerts": 304,
+   "incidents": 2,
+   "truth_incident_rank": null,
+   "seconds": 2.569,
+   "claimed": 10,
+   "fused_top": [
+    [
+     0.63,
+     "T1482"
+    ],
+    [
+     0.63,
+     "T1087.002"
+    ],
+    [
+     0.63,
+     "T1087.001"
+    ],
+    [
+     0.63,
+     "T1087"
+    ],
+    [
+     0.63,
+     "T1069.002"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190625103712",
+   "title": "Empire Mimikatz SAM Extract Hashes",
+   "truth": [
+    "T1003.002"
+   ],
+   "events": 12349,
+   "alerts": 17,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 9.196,
+   "claimed": 9,
+   "fused_top": [
+    [
+     0.866,
+     "T1003.001"
+    ],
+    [
+     0.63,
+     "T1012"
+    ],
+    [
+     0.63,
+     "T1003.006"
+    ],
+    [
+     0.63,
+     "T1003.004"
+    ],
+    [
+     0.63,
+     "T1003.002"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190625133822",
+   "title": "Empire Reg Dump SAM Hive",
+   "truth": [
+    "T1003.002"
+   ],
+   "events": 738,
+   "alerts": 3,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 0.5589999999999999,
+   "claimed": 4,
+   "fused_top": [
+    [
+     0.63,
+     "T1003.005"
+    ],
+    [
+     0.63,
+     "T1003.004"
+    ],
+    [
+     0.63,
+     "T1003.002"
+    ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-191027055035",
+   "title": "RDP TaskManager LSASS Dump",
+   "truth": [
+    "T1003.001"
+   ],
+   "events": 5489,
+   "alerts": 20,
+   "incidents": 4,
+   "truth_incident_rank": 1,
+   "seconds": 4.72,
+   "claimed": 6,
+   "fused_top": [
+    [
+     0.828,
+     "T1003.001"
+    ],
+    [
+     0.63,
+     "T1133"
+    ],
+    [
+     0.63,
+     "T1110"
+    ],
+    [
+     0.63,
+     "T1078"
+    ],
+    [
+     0.525,
+     "T1055"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-191027223020",
+   "title": "Covenant ShellCmd InstallUtil",
+   "truth": [
+    "T1218.004"
+   ],
+   "events": 1730,
+   "alerts": 19,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 1.5899999999999999,
+   "claimed": 5,
+   "fused_top": [
+    [
+     0.63,
+     "T1564.003"
+    ],
+    [
+     0.63,
+     "T1059.001"
+    ],
+    [
+     0.525,
+     "T1218.011"
+    ],
+    [
+     0.525,
+     "T1218.010"
+    ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-191225045202",
+   "title": "Empire Invoke InternalMonologue",
+   "truth": [
+    "T1112"
+   ],
+   "events": 1635,
+   "alerts": 88,
+   "incidents": 4,
+   "truth_incident_rank": 1,
+   "seconds": 1.141,
+   "claimed": 5,
+   "fused_top": [
+    [
+     0.796,
+     "T1112"
+    ],
+    [
+     0.63,
+     "T1685.001"
+    ],
+    [
+     0.63,
+     "T1685"
+    ],
+    [
+     0.338,
+     "T1071.001"
+    ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200609225055",
+   "title": "MSF Record Mic",
+   "truth": [
+    "T1123"
+   ],
+   "events": 6202,
+   "alerts": 27,
+   "incidents": 4,
+   "truth_incident_rank": 1,
+   "seconds": 5.589,
+   "claimed": 6,
+   "fused_top": [
+    [
+     0.703,
+     "T1123"
+    ],
+    [
+     0.525,
+     "T1201"
+    ],
+    [
+     0.525,
+     "T1059"
+    ],
+    [
+     0.525,
+     "T1003.001"
+    ],
+    [
+     0.375,
+     "T1070.006"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200721232741",
+   "title": "Empire Regsvr32 Execution",
+   "truth": [
+    "T1218.010"
+   ],
+   "events": 2390,
+   "alerts": 25,
+   "incidents": 3,
+   "truth_incident_rank": 1,
+   "seconds": 2.691,
+   "claimed": 8,
+   "fused_top": [
+    [
+     0.824,
+     "T1218.010"
+    ],
+    [
+     0.824,
+     "T1059.001"
+    ],
+    [
+     0.63,
+     "T1685"
+    ],
+    [
+     0.525,
+     "T1559.001"
+    ],
+    [
+     0.375,
+     "T1070.006"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200722001847",
+   "title": "Empire Elevated Registry Run Keys",
+   "truth": [
+    "T1547.001"
+   ],
+   "events": 657,
+   "alerts": 7,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 0.356,
+   "claimed": 3,
+   "fused_top": [
+    [
+     0.757,
+     "T1547.001"
+    ],
+    [
+     0.338,
+     "T1071.001"
+    ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200724174200",
+   "title": "Covenant Remote WMI Eventing ActiveScriptEventConsumers",
+   "truth": [
+    "T1047"
+   ],
+   "events": 3719,
+   "alerts": 32,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 2.538,
+   "claimed": 3,
+   "fused_top": [
+    [
+     0.525,
+     "T1546.003"
+    ],
+    [
+     0.525,
+     "T1047"
+    ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200805020926",
+   "title": "Covenant DCSync",
+   "truth": [
+    "T1003.006"
+   ],
+   "events": 869,
+   "alerts": 8,
+   "incidents": 0,
+   "truth_incident_rank": null,
+   "seconds": 0.751,
+   "claimed": 2,
+   "fused_top": [
+    [
+     0.525,
+     "T1003.006"
+    ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200805034820",
+   "title": "Covenant SC.exe Utility Query",
+   "truth": [
+    "T1021.002"
+   ],
+   "events": 629,
+   "alerts": 3,
+   "incidents": 0,
+   "truth_incident_rank": null,
+   "seconds": 0.564,
+   "claimed": 1,
+   "fused_top": [
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200806012009",
+   "title": "Covenant SharpSC Query",
+   "truth": [
+    "T1021.002"
+   ],
+   "events": 349,
+   "alerts": 5,
+   "incidents": 0,
+   "truth_incident_rank": null,
+   "seconds": 0.29,
+   "claimed": 1,
+   "fused_top": [
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200806015757",
+   "title": "Covenant Remote File Copy",
+   "truth": [
+    "T1021.002"
+   ],
+   "events": 506,
+   "alerts": 3,
+   "incidents": 0,
+   "truth_incident_rank": null,
+   "seconds": 0.426,
+   "claimed": 2,
+   "fused_top": [
+    [
+     0.63,
+     "T1021.002"
+    ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200806022635",
+   "title": "Covenant SharpSC Create",
+   "truth": [
+    "T1021.002"
+   ],
+   "events": 3390,
+   "alerts": 16,
+   "incidents": 0,
+   "truth_incident_rank": null,
+   "seconds": 2.4339999999999997,
+   "claimed": 1,
+   "fused_top": [
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200806030120",
+   "title": "Covenant SharpSC Start",
+   "truth": [
+    "T1021.002"
+   ],
+   "events": 6046,
+   "alerts": 199,
+   "incidents": 2,
+   "truth_incident_rank": 1,
+   "seconds": 3.4130000000000003,
+   "claimed": 4,
+   "fused_top": [
+    [
+     0.525,
+     "T1087"
+    ],
+    [
+     0.525,
+     "T1059.001"
+    ],
+    [
+     0.525,
+     "T1021.003"
+    ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200806031938",
+   "title": "Covenant SharpSC Stop Service",
+   "truth": [
+    "T1021.002"
+   ],
+   "events": 1264,
+   "alerts": 9,
+   "incidents": 1,
+   "truth_incident_rank": null,
+   "seconds": 1.046,
+   "claimed": 3,
+   "fused_top": [
+    [
+     0.525,
+     "T1059"
+    ],
+    [
+     0.525,
+     "T1003.001"
+    ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200806035621",
+   "title": "Covenant SharpWMI Exec",
+   "truth": [
+    "T1047"
+   ],
+   "events": 2343,
+   "alerts": 19,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 1.8359999999999999,
+   "claimed": 5,
+   "fused_top": [
+    [
+     0.63,
+     "T1564.003"
+    ],
+    [
+     0.63,
+     "T1059.001"
+    ],
+    [
+     0.525,
+     "T1047"
+    ],
+    [
+     0.28,
+     "T1531"
+    ],
+    [
+     0.28,
+     "T1202"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200806115603",
+   "title": "Covenant PowerShell Remoting Command",
+   "truth": [
+    "T1021.006"
+   ],
+   "events": 4284,
+   "alerts": 149,
+   "incidents": 4,
+   "truth_incident_rank": 1,
+   "seconds": 3.629,
+   "claimed": 7,
+   "fused_top": [
+    [
+     0.866,
+     "T1003.001"
+    ],
+    [
+     0.63,
+     "T1685.001"
+    ],
+    [
+     0.63,
+     "T1059.001"
+    ],
+    [
+     0.63,
+     "T1021.006"
+    ],
+    [
+     0.525,
+     "T1021.003"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200806130039",
+   "title": "Covenant GetDomainGroup Domain Admins",
+   "truth": [
+    "T1069.002"
+   ],
+   "events": 619,
+   "alerts": 3,
+   "incidents": 1,
+   "truth_incident_rank": null,
+   "seconds": 0.358,
+   "claimed": 2,
+   "fused_top": [
+    [
+     0.525,
+     "T1001.003"
+    ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200807103913",
+   "title": "Empire Mimikatz Lsadump LSA Patch",
+   "truth": [
+    "T1003.001"
+   ],
+   "events": 6982,
+   "alerts": 19,
+   "incidents": 2,
+   "truth_incident_rank": 1,
+   "seconds": 4.505,
+   "claimed": 9,
+   "fused_top": [
+    [
+     0.866,
+     "T1003.001"
+    ],
+    [
+     0.63,
+     "T1003.006"
+    ],
+    [
+     0.63,
+     "T1003.004"
+    ],
+    [
+     0.63,
+     "T1003.002"
+    ],
+    [
+     0.42,
+     "T1087.001"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200904032946",
+   "title": "Invoke BypassUAC FodHelper",
+   "truth": [
+    "T1548.002"
+   ],
+   "events": 4139,
+   "alerts": 135,
+   "incidents": 2,
+   "truth_incident_rank": 1,
+   "seconds": 3.832,
+   "claimed": 10,
+   "fused_top": [
+    [
+     0.857,
+     "T1548.002"
+    ],
+    [
+     0.824,
+     "T1059.001"
+    ],
+    [
+     0.63,
+     "T1685"
+    ],
+    [
+     0.525,
+     "T1033"
+    ],
+    [
+     0.42,
+     "T1087.001"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200914080546",
+   "title": "Empire Remote WMIC Add User",
+   "truth": [
+    "T1047"
+   ],
+   "events": 12278,
+   "alerts": 32,
+   "incidents": 3,
+   "truth_incident_rank": 1,
+   "seconds": 8.076,
+   "claimed": 8,
+   "fused_top": [
+    [
+     0.739,
+     "T1047"
+    ],
+    [
+     0.525,
+     "T1136.001"
+    ],
+    [
+     0.42,
+     "T1686.003"
+    ],
+    [
+     0.42,
+     "T1098"
+    ],
+    [
+     0.375,
+     "T1070.006"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200916232559",
+   "title": "Mimikatz Netlogon Unauthenticated NetrServerAuthenticate2",
+   "truth": [
+    "T1210"
+   ],
+   "events": 790,
+   "alerts": 15,
+   "incidents": 1,
+   "truth_incident_rank": null,
+   "seconds": 0.679,
+   "claimed": 7,
+   "fused_top": [
+    [
+     0.63,
+     "T1059.003"
+    ],
+    [
+     0.63,
+     "T1003.006"
+    ],
+    [
+     0.63,
+     "T1003.005"
+    ],
+    [
+     0.63,
+     "T1003.004"
+    ],
+    [
+     0.63,
+     "T1003.002"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200917174542",
+   "title": "DCOM ExecuteExcel4macro",
+   "truth": [
+    "T1021.003"
+   ],
+   "events": 8121,
+   "alerts": 20,
+   "incidents": 5,
+   "truth_incident_rank": null,
+   "seconds": 9.238999999999999,
+   "claimed": 5,
+   "fused_top": [
+    [
+     0.525,
+     "T1547.001"
+    ],
+    [
+     0.525,
+     "T1203"
+    ],
+    [
+     0.375,
+     "T1070.006"
+    ],
+    [
+     0.28,
+     "T1531"
+    ],
+    [
+     0.28,
+     "T1204.002"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200918145959",
+   "title": "DCOM RegisterXLL",
+   "truth": [
+    "T1021.003"
+   ],
+   "events": 5504,
+   "alerts": 200,
+   "incidents": 2,
+   "truth_incident_rank": null,
+   "seconds": 3.772,
+   "claimed": 4,
+   "fused_top": [
+    [
+     0.525,
+     "T1203"
+    ],
+    [
+     0.525,
+     "T1059.001"
+    ],
+    [
+     0.42,
+     "T1201"
+    ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200921001437",
+   "title": "Empire Invoke WMI",
+   "truth": [
+    "T1047"
+   ],
+   "events": 6383,
+   "alerts": 320,
+   "incidents": 6,
+   "truth_incident_rank": 1,
+   "seconds": 4.08,
+   "claimed": 10,
+   "fused_top": [
+    [
+     0.824,
+     "T1059.001"
+    ],
+    [
+     0.739,
+     "T1047"
+    ],
+    [
+     0.63,
+     "T1685"
+    ],
+    [
+     0.42,
+     "T1201"
+    ],
+    [
+     0.42,
+     "T1087.001"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200921175806",
+   "title": "Empire Elevated Scheduled Tasks",
+   "truth": [
+    "T1053.005"
+   ],
+   "events": 59399,
+   "alerts": 292,
+   "incidents": 26,
+   "truth_incident_rank": 5,
+   "seconds": 49.080000000000005,
+   "claimed": 26,
+   "fused_top": [
+    [
+     0.828,
+     "T1003.001"
+    ],
+    [
+     0.824,
+     "T1059.001"
+    ],
+    [
+     0.796,
+     "T1053.005"
+    ],
+    [
+     0.757,
+     "T1547.001"
+    ],
+    [
+     0.63,
+     "T1685"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200921230246",
+   "title": "Rubeus Elevated ASKTGT CreateNetOnly",
+   "truth": [
+    "T1003.003"
+   ],
+   "events": 3590,
+   "alerts": 17,
+   "incidents": 4,
+   "truth_incident_rank": 1,
+   "seconds": 2.726,
+   "claimed": 10,
+   "fused_top": [
+    [
+     0.7,
+     "T1558.003"
+    ],
+    [
+     0.7,
+     "T1550.003"
+    ],
+    [
+     0.7,
+     "T1003"
+    ],
+    [
+     0.63,
+     "T1550.002"
+    ],
+    [
+     0.63,
+     "T1003.001"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-200922042230",
+   "title": "Empire Powerdump Extract Hashes",
+   "truth": [
+    "T1003.002"
+   ],
+   "events": 1182,
+   "alerts": 20,
+   "incidents": 3,
+   "truth_incident_rank": 1,
+   "seconds": 0.839,
+   "claimed": 5,
+   "fused_top": [
+    [
+     0.828,
+     "T1003.001"
+    ],
+    [
+     0.63,
+     "T1012"
+    ],
+    [
+     0.525,
+     "T1027.004"
+    ],
+    [
+     0.375,
+     "T1070.006"
+    ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201009173318",
+   "title": "Covenant Remote WMI Wbemcomn DLL Hijacking",
+   "truth": [
+    "T1047"
+   ],
+   "events": 8947,
+   "alerts": 216,
+   "incidents": 9,
+   "truth_incident_rank": 2,
+   "seconds": 6.067,
+   "claimed": 14,
+   "fused_top": [
+    [
+     0.828,
+     "T1003.001"
+    ],
+    [
+     0.739,
+     "T1047"
+    ],
+    [
+     0.7,
+     "T1021.002"
+    ],
+    [
+     0.685,
+     "T1574.001"
+    ],
+    [
+     0.63,
+     "T1055"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201009183000",
+   "title": "Covenant Remote DCOM Iertutil DLL Hijacking",
+   "truth": [
+    "T1021.003"
+   ],
+   "events": 37814,
+   "alerts": 42,
+   "incidents": 20,
+   "truth_incident_rank": 1,
+   "seconds": 37.512,
+   "claimed": 13,
+   "fused_top": [
+    [
+     0.824,
+     "T1055"
+    ],
+    [
+     0.7,
+     "T1021.003"
+    ],
+    [
+     0.7,
+     "T1021.002"
+    ],
+    [
+     0.63,
+     "T1574.001"
+    ],
+    [
+     0.63,
+     "T1036"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201012183248",
+   "title": "Covenant Wuauclt CreateRemoteThread Execution",
+   "truth": [
+    "T1218"
+   ],
+   "events": 1326,
+   "alerts": 16,
+   "incidents": 3,
+   "truth_incident_rank": 1,
+   "seconds": 0.92,
+   "claimed": 5,
+   "fused_top": [
+    [
+     0.824,
+     "T1218"
+    ],
+    [
+     0.824,
+     "T1055"
+    ],
+    [
+     0.42,
+     "T1055.011"
+    ],
+    [
+     0.28,
+     "T1531"
+    ],
+    [
+     0.28,
+     "T1202"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201017061100",
+   "title": "WMIC Remote XSL Jscript Execution",
+   "truth": [
+    "T1220"
+   ],
+   "events": 1364,
+   "alerts": 7,
+   "incidents": 4,
+   "truth_incident_rank": 2,
+   "seconds": 0.956,
+   "claimed": 8,
+   "fused_top": [
+    [
+     0.637,
+     "T1003.001"
+    ],
+    [
+     0.63,
+     "T1220"
+    ],
+    [
+     0.63,
+     "T1059.007"
+    ],
+    [
+     0.63,
+     "T1059.005"
+    ],
+    [
+     0.63,
+     "T1047"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201018195009",
+   "title": "Lsass Memory Dump via Comsvcs.dll",
+   "truth": [
+    "T1003.001"
+   ],
+   "events": 184,
+   "alerts": 15,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 0.162,
+   "claimed": 4,
+   "fused_top": [
+    [
+     0.866,
+     "T1003.001"
+    ],
+    [
+     0.739,
+     "T1218.011"
+    ],
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1036"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201018225619",
+   "title": "Lsass Memory Dump via Syscalls",
+   "truth": [
+    "T1003.001"
+   ],
+   "events": 118,
+   "alerts": 12,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 0.134,
+   "claimed": 5,
+   "fused_top": [
+    [
+     0.891,
+     "T1003.001"
+    ],
+    [
+     0.7,
+     "T1588.002"
+    ],
+    [
+     0.7,
+     "T1003"
+    ],
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1685"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201019002900",
+   "title": "SAM Copy via Esentutl VSS",
+   "truth": [
+    "T1003.002"
+   ],
+   "events": 915,
+   "alerts": 47,
+   "incidents": 2,
+   "truth_incident_rank": 1,
+   "seconds": 0.735,
+   "claimed": 6,
+   "fused_top": [
+    [
+     0.852,
+     "T1003.002"
+    ],
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1490"
+    ],
+    [
+     0.63,
+     "T1218"
+    ],
+    [
+     0.63,
+     "T1105"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201019033054",
+   "title": "Psexec Reg LSA Secrets Dump",
+   "truth": [
+    "T1003.004"
+   ],
+   "events": 286,
+   "alerts": 16,
+   "incidents": 2,
+   "truth_incident_rank": 1,
+   "seconds": 0.304,
+   "claimed": 9,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1021.002"
+    ],
+    [
+     0.63,
+     "T1003.005"
+    ],
+    [
+     0.63,
+     "T1003.004"
+    ],
+    [
+     0.63,
+     "T1003.002"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201019224718",
+   "title": "Logon Scripts via UserInitMprLogonScript",
+   "truth": [
+    "T1037.001"
+   ],
+   "events": 122,
+   "alerts": 7,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 0.13599999999999998,
+   "claimed": 3,
+   "fused_top": [
+    [
+     0.824,
+     "T1037.001"
+    ],
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.525,
+     "T1547.001"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201019232515",
+   "title": "Mavinject Process DLL Injection",
+   "truth": [
+    "T1055"
+   ],
+   "events": 509,
+   "alerts": 9,
+   "incidents": 2,
+   "truth_incident_rank": 1,
+   "seconds": 0.483,
+   "claimed": 8,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1218.013"
+    ],
+    [
+     0.63,
+     "T1055.001"
+    ],
+    [
+     0.525,
+     "T1218"
+    ],
+    [
+     0.525,
+     "T1055.003"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201020013208",
+   "title": "UI Prompt For Credentials Function",
+   "truth": [
+    "T1056.002"
+   ],
+   "events": 163,
+   "alerts": 2,
+   "incidents": 0,
+   "truth_incident_rank": null,
+   "seconds": 0.135,
+   "claimed": 1,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201021001911",
+   "title": "Netsh Open FW Proxy Ports",
+   "truth": [
+    "T1562.004"
+   ],
+   "events": 2366,
+   "alerts": 6,
+   "incidents": 1,
+   "truth_incident_rank": null,
+   "seconds": 0.8009999999999999,
+   "claimed": 3,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.525,
+     "T1686.003"
+    ],
+    [
+     0.45,
+     "T1686"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201021204544",
+   "title": "Service Modification Fax",
+   "truth": [
+    "T1543.003"
+   ],
+   "events": 437,
+   "alerts": 14,
+   "incidents": 3,
+   "truth_incident_rank": 1,
+   "seconds": 0.369,
+   "claimed": 6,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1569.002"
+    ],
+    [
+     0.63,
+     "T1548"
+    ],
+    [
+     0.63,
+     "T1543.003"
+    ],
+    [
+     0.63,
+     "T1059.001"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201021232814",
+   "title": "Internet Explorer Version Discovery",
+   "truth": [
+    "T1518"
+   ],
+   "events": 68,
+   "alerts": 4,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 0.092,
+   "claimed": 2,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.525,
+     "T1518"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201022002145",
+   "title": "HH Execution of Local Compiled HTML Payload",
+   "truth": [
+    "T1218.001"
+   ],
+   "events": 1221,
+   "alerts": 12,
+   "incidents": 3,
+   "truth_incident_rank": 1,
+   "seconds": 1.009,
+   "claimed": 17,
+   "fused_top": [
+    [
+     0.796,
+     "T1218.001"
+    ],
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1566.001"
+    ],
+    [
+     0.63,
+     "T1566"
+    ],
+    [
+     0.63,
+     "T1218.011"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201022013121",
+   "title": "Control Panel Execution",
+   "truth": [
+    "T1218.002"
+   ],
+   "events": 1291,
+   "alerts": 9,
+   "incidents": 3,
+   "truth_incident_rank": 1,
+   "seconds": 1.117,
+   "claimed": 9,
+   "fused_top": [
+    [
+     0.755,
+     "T1218.002"
+    ],
+    [
+     0.739,
+     "T1218.011"
+    ],
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1546"
+    ],
+    [
+     0.525,
+     "T1218.010"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201022015432",
+   "title": "CMSTP Proxy Execution",
+   "truth": [
+    "T1218.003"
+   ],
+   "events": 1166,
+   "alerts": 13,
+   "incidents": 3,
+   "truth_incident_rank": 1,
+   "seconds": 0.737,
+   "claimed": 10,
+   "fused_top": [
+    [
+     0.824,
+     "T1218.003"
+    ],
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1559.001"
+    ],
+    [
+     0.63,
+     "T1548.002"
+    ],
+    [
+     0.525,
+     "T1059"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201022022144",
+   "title": "Mshta Javascript GetObject Sct",
+   "truth": [
+    "T1218.005"
+   ],
+   "events": 1151,
+   "alerts": 21,
+   "incidents": 3,
+   "truth_incident_rank": 1,
+   "seconds": 0.977,
+   "claimed": 9,
+   "fused_top": [
+    [
+     0.81,
+     "T1218.005"
+    ],
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1218"
+    ],
+    [
+     0.63,
+     "T1105"
+    ],
+    [
+     0.525,
+     "T1112"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201022025808",
+   "title": "Mshta VBScript Execute PowerShell",
+   "truth": [
+    "T1218.005"
+   ],
+   "events": 1127,
+   "alerts": 23,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 0.7769999999999999,
+   "claimed": 11,
+   "fused_top": [
+    [
+     0.81,
+     "T1218.005"
+    ],
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1140"
+    ],
+    [
+     0.63,
+     "T1059.007"
+    ],
+    [
+     0.63,
+     "T1059.001"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201022035214",
+   "title": "Mshta HTML Application (HTA) Execution",
+   "truth": [
+    "T1218.005"
+   ],
+   "events": 1553,
+   "alerts": 25,
+   "incidents": 3,
+   "truth_incident_rank": 1,
+   "seconds": 1.1460000000000001,
+   "claimed": 15,
+   "fused_top": [
+    [
+     0.81,
+     "T1218.005"
+    ],
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1547.001"
+    ],
+    [
+     0.63,
+     "T1218"
+    ],
+    [
+     0.63,
+     "T1204.002"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201022042947",
+   "title": "PurpleSharp Active Directory Playbook I",
+   "truth": [
+    "T1021.006",
+    "T1110.003",
+    "T1135",
+    "T1558.003"
+   ],
+   "events": 25993,
+   "alerts": 550,
+   "incidents": 11,
+   "truth_incident_rank": 1,
+   "seconds": 20.177,
+   "claimed": 12,
+   "fused_top": [
+    [
+     0.7,
+     "T1587"
+    ],
+    [
+     0.63,
+     "T1190"
+    ],
+    [
+     0.63,
+     "T1059.001"
+    ],
+    [
+     0.63,
+     "T1021.006"
+    ],
+    [
+     0.525,
+     "T1558.003"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201023020513",
+   "title": "Register-CimProvider Execute Dll",
+   "truth": [
+    "T1218"
+   ],
+   "events": 1316,
+   "alerts": 10,
+   "incidents": 3,
+   "truth_incident_rank": null,
+   "seconds": 1.015,
+   "claimed": 5,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.525,
+     "T1574"
+    ],
+    [
+     0.42,
+     "T1055.011"
+    ],
+    [
+     0.375,
+     "T1070.006"
+    ],
+    [
+     0.338,
+     "T1071.001"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201023023651",
+   "title": "Bitsadmin Download Malicious File",
+   "truth": [
+    "T1197"
+   ],
+   "events": 424,
+   "alerts": 11,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 0.33699999999999997,
+   "claimed": 4,
+   "fused_top": [
+    [
+     0.796,
+     "T1197"
+    ],
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1105"
+    ],
+    [
+     0.63,
+     "T1036.003"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201023031210",
+   "title": "PurpleSharp PE Injection CreateRemoteThread",
+   "truth": [
+    "T1055.002"
+   ],
+   "events": 692,
+   "alerts": 16,
+   "incidents": 2,
+   "truth_incident_rank": 1,
+   "seconds": 0.592,
+   "claimed": 8,
+   "fused_top": [
+    [
+     0.7,
+     "T1587"
+    ],
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1036"
+    ],
+    [
+     0.63,
+     "T1003.001"
+    ],
+    [
+     0.525,
+     "T1055.003"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201026235835",
+   "title": "Process Herpaderping Mimikatz",
+   "truth": [
+    "T1055"
+   ],
+   "events": 282,
+   "alerts": 4,
+   "incidents": 1,
+   "truth_incident_rank": null,
+   "seconds": 0.27699999999999997,
+   "claimed": 7,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1003.006"
+    ],
+    [
+     0.63,
+     "T1003.005"
+    ],
+    [
+     0.63,
+     "T1003.004"
+    ],
+    [
+     0.63,
+     "T1003.002"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201028191914",
+   "title": "Windows Vault Web Credentials",
+   "truth": [
+    "T1055"
+   ],
+   "events": 120,
+   "alerts": 1,
+   "incidents": 0,
+   "truth_incident_rank": null,
+   "seconds": 0.107,
+   "claimed": 1,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201029001615",
+   "title": "Python HTTP Server",
+   "truth": [
+    "T1059"
+   ],
+   "events": 2395,
+   "alerts": 5,
+   "incidents": 1,
+   "truth_incident_rank": null,
+   "seconds": 0.892,
+   "claimed": 3,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.525,
+     "T1686.003"
+    ],
+    [
+     0.45,
+     "T1686"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201029202324",
+   "title": "SharpView PCRE.NET",
+   "truth": [
+    "T1059"
+   ],
+   "events": 267,
+   "alerts": 10,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "seconds": 0.21000000000000002,
+   "claimed": 8,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1482"
+    ],
+    [
+     0.63,
+     "T1135"
+    ],
+    [
+     0.63,
+     "T1069.002"
+    ],
+    [
+     0.63,
+     "T1059"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201102041306",
+   "title": "PowerShell HTTP Listener",
+   "truth": [
+    "T1059.001"
+   ],
+   "events": 110,
+   "alerts": 1,
+   "incidents": 0,
+   "truth_incident_rank": null,
+   "seconds": 0.10099999999999999,
+   "claimed": 1,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201102163918",
+   "title": "Seatbelt Group User Discovery",
+   "truth": [
+    "T1012"
+   ],
+   "events": 451,
+   "alerts": 3,
+   "incidents": 1,
+   "truth_incident_rank": null,
+   "seconds": 0.32999999999999996,
+   "claimed": 4,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1526"
+    ],
+    [
+     0.63,
+     "T1087"
+    ],
+    [
+     0.63,
+     "T1083"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201219070027",
+   "title": "Remote Scheduled Task Creation",
+   "truth": [
+    "T1053.005"
+   ],
+   "events": 1041,
+   "alerts": 11,
+   "incidents": 4,
+   "truth_incident_rank": 1,
+   "seconds": 0.8789999999999999,
+   "claimed": 6,
+   "fused_top": [
+    [
+     0.796,
+     "T1053.005"
+    ],
+    [
+     0.63,
+     "T1134"
+    ],
+    [
+     0.63,
+     "T1027"
+    ],
+    [
+     0.63,
+     "T1003"
+    ],
+    [
+     0.525,
+     "T1055"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-201219075059",
+   "title": "Remote Scheduled Task Modification",
+   "truth": [
+    "T1053.005"
+   ],
+   "events": 2657,
+   "alerts": 5,
+   "incidents": 4,
+   "truth_incident_rank": null,
+   "seconds": 2.069,
+   "claimed": 10,
+   "fused_top": [
+    [
+     0.63,
+     "T1134"
+    ],
+    [
+     0.63,
+     "T1027"
+    ],
+    [
+     0.63,
+     "T1003"
+    ],
+    [
+     0.525,
+     "T1055"
+    ],
+    [
+     0.412,
+     "T1021.003"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-210314014019",
+   "title": "Exchange ProxyLogon SSRF RCE Vuln POC",
+   "truth": [
+    "T1505.003"
+   ],
+   "events": 10487,
+   "alerts": 32,
+   "incidents": 4,
+   "truth_incident_rank": 1,
+   "seconds": 4.151,
+   "claimed": 12,
+   "fused_top": [
+    [
+     0.63,
+     "T1505.003"
+    ],
+    [
+     0.63,
+     "T1190"
+    ],
+    [
+     0.63,
+     "T1134"
+    ],
+    [
+     0.63,
+     "T1059"
+    ],
+    [
+     0.63,
+     "T1033"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-220630130349",
+   "title": "Disabling Windows Event Logging via Audit Policy Modification",
+   "truth": [
+    "T1562.002"
+   ],
+   "events": 13645,
+   "alerts": 103,
+   "incidents": 4,
+   "truth_incident_rank": null,
+   "seconds": 9.162,
+   "claimed": 7,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1685.001"
+    ],
+    [
+     0.525,
+     "T1003.001"
+    ],
+    [
+     0.42,
+     "T1006"
+    ],
+    [
+     0.375,
+     "T1070.006"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-220703123711",
+   "title": "Disabling Process Command Line Logging via Registry Modification",
+   "truth": [
+    "T1562.002"
+   ],
+   "events": 21457,
+   "alerts": 8,
+   "incidents": 3,
+   "truth_incident_rank": null,
+   "seconds": 12.711,
+   "claimed": 5,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.45,
+     "T1112"
+    ],
+    [
+     0.375,
+     "T1070.006"
+    ],
+    [
+     0.28,
+     "T1531"
+    ],
+    [
+     0.28,
+     "T1202"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-220705170038",
+   "title": "Modifying Security Event Log File Path via Modification of Log Configuration",
+   "truth": [
+    "T1562.002"
+   ],
+   "events": 25208,
+   "alerts": 7,
+   "incidents": 10,
+   "truth_incident_rank": null,
+   "seconds": 19.974999999999998,
+   "claimed": 7,
+   "fused_top": [
+    [
+     0.852,
+     "T1685.005"
+    ],
+    [
+     0.852,
+     "T1685.001"
+    ],
+    [
+     0.525,
+     "T1566.001"
+    ],
+    [
+     0.525,
+     "T1218"
+    ],
+    [
+     0.375,
+     "T1070.006"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-220708104215",
+   "title": "Stopping Event Log Service via Modification of Start Up Type",
+   "truth": [
+    "T1562.002"
+   ],
+   "events": 17926,
+   "alerts": 34,
+   "incidents": 7,
+   "truth_incident_rank": null,
+   "seconds": 10.978,
+   "claimed": 15,
+   "fused_top": [
+    [
+     0.63,
+     "T1482"
+    ],
+    [
+     0.63,
+     "T1087.002"
+    ],
+    [
+     0.63,
+     "T1087.001"
+    ],
+    [
+     0.63,
+     "T1087"
+    ],
+    [
+     0.63,
+     "T1069.002"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-220708104300",
+   "title": "Stopping Event Log Service after Stopping Depending Services",
+   "truth": [
+    "T1562.002"
+   ],
+   "events": 55321,
+   "alerts": 91,
+   "incidents": 15,
+   "truth_incident_rank": null,
+   "seconds": 39.303,
+   "claimed": 16,
+   "fused_top": [
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1482"
+    ],
+    [
+     0.63,
+     "T1087.002"
+    ],
+    [
+     0.63,
+     "T1087.001"
+    ],
+    [
+     0.63,
+     "T1087"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-220803205800",
+   "title": "Stopping Event Logging via Creation of MiniNt Registry Key",
+   "truth": [
+    "T1562.002"
+   ],
+   "events": 47496,
+   "alerts": 75,
+   "incidents": 20,
+   "truth_incident_rank": null,
+   "seconds": 32.125,
+   "claimed": 17,
+   "fused_top": [
+    [
+     0.852,
+     "T1685.001"
+    ],
+    [
+     0.63,
+     "T1482"
+    ],
+    [
+     0.63,
+     "T1112"
+    ],
+    [
+     0.63,
+     "T1087.002"
+    ],
+    [
+     0.63,
+     "T1087.001"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-230718151900",
+   "title": "Dumping NTDS.dit using NTDSutil",
+   "truth": [
+    "T1003.003"
+   ],
+   "events": 11184,
+   "alerts": 259,
+   "incidents": 8,
+   "truth_incident_rank": 1,
+   "seconds": 7.162999999999999,
+   "claimed": 9,
+   "fused_top": [
+    [
+     0.866,
+     "T1003.003"
+    ],
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1490"
+    ],
+    [
+     0.525,
+     "T1201"
+    ],
+    [
+     0.412,
+     "T1021.003"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-230720004300",
+   "title": "Dumping NTDS.dit using NinjaCopy",
+   "truth": [
+    "T1003.003"
+   ],
+   "events": 13969,
+   "alerts": 64,
+   "incidents": 7,
+   "truth_incident_rank": null,
+   "seconds": 10.633,
+   "claimed": 11,
+   "fused_top": [
+    [
+     0.824,
+     "T1059.001"
+    ],
+    [
+     0.63,
+     "T1685.005"
+    ],
+    [
+     0.63,
+     "T1685"
+    ],
+    [
+     0.63,
+     "T1140"
+    ],
+    [
+     0.63,
+     "T1087.002"
+    ]
+   ]
+  }
+ ]
+}
