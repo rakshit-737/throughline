@@ -13,7 +13,7 @@ python -m throughline --false-flag demo   # conflicting CTI lowers attribution c
 ## Sibling engines
 
 ```bash
-pip install -e ".[dev,api,engines]"       # the sibling projects at their pinned commits
+pip install -e ".[dev,api,engines]"       # the sibling projects at their pinned release tags
 python -m throughline engines             # which engines are installed
 python -m throughline capture SDWIN-201018195009 --data tests/fixtures/data
 ```

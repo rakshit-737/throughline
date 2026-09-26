@@ -24,22 +24,22 @@ api = ["fastapi>=0.110", "uvicorn>=0.29", "httpx>=0.27"]
 neo4j = ["neo4j>=5.0"]
 # The sibling portfolio projects, as capability engines, pinned to validated commits.
 engines = [
-  "anvil-dac @ git+https://github.com/rakshit-737/anvil@c8cf57f571c4b347709cef042c0a382824cb9466",
-  "revenant @ git+https://github.com/rakshit-737/revenant@624be3f3082419e3323bfc9b3dcdad76290103ef",
-  "rootline @ git+https://github.com/rakshit-737/rootline@7f25f29d6eeb9211c52349cb6740bf0cb01fb7f4",
-  "dragnet @ git+https://github.com/rakshit-737/dragnet@8583ebb14a61d3a538f13aff3b0eb825dd4f8bd2",
-  "occam @ git+https://github.com/rakshit-737/occam@6fda4cc409b61c661060baf6e1df3f387e556d45",
-  "vantage @ git+https://github.com/rakshit-737/vantage@945eb3860244a3c3650f4ee0042adccc064e88e5",
-  "gauntlet @ git+https://github.com/rakshit-737/gauntlet@8ff400ccaa54efc247d15ef85412ba0b9e04ac25",
-  "tracegate @ git+https://github.com/rakshit-737/tracegate@014faa3839544ae9ab95538199e80291a95cc9cb",
-  "stratum @ git+https://github.com/rakshit-737/stratum@1341f1c9633636339b4190c8cd6679533702fcf0",
-  "linchpin @ git+https://github.com/rakshit-737/linchpin@dc16710d7f07be2bde7fbfcf29dd31bfe798de04",
-  "specimen @ git+https://github.com/rakshit-737/specimen@e3dc7de3b0f68f4b86ced41eb7bd8b0389a9a99a",
-  "vitrine @ git+https://github.com/rakshit-737/vitrine@76ee8dd8011a5764a86c0b22a7782b11cc863220",
+  "anvil-dac @ git+https://github.com/rakshit-737/anvil@v1.0.0",
+  "revenant @ git+https://github.com/rakshit-737/revenant@4cbd2c38b6005ada3d481862efb563b919db2162",
+  "rootline @ git+https://github.com/rakshit-737/rootline@v1.0.0",
+  "dragnet @ git+https://github.com/rakshit-737/dragnet@v1.0.0",
+  "occam @ git+https://github.com/rakshit-737/occam@v1.0.0",
+  "vantage @ git+https://github.com/rakshit-737/vantage@v1.0.0",
+  "gauntlet @ git+https://github.com/rakshit-737/gauntlet@v1.0.0",
+  "tracegate @ git+https://github.com/rakshit-737/tracegate@v1.0.0",
+  "stratum @ git+https://github.com/rakshit-737/stratum@v1.0.0",
+  "linchpin @ git+https://github.com/rakshit-737/linchpin@v1.0.0",
+  "specimen @ git+https://github.com/rakshit-737/specimen@v1.0.0",
+  "vitrine @ git+https://github.com/rakshit-737/vitrine@v1.0.0",
   "openpyxl>=3.1",
 ]
 # FEINT pulls xgboost/pandas; kept separate so the engines extra stays light.
-network = ["feint @ git+https://github.com/rakshit-737/feint@ff76b5c82c77d876279d1a06e04422627da46b4a"]
+network = ["feint @ git+https://github.com/rakshit-737/feint@v1.0.0"]
 bench = ["matplotlib>=3.8"]
 dev = ["pytest>=8", "ruff>=0.5", "fastapi>=0.110", "httpx>=0.27"]
 

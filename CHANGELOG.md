@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [SemVer](https://semver.org/).
 
+## [Unreleased] - 1.0.1
+
+### Changed
+- The `engines` / `network` extras and the `SIBLINGS` table now pin the sibling projects to their
+  `v1.0.0` release tags (ANVIL, FEINT, ROOTLINE, DRAGNET, OCCAM, VANTAGE, GAUNTLET, TRACEGATE,
+  STRATUM, LINCHPIN, VITRINE, SPECIMEN) instead of mid-development commits. REVENANT has no release
+  tag yet and is pinned to commit `4cbd2c3`. No adapter changes were needed; the full suite passes
+  with every engine installed.
+
 ## [1.0.0] - 2026-09-26
 
 First stable release: documentation site, container image and closed gaps from 0.2.0.

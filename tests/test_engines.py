@@ -5,6 +5,7 @@ the pure mapping functions are tested without them.
 """
 from __future__ import annotations
 
+import re
 import subprocess
 
 import pytest
@@ -25,7 +26,8 @@ def test_sibling_table_is_pinned_and_complete():
     projects = {s.project for s in SIBLINGS}
     assert projects == {"ANVIL", "FEINT", "REVENANT", "ROOTLINE", "DRAGNET", "OCCAM", "VANTAGE", "GAUNTLET",
                         "TRACEGATE", "STRATUM", "LINCHPIN", "VITRINE", "SPECIMEN"}
-    assert all(len(s.commit) == 40 and s.pip_spec.startswith(f"{s.dist} @ git+https://github.com/rakshit-737/")
+    assert all((re.fullmatch(r"[0-9a-f]{40}", s.commit) or re.fullmatch(r"v\d+\.\d+\.\d+", s.commit))
+               and s.pip_spec.startswith(f"{s.dist} @ git+https://github.com/rakshit-737/")
                for s in SIBLINGS)
     assert len(status()) == len(SIBLINGS)
 

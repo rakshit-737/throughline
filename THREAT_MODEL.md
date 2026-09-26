@@ -10,7 +10,7 @@
 1. **Connectors -> normalizer.** All connector input is *untrusted*.
 2. **API clients -> API.** Binds to localhost only; an optional bearer token (`THROUGHLINE_API_TOKEN`) guards every endpoint except `/health` and `/ui`.
 3. **Engines -> graph.** Engines are semi-trusted plugins. They can only add claims, and they cannot overwrite existing claims.
-4. **Sibling engines -> graph.** Installed from pinned commits (ADR-0007). They run in-process, so a compromised sibling release is a supply-chain risk; pins are reviewed like any dependency bump.
+4. **Sibling engines -> graph.** Installed from pinned release tags (or a commit where no release exists) (ADR-0007). They run in-process, so a compromised sibling release is a supply-chain risk; pins are reviewed like any dependency bump.
 5. **Simulation range -> platform.** Only a dry-run plan is produced. A real range, when added, must have no egress.
 
 ## Threats and mitigations (STRIDE-ish)

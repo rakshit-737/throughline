@@ -18,7 +18,7 @@ jobs:
       - run: python -m pytest -q
       - run: python -m throughline demo && python -m throughline --false-flag demo
   engines:
-    # the sibling projects installed from their pinned commits; runs the whole
+    # the sibling projects installed from their pinned release tags; runs the whole
     # stack on the committed real fixture captures
     runs-on: ubuntu-latest
     steps:
