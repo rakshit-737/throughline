@@ -51,7 +51,12 @@
 <script>
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-async function j(url) { const r = await fetch(url); if (!r.ok) throw new Error(await r.text()); return r.json(); }
+const TOKEN = new URLSearchParams(location.hash.slice(1)).get("token");
+// static mode (docs site): responses were pre-rendered by scripts/build_static_demo.py
+const STATIC = document.documentElement.dataset.static;
+const skey = (url) => decodeURIComponent(url).replace(/[^A-Za-z0-9._-]/g, "_");
+async function j(url) { if (STATIC) { const r = await fetch(STATIC + skey(url) + ".json"); if (!r.ok) throw new Error("not pre-rendered in the static demo: run `throughline serve` for live queries"); return r.json(); }
+  const r = await fetch(url, TOKEN ? {headers: {Authorization: "Bearer " + TOKEN}} : {}); if (!r.ok) throw new Error(await r.text()); return r.json(); }
 function claimLinks(ids) { return (ids || []).slice(0, 4).map((c) => `<a class="claim" data-c="${esc(c)}">${esc(c)}</a>`).join(" "); }
 async function explain(cid) { try { $("explain").textContent = JSON.stringify(await j(`/claims/${encodeURIComponent(cid)}/explain`), null, 2); } catch (e) { $("explain").textContent = e.message; } }
 document.addEventListener("click", (e) => { const c = e.target.closest("a.claim"); if (c) explain(c.dataset.c); });

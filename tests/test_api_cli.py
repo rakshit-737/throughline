@@ -51,3 +51,12 @@ def test_cli_captures_and_store(tmp_path, capsys):
     assert json.loads(capsys.readouterr().out)["appended"] == 68
     assert main(["store", "verify", str(tmp_path / "s")]) == 0
     assert main(["engines"]) == 0
+
+
+def test_api_bearer_token():
+    c = TestClient(create_app(token="s3cret"))
+    assert c.get("/health").status_code == 200
+    assert c.get("/incidents").status_code == 401
+    assert c.get("/incidents", headers={"Authorization": "Bearer wrong"}).status_code == 401
+    r = c.get("/incidents", headers={"Authorization": "Bearer s3cret"})
+    assert r.status_code == 200 and isinstance(r.json(), list)

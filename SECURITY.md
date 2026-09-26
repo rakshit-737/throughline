@@ -9,7 +9,7 @@
 - Do not point connectors at systems you do not own or are not authorized to monitor.
 
 ## Deployment guidance
-- The API has **no authentication**. Keep it on `127.0.0.1` (the default; docker-compose publishes it on localhost only). Never expose it to a network.
+- The API has **optional single-token authentication**: set `THROUGHLINE_API_TOKEN` and every endpoint except `/health` and `/ui` requires `Authorization: Bearer <token>` (constant-time compare). There are no users, roles or TLS, so keep it on `127.0.0.1` (the default; docker-compose publishes it on localhost only) or behind a TLS reverse proxy. Never expose it unauthenticated.
 - The raw event store (`throughline store`) is append-only with a hash-chained ledger; `store verify` detects edited records or ledger lines. It does not stop an attacker with write access from deleting the whole store, so keep a copy off-host.
 - Treat exported graphs (`export`) as sensitive: they map an organization's attack surface.
 - The Neo4j adapter expects a local instance. Change the default credentials.

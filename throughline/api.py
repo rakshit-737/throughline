@@ -1,17 +1,22 @@
 """Read-mostly REST API (FastAPI) + the investigation console. Binds to localhost by default.
 
-Ingest accepts connector records only and enforces a batch limit. There is no
-auth (see SECURITY.md), so never expose it beyond localhost.
+Ingest accepts connector records only and enforces a batch limit. Optional
+bearer-token auth: set ``THROUGHLINE_API_TOKEN`` (or pass ``token=``) and every
+endpoint except ``/health`` and ``/ui`` requires ``Authorization: Bearer <token>``
+(the console reads the token from ``/ui#token=...``). Even with a token, keep it
+on localhost or behind TLS (see SECURITY.md).
 
     create_app()                                 # synthetic demo world
     create_app(capture="SDWIN-201018195009")     # a real OTRF capture through every engine
 """
 from __future__ import annotations
 
+import hmac
+import os
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel, Field
 
 from . import synth
@@ -34,8 +39,22 @@ class Batch(BaseModel):
     records: list[Record] = Field(max_length=MAX_BATCH)
 
 
-def create_app(seed_demo: bool = True, capture: str | None = None, data: str | None = None) -> FastAPI:
-    app = FastAPI(title="THROUGHLINE", version="0.2.0")
+OPEN_PATHS = frozenset({"/health", "/ui"})
+
+
+def create_app(seed_demo: bool = True, capture: str | None = None, data: str | None = None,
+               token: str | None = None) -> FastAPI:
+    app = FastAPI(title="THROUGHLINE", version="1.0.0")
+    token = token if token is not None else os.environ.get("THROUGHLINE_API_TOKEN") or None
+
+    if token:
+        @app.middleware("http")
+        async def bearer(request: Request, call_next):
+            if request.url.path not in OPEN_PATHS:
+                got = request.headers.get("authorization", "")
+                if not hmac.compare_digest(got.encode(), f"Bearer {token}".encode()):
+                    return JSONResponse({"detail": "missing or invalid bearer token"}, status_code=401)
+            return await call_next(request)
     state: dict = {"incidents": [], "mode": "synthetic"}
 
     if capture:
@@ -89,7 +108,8 @@ def create_app(seed_demo: bool = True, capture: str | None = None, data: str | N
 
     @app.get("/incidents")
     def incidents():
-        return [{k: i[k] for k in ("incident", "score", "breadth", "alerts", "members", "technique_conf")}
+        return [{k: i.get(k) for k in ("incident", "score", "breadth", "alerts", "members", "technique_conf",
+                                       "cluster", "cluster_hosts")}
                 for i in state["incidents"]]
 
     @app.get("/investigate/{query:path}")
