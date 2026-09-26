@@ -17,6 +17,15 @@ Each incident gets
   incident did" in one hop and cross-engine agreement raises confidence, and
 * display attributes: ``score`` (its most confident technique), ``breadth``,
   ``pivot`` (the strongest member), alert/technique counts.
+
+Cross-host stitching (:func:`stitch`): incidents on *different* hosts whose
+members contacted the same network destination (``CONNECTED_TO`` an
+``IPAddress`` or ``RESOLVED`` a ``Domain``) are joined into one cluster, so a
+beacon to one C2 from three hosts reads as one intrusion. Destinations shared by
+more than ``max_fanout`` incidents (domain controllers, proxies, update
+servers) are ignored as common infrastructure. Each incident gets a ``cluster``
+attribute; the stitched link is a proposal with its shared destination as
+evidence, not a proven lateral-movement edge.
 """
 from __future__ import annotations
 
@@ -75,6 +84,63 @@ def signal_techniques(kg: KnowledgeGraph, key: str) -> dict[str, dict[str, float
     return out
 
 
+NET_PREDICATES = frozenset({"CONNECTED_TO", "RESOLVED"})
+
+
+def destinations(kg: KnowledgeGraph, members) -> set[str]:
+    """Network destinations (IPAddress/Domain nodes) contacted by any member."""
+    out = set()
+    for m in members:
+        if m not in kg.g:
+            continue
+        for _, t, k in kg.g.out_edges(m, keys=True):
+            if k in NET_PREDICATES and (t.startswith("IPAddress:") or t.startswith("Domain:")):
+                out.add(t)
+    return out
+
+
+def stitch(incidents: list[dict], dests: dict[str, set[str]], max_fanout: int = 3) -> dict[str, dict]:
+    """Union incidents on different hosts that share a rare destination.
+
+    ``dests`` maps incident key -> destination node keys. Returns incident key ->
+    ``{"cluster": id, "hosts": [...], "via": [shared destinations]}``.
+    """
+    host = {i["incident"]: i["incident"].split(":", 1)[1].split("/", 1)[0] for i in incidents}
+    users: dict[str, set[str]] = defaultdict(set)
+    for inc, ds in dests.items():
+        for d in ds:
+            users[d].add(inc)
+    parent = {i: i for i in host}
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    via: dict[str, set[str]] = defaultdict(set)
+    for d, incs in sorted(users.items()):
+        if len(incs) < 2 or len(incs) > max_fanout or len({host[i] for i in incs}) < 2:
+            continue
+        incs = sorted(incs)
+        for other in incs[1:]:
+            ra, rb = find(incs[0]), find(other)
+            if ra != rb:
+                parent[max(ra, rb)] = min(ra, rb)
+        for i in incs:
+            via[i].add(d)
+    groups: dict[str, list[str]] = defaultdict(list)
+    for i in host:
+        groups[find(i)].append(i)
+    out = {}
+    for root, members in groups.items():
+        hosts = sorted({host[m] for m in members})
+        shared = sorted(set().union(*(via[m] for m in members)))
+        for m in members:
+            out[m] = {"cluster": root, "hosts": hosts, "via": shared}
+    return out
+
+
 def noisy_or(values) -> float:
     miss = 1.0
     for v in values:
@@ -88,8 +154,9 @@ class CorrelationEngine:
     reads = ("EXHIBITS", "ALERTED_ON", "SPAWNED")
     writes = ("PART_OF", "EXHIBITS")
 
-    def __init__(self, min_confidence: float = 0.0):
+    def __init__(self, min_confidence: float = 0.0, max_fanout: int = 3):
         self.min_confidence = min_confidence
+        self.max_fanout = max_fanout
         self.incidents: list[dict] = []
 
     def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
@@ -156,6 +223,13 @@ class CorrelationEngine:
                                    "technique_prob": {t: round(platt(c), 4) for t, c in sorted(tconf.items())}
                                    if platt else {},
                                    "technique_sources": {t: dict(b) for t, b in sorted(g["sources"].items())}})
+        dests = {i["incident"]: destinations(kg, groups[i["root"]]["members"]) for i in self.incidents}
+        clusters = stitch(self.incidents, dests, self.max_fanout)
+        for i in self.incidents:
+            c = clusters[i["incident"]]
+            i.update(cluster=c["cluster"], cluster_hosts=c["hosts"], cluster_via=c["via"])
+            kg.set_attrs(i["incident"], {"cluster": c["cluster"], "cluster_hosts": ",".join(c["hosts"])[:1000]})
         self.incidents.sort(key=lambda i: (-i["score"], -i["breadth"], -i["alerts"], i["incident"]))
         context["incidents"] = self.incidents
+        context["clusters"] = sorted({c["cluster"] for c in clusters.values()})
         return out

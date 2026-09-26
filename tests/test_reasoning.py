@@ -129,3 +129,29 @@ def test_event_store_detects_tampering(tmp_path):
     shard.write_text("\n".join(lines) + "\n")
     rep = EventStore(tmp_path / "store").verify()
     assert not rep["ok"] and rep["tampered_records"] == [0] and rep["broken_ledger_entries"] == [0]
+
+
+def test_stitch_joins_hosts_sharing_a_rare_destination():
+    from throughline.reasoning.correlation import stitch
+    incs = [{"incident": f"Incident:{h}/{n}"} for h, n in (("a", "1"), ("b", "2"), ("c", "3"), ("d", "4"), ("e", "5"))]
+    dests = {"Incident:a/1": {"IPAddress:6.6.6.6:443"}, "Incident:b/2": {"IPAddress:6.6.6.6:443"},
+             "Incident:c/3": {"IPAddress:10.0.0.1:389"}, "Incident:d/4": {"IPAddress:10.0.0.1:389"},
+             "Incident:e/5": {"IPAddress:10.0.0.1:389"}}
+    out = stitch(incs, dests, max_fanout=2)
+    assert out["Incident:a/1"]["cluster"] == out["Incident:b/2"]["cluster"]
+    assert out["Incident:a/1"]["hosts"] == ["a", "b"] and out["Incident:a/1"]["via"] == ["IPAddress:6.6.6.6:443"]
+    # a destination shared by more than max_fanout incidents is common infrastructure
+    assert len({out[i]["cluster"] for i in ("Incident:c/3", "Incident:d/4", "Incident:e/5")}) == 3
+
+
+def test_correlation_stitches_cross_host_incidents():
+    kg = KnowledgeGraph()
+    for h in ("h1", "h2"):
+        _proc(kg, f"Process:{h}/1/explorer.exe", f"Process:{h}/2/beacon.exe")
+        kg.add_claim("Process", f"{h}/2/beacon.exe", "CONNECTED_TO", "IPAddress", "6.6.6.6:443",
+                     source="sysmon", method="observed", reliability="B", timestamp=TS)
+        kg.tag_technique(f"Process:{h}/2/beacon.exe", "T1071", "sigma", source="anvil", ts=TS, reliability="B")
+    ctx: dict = {}
+    CorrelationEngine().run(kg, ctx)
+    assert len(ctx["incidents"]) == 2 and len(ctx["clusters"]) == 1
+    assert ctx["incidents"][0]["cluster_hosts"] == ["h1", "h2"]
