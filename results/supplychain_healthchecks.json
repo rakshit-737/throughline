@@ -1,0 +1,140 @@
+{
+ "generated": "2026-09-26 19:41:10",
+ "python": "3.14.3",
+ "repo": "healthchecks/healthchecks",
+ "commit": "3731fc452b",
+ "manifest": "requirements.txt",
+ "osv": {
+  "source": "https://osv-vulnerabilities.storage.googleapis.com/PyPI/all.zip",
+  "downloaded": "2026-09-26T14:05:37Z",
+  "sha256": "f71c081dca538fe49859a069ef31eb6d2df82a5904c380cca500ba2259557a41",
+  "bytes": 34674828
+ },
+ "pin_changing_commits": 236,
+ "distinct_pinned_versions": 311,
+ "vulnerable_versions_introduced": 119,
+ "advisories": 262,
+ "by_worst_severity": {
+  "MEDIUM": 15,
+  "CRITICAL": 98,
+  "UNKNOWN": 1,
+  "HIGH": 5
+ },
+ "vulnerable_still_pinned_at_head": [],
+ "exposure_days_median": 30.4,
+ "exposure_days_p90": 144.1,
+ "blame_agreement_at_head": {
+  "agree": 15,
+  "total": 15
+ },
+ "graph": {
+  "nodes": 813,
+  "edges": 5171,
+  "claims": 5171,
+  "events": 0
+ },
+ "build_seconds": 20.1,
+ "root_cause_ms_per_query": 0.166,
+ "worst": [
+  {
+   "dependency": "django==1.9",
+   "advisories": 37,
+   "worst_severity": "CRITICAL",
+   "introduced_by": "Commit:1c2ee9596821",
+   "author_domain": "gmail.com",
+   "introduced": "2015-12-30",
+   "exposed_days": 243.1,
+   "still_pinned": false
+  },
+  {
+   "dependency": "django==1.11.6",
+   "advisories": 44,
+   "worst_severity": "CRITICAL",
+   "introduced_by": "Commit:ca2393d0a433",
+   "author_domain": "gmail.com",
+   "introduced": "2017-10-08",
+   "exposed_days": 198.4,
+   "still_pinned": false
+  },
+  {
+   "dependency": "django==1.8.2",
+   "advisories": 49,
+   "worst_severity": "CRITICAL",
+   "introduced_by": "Commit:00cdc313eca8",
+   "author_domain": "gmail.com",
+   "introduced": "2015-06-11",
+   "exposed_days": 144.1,
+   "still_pinned": false
+  },
+  {
+   "dependency": "django==1.11.1",
+   "advisories": 46,
+   "worst_severity": "CRITICAL",
+   "introduced_by": "Commit:49eb8b6b23fa",
+   "author_domain": "gmail.com",
+   "introduced": "2017-05-28",
+   "exposed_days": 133.0,
+   "still_pinned": false
+  },
+  {
+   "dependency": "django==1.10.1",
+   "advisories": 29,
+   "worst_severity": "CRITICAL",
+   "introduced_by": "Commit:f511ee7596f1",
+   "author_domain": "gmail.com",
+   "introduced": "2016-09-23",
+   "exposed_days": 128.0,
+   "still_pinned": false
+  },
+  {
+   "dependency": "django==1.10.5",
+   "advisories": 25,
+   "worst_severity": "CRITICAL",
+   "introduced_by": "Commit:1e05de14bef4",
+   "author_domain": "gmail.com",
+   "introduced": "2017-01-29",
+   "exposed_days": 119.0,
+   "still_pinned": false
+  },
+  {
+   "dependency": "pygments==2.0.2",
+   "advisories": 10,
+   "worst_severity": "CRITICAL",
+   "introduced_by": "Commit:3a8a41f7a58b",
+   "author_domain": "gmail.com",
+   "introduced": "2015-11-02",
+   "exposed_days": 105.7,
+   "still_pinned": false
+  },
+  {
+   "dependency": "django==2.0.4",
+   "advisories": 26,
+   "worst_severity": "CRITICAL",
+   "introduced_by": "Commit:ef6e1870d9b4",
+   "author_domain": "gmail.com",
+   "introduced": "2018-04-24",
+   "exposed_days": 100.8,
+   "still_pinned": false
+  },
+  {
+   "dependency": "django==3.0.4",
+   "advisories": 33,
+   "worst_severity": "CRITICAL",
+   "introduced_by": "Commit:c8ebf730584f",
+   "author_domain": "gmail.com",
+   "introduced": "2020-03-09",
+   "exposed_days": 87.2,
+   "still_pinned": false
+  },
+  {
+   "dependency": "django==5.0.4",
+   "advisories": 41,
+   "worst_severity": "CRITICAL",
+   "introduced_by": "Commit:e1344e10b345",
+   "author_domain": "gmail.com",
+   "introduced": "2024-04-03",
+   "exposed_days": 74.7,
+   "still_pinned": false
+  }
+ ]
+}
