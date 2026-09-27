@@ -29,3 +29,35 @@ jobs:
       - run: pip install -e ".[dev,api,engines]"
       - run: python -m pytest -q -rs
       - run: python -m throughline capture SDWIN-201018195009 --data tests/fixtures/data
+  compose-e2e:
+    # docker compose brings up the API (real fixture capture through every engine) + Neo4j
+    # on the runner's own network; an investigation runs over HTTP and the graph is
+    # mirrored into Neo4j and read back. Only the image/package registries are contacted.
+    runs-on: ubuntu-latest
+    env:
+      NEO4J_PASSWORD: ci-only-${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: compose up (API + Neo4j)
+        run: docker compose -f docker-compose.yml -f docker-compose.e2e.yml --profile neo4j up -d --build
+      - name: end-to-end investigation
+        run: python3 scripts/e2e_compose.py --api http://127.0.0.1:8000 --out e2e.json
+      - name: logs
+        if: always()
+        run: docker compose -f docker-compose.yml -f docker-compose.e2e.yml --profile neo4j logs --no-color > compose.log 2>&1 || true
+      - name: Neo4j cross-check (cypher-shell inside the container)
+        run: |
+          docker compose -f docker-compose.yml -f docker-compose.e2e.yml --profile neo4j exec -T neo4j \
+            cypher-shell -u neo4j -p "$NEO4J_PASSWORD" --format plain \
+            "MATCH (i:Incident)<-[:PART_OF]-(p) RETURN count(DISTINCT i) AS incidents, count(p) AS members" | tee cypher.txt
+          test "$(tail -1 cypher.txt | cut -d, -f1)" -gt 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compose-e2e
+          path: |
+            e2e.json
+            compose.log
+            cypher.txt
+      - if: always()
+        run: docker compose -f docker-compose.yml -f docker-compose.e2e.yml --profile neo4j down -v

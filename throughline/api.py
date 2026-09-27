@@ -142,6 +142,21 @@ def create_app(seed_demo: bool = True, capture: str | None = None, data: str | N
             raise HTTPException(404, "no such claim")
         return kg().explain_claim(cid)
 
+    @app.post("/neo4j/sync")
+    def neo4j_sync():
+        """Mirror the current graph into Neo4j (``THROUGHLINE_NEO4J_URI``, ``..._USER``,
+        ``..._PASSWORD``). 404 when no server is configured."""
+        uri = os.environ.get("THROUGHLINE_NEO4J_URI")
+        if not uri:
+            raise HTTPException(404, "THROUGHLINE_NEO4J_URI not set")
+        from .neo4j_adapter import push
+        auth = (os.environ.get("THROUGHLINE_NEO4J_USER", "neo4j"), os.environ.get("THROUGHLINE_NEO4J_PASSWORD", ""))
+        try:
+            got = push(kg(), uri, auth)
+        except Exception as e:  # driver/connection errors surface as 503, not 500
+            raise HTTPException(503, f"neo4j: {type(e).__name__}") from None
+        return {**got, "expected_nodes": kg().g.number_of_nodes(), "expected_edges": kg().g.number_of_edges()}
+
     @app.get("/ui", response_class=HTMLResponse)
     def ui():
         return UI.read_text(encoding="utf-8")

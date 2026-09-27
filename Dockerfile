@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /
 WORKDIR /app
 COPY pyproject.toml README.md LICENSE ./
 COPY throughline ./throughline
-RUN pip install --no-cache-dir ".[api,engines]" && useradd --create-home --uid 10001 tl
+RUN pip install --no-cache-dir ".[api,engines,neo4j]" && useradd --create-home --uid 10001 tl
 USER tl
 ENV THROUGHLINE_DATA=/data PYTHONUNBUFFERED=1
 EXPOSE 8000

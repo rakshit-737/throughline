@@ -8,7 +8,7 @@ from throughline.cli import main
 from throughline.contracts import Claim, ContractError
 from throughline.graph import KnowledgeGraph
 from throughline.modules import SIBLING_SLOTS, EngineRegistry, default_registry
-from throughline.neo4j_adapter import statements
+from throughline.neo4j_adapter import batches, statements
 from throughline.normalizer import normalize, verify
 from throughline.pipeline import build, investigate
 
@@ -147,6 +147,20 @@ def test_cypher_is_parameterized(world):
     stmts = statements(kg)
     assert stmts and all("$" in q for q, _ in stmts)
     assert not any("deadbeef01" in q for q, _ in stmts)
+
+
+def test_neo4j_batches_cover_graph(world):
+    kg, _, _ = world
+    b = batches(kg, size=7)
+    assert all("$rows" in q for q, _ in b)
+    rows = [r for q, p in b for r in p["rows"]]
+    assert sum(1 for q, p in b if "MERGE (n:" in q for _ in p["rows"]) == kg.g.number_of_nodes()
+    assert len(rows) == kg.g.number_of_nodes() + kg.g.number_of_edges()
+
+
+def test_neo4j_sync_needs_config(monkeypatch):
+    monkeypatch.delenv("THROUGHLINE_NEO4J_URI", raising=False)
+    assert TestClient(create_app()).post("/neo4j/sync").status_code == 404
 
 
 # ---------- API ----------
