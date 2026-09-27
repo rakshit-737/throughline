@@ -1,0 +1,53 @@
+name: bench
+# Manual only: the long real-data runs (APT29 day 1/2 cross-host stitching, the other
+# OTRF compound captures, attribution with CIs). Downloads the pinned public datasets
+# (sha256-checked) from their upstream hosts, so it never runs on push.
+on:
+  workflow_dispatch:
+    inputs:
+      which:
+        description: "apt29 | compound | attribution | all"
+        default: all
+permissions:
+  contents: read
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      THROUGHLINE_DATA: ${{ github.workspace }}/data
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev,api,engines]"
+      - name: datasets (pinned, sha256-verified)
+        run: python scripts/download_data.py attack sigma otrf cis misp
+      - name: APT29 day 1 + day 2
+        if: inputs.which == 'apt29' || inputs.which == 'all'
+        run: |
+          python benchmarks/demo_apt29.py --day 1
+          python benchmarks/demo_apt29.py --day 2
+      - name: other compound captures
+        if: inputs.which == 'compound' || inputs.which == 'all'
+        run: python benchmarks/bench_compound.py
+      - name: attribution
+        if: inputs.which == 'attribution' || inputs.which == 'all'
+        run: python benchmarks/bench_attribution.py
+      - name: assert results
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          for p in sorted(pathlib.Path("results").glob("*.json")):
+              d = json.loads(p.read_text())
+              print(p.name, d.get("generated"))
+              if p.name.startswith("apt29_day"):
+                  assert d["incidents"] > 0 and "stitching" in d, p
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bench-results
+          path: results/*.json

@@ -17,7 +17,8 @@ Sources and licences
 attack    MITRE ATT&CK Enterprise STIX 2.1 v19.2 + v10.1     ATT&CK Terms of Use (royalty-free)
 sigma     SigmaHQ/sigma rules @ pinned commit                Detection Rule License 1.1
 otrf      OTRF Security-Datasets (Mordor) Windows host logs  MIT
-          (96 atomic captures + APT29 evals day 1/2)
+          (96 atomic captures + compound: APT29 evals day 1/2,
+          APT3 Empire + CALDERA round 1, LSASS campaigns 01-07)
 baseline  NextronSystems/evtx-baseline win10-client (benign)  public (repository README); optional,
           not part of `all` (the loop's false-positive gate uses unrelated OTRF captures)
 cis       CIS Controls v8 -> ATT&CK v8.2 master mapping (xlsx)  CIS (free, attribution)
@@ -55,6 +56,12 @@ BASELINE_ASSETS = ["win10-client.tgz"]
 OTRF_COMPOUND = [
     "datasets/compound/apt29/day1/apt29_evals_day1_manual.zip",
     "datasets/compound/apt29/day2/apt29_evals_day2_manual.zip",
+    # 1.1.0: further multi-host / multi-stage compound captures (host logs only, no pcaps)
+    "datasets/compound/windows/apt3/empire_apt3.tar.gz",
+    "datasets/compound/windows/apt3/caldera_attack_evals_round1_day1_2019-10-20201108.tar.gz",
+    *[f"datasets/compound/LSASS_campaign_0{i}/metasploit_{n}_lsass_memory_dump.zip" for i, n in enumerate(
+        ("logonpasswords", "procdump", "comsvcs", "out-minidump", "sharpdump", "outflank-dumpert", "nanodump"), 1)],
+    *[f"datasets/compound/_metadata/LSASS_campaign_0{i}.yaml" for i in range(1, 8)],
 ]
 UA = {"User-Agent": "throughline-downloader"}
 

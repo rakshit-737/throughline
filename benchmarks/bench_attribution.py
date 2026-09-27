@@ -7,6 +7,14 @@ campaign's techniques and software. Two settings:
   documented later (in v19.2) are scored, so the answer was not in the knowledge
   base when the profiles were built.
 * ``retrospective`` - profiles and campaigns from v19.2 (optimistic upper bound).
+* ``group_drift``   - the larger case set (since 1.1.0): every ATT&CK group present in
+  both versions becomes a case whose evidence is only what ATT&CK *learned about it
+  after* v10.1 (techniques and software in v19.2 but not in its v10.1 entry);
+  profiles from v10.1. Evidence is subsampled to at most ``DRIFT_MAX`` signals per
+  case over ``SEEDS`` seeds (an analyst rarely sees a group's whole new repertoire);
+  CIs are bootstrap over all case x seed rows, plus the across-seed spread.
+* ``group_retrospective`` - every v19.2 group, evidence subsampled from its own
+  v19.2 repertoire (in-sample: the largest case set, an optimistic upper bound).
 
 Each is run clean and with planted false flags (DRAGNET's stress test: a copied
 Rich header + decoy-language strings pointing at a decoy group from another
@@ -129,6 +137,78 @@ def run_setting(dr: DragnetIntelEngine, oc: OccamIntelEngine, cases, level: int)
     return {"methods": out, "rows": rows}
 
 
+SEEDS = (0, 1, 2, 3, 4)
+DRIFT_MAX = 10
+DRIFT_MIN_TTP = 3
+
+
+def group_drift_cases(new, old, seed: int, drift: bool = True):
+    """Cases from what each group gained between ``old`` (profiles) and ``new`` ATT&CK.
+    ``drift=False``: the group's whole ``new`` repertoire (in-sample upper bound, new == old)."""
+    import random
+
+    from dragnet.bench import Case
+    from dragnet.models import Signal, SignalKind
+
+    rng = random.Random(seed)
+    known = {t.attack_id for t in old.techniques.values()}  # evidence must be expressible in the old KB
+    out = []
+    for gid, g in sorted(new.groups.items(), key=lambda kv: kv[1].attack_id):
+        if gid not in old.groups:
+            continue
+        techs = sorted((new.techniques_of(gid) - (old.techniques_of(gid) if drift else set())) & known)
+        sw = sorted(new.software_of(gid) - (old.software_of(gid) if drift else set()))
+        if len(techs) < DRIFT_MIN_TTP:
+            continue
+        sigs = [Signal(SignalKind.TTP, t, gid) for t in techs]
+        for sid in sw:
+            o = new.software[sid]
+            sigs.append(Signal(SignalKind.FAMILY if o.type == "malware" else SignalKind.TOOL, o.name, gid))
+        if len(sigs) > DRIFT_MAX:
+            ttp = [x for x in sigs if x.kind == SignalKind.TTP]
+            rest = [x for x in sigs if x.kind != SignalKind.TTP]
+            keep = rng.sample(ttp, min(len(ttp), max(DRIFT_MIN_TTP, DRIFT_MAX - min(len(rest), DRIFT_MAX // 2))))
+            keep += rng.sample(rest, min(len(rest), DRIFT_MAX - len(keep)))
+            sigs = keep
+        out.append(Case(g.attack_id, g.name, sigs, {old.groups[gid].name},
+                        {"group": g.name, "new_ttp": len(techs), "new_software": len(sw), "seed": seed}))
+    return out
+
+
+def run_group_drift(p: DataPaths, drift: bool = True) -> dict:
+    from dragnet.sources.attack import load_attack
+
+    kb = p.attack_old if drift else p.attack
+    dr = DragnetIntelEngine(kb, p.misp)
+    oc = OccamIntelEngine(kb, shortlist=25)
+    new = load_attack(p.attack)
+    res: dict = {"kg_version": dr.attack.version, "seeds": list(SEEDS), "max_signals": DRIFT_MAX}
+    methods = ("similarity", "dragnet", "occam", "fused")
+    for level in (0, 1):
+        key = "clean" if level == 0 else f"false_flag_l{level}"
+        rows, per_seed = [], {m: [] for m in methods}
+        for seed in SEEDS:
+            cases = group_drift_cases(new, dr.attack, seed, drift)
+            r = run_setting(dr, oc, cases, level)
+            for row in r["rows"]:
+                row["seed"] = seed
+            rows += r["rows"]
+            for m in methods:
+                per_seed[m].append(r["methods"][m]["top1"])
+        res["cases"] = len(cases)
+        agg = {m: score(rows, m) for m in methods}
+        for m in methods:
+            agg[m].pop("_pairs")
+            xs = per_seed[m]
+            agg[m]["top1_seed_mean"] = round(statistics.mean(xs), 4)
+            agg[m]["top1_seed_sd"] = round(statistics.pstdev(xs), 4)
+        res[key] = {"methods": agg, "rows": rows}
+        print(f"  group_{'drift' if drift else 'retro'} {key} ({res['cases']} cases x {len(SEEDS)} seeds):",
+              {m: (s["top1"], s["top1_ci"], s["wrong_named"], s["confident_wrong"]) for m, s in agg.items()},
+              flush=True)
+    return res
+
+
 def main() -> int:
     p = DataPaths(data_dir())
     from dragnet.bench import attack_campaign_cases
@@ -150,6 +230,8 @@ def main() -> int:
             print(f"  {key}:", {m: {k: v for k, v in s.items() if k in ("top1", "wrong_named", "decoy_named",
                                                                             "confident_correct", "confident_wrong")}
                                 for m, s in r["methods"].items()}, flush=True)
+    res["group_drift"] = run_group_drift(p)
+    res["group_retrospective"] = run_group_drift(p, drift=False)
     # pooled calibration of the committed verdicts across all settings
     pooled = {m: [] for m in ("similarity", "dragnet", "occam", "fused")}
     for name in ("temporal", "retrospective"):
