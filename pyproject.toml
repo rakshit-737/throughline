@@ -25,7 +25,7 @@ neo4j = ["neo4j>=5.0"]
 # The sibling portfolio projects, as capability engines, pinned to validated commits.
 engines = [
   "anvil-dac @ git+https://github.com/rakshit-737/anvil@v1.0.0",
-  "revenant @ git+https://github.com/rakshit-737/revenant@4cbd2c38b6005ada3d481862efb563b919db2162",
+  "revenant @ git+https://github.com/rakshit-737/revenant@v1.0.0",
   "rootline @ git+https://github.com/rakshit-737/rootline@v1.0.0",
   "dragnet @ git+https://github.com/rakshit-737/dragnet@v1.0.0",
   "occam @ git+https://github.com/rakshit-737/occam@v1.0.0",
