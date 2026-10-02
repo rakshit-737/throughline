@@ -1,5 +1,5 @@
 import pytest
-from fastapi.testclient import TestClient
+from conftest import local_client
 
 from throughline import confidence as conf
 from throughline import synth
@@ -155,17 +155,23 @@ def test_neo4j_batches_cover_graph(world):
     assert all("$rows" in q for q, _ in b)
     rows = [r for q, p in b for r in p["rows"]]
     assert sum(1 for q, p in b if "MERGE (n:" in q for _ in p["rows"]) == kg.g.number_of_nodes()
-    assert len(rows) == kg.g.number_of_nodes() + kg.g.number_of_edges()
+    entity_rows = [r for q, p in batches(kg, size=7, claims=False) for r in p["rows"]]
+    assert len(entity_rows) == kg.g.number_of_nodes() + kg.g.number_of_edges()
+    # the claim layer: one row per claim, linked to its subject (and object), values parameterised
+    claim_rows = [r for q, p in b if "MERGE (c:TLClaim" in q for r in p["rows"]]
+    assert len(claim_rows) == len(kg.claims) and len(rows) > len(entity_rows)
+    assert {r["source"] for r in claim_rows} >= {"cicd", "attack-mapping"}
+    assert not any("deadbeef01" in q for q, _ in b)
 
 
 def test_neo4j_sync_needs_config(monkeypatch):
     monkeypatch.delenv("THROUGHLINE_NEO4J_URI", raising=False)
-    assert TestClient(create_app()).post("/neo4j/sync").status_code == 404
+    assert local_client(create_app()).post("/neo4j/sync").status_code == 404
 
 
 # ---------- API ----------
 def test_api():
-    client = TestClient(create_app())
+    client = local_client(create_app())
     assert client.get("/health").json()["status"] == "ok"
     r = client.get("/investigate/checkout-7").json()
     assert r["origin"] == "Author:mallory"
