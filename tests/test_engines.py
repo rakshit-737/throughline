@@ -5,8 +5,11 @@ the pure mapping functions are tested without them.
 """
 from __future__ import annotations
 
+import importlib.util
 import re
 import subprocess
+import tomllib
+from pathlib import Path
 
 import pytest
 from conftest import FIX, needs
@@ -26,10 +29,22 @@ def test_sibling_table_is_pinned_and_complete():
     projects = {s.project for s in SIBLINGS}
     assert projects == {"ANVIL", "FEINT", "REVENANT", "ROOTLINE", "DRAGNET", "OCCAM", "VANTAGE", "GAUNTLET",
                         "TRACEGATE", "STRATUM", "LINCHPIN", "VITRINE", "SPECIMEN"}
-    assert all((re.fullmatch(r"[0-9a-f]{40}", s.commit) or re.fullmatch(r"v\d+\.\d+\.\d+", s.commit))
-               and s.pip_spec.startswith(f"{s.dist} @ git+https://github.com/rakshit-737/")
-               for s in SIBLINGS)
+    for s in SIBLINGS:
+        assert re.fullmatch(r"v\d+\.\d+\.\d+", s.tag), s
+        assert re.fullmatch(r"[0-9a-f]{40}", s.sha), s
+        assert s.pip_spec.startswith(f"{s.dist} @ git+https://github.com/rakshit-737/")
+        assert importlib.util.find_spec(f"throughline.engines.{s.module}") is not None, s.module
     assert len(status()) == len(SIBLINGS)
+
+
+def test_pyproject_extras_match_the_sibling_table():
+    """The ``engines``/``network`` extras and SIBLINGS are one pin set: same dist, repo and tag."""
+    data = tomllib.loads((Path(__file__).resolve().parents[1] / "pyproject.toml").read_text(encoding="utf-8"))
+    extras = data["project"]["optional-dependencies"]
+    git_reqs = {r for name in ("engines", "network") for r in extras[name] if " @ git+" in r}
+    assert git_reqs == {s.pip_spec for s in SIBLINGS}
+    for s in SIBLINGS:
+        assert s.pip_spec in extras[s.extra], (s.project, s.extra)
 
 
 @pytest.fixture(scope="module")

@@ -8,19 +8,19 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import asdict, dataclass, field
-from enum import Enum
+from enum import StrEnum
 
 SCHEMA_VERSION = "0.2.0"  # additive over 0.1.0, see docs/adr/0004-schema-0.2.md
 
 
-class Method(str, Enum):
+class Method(StrEnum):
     OBSERVED = "observed"
     INFERRED = "inferred"      # inferred-by-rule
     STATED = "stated"          # stated-in-report
     PREDICTED = "predicted"    # predicted-by-model
 
 
-class Reliability(str, Enum):
+class Reliability(StrEnum):
     """Admiralty-style source reliability (CTI A-F)."""
     A = "A"  # completely reliable
     B = "B"
@@ -30,7 +30,7 @@ class Reliability(str, Enum):
     F = "F"  # cannot be judged
 
 
-class Layer(str, Enum):
+class Layer(StrEnum):
     CODE = "code"
     INFRA = "infra"
     IDENTITY = "identity"

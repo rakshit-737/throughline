@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,41 +7,52 @@ name = "throughline"
 version = "1.0.0"
 description = "Evidence-first security knowledge graph that fuses sibling engines (Sigma, provenance, ACH attribution, posture) into one confidence-graded investigation"
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "Rakshit" }]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = ["networkx>=3.0", "PyYAML>=6.0"]
 keywords = ["security", "knowledge-graph", "mitre-attack", "threat-intelligence", "incident-response",
             "sigma", "provenance", "attribution"]
 classifiers = [
-  "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Topic :: Security",
 ]
 
 [project.optional-dependencies]
-api = ["fastapi>=0.110", "uvicorn>=0.29", "httpx>=0.27"]
+# >=0.132: strict JSON Content-Type checking on request bodies (cross-site no-cors POSTs are rejected)
+api = ["fastapi>=0.132", "uvicorn>=0.29", "httpx>=0.27"]
 neo4j = ["neo4j>=5.0"]
-# The sibling portfolio projects, as capability engines, pinned to validated commits.
+# The sibling portfolio projects as capability engines, pinned to release tags. The direct URLs
+# are deliberate: unrelated PyPI projects own the bare names dragnet, linchpin, revenant, ...
+# Three siblings renamed their distributions at v1.1.0 (dragnet-attribution, gauntlet-coverage,
+# linchpin-attackpath); the import packages are unchanged. Keep in sync with
+# throughline.engines.SIBLINGS (tests/test_engines.py checks) and scripts/check_sibling_tags.py.
 engines = [
-  "anvil-dac @ git+https://github.com/rakshit-737/anvil@v1.0.0",
-  "revenant @ git+https://github.com/rakshit-737/revenant@v1.0.0",
-  "rootline @ git+https://github.com/rakshit-737/rootline@v1.0.0",
-  "dragnet @ git+https://github.com/rakshit-737/dragnet@v1.0.0",
-  "occam @ git+https://github.com/rakshit-737/occam@v1.0.0",
-  "vantage @ git+https://github.com/rakshit-737/vantage@v1.0.0",
-  "gauntlet @ git+https://github.com/rakshit-737/gauntlet@v1.0.0",
-  "tracegate @ git+https://github.com/rakshit-737/tracegate@v1.0.0",
-  "stratum @ git+https://github.com/rakshit-737/stratum@v1.0.0",
-  "linchpin @ git+https://github.com/rakshit-737/linchpin@v1.0.0",
-  "specimen @ git+https://github.com/rakshit-737/specimen@v1.0.0",
-  "vitrine @ git+https://github.com/rakshit-737/vitrine@v1.0.0",
+  "anvil-dac @ git+https://github.com/rakshit-737/anvil@v1.1.0",
+  "revenant @ git+https://github.com/rakshit-737/revenant@v1.1.0",
+  "rootline @ git+https://github.com/rakshit-737/rootline@v1.1.0",
+  "dragnet-attribution @ git+https://github.com/rakshit-737/dragnet@v1.1.0",
+  "occam @ git+https://github.com/rakshit-737/occam@v1.1.0",
+  "vantage @ git+https://github.com/rakshit-737/vantage@v1.1.0",
+  "gauntlet-coverage @ git+https://github.com/rakshit-737/gauntlet@v1.1.0",
+  "tracegate @ git+https://github.com/rakshit-737/tracegate@v1.1.0",
+  "stratum @ git+https://github.com/rakshit-737/stratum@v1.1.0",
+  "linchpin-attackpath @ git+https://github.com/rakshit-737/linchpin@v1.1.0",
+  "specimen @ git+https://github.com/rakshit-737/specimen@v1.1.0",
+  "vitrine @ git+https://github.com/rakshit-737/vitrine@v1.1.0",
   "openpyxl>=3.1",
+  "defusedxml>=0.7",
 ]
 # FEINT pulls xgboost/pandas; kept separate so the engines extra stays light.
 network = ["feint @ git+https://github.com/rakshit-737/feint@v1.0.0"]
 bench = ["matplotlib>=3.8"]
-dev = ["pytest>=8", "ruff>=0.5", "fastapi>=0.110", "httpx>=0.27"]
+dev = ["pytest>=8", "ruff==0.16.10", "fastapi>=0.132", "httpx>=0.27", "httpx2>=2.0"]
+docs = ["mkdocs-material>=9.5,<10", "mkdocstrings[python]>=0.25,<2", "httpx2>=2.0"]
 
 [project.urls]
 Repository = "https://github.com/rakshit-737/throughline"
@@ -66,7 +77,7 @@ markers = [
 
 [tool.ruff]
 line-length = 120
-target-version = "py310"
+target-version = "py311"
 extend-exclude = [".venv"]
 
 [tool.ruff.lint]

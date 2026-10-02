@@ -15,7 +15,7 @@ import json
 import statistics
 import time
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from common import write
 
@@ -56,7 +56,7 @@ def main() -> int:
                   key=lambda s: SEV.get(s, 0))
         rows.append({"dependency": dep.split(":", 1)[1], "advisories": len(vids), "worst_severity": sev,
                      "introduced_by": commit, "author_domain": (author or "").rsplit("@", 1)[-1],
-                     "introduced": datetime.fromtimestamp(added, timezone.utc).strftime("%Y-%m-%d") if added else None,
+                     "introduced": datetime.fromtimestamp(added, UTC).strftime("%Y-%m-%d") if added else None,
                      "exposed_days": round((removed - added) / 86400, 1) if added and removed else None,
                      "still_pinned": not a.get("removed_by")})
     query_ms = (time.perf_counter() - t0) * 1000 / max(1, len(vuln_deps))

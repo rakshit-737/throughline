@@ -8,6 +8,7 @@ Sysmon about the same process land on the same graph node.
 """
 from __future__ import annotations
 
+from datetime import UTC
 from typing import Any
 
 from .windows import Skip, _trim, basename
@@ -28,8 +29,8 @@ def _pkey(host: str, p: dict[str, Any] | None) -> str:
 def _ts(rec: dict[str, Any]) -> str:
     t = rec.get("time_dt") or rec.get("time")
     if isinstance(t, (int, float)):
-        from datetime import datetime, timezone
-        return datetime.fromtimestamp(t / 1000, tz=timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+        from datetime import datetime
+        return datetime.fromtimestamp(t / 1000, tz=UTC).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
     return str(t) if t else "1970-01-01T00:00:00Z"
 
 

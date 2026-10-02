@@ -18,7 +18,7 @@ STRATUM models the Kubernetes lifecycle (commit -> build -> image -> workload
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from ..contracts import Claim
@@ -27,7 +27,7 @@ from . import require
 
 
 def _iso(ts: int | float) -> str:
-    return datetime.fromtimestamp(float(ts), tz=timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return datetime.fromtimestamp(float(ts), tz=UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def lineage_claims(kg: KnowledgeGraph, history, repo: str = "", source: str = "tracegate") -> list[Claim]:

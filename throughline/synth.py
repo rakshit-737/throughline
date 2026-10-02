@@ -8,9 +8,9 @@ All IPs are from RFC 5737 documentation ranges; nothing is contacted.
 from __future__ import annotations
 
 import random
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
-T0 = datetime(2026, 1, 5, 9, 0, tzinfo=timezone.utc)
+T0 = datetime(2026, 1, 5, 9, 0, tzinfo=UTC)
 C2_IP = "203.0.113.66"          # TEST-NET-3, documentation-only
 BENIGN_IPS = ["198.51.100.10", "198.51.100.11"]  # TEST-NET-2
 
