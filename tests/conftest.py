@@ -19,6 +19,13 @@ def needs(*pkgs: str):
     return pytest.mark.skipif(bool(missing), reason=f"sibling engine(s) not installed: {missing}")
 
 
+def local_client(app, **kw):
+    """A TestClient that talks to the app as a local browser would (Host: localhost); the API
+    refuses any other Host header (DNS-rebinding defence)."""
+    from fastapi.testclient import TestClient
+    return TestClient(app, base_url="http://localhost", **kw)
+
+
 def real_data_root() -> Path | None:
     from throughline.stack import data_dir
     root = Path(os.environ.get("THROUGHLINE_DATA", data_dir()))
