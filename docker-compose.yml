@@ -1,28 +1,16 @@
+# THROUGHLINE API + investigation console, published on 127.0.0.1 only.
+#   docker compose up --build                      # synthetic demo world at http://127.0.0.1:8000/ui
+# The server binds 0.0.0.0 *inside* the container; without THROUGHLINE_API_TOKEN it then generates
+# a random token at startup and prints the console URL (with #token=...) to the logs.
+# Optional Neo4j mirror: add -f docker-compose.neo4j.yml (needs NEO4J_PASSWORD).
 services:
   throughline:
     build: .
     ports:
       - "127.0.0.1:8000:8000"   # localhost only
     environment:
-      THROUGHLINE_API_TOKEN: ${THROUGHLINE_API_TOKEN:-}   # optional bearer token
-      # optional Neo4j mirror (POST /neo4j/sync); start it with `--profile neo4j`
-      THROUGHLINE_NEO4J_URI: ${THROUGHLINE_NEO4J_URI:-}
-      THROUGHLINE_NEO4J_USER: neo4j
-      THROUGHLINE_NEO4J_PASSWORD: ${NEO4J_PASSWORD:-change-me-please}
+      THROUGHLINE_API_TOKEN: ${THROUGHLINE_API_TOKEN:-}   # empty: a random token is generated and logged
     volumes:
       - ${THROUGHLINE_DATA:-../../datasets/throughline}:/data:ro
     # to serve a real capture instead of the synthetic demo:
     # command: ["python", "-m", "throughline", "serve", "--host", "0.0.0.0", "--capture", "SDWIN-201018195009"]
-  neo4j:
-    profiles: ["neo4j"]
-    image: neo4j:5
-    ports:
-      - "127.0.0.1:7474:7474"
-      - "127.0.0.1:7687:7687"
-    environment:
-      NEO4J_AUTH: neo4j/${NEO4J_PASSWORD:-change-me-please}
-    healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:7474 >/dev/null || exit 1"]
-      interval: 5s
-      timeout: 5s
-      retries: 30

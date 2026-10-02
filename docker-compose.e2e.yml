@@ -1,13 +1,11 @@
-# End-to-end override used by the `compose-e2e` CI job (and runnable locally):
-#   NEO4J_PASSWORD=... docker compose -f docker-compose.yml -f docker-compose.e2e.yml --profile neo4j up -d --build
-# serves the committed real OTRF fixture capture through every engine and mirrors the graph into Neo4j.
+# End-to-end override used by the `compose-e2e` CI job (runnable locally with Docker):
+#   export NEO4J_PASSWORD=... THROUGHLINE_API_TOKEN=...
+#   docker compose -f docker-compose.yml -f docker-compose.neo4j.yml -f docker-compose.e2e.yml up -d --build
+#   python scripts/e2e_compose.py --api http://127.0.0.1:8000 --out e2e.json
+# Serves the committed real OTRF fixture capture through every engine and mirrors the graph
+# (entities and the claim layer) into Neo4j.
 services:
   throughline:
     command: ["python", "-m", "throughline", "serve", "--host", "0.0.0.0", "--capture", "SDWIN-201018195009"]
     volumes: !override
       - ./tests/fixtures/data:/data:ro
-    environment:
-      THROUGHLINE_NEO4J_URI: bolt://neo4j:7687
-    depends_on:
-      neo4j:
-        condition: service_healthy

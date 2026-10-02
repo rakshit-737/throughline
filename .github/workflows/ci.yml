@@ -1,57 +1,99 @@
 name: ci
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_call:
 permissions:
   contents: read
 jobs:
   core:
-    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        python: ["3.11", "3.12", "3.13"]
+        os: [ubuntu-24.04]
+        python: ["3.11", "3.12", "3.13", "3.14"]
+        include:
+          - os: windows-2025
+            python: "3.12"
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python }}
       - run: pip install -e ".[dev,api]"
       - run: ruff check .
+      - run: python scripts/repo_lint.py
       - run: python -m pytest -q
-      - run: python -m throughline demo && python -m throughline --false-flag demo
+      - run: python -m throughline demo
+      - run: python -m throughline --false-flag demo
   engines:
-    # the sibling projects installed from their pinned release tags; runs the whole
-    # stack on the committed real fixture captures
-    runs-on: ubuntu-latest
+    # every sibling installed from its pinned release tag (engines + network extras) on the
+    # lowest and highest supported Python; runs the whole stack on the committed real fixtures
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.14"]
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          python-version: "3.12"
-      - run: pip install -e ".[dev,api,engines]"
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install -e ".[dev,api,engines,network]"
+      - name: installed siblings are exactly the pinned commits
+        run: |
+          python - <<'PY'
+          from throughline.engines import status
+          rows = status()
+          for r in rows:
+              print(r["project"], r["pinned"], r["installed_version"], r["installed_commit"], r["matches_pin"])
+          bad = [r["project"] for r in rows if not r["installed"] or r["matches_pin"] is not True]
+          assert not bad, f"not installed at the pinned commit: {bad}"
+          PY
       - run: python -m pytest -q -rs
+      - run: python -m throughline engines
       - run: python -m throughline capture SDWIN-201018195009 --data tests/fixtures/data
   compose-e2e:
-    # docker compose brings up the API (real fixture capture through every engine) + Neo4j
-    # on the runner's own network; an investigation runs over HTTP and the graph is
-    # mirrored into Neo4j and read back. Only the image/package registries are contacted.
-    runs-on: ubuntu-latest
+    # docker compose brings up the API (real fixture capture through every engine) + Neo4j on
+    # the runner's own network, with a bearer token; an investigation runs over HTTP, the graph
+    # (including the claim layer) is mirrored into Neo4j and read back. Only the image and
+    # package registries are contacted.
+    runs-on: ubuntu-24.04
     env:
-      NEO4J_PASSWORD: ci-only-${{ github.run_id }}
+      NEO4J_PASSWORD: ci-only-${{ github.run_id }}-${{ github.run_attempt }}
+      THROUGHLINE_API_TOKEN: ci-token-${{ github.run_id }}-${{ github.run_attempt }}
+      COMPOSE: docker compose -f docker-compose.yml -f docker-compose.neo4j.yml -f docker-compose.e2e.yml
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: compose up (API + Neo4j)
-        run: docker compose -f docker-compose.yml -f docker-compose.e2e.yml --profile neo4j up -d --build
+        run: $COMPOSE up -d --build
       - name: end-to-end investigation
         run: python3 scripts/e2e_compose.py --api http://127.0.0.1:8000 --out e2e.json
       - name: logs
         if: always()
-        run: docker compose -f docker-compose.yml -f docker-compose.e2e.yml --profile neo4j logs --no-color > compose.log 2>&1 || true
+        run: $COMPOSE logs --no-color > compose.log 2>&1 || true
       - name: Neo4j cross-check (cypher-shell inside the container)
         run: |
-          docker compose -f docker-compose.yml -f docker-compose.e2e.yml --profile neo4j exec -T neo4j \
-            cypher-shell -u neo4j -p "$NEO4J_PASSWORD" --format plain \
+          $COMPOSE exec -T neo4j cypher-shell -u neo4j -p "$NEO4J_PASSWORD" --format plain \
             "MATCH (i:Incident)<-[:PART_OF]-(p) RETURN count(DISTINCT i) AS incidents, count(p) AS members" | tee cypher.txt
           test "$(tail -1 cypher.txt | cut -d, -f1)" -gt 0
-      - uses: actions/upload-artifact@v4
+          # provenance from the claim layer: which engines' claims support LSASS dumping inside an incident
+          $COMPOSE exec -T neo4j cypher-shell -u neo4j -p "$NEO4J_PASSWORD" --format plain \
+            "MATCH (p:TLNode)-[:PART_OF]->(i:Incident), (c:Claim {predicate:'EXHIBITS'})-[:SUBJECT]->(p), (c)-[:OBJECT]->(t:Technique {key:'Technique:T1003.001'}) RETURN i.key AS incident, collect(DISTINCT c.source) AS engines" | tee -a cypher.txt
+          grep -q '"anvil"' cypher.txt && grep -q '"revenant"' cypher.txt
+      - name: scan the built image for known vulnerabilities (Trivy, report only)
+        run: |
+          docker build -q -t throughline:scan .
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:0.75.0 image \
+            --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --format table throughline:scan | tee trivy.txt
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
           name: compose-e2e
@@ -59,5 +101,33 @@ jobs:
             e2e.json
             compose.log
             cypher.txt
+            trivy.txt
       - if: always()
-        run: docker compose -f docker-compose.yml -f docker-compose.e2e.yml --profile neo4j down -v
+        run: $COMPOSE down -v
+  security:
+    # dependency audit of everything the image installs, plus a secret scan of the history
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[api,engines,network,neo4j]" "pip-audit==2.10.1"
+      - name: pip-audit (known vulnerabilities in the installed PyPI dependencies)
+        # the siblings are git installs, not PyPI releases; several share a name with an unrelated
+        # PyPI project, so they are excluded instead of being matched against the wrong advisories
+        run: |
+          pip freeze --exclude-editable | grep -v ' @ git+' > frozen.txt
+          pip-audit --disable-pip --no-deps -r frozen.txt --progress-spinner off --desc on | tee pip-audit.txt
+      - name: gitleaks (secrets in the whole git history)
+        run: |
+          docker run --rm -v "$PWD:/repo" --entrypoint sh ghcr.io/gitleaks/gitleaks:v8.30.1 -c \
+            'git config --global --add safe.directory /repo && gitleaks git /repo --redact --no-banner -v'
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: security
+          path: pip-audit.txt

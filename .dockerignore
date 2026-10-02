@@ -4,6 +4,12 @@
 *.egg-info
 .pytest_cache
 .ruff_cache
+.venv
+.venv*
+data
+store
+.env
+.env.*
 site
 docs
 results
