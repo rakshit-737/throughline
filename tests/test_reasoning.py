@@ -131,6 +131,46 @@ def test_event_store_detects_tampering(tmp_path):
     assert not rep["ok"] and rep["tampered_records"] == [0] and rep["broken_ledger_entries"] == [0]
 
 
+def test_event_store_detects_unledgered_and_truncated_tails(tmp_path):
+    from throughline.contracts import canonical_hash
+    from throughline.eventstore import StoreError
+    st = EventStore(tmp_path / "s")
+    st.append([("windows", {"EventID": 1}), ("windows", {"EventID": 3})])
+    head = st.head
+    assert st.verify(expect_head=head)["ok"]
+    # a well-formed record appended without a ledger entry is flagged
+    raw = {"EventID": 99}
+    with open(next((tmp_path / "s").glob("events-*.jsonl")), "a", encoding="utf-8") as fh:
+        fh.write(json.dumps({"seq": 2, "connector": "windows", "sha256": canonical_hash(raw), "raw": raw},
+                            sort_keys=True) + chr(10))
+    rep = EventStore(tmp_path / "s").verify()
+    assert not rep["ok"] and rep["unledgered_records"] == [2]
+    # a ledger extended by someone else no longer matches the head recorded off-host
+    st2 = EventStore(tmp_path / "s2")
+    st2.append([("windows", {"EventID": 1})])
+    anchored = st2.head
+    st2.append([("windows", {"EventID": 2})])
+    assert st2.verify()["ok"] and not st2.verify(expect_head=anchored)["ok"]
+    # empty or missing stores are not "ok"; opening for verify never creates a directory
+    assert not EventStore(tmp_path / "empty").verify()["ok"]
+    assert EventStore(tmp_path / "empty").verify(allow_empty=True)["ok"]
+    with pytest.raises(StoreError):
+        EventStore(tmp_path / "missing", create=False)
+    assert not (tmp_path / "missing").exists()
+    # get() checks the digest in the reference
+    ref = st2.append([("windows", {"EventID": 5})])[0]
+    assert st2.get(ref)["raw"] == {"EventID": 5}
+    with pytest.raises(KeyError):
+        st2.get(ref.split("#")[0] + "#" + "0" * 64)
+
+
+def test_event_store_ledger_hmac(tmp_path):
+    st = EventStore(tmp_path / "k", key="secret-key")
+    st.append([("windows", {"EventID": 1})])
+    assert st.verify()["ok"] and st.verify()["keyed"]
+    assert not EventStore(tmp_path / "k", key="other-key").verify()["ok"]
+
+
 def test_stitch_joins_hosts_sharing_a_rare_destination():
     from throughline.reasoning.correlation import stitch
     incs = [{"incident": f"Incident:{h}/{n}"} for h, n in (("a", "1"), ("b", "2"), ("c", "3"), ("d", "4"), ("e", "5"))]
