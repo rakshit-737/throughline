@@ -17,9 +17,12 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from .windows import flatten_winlogbeat
+
 
 @dataclass
 class Capture:
+    """One labelled OTRF atomic capture: id, title, emulated techniques and host-log files."""
     id: str
     title: str
     techniques: list[str]
@@ -29,9 +32,11 @@ class Capture:
 
     @property
     def available(self) -> bool:
+        """Whether any of the capture's files is present locally."""
         return any(p.exists() for p in self.files)
 
     def records(self) -> Iterator[dict[str, Any]]:
+        """Raw JSON records of every readable file (unreadable or quarantined files are skipped)."""
         for p in self.files:
             if p.exists():
                 try:
@@ -50,11 +55,12 @@ def _lines(fh: io.TextIOBase) -> Iterator[dict[str, Any]]:
         except json.JSONDecodeError:
             continue
         if isinstance(obj, dict):
-            yield obj
+            yield flatten_winlogbeat(obj)
 
 
 def iter_records(path: str | Path) -> Iterator[dict[str, Any]]:
-    """JSON-lines records from a ``.json``/``.jsonl`` file, a ``.zip`` or a ``.tar.gz``."""
+    """JSON-lines records from a ``.json``/``.jsonl`` file, a ``.zip`` or a ``.tar.gz``, in the
+    flat OTRF shape (raw Winlogbeat 6.x/7.x exports, e.g. the APT3 captures, are flattened)."""
     p = Path(path)
     name = p.name.lower()
     if name.endswith(".zip"):

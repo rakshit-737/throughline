@@ -157,7 +157,7 @@ def oracle(eng: dict, plan: list[dict], day: int, observed: list[str]) -> dict:
         row = {"n_techniques": len(techs)}
         for m, v in (("dragnet", vd), ("occam", vo), ("fused", vf)):
             rank = v.ranked.index("APT29") + 1 if "APT29" in v.ranked else None
-            row[m] = {"named": v.leading, "p": round(v.probability, 3), "grade": v.grade, "apt29_rank": rank,
+            row[m] = {"named": v.leading, "p": round(v.probability, 3), "grade": v.grade, "actor_rank": rank,
                       "ranked": len(v.ranked)}
         out[name] = row
     return out
@@ -202,6 +202,7 @@ def main(argv=None) -> int:
     ap.add_argument("--top", type=int, default=5, help="incidents to investigate and report")
     ap.add_argument("--capture", default=None, help="another OTRF compound capture (path under otrf/)")
     ap.add_argument("--name", default=None, help="result name (default apt29_day<N>)")
+    ap.add_argument("--actor", default="APT29", help="ATT&CK group that ran the emulation (its rank is reported)")
     a = ap.parse_args(argv)
     st = Stack.from_data_dir()
     path = st.paths.otrf / (a.capture or (APT29_DAY1 if a.day == 1 else APT29_DAY2))
@@ -232,7 +233,7 @@ def main(argv=None) -> int:
         for src in ("intel:dragnet", "intel:occam"):
             v = getattr(eng.get(src), "verdicts", {}).get(inc["incident"])
             if v is not None:
-                ranks[src.split(":")[1]] = {"apt29_rank": v.ranked.index("APT29") + 1 if "APT29" in v.ranked else None,
+                ranks[src.split(":")[1]] = {"actor_rank": v.ranked.index(a.actor) + 1 if a.actor in v.ranked else None,
                                             "ranked": len(v.ranked), "shortlist": v.ranked[:10]}
         any_engine = sum(1 for _, _, k in kg.g.in_edges(inc["incident"], keys=True) if k == "PART_OF")
         top.append({"incident": inc["incident"], "score": inc["score"], "breadth": inc["breadth"],
@@ -246,7 +247,7 @@ def main(argv=None) -> int:
     all_techs = sorted({t for i in incs for t in i["technique_conf"]})
     day = a.day if not a.capture else None
     res = {
-        "capture": str(path.name), "day": day, "records": len(records),
+        "capture": str(path.name), "day": day, "actor": a.actor, "records": len(records),
         "load_seconds": round(load_s, 1), "engine_setup_seconds": round(setup, 1),
         "pipeline_seconds": round(run_s, 1), "total_seconds": round(setup + load_s + run_s, 1),
         "peak_rss_mb": rss.mb,

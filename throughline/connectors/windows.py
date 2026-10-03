@@ -32,7 +32,39 @@ def _s(v: Any) -> str:
     return "" if v is None else str(v)
 
 
+def flatten_winlogbeat(rec: dict[str, Any]) -> dict[str, Any]:
+    """Raw Winlogbeat exports -> the flat OTRF shape (``Channel``, ``EventID``, ``Hostname``
+    and the EventData fields at the top level). Flat records are returned unchanged.
+
+    Winlogbeat 6.x writes ``log_name``, ``event_id``, ``computer_name`` and a nested
+    ``event_data``; 7.x and later nest everything under ``winlog`` (``channel``,
+    ``event_id``, ``computer_name``, ``event_data``, ``user_data``). Both keep the
+    *collector's* name in ``host``, so the computer name must win.
+    """
+    if "Channel" in rec or "EventID" in rec:
+        return rec
+    wl = rec.get("winlog")
+    if isinstance(wl, dict):
+        out = {k: v for k, v in rec.items() if k != "winlog"}
+        for part in ("user_data", "event_data"):
+            if isinstance(wl.get(part), dict):
+                out.update(wl[part])
+        ev = rec.get("event") if isinstance(rec.get("event"), dict) else {}
+        out.update(Channel=wl.get("channel", ""), EventID=wl.get("event_id", ev.get("code")),
+                   Hostname=wl.get("computer_name", ""))
+        return out
+    if rec.get("log_name") and isinstance(rec.get("event_data"), dict):
+        out = {k: v for k, v in rec.items() if k not in ("event_data", "user_data")}
+        if isinstance(rec.get("user_data"), dict):
+            out.update(rec["user_data"])
+        out.update(rec["event_data"])
+        out.update(Channel=rec["log_name"], EventID=rec.get("event_id"), Hostname=rec.get("computer_name", ""))
+        return out
+    return rec
+
+
 def short_host(rec: dict[str, Any]) -> str:
+    """Lower-case host name without the domain (``SCRANTON.dmevals.local`` -> ``scranton``)."""
     h = rec.get("Hostname") or rec.get("Computer") or rec.get("host_name") or rec.get("host") or ""
     if isinstance(h, dict):
         h = h.get("name", "")
@@ -40,6 +72,7 @@ def short_host(rec: dict[str, Any]) -> str:
 
 
 def basename(path: Any) -> str:
+    """Lower-case file name of a Windows path (``C:\\x\\PowerShell.exe`` -> ``powershell.exe``)."""
     p = _s(path).replace("\\", "/").rstrip("/")
     return (p.rsplit("/", 1)[-1] or "?").lower()
 
@@ -92,11 +125,13 @@ def event_ts(rec: dict[str, Any]) -> str:
 
 
 def channel(rec: dict[str, Any]) -> str:
+    """The record's event-log channel (Sysmon, Security, PowerShell, ...)."""
     c = rec.get("Channel") or rec.get("channel") or rec.get("log_name") or ""
     return str(c).lower()
 
 
 def event_id(rec: dict[str, Any]) -> int:
+    """The record's numeric event id (0 when missing or not a number)."""
     try:
         return int(rec.get("EventID", rec.get("event_id", -1)))
     except (TypeError, ValueError):
@@ -152,6 +187,9 @@ def _proc(ev: dict, host: str, role: str, pid: Any, image: Any, guid: Any = None
 
 
 def map_sysmon(rec: dict[str, Any]) -> dict[str, Any]:
+    """Map one Sysmon record to a canonical event (process creation, injection, access,
+    network, file, registry, DNS). Raises ``Skip`` for event ids that are not modelled.
+    """
     eid, host = event_id(rec), short_host(rec)
     ev: dict[str, Any] = {"layer": "runtime", "ts": event_ts(rec)}
     img = rec.get("Image")
@@ -211,6 +249,9 @@ def map_sysmon(rec: dict[str, Any]) -> dict[str, Any]:
 
 
 def map_security(rec: dict[str, Any]) -> dict[str, Any]:
+    """Map one Windows Security record (4688 process creation, 5156 outbound connection,
+    4624 logon of a user account) to a canonical event. Raises ``Skip`` otherwise.
+    """
     eid, host = event_id(rec), short_host(rec)
     ev: dict[str, Any] = {"layer": "runtime", "ts": event_ts(rec)}
     if eid == 4688:
@@ -241,6 +282,7 @@ def map_security(rec: dict[str, Any]) -> dict[str, Any]:
 
 
 def map_windows(rec: dict[str, Any]) -> dict[str, Any]:
+    """Dispatch a Windows record to the Sysmon or Security mapper by channel."""
     ch = channel(rec)
     if ch == SYSMON:
         return map_sysmon(rec)

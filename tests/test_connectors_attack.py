@@ -46,6 +46,24 @@ def test_security_and_sysmon_share_process_identity():
     assert normalize(sec, "windows").object_id == proc_id("ws5", 4200, "rundll32.exe")
 
 
+def test_raw_winlogbeat_exports_are_flattened_with_the_computer_name_not_the_collector():
+    from throughline.connectors.windows import flatten_winlogbeat
+
+    v6 = {"log_name": "Microsoft-Windows-Sysmon/Operational", "event_id": "1", "computer_name": "HR001.shire.com",
+          "host": {"name": "WECserver"}, "@timestamp": "2019-05-14T22:31:14.252Z",
+          "event_data": {"ProcessId": "4200", "Image": r"C:\Windows\System32\cmd.exe", "ParentProcessId": "10",
+                         "ParentImage": r"C:\Windows\explorer.exe", "UtcTime": "2019-05-14 22:31:14.249"}}
+    v7 = {"@timestamp": "2019-10-20T20:11:09.052Z", "host": {"name": "WECServer"}, "event": {"code": 1},
+          "winlog": {"channel": "Microsoft-Windows-Sysmon/Operational", "event_id": 1,
+                     "computer_name": "SCRANTON.dmevals.local", "event_data": dict(v6["event_data"])}}
+    for rec, host in ((v6, "hr001"), (v7, "scranton")):
+        flat = flatten_winlogbeat(rec)
+        ev = normalize(flat, "windows")
+        assert (ev.action, ev.object_id) == ("SPAWNED", f"{host}/4200/cmd.exe")
+    flat = _sysmon(1, ProcessId="1", Image="x.exe")
+    assert flatten_winlogbeat(flat) is flat
+
+
 def test_network_connection_points_at_the_remote_end_and_keeps_the_local_address():
     out = normalize(_sysmon(3, Image=r"C:\x\beacon.exe", ProcessId="7", Initiated="true", SourceIp="10.0.1.4",
                             DestinationIp="192.168.0.5", DestinationPort="443"), "windows")

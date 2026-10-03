@@ -80,6 +80,11 @@ def shape(name: str, d: dict) -> list[str]:
         caps = {r["capture"] for r in d.get("captures", [])}
         if len(caps) != 9:
             errs.append(f"{len(caps)} of 9 compound captures")
+        empty = sorted(r["capture"] for r in d.get("captures", []) if not r.get("incidents"))
+        if empty:
+            errs.append(f"no incidents in {empty} (record format not parsed?)")
+        if not (d.get("lsass_pooled_recall", {}).get("fused", {}).get("expected") or 0):
+            errs.append("LSASS campaigns have no expected techniques (metadata not found)")
     elif name == "feedback_loop":
         if not d.get("backends", {}).get("heuristic", {}).get("drafts"):
             errs.append("no drafts")

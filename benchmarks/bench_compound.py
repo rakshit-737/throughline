@@ -41,7 +41,7 @@ def expected_techniques(root, name: str) -> list[str]:
 
     if not name.startswith("lsass"):
         return []
-    meta = root / "compound" / "_metadata" / f"LSASS_campaign_0{name[6]}.yaml"
+    meta = root / "compound" / "_metadata" / f"LSASS_campaign_{name.split('_')[1]}.yaml"  # lsass_01_x -> 01
     if not meta.exists():
         return []
     d = yaml.safe_load(meta.read_text(encoding="utf-8")) or {}
@@ -63,7 +63,8 @@ def main() -> int:
     rows = []
     for name, rel in CAPTURES.items():
         print("==", name, flush=True)
-        demo_apt29.main(["--capture", rel, "--name", f"compound_{name}", "--top", "3"])
+        actor = "APT3" if name.startswith("apt3") else "-"   # the LSASS campaigns emulate no group
+        demo_apt29.main(["--capture", rel, "--name", f"compound_{name}", "--top", "3", "--actor", actor])
         d = json.loads((RESULTS / f"compound_{name}.json").read_text(encoding="utf-8"))
         exp = expected_techniques(st.paths.otrf, name)
         row = {"capture": name, "records": d["records"], "pipeline_seconds": d["pipeline_seconds"],
@@ -72,7 +73,11 @@ def main() -> int:
                "multi_host_clusters": d["stitching"]["multi_host_clusters"],
                "cluster_via": [c["via"][:3] for c in d["stitching"]["top_multi_host"][:3]],
                "techniques_observed": len(d["techniques_observed"]), "expected": exp,
-               "top_attribution": d["top_incidents"][0]["attribution"][:2] if d["top_incidents"] else []}
+               "top_attribution": d["top_incidents"][0]["attribution"][:2] if d["top_incidents"] else [],
+               "actor": actor if actor != "-" else None,
+               "actor_rank_best": min((r["actor_rank"] for t in d["top_incidents"]
+                                       for r in t["attribution_ranks"].values() if r.get("actor_rank")),
+                                      default=None) if actor != "-" else None}
         if exp:
             # parent-technique match: T1003.001 expected, T1003 observed counts (and vice versa)
             for m in ANALYSTS:
