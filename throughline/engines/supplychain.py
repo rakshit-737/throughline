@@ -30,6 +30,11 @@ def _iso(ts: int | float) -> str:
     return datetime.fromtimestamp(float(ts), tz=UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def _pairs(x) -> list[tuple[str, str]]:
+    """TRACEGATE <=1.1.0 gave ``{name: version}``; >=1.1.1 gives sorted ``(name, version)`` pairs."""
+    return sorted(x.items()) if isinstance(x, dict) else sorted((str(n), str(v)) for n, v in x)
+
+
 def lineage_claims(kg: KnowledgeGraph, history, repo: str = "", source: str = "tracegate") -> list[Claim]:
     """Claims from TRACEGATE ``ManifestCommit`` objects (duck-typed: sha, author, timestamp,
     subject, added, removed)."""
@@ -40,11 +45,11 @@ def lineage_claims(kg: KnowledgeGraph, history, repo: str = "", source: str = "t
         out.append(kg.add_claim("Author", mc.author, "AUTHORED", "Commit", sha, source=source,
                                 method="observed", reliability="A", timestamp=ts))
         kg.set_attrs(f"Commit:{sha}", {"subject": mc.subject[:200], "repo": repo, "pr": getattr(mc, "pr", None) or ""})
-        for name, ver in sorted(mc.added.items()):
+        for name, ver in _pairs(mc.added):
             out.append(kg.add_claim("Commit", sha, "INTRODUCED", "Dependency", f"{name}=={ver}", source=source,
                                     method="observed", reliability="A", timestamp=ts))
             kg.set_attrs(f"Dependency:{name}=={ver}", {"package": name, "version": ver, "ecosystem": "pypi"})
-        for name, ver in sorted(mc.removed.items()):
+        for name, ver in _pairs(mc.removed):
             kg.set_attrs(f"Dependency:{name}=={ver}", {"removed_by": sha})
     return out
 
@@ -113,7 +118,7 @@ class TracegateSupplyChainEngine:
 
         self.history = manifest_history(self.repo, self.manifest, limit=self.limit)
         out = lineage_claims(kg, self.history, repo=self.repo.name)
-        deps = sorted({f"{n}=={v}" for mc in self.history for n, v in mc.added.items()})
+        deps = sorted({f"{n}=={v}" for mc in self.history for n, v in _pairs(mc.added)})
         if self.history:
             out += osv_claims(kg, self.osv(deps), _iso(self.history[-1].timestamp))
             for vid, sev in self.severity.items():
