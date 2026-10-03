@@ -4,9 +4,12 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [1.1.3] - 2026-10-03
+
 ### Changed
 - The GitHub repository was renamed to `throughline-security-knowledge-graph`; docs moved to <https://rakshit-737.github.io/throughline-security-knowledge-graph/> and the image to `ghcr.io/rakshit-737/throughline-security-knowledge-graph`. Links in older entries below point at the old names, which GitHub redirects (Pages URLs do not).
-- Sibling engines are pinned through their renamed repositories (`throughline.engines.REPO_NAMES`) and moved to their newest releases.
+- Sibling engines are pinned through their renamed repositories (`throughline.engines.REPO_NAMES`) and moved to their newest releases: ANVIL, ROOTLINE, VANTAGE, GAUNTLET, TRACEGATE, FEINT v1.1.2; REVENANT, DRAGNET, OCCAM, STRATUM, LINCHPIN, VITRINE v1.1.3; SPECIMEN v1.1.4.
+- Every benchmark re-run in CI with the newly pinned engines (bench run 37136774950). Only runtimes changed; no accuracy, calibration, attribution or supply-chain metric changed.
 
 ## [1.1.2] - 2026-10-03
 
