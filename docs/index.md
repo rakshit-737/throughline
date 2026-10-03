@@ -2,30 +2,41 @@
 
 **One evidence-first security knowledge graph that thirteen separate tools write into, so "what happened, how did it start, who did it, and how sure are we?" becomes a single query with a cited, confidence-graded answer.**
 
-Every node and edge is a *claim* with a source, a method, an Admiralty reliability grade and a confidence computed from independent corroboration and contradiction. The sibling projects of this portfolio plug in as engines that read and write only that graph (Sigma detection, provenance reconstruction, ACH attribution, control posture, emulation plans, supply-chain lineage, attack paths, malware and network analysis). THROUGHLINE adds what none of them has alone: cross-engine correlation into incidents, fused and calibrated confidence, a read-only investigator that cites every claim, and a detection feedback loop.
+**Contribution:** every engine's conclusion becomes a reliability-graded *claim* in one graph, and only *independent* engines are fused (noisy-OR over the best claim of each engine), with `UNKNOWN` as a competing attribution hypothesis. On public data this ranks the emulated technique first more often than the best single engine or an unfused union (hit@1 0.37 vs 0.26 for Sigma alone, +0.11 [0.05, 0.18], 97 real attack captures) and makes confident attributions right more often without adding confident errors (19.2% vs 13.0%, exact McNemar p = 0.0003, 448 leakage-controlled cases). The [ablation](evaluation.md#b1-technique-identification-and-the-ablation) isolates which part of the evidence model carries the gain.
 
-> Every tool here already exists separately. The point is that the answer lives in one graph, and that the graph says how sure it is.
+[![The investigation console on a real OTRF capture](assets/console.png)](demo/index.html)
 
 <div class="grid cards" markdown>
 
-- **[Getting started](getting-started.md)**: install, run the synthetic demo, then a real capture.
-- **[Live demo](demo/index.html)**: the investigation console, pre-rendered on the synthetic supply-chain intrusion (type `checkout-7`).
-- **[Benchmarks](benchmarks.md)**: five benchmarks on public data, each against a single-engine baseline.
-- **[Architecture](architecture.md)**: engines, the claim model, correlation.
+- **[Try it](#try-it-in-60-seconds)**: the live console, `pip install` or a container.
+- **[How it works](how-it-works.md)**: one real capture followed from raw event to cited answer.
+- **[Evaluation](evaluation.md)**: methodology, every result with its interval, what did not work.
+- **[Reproduce](reproduce.md)**: exact commands, expected numbers, runtimes.
 
 </div>
 
-## Headline numbers
+## Try it in 60 seconds
+
+1. **In the browser:** the [live console](demo/index.html) opens on a real OTRF capture (LSASS dumped through `comsvcs.dll`) run through every engine. Click a claim id to see how its confidence was computed.
+2. **On your machine** (Python 3.11+):
+   ```bash
+   pip install "throughline @ git+https://github.com/rakshit-737/throughline"
+   throughline demo            # synthetic supply-chain intrusion, a cited root-cause chain in about a second
+   ```
+3. **In a container:** `docker run --rm -p 127.0.0.1:8000:8000 ghcr.io/rakshit-737/throughline:latest`, then open the console link it logs.
+
+## Headline results
 
 | question | THROUGHLINE | best single engine / baseline |
 | --- | --- | --- |
-| Emulated technique is the top claim (hit@1, 95 OTRF captures) | **0.400** | Sigma alone 0.337 |
-| Calibrated probability quality (Brier) | **0.110** | Sigma alone 0.130 |
-| Alert load | **376 incidents** | 5,994 Sigma alerts |
-| Confident attribution that is right (temporal hold-out) | **41%**, 0% confidently wrong | DRAGNET 24%, OCCAM 24% |
+| Emulated technique is the top claim (hit@1, 97 OTRF captures, ties in expectation) | **0.372** [0.288, 0.462] | Sigma alone 0.259 [0.201, 0.324] |
+| Calibrated Brier on one shared set of 785 claims | **0.111** | Sigma alone 0.123 (difference -0.013 [-0.020, -0.006]) |
+| Confident attribution that is right (448 leave-report-out cases) | **19.2%**, 0.7% confidently wrong | DRAGNET 13.0%, OCCAM 13.2% |
+| Lateral movement stitched on the APT29 evaluation (days 1 + 2) | **3 of 3 true host pairs, 0 false** | 1.0.0: 3 true of 6 joined pairs |
+| Technique ranking vs the APT29 emulation plan (precision@10, day 1 / day 2) | **0.40 / 0.33** | Sigma alone 0.33 / 0.22 |
 
-What does not work well is reported on the same pages: see [Benchmarks](benchmarks.md) and [Limitations](limitations.md).
+What does **not** work is measured on the same pages: incident grouping adds nothing to technique ranking, incident prioritisation is no better than Sigma severity, the 15.8x alert compression is 2.2x against de-duplicated alerts, new malware families cannot be attributed from behaviour, and neither intel engine names APT29 even from the emulation plan's own techniques. See [Evaluation](evaluation.md) and [Limitations](limitations.md).
 
 ## Safety
 
-THROUGHLINE reasons about attacks; it performs none. Attack data is replayed from public logs, the simulation slot only emits a dry-run plan, and drafted detections stay unreviewed. See [Security](security.md).
+THROUGHLINE reasons about attacks; it performs none. Attack data is replayed from public logs, the simulation slot only emits a dry-run plan, CI only ever runs read-only administration commands on its own throwaway runner, and drafted detections stay unreviewed. See [Security](security.md).

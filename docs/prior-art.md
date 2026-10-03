@@ -1,8 +1,20 @@
 # Prior art
 
-
 - **SIEM / XDR / CNAPP** (Splunk, Elastic, Sentinel, Wiz) correlate alerts at scale, but keep code, build, runtime and intel in separate data models and treat confidence as a severity label. THROUGHLINE is one claim-level graph where every conclusion carries provenance and a confidence you can decompose (`/claims/{id}/explain`).
-- **Provenance-graph research** (DARPA TC systems, HOLMES, ATLAS, and the REVENANT/ROOTLINE siblings) reconstructs host activity. THROUGHLINE consumes those reconstructions as independent evidence and fuses them with rule-based detection instead of replacing either.
+- **Risk-based alerting** (Uetz, Bönninghausen, Hackländer-Jansen, Henze: *Can Risk-Based Alerting Mitigate Cybersecurity Alert Fatigue?*, [arXiv:2609.02465](https://arxiv.org/abs/2609.02465), 2026) aggregates risk per entity and outperforms severity order on eight alert datasets. THROUGHLINE implements it as ablation A6: on technique identification fusion beats it (+0.09 hit@1), and for incident prioritisation neither beats severity on these captures.
+- **Claim governance for CTI** (TRACE-CTI: Valletta, Longo, Russo, Merlo, *Auditable Post-Extraction Governance of TTP Claims with Knowledge Graphs*, [arXiv:2607.24563](https://arxiv.org/abs/2607.24563), 2026) keeps extracted TTP claims in a knowledge graph and gates them on agreement between extraction setups. THROUGHLINE applies the same idea to runtime telemetry: claims from different *engines*, fused only when the engines are independent, with calibrated probabilities.
+- **Provenance-graph detection** (HOLMES, ATLAS; NODLINK: Li et al., NDSS 2024, [arXiv:2311.02331](https://arxiv.org/abs/2311.02331); the REVENANT/ROOTLINE siblings) reconstructs host activity. THROUGHLINE consumes those reconstructions as independent evidence and fuses them with rule-based detection instead of replacing either.
+- **Attribution and ACH** (Heuer's Analysis of Competing Hypotheses; DRAGNET, OCCAM) is usually single-engine. Running two with different failure modes as competing claims, with `UNKNOWN` as a hypothesis, is measured in B3. TTP-based attribution has known limits (Balassone et al., *Synthetic APTs: the Collapse of TTP-Based Attribution*, [arXiv:2606.07158](https://arxiv.org/abs/2606.07158), 2026), which B3's new-family cases and B4's oracle reproduce. A system that always abstains has zero confident errors by construction (Li, [arXiv:2608.12444](https://arxiv.org/abs/2608.12444), 2026), which is why B3 reports confident-and-right and risk-coverage next to every error rate.
 - **OpenCTI / MISP / STIX** grade intel reliability and confidence, but have no runtime or code layer. THROUGHLINE borrows the Admiralty grading and applies it to every edge.
-- **Attribution tools and ACH** (Heuer; DRAGNET, OCCAM) are usually single-engine. Running two with different failure modes as competing claims, with UNKNOWN as a hypothesis, is the measured contribution here.
-- **Detection-as-code** (SigmaHQ, pySigma, ANVIL) manages rules. The loop here drafts rules *from an investigation's unseen behaviour* and gates them on real captures before a human sees them.
+- **Detection-as-code** (SigmaHQ, pySigma, ANVIL) manages rules. The loop here drafts rules *from an investigation's unseen behaviour*, gates them on real captures and re-validates them by re-emulation before a human sees them.
+
+## References
+
+- R. Uetz, P. Bönninghausen, L. Hackländer-Jansen, M. Henze. *Can Risk-Based Alerting Mitigate Cybersecurity Alert Fatigue?* arXiv:2609.02465, 2026. <https://arxiv.org/abs/2609.02465>
+- F. Valletta, G. Longo, E. Russo, A. Merlo. *TRACE-CTI: Auditable Post-Extraction Governance of TTP Claims with Knowledge Graphs.* arXiv:2607.24563, 2026. <https://arxiv.org/abs/2607.24563>
+- Z. Li. *Non-Degenerate Risk Certification for Automated Security Decisions: A Decision-Contract Theory with ATT&CK-Aligned Triage as a Worked Instance.* arXiv:2608.12444, 2026. <https://arxiv.org/abs/2608.12444>
+- F. Balassone, V. Mayoral-Vilches, M. Sanz-Gómez, et al. *Synthetic APTs: the Collapse of TTP-Based Attribution.* arXiv:2606.07158, 2026. <https://arxiv.org/abs/2606.07158>
+- S. Li, F. Dong, X. Xiao, H. Wang, F. Shao, J. Chen, Y. Guo, X. Chen, D. Li. *NODLINK: An Online System for Fine-Grained APT Attack Detection and Investigation.* NDSS 2024; arXiv:2311.02331. <https://arxiv.org/abs/2311.02331>
+- R. J. Heuer Jr. *Psychology of Intelligence Analysis*, chapter 8 (Analysis of Competing Hypotheses). CIA Center for the Study of Intelligence, 1999.
+- J. Platt. *Probabilistic Outputs for Support Vector Machines and Comparisons to Regularized Likelihood Methods.* Advances in Large Margin Classifiers, 1999 (Platt scaling).
+

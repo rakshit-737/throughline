@@ -3,16 +3,17 @@
 ## Limitations
 
 - **Labels are coarse.** OTRF captures carry one technique label, so incidental but genuine techniques count as errors. Calibration is fitted on emulated attacks where every capture contains an attack; it will over-state probabilities on ordinary production telemetry.
-- **Small attribution sample.** 17 temporal and 25 retrospective campaigns; rates move 4-6 points per case. False flags are simulated, following DRAGNET's protocol.
-- **Cross-host correlation is shallow.** Incidents are built per host and process lineage; since 1.0.0 incidents on different hosts that contacted the same rare network destination (`CONNECTED_TO` an IP:port or `RESOLVED` a domain, shared by at most 3 incidents) are stitched into one `cluster`. That is a proposal with its shared destination as evidence, not a proven lateral-movement edge: logon (4624) and SMB/WinRM edges are not yet used, and the effect on APT29 day 1 (60 per-host incidents) has not been re-measured for this release (it needs the 13-minute full-engine run).
+- **Attribution evidence is ATT&CK's, not telemetry's.** The 448 leave-report-out cases are curated technique lists from public reports; false flags are simulated, following DRAGNET's protocol. The temporal campaign set is small (17), and its 41% vs 24% gain is not significant on its own.
+- **Lateral-movement ground truth is tiny.** Three host pairs over two days; the stitching result is a correctness check, not a precision estimate. Logon (4624) edges are not yet used for stitching.
 - **Process identity** merges two processes that reuse a pid with the same image inside one capture ([ADR-0005](adr/0005-windows-process-identity.md)); ROOTLINE cannot run on captures whose Sysmon export dropped the pid.
 - **Cross-layer joins on real data are partial.** The endpoint slice (OTRF) and the supply-chain slice (healthchecks) are real but unrelated datasets; the full code-to-runtime story is shown on STRATUM's and the built-in synthetic scenarios. LINCHPIN, VITRINE, SPECIMEN and FEINT are exercised on their own synthetic data or pure mappings, not on real inputs here.
-- **In-memory graph.** networkx is fine to ~150k claims on a laptop (the APT29 run peaks at ~2.6 GB resident, most of it the sibling engines' own copies of the events); a persistent store is the Neo4j mirror, which is not the primary backend yet ([ADR-0002](adr/0002-networkx-first-neo4j-optional.md)).
-- **Authentication is a single optional bearer token** (`THROUGHLINE_API_TOKEN`); no users, roles or TLS. Keep the API on localhost or behind a TLS proxy.
+- **In-memory graph.** networkx holds APT29 day 1 (152k claims) in 2.7 GB and day 2 (419k claims) in 8.1 GB, most of it the sibling engines' own copies of the events; every API ingest rebuilds the graph. A persistent store is the Neo4j mirror, which is not the primary backend yet ([ADR-0002](adr/0002-networkx-first-neo4j-optional.md)).
+- **Authentication is a single bearer token**; no users, roles or TLS. Keep the API on localhost or behind a TLS proxy.
+- **Not built:** GraphQL, a relational case and audit store, and an LLM hypothesis step (spec items out of scope for this release).
 
 ## Roadmap
 
-- Cross-host stitching beyond shared destinations (logon + SMB/WinRM edges between story roots) and a lateral-movement benchmark on APT29 day 2.
+- Logon (4624) and SMB/RDP edges between story roots for stitching, scored on more multi-host captures.
 - An LLM hypothesis step inside the investigator, under the same "every sentence cites a claim" rule, evaluated against the deterministic trace.
 - Real inputs for the remaining adapters: STRATUM's public manifests, LINCHPIN's DefectDojo/BloodHound case study, SPECIMEN on CAPE reports, FEINT on CIC-IDS2017 flows.
 - Persistent graph backend and incremental ingest.
