@@ -4,7 +4,14 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
-## [1.1.0] - 2026-10-03
+## [1.1.1] - 2026-10-03
+
+The `v1.1.0` tag was pushed but published nothing: the release preflight refused results produced by the previous engine commits. 1.1.1 is the first release since 1.0.0 and contains everything listed under 1.1.0.
+
+### Changed
+- Every benchmark re-run in CI with the newly pinned engines (bench run 37106795062). No accuracy, calibration, attribution or supply-chain metric changed. APT29 pipeline time on the CI runner rose from 68 s to 84 s (day 1) and from 228 s to 269 s (days 1 + 2); peak memory is unchanged.
+
+## [1.1.0] - 2026-10-03 (tagged, not released) - 2026-10-03
 
 Sibling engines are pinned to their newest releases (FEINT v1.1.0, VITRINE and SPECIMEN v1.1.2, the other ten v1.1.1; STRATUM's distribution is now `stratum-cnapp`, and the TRACEGATE adapter accepts its v1.1.1 pair-list lineage). The benchmarks below were measured in CI with the v1.1.0 engines. Every sibling engine moved to its v1.1.0 release, every benchmark is re-run in CI with them, and the evaluation is rebuilt so each headline comes with an interval, an ablation and a like-for-like baseline. Several published numbers got worse when re-measured this way; they are listed under **Changed results**.
 

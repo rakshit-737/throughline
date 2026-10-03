@@ -12,7 +12,7 @@ abstract: >-
 authors:
   - name: Rakshit
     affiliation: VIT Chennai
-version: 1.1.0
+version: 1.1.1
 date-released: 2026-10-03
 license: MIT
 repository-code: "https://github.com/rakshit-737/throughline"
