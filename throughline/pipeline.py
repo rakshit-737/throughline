@@ -64,6 +64,11 @@ def build(records, registry: EngineRegistry | None = None, *, context: dict | No
 
 
 def resolve(kg: KnowledgeGraph, query: str) -> str:
+    """Resolve a query to a node key: an exact key, an id, or a key suffix (first match sorted).
+
+    Raises:
+        KeyError: nothing matches.
+    """
     if query in kg.g:
         return query
     hits = [n for n in kg.g if n.split(":", 1)[1] == query or n.endswith(query)]

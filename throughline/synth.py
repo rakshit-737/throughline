@@ -20,6 +20,9 @@ def _ts(minutes: int) -> str:
 
 
 def generate(seed: int = 7, services: int = 4, false_flag: bool = False) -> dict:
+    """Synthetic supply-chain intrusion (commit -> build -> image -> pod -> process -> C2) as raw
+    records from every connector; ``false_flag`` adds conflicting CTI. Data only, RFC 5737 IPs.
+    """
     rnd = random.Random(seed)
     records: list[tuple[str, dict, str]] = []  # (connector, raw, reliability)
     truth = {"malicious_nodes": set(), "techniques": set(), "attacker": "Actor:APT-Example"}

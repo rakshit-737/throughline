@@ -33,6 +33,7 @@ TECHNIQUE_RE = re.compile(r"^T\d{4}(\.\d{3})?$")
 
 @dataclass
 class AttackObject:
+    """One ATT&CK object (technique, group, software, campaign) as the catalog keeps it."""
     stix_id: str
     attack_id: str
     name: str
@@ -45,6 +46,9 @@ class AttackObject:
 
 @dataclass
 class AttackCatalog:
+    """MITRE ATT&CK Enterprise STIX loaded into lookup tables (techniques, groups, software,
+    campaigns, mitigations, ``uses`` relations, revoked-id forwarding).
+    """
     version: str = ""
     released: str = ""
     techniques: dict[str, AttackObject] = field(default_factory=dict)   # T-id -> object
@@ -61,11 +65,13 @@ class AttackCatalog:
     # ------------------------------------------------------------------ loading
     @classmethod
     def load(cls, path: str | Path) -> AttackCatalog:
+        """Load a STIX 2.1 bundle file (e.g. ``enterprise-attack-19.2.json``)."""
         with open(path, encoding="utf-8") as fh:
             return cls.from_bundle(json.load(fh))
 
     @classmethod
     def from_bundle(cls, bundle: dict) -> AttackCatalog:
+        """Build the catalog from an already parsed STIX bundle."""
         cat = cls()
         objs = bundle.get("objects", [])
         by_stix: dict[str, AttackObject] = {}
@@ -130,6 +136,7 @@ class AttackCatalog:
         return tid if tid in self.techniques else None
 
     def name(self, tid: str) -> str:
+        """Technique name for an id (``T1003.001`` -> ``OS Credential Dumping: LSASS Memory``)."""
         t = self.techniques.get(tid)
         if not t:
             return TECHNIQUES.get(tid, "")
@@ -138,9 +145,11 @@ class AttackCatalog:
         return t.name
 
     def techniques_of(self, entity: str) -> set[str]:
+        """Technique ids an ATT&CK entity (group, software, campaign) is documented to use."""
         return {x for x in self.uses.get(entity, ()) if x.startswith("T")}
 
     def software_of(self, entity: str) -> set[str]:
+        """Software ids an ATT&CK entity is documented to use."""
         return {x for x in self.uses.get(entity, ()) if x.startswith("S")}
 
     def group_profile(self, gid: str, via_software: bool = True) -> set[str]:
@@ -152,6 +161,7 @@ class AttackCatalog:
         return out
 
     def summary(self) -> dict:
+        """Object counts and the ATT&CK version, for reports."""
         return {"version": self.version, "techniques": len(self.techniques), "groups": len(self.groups),
                 "software": len(self.software), "campaigns": len(self.campaigns),
                 "mitigations": len(self.mitigations), "attributed_campaigns": len(self.attributed)}
@@ -167,6 +177,7 @@ def set_active(cat: AttackCatalog | None) -> None:
 
 
 def active() -> AttackCatalog | None:
+    """The catalog installed by :func:`set_active`, or ``None`` (built-in names only)."""
     return _ACTIVE
 
 
@@ -179,6 +190,7 @@ def canonical_technique(tid: str) -> str:
 
 
 def technique_name(tid: str) -> str:
+    """Human-readable technique name from the active catalog, falling back to a built-in table."""
     return _ACTIVE.name(tid) if _ACTIVE else TECHNIQUES.get(tid, "")
 
 

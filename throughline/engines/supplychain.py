@@ -60,6 +60,7 @@ def osv_claims(kg: KnowledgeGraph, results: dict[str, list[str]], ts: str, sourc
 
 
 class TracegateSupplyChainEngine:
+    """TRACEGATE manifest lineage of a git repository, plus OSV advisories for every pinned version."""
     name = "supply-chain:tracegate"
     project = "TRACEGATE"
     reads = ("git",)
@@ -106,6 +107,7 @@ class TracegateSupplyChainEngine:
         return {d: cache[d] for d in deps if cache.get(d)}
 
     def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
+        """Walk the manifest's history and write AUTHORED / INTRODUCED / AFFECTS claims."""
         require("TRACEGATE")
         from tracegate.gitlineage import manifest_history
 
@@ -181,6 +183,7 @@ def stratum_claims(kg: KnowledgeGraph, analysis, ts: str = "1970-01-01T00:00:00Z
 
 
 class StratumEngine:
+    """STRATUM's code -> build -> image -> workload -> pod lifecycle and Zero-Trust findings."""
     name = "cnapp:stratum"
     project = "STRATUM"
     reads = ("k8s",)
@@ -191,6 +194,7 @@ class StratumEngine:
         self.analysis = None
 
     def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
+        """Analyse the configured cluster with STRATUM and map its findings onto the graph."""
         require("STRATUM")
         from stratum.incident import analyze
         from stratum.synth import generate

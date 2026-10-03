@@ -45,6 +45,7 @@ def flow_claims(kg: KnowledgeGraph, flows: list[dict], probs, threshold: float =
 
 
 class FeintNetworkEngine:
+    """FEINT flow classification: flows over threshold become ``CONNECTED_TO`` + ``EXHIBITS`` claims."""
     name = "detection:feint"
     project = "FEINT"
     reads = ("flows",)
@@ -55,6 +56,7 @@ class FeintNetworkEngine:
         self.threshold = threshold
 
     def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
+        """Score the configured flows and write claims for those over the threshold."""
         require("FEINT")
         flows = context.get("flows")
         if not flows:

@@ -45,6 +45,7 @@ def build_catalog(attack_path: str | Path, sigma_rules: str | Path, cis_xlsx: st
 
 
 class VantagePostureEngine:
+    """VANTAGE control -> detection -> technique coverage for the techniques an investigation saw."""
     name = "posture:vantage"
     project = "VANTAGE"
     reads = ("EXHIBITS", "DETECTS", "ALERTED_ON")
@@ -59,6 +60,7 @@ class VantagePostureEngine:
         self.stats: Counter = Counter()
 
     def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
+        """Mark each observed technique detected, missed or blind and link mitigating CIS safeguards."""
         cat = self.catalog
         fired_rules = {n.split(":", 1)[1] for n in kg.g if n.startswith("Detection:")
                        and any(k == "ALERTED_ON" for _, _, k in kg.g.out_edges(n, keys=True))}

@@ -33,6 +33,7 @@ def _sigmoid(x: float) -> float:
 
 
 def brier(pairs: list[tuple[float, bool]]) -> float:
+    """Mean squared error between stated probabilities and outcomes (lower is better)."""
     return sum((p - float(y)) ** 2 for p, y in pairs) / len(pairs) if pairs else float("nan")
 
 
@@ -52,6 +53,7 @@ def ece(pairs: list[tuple[float, bool]], bins: int = 10) -> float:
 
 
 def reliability(pairs: list[tuple[float, bool]], bins: int = 10) -> list[dict]:
+    """Reliability-diagram bins: claims, mean stated confidence and accuracy per bin."""
     out = []
     for b in range(bins):
         lo, hi = b / bins, (b + 1) / bins
@@ -85,11 +87,13 @@ def auc(pairs: list[tuple[float, bool]]) -> float:
 
 @dataclass
 class Platt:
+    """Platt scaling: ``p = sigmoid(a * logit(confidence) + b)``, fitted on labelled claims."""
     a: float = 1.0
     b: float = 0.0
     n: int = 0
 
     def __call__(self, p: float) -> float:
+        """Calibrated probability for a raw confidence."""
         return _sigmoid(self.a * _logit(p) + self.b)
 
     @classmethod
@@ -148,14 +152,17 @@ class Platt:
         return cls(round(a, 6), round(b, 6), len(pairs))
 
     def save(self, path: str | Path) -> None:
+        """Write the map as JSON."""
         Path(path).write_text(json.dumps(asdict(self), indent=2), encoding="utf-8")
 
     @classmethod
     def load(cls, path: str | Path) -> Platt:
+        """Read a map written by :meth:`save`."""
         return cls(**json.loads(Path(path).read_text(encoding="utf-8")))
 
 
 def summary(pairs: list[tuple[float, bool]]) -> dict:
+    """Count, positives, Brier score, ECE and AUC of (probability, outcome) pairs."""
     return {"n": len(pairs), "positives": sum(1 for _, y in pairs if y),
             "brier": round(brier(pairs), 4), "ece": round(ece(pairs), 4), "auc": round(auc(pairs), 4)}
 

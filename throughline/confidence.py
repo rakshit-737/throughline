@@ -18,6 +18,7 @@ CAP = 0.99
 
 
 def base_confidence(method: str, reliability: str) -> float:
+    """Base confidence of a claim from its method prior and Admiralty reliability weight."""
     return round(METHOD_PRIOR.get(method, 0.3) * RELIABILITY_WEIGHT.get(reliability, 0.5), 4)
 
 
@@ -34,6 +35,9 @@ def _independent(claims: list[Claim]) -> list[float]:
 
 
 def combine(primary: Claim, supporting: list[Claim], contradicting: list[Claim]) -> float:
+    """Final confidence of ``primary``: noisy-OR over the best claim of each independent source,
+    discounted by the strongest contradicting claim (ADR-0003).
+    """
     vals = _independent([primary, *supporting])
     miss = 1.0
     for v in vals:
@@ -64,6 +68,7 @@ def combine_best(best: dict[str, float], extra: list[Claim], worst_contra: float
 
 
 def explain(primary: Claim, supporting: list[Claim], contradicting: list[Claim]) -> dict:
+    """Decompose a claim's confidence into base, independent sources, corroboration and conflict."""
     return {
         "claim": primary.claim_id,
         "assertion": primary.assertion,

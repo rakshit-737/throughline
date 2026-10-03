@@ -17,6 +17,7 @@ MAX_FIELD_LEN = 512
 
 
 def register_connector(name: str):
+    """Decorator registering a raw-record mapper under a connector name."""
     def deco(fn: Mapper) -> Mapper:
         _MAPPERS[name] = fn
         return fn
@@ -24,6 +25,7 @@ def register_connector(name: str):
 
 
 def connectors() -> list[str]:
+    """Names of the registered connectors."""
     return sorted(_MAPPERS)
 
 
@@ -94,6 +96,14 @@ def _clean(v):
 
 def normalize(raw: dict, connector: str, source: str | None = None,
               reliability: str = "B", raw_ref: str | None = None) -> CanonicalEvent:
+    """Validate and normalize one raw record into a :class:`~throughline.contracts.CanonicalEvent`.
+
+    The raw record is hashed (``raw_ref``), fields are length-capped and stripped of
+    non-printables, and the result is checked against the frozen contracts.
+
+    Raises:
+        ContractError: unknown connector, unmodelled record (``Skip``) or invalid fields.
+    """
     if connector not in _MAPPERS:
         raise ContractError(f"unknown connector {connector!r}")
     if not isinstance(raw, dict):

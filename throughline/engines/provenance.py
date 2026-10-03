@@ -46,6 +46,7 @@ def event_process(ev) -> str | None:
 
 
 class RevenantProvenanceEngine:
+    """REVENANT causal stories and ATT&CK heuristics over the raw Windows events."""
     name = "provenance:revenant"
     project = "REVENANT"
     reads = ("events",)
@@ -58,6 +59,7 @@ class RevenantProvenanceEngine:
         self.analysis = None
 
     def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
+        """Analyse the run's records with REVENANT; write technique tags and story membership."""
         require("REVENANT")
         from revenant.attack import HEURISTICS
         from revenant.parsers.otrf import events_from_rows
@@ -127,6 +129,7 @@ class RootlineProvenanceEngine:
         self.stats: Counter = Counter()
 
     def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
+        """Reconstruct each top incident from its pivot and record ROOTLINE's members as claims."""
         require("ROOTLINE")
         from rootline.loaders.sysmon import to_records
         from rootline.models import Alert, NodeType, Severity

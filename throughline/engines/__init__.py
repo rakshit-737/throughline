@@ -41,14 +41,17 @@ class Sibling:
 
     @property
     def repo(self) -> str:
+        """GitHub URL of the sibling project."""
         return f"https://github.com/rakshit-737/{self.project.lower()}"
 
     @property
     def pip_spec(self) -> str:
+        """The pinned direct-URL requirement, exactly as the pyproject extra lists it."""
         return f"{self.dist} @ git+{self.repo}@{self.tag}"
 
     @property
     def installed(self) -> bool:
+        """Whether the sibling's import package can be found."""
         return importlib.util.find_spec(self.package) is not None
 
     def installed_version(self) -> str | None:

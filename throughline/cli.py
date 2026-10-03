@@ -14,10 +14,14 @@ import json
 import secrets
 import sys
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from . import __version__, synth
 from .neo4j_adapter import statements
 from .pipeline import build, investigate
+
+if TYPE_CHECKING:
+    from .stack import Stack
 
 LOOPBACK = ("127.0.0.1", "localhost", "::1")
 
@@ -30,7 +34,7 @@ def _kg(args):
     return build(synth.generate(seed=args.seed, false_flag=args.false_flag)["records"])
 
 
-def cmd_demo(args) -> int:
+def cmd_demo(args: argparse.Namespace) -> int:
     """Synthetic supply-chain intrusion, investigated end to end."""
     kg, summary = _kg(args)
     print("== THROUGHLINE demo: synthetic supply-chain intrusion (data only) ==")
@@ -58,7 +62,7 @@ def _investigate(kg, query: str, min_conf: float = 0.0) -> dict:
                        "`throughline export` to list entities)") from None
 
 
-def cmd_investigate(args) -> int:
+def cmd_investigate(args: argparse.Namespace) -> int:
     """One-query investigation of an entity, as JSON."""
     kg, _ = _kg(args)
     if args.as_of:
@@ -71,7 +75,7 @@ def cmd_investigate(args) -> int:
     return 0
 
 
-def cmd_explain(args) -> int:
+def cmd_explain(args: argparse.Namespace) -> int:
     """How one claim's confidence was computed."""
     kg, _ = _kg(args)
     if args.claim_id not in kg.claims:
@@ -80,7 +84,7 @@ def cmd_explain(args) -> int:
     return 0
 
 
-def cmd_export(args) -> int:
+def cmd_export(args: argparse.Namespace) -> int:
     """The demo graph as JSON or parameterised Cypher."""
     kg, _ = _kg(args)
     if args.format == "cypher":
@@ -91,7 +95,7 @@ def cmd_export(args) -> int:
     return 0
 
 
-def cmd_engines(args) -> int:
+def cmd_engines(args: argparse.Namespace) -> int:
     """Built-in engines and the sibling engines: pinned release, installed version."""
     from .engines import status
     from .modules import default_registry
@@ -111,7 +115,7 @@ def cmd_engines(args) -> int:
     return 0
 
 
-def capture_records_for(spec: str, stack) -> tuple[str, list[str], list[tuple[str, dict, str]]]:
+def capture_records_for(spec: str, stack: Stack) -> tuple[str, list[str], list[tuple[str, dict, str]]]:
     """``(title, labelled techniques, records)`` for an SDWIN id or a capture file path."""
     from .connectors.otrf import iter_records, load_catalog
     p = Path(spec)
@@ -129,7 +133,7 @@ def _no_data_hint(root: Path) -> str:
             "`python scripts/download_data.py all` fetches one (the committed fixtures are in tests/fixtures/data)")
 
 
-def cmd_capture(args) -> int:
+def cmd_capture(args: argparse.Namespace) -> int:
     """Run every installed engine on one real capture and investigate the top incident."""
     from .reasoning.investigator import Investigator
     from .stack import ALL_ENGINES, Stack
@@ -164,7 +168,7 @@ def cmd_capture(args) -> int:
     return 0
 
 
-def cmd_captures(args) -> int:
+def cmd_captures(args: argparse.Namespace) -> int:
     """List the labelled OTRF captures under the dataset root."""
     from .connectors.otrf import load_catalog
     from .stack import DataPaths, data_dir
@@ -177,7 +181,7 @@ def cmd_captures(args) -> int:
     return 0
 
 
-def cmd_store(args) -> int:
+def cmd_store(args: argparse.Namespace) -> int:
     """Append to, verify, or print the head of an append-only event store."""
     from .connectors.otrf import iter_records
     from .eventstore import EventStore, StoreError
@@ -201,7 +205,7 @@ def cmd_store(args) -> int:
     return 0 if rep["ok"] else 1
 
 
-def cmd_serve(args) -> int:  # pragma: no cover - starts a server
+def cmd_serve(args: argparse.Namespace) -> int:  # pragma: no cover - starts a server
     """Serve the API and console (localhost by default)."""
     try:
         import uvicorn

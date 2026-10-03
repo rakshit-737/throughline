@@ -18,6 +18,7 @@ Nothing self-updates silently; every improvement is a measured artefact.
 from __future__ import annotations
 
 import re
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -53,20 +54,24 @@ class CaptureView:
 
     @property
     def commands(self) -> set[str]:
+        """Normalised command lines and script blocks of the capture."""
         return {norm_cmd(t) for r in self.behaviour if (t := behaviour_text(r))}
 
 
-def view(capture_id: str, techniques: list[str], records) -> CaptureView:
+def view(capture_id: str, techniques: list[str], records: Iterable[dict[str, Any]]) -> CaptureView:
+    """Keep the behaviour records (process creations, script blocks) of one capture."""
     return CaptureView(capture_id, list(techniques), [r for r in records if behaviour_text(r)])
 
 
 def related(a: list[str], b: list[str]) -> bool:
+    """Whether two technique lists share a parent technique."""
     pa, pb = {t.split(".")[0] for t in a}, {t.split(".")[0] for t in b}
     return bool(pa & pb)
 
 
 @dataclass
 class LoopResult:
+    """Outcome of closing one detection gap: drafts, accepted and rejected rules with their hits."""
     capture: str
     technique: str
     novel_commands: int

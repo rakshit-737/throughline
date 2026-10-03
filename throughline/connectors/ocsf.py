@@ -35,6 +35,12 @@ def _ts(rec: dict[str, Any]) -> str:
 
 
 def map_ocsf(rec: dict[str, Any]) -> dict[str, Any]:
+    """Map one OCSF 1.x record (process, network, authentication activity) to a canonical event.
+
+    Raises:
+        Skip: the class is not modelled.
+        ContractError: required fields are missing or malformed.
+    """
     cls = int(rec.get("class_uid", 0))
     host = _host(rec)
     actor_proc = (rec.get("actor") or {}).get("process")

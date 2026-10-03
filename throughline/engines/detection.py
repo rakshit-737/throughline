@@ -53,6 +53,7 @@ def sigma_dirs(sigma_root: str | Path, subset: str = "core") -> list[Path]:
 
 
 class AnvilDetectionEngine:
+    """ANVIL's compiled Sigma library over the raw Windows events in the run context."""
     name = "detection:anvil"
     project = "ANVIL"
     reads = ("events",)
@@ -66,6 +67,7 @@ class AnvilDetectionEngine:
 
     @classmethod
     def from_sigma(cls, sigma_root: str | Path, subset: str = "core", **kw) -> AnvilDetectionEngine:
+        """Compile a SigmaHQ checkout (``core`` = rules/windows, ``all`` adds hunting rules)."""
         return cls(load_library(sigma_dirs(sigma_root, subset)), **kw)
 
     def _level_ok(self, level: str) -> bool:
@@ -73,6 +75,7 @@ class AnvilDetectionEngine:
         return levels.index(level) <= self.min_rank if level in levels else True
 
     def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
+        """Match every Windows record; write alerts, technique claims and DETECTS edges."""
         require("ANVIL")
         from anvil.telemetry import normalise
 

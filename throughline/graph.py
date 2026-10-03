@@ -26,6 +26,13 @@ ANNOTATION_PREDICATES = frozenset({"EXHIBITS", "ATTRIBUTED_TO", "PART_OF", "DETE
 
 
 class KnowledgeGraph:
+    """Temporal security knowledge graph in which every node and edge is backed by claims.
+
+    All claims about one assertion are kept; confidence is recomputed by the confidence
+    engine (noisy-OR over independent sources, discounted by contradictions) whenever
+    evidence changes. Backed by a networkx ``MultiDiGraph``; :mod:`throughline.neo4j_adapter`
+    can mirror it.
+    """
     def __init__(self) -> None:
         self.g = nx.MultiDiGraph()
         self.claims: dict[str, Claim] = {}
@@ -102,6 +109,11 @@ class KnowledgeGraph:
             self.g.nodes[key]["attrs"].update(attrs)
 
     def ingest(self, ev: CanonicalEvent) -> Claim:
+        """Validate a canonical event, record it as a claim and attach its display attributes.
+
+        Returns:
+            The new claim.
+        """
         ev.validate()
         self.events[ev.event_id] = ev
         c = self.add_claim(ev.actor_type, ev.actor_id, ev.action, ev.object_type, ev.object_id,
@@ -118,6 +130,7 @@ class KnowledgeGraph:
     def tag_technique(self, subj_key: str, technique: str, reason: str, *, source: str,
                       ts: str, corroboration: list[str] | None = None, method: str = "inferred",
                       reliability: str = "C", score: float | None = None) -> Claim:
+        """Record ``<subject> EXHIBITS Technique:<id>`` (the id is canonicalised, revoked ids forwarded)."""
         ntype, nid = subj_key.split(":", 1)
         technique = canonical_technique(technique)
         c = self.add_claim(ntype, nid, "EXHIBITS", "Technique", technique, source=source,
@@ -137,6 +150,7 @@ class KnowledgeGraph:
         return out
 
     def claims_for(self, s: str, predicate: str, o: str | None) -> list[Claim]:
+        """Every claim about the assertion ``(subject, predicate, object)``."""
         return [self.claims[c] for c in self._by_assertion.get((s, predicate, o), [])]
 
     def _recompute(self, s: str, predicate: str, only: str | None = None) -> None:
@@ -169,9 +183,11 @@ class KnowledgeGraph:
                 self.g.edges[s, o, predicate]["confidence"] = max(c.confidence for c in claims)
 
     def edge_confidence(self, s: str, o: str, predicate: str) -> float:
+        """Current fused confidence of one edge."""
         return self.g.edges[s, o, predicate].get("confidence", 0.0)
 
     def explain_claim(self, cid: str) -> dict:
+        """How a claim's confidence was computed (see :func:`throughline.confidence.explain`)."""
         c = self.claims[cid]
         groups = self._group(c.subject, c.predicate)
         same = [x for x in groups.get(c.obj, []) if x is not c]
@@ -181,6 +197,7 @@ class KnowledgeGraph:
 
     # ---------- reads ----------
     def neighborhood(self, key: str, radius: int = 2) -> nx.MultiDiGraph:
+        """Subgraph within ``radius`` hops of ``key`` (both directions)."""
         und = self.g.to_undirected(as_view=True)
         nodes = nx.single_source_shortest_path_length(und, key, cutoff=radius).keys()
         return self.g.subgraph(nodes)
@@ -217,10 +234,12 @@ class KnowledgeGraph:
         return out
 
     def stats(self) -> dict:
+        """Node, edge, claim and event counts."""
         return {"nodes": self.g.number_of_nodes(), "edges": self.g.number_of_edges(),
                 "claims": len(self.claims), "events": len(self.events)}
 
     def to_json(self) -> dict:
+        """Nodes, edges and claims as a JSON-serialisable dict."""
         return {
             "nodes": [{"key": n, **{k: v for k, v in d.items()}} for n, d in self.g.nodes(data=True)],
             "edges": [{"src": s, "dst": o, **d} for s, o, d in self.g.edges(data=True)],

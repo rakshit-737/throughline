@@ -69,6 +69,7 @@ def path_claims(kg: KnowledgeGraph, paths, remediations=(), ts: str = "1970-01-0
 
 
 class LinchpinAttackPathEngine:
+    """LINCHPIN attack paths as ``CAN_REACH`` hops, ``Vulnerability AFFECTS Host`` and ranked fixes."""
     name = "attack-path:linchpin"
     project = "LINCHPIN"
     reads = ("Host", "Vulnerability", "User")
@@ -81,6 +82,9 @@ class LinchpinAttackPathEngine:
         self.fixes: list = []
 
     def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
+        """Rank attack paths in a LINCHPIN store (the context's, or LINCHPIN's own labelled synthetic
+        network) and write the paths and recommended fixes as claims.
+        """
         require("LINCHPIN")
         from linchpin.engine.optimizer import recommend
         from linchpin.engine.paths import rank_paths

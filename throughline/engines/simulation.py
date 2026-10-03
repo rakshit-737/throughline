@@ -18,6 +18,7 @@ from . import require
 
 
 class GauntletSimulationEngine:
+    """GAUNTLET dry-run emulation plans for the techniques posture marked as missed or blind."""
     name = "simulation:gauntlet"
     project = "GAUNTLET"
     reads = ("Technique",)
@@ -28,10 +29,14 @@ class GauntletSimulationEngine:
         self.plan: list[dict] = []
 
     def gaps(self, kg: KnowledgeGraph) -> list[str]:
+        """Techniques posture marked as missed or blind in this run."""
         return sorted(n.split(":", 1)[1] for n, d in kg.g.nodes(data=True)
                       if n.startswith("Technique:") and d.get("attrs", {}).get("posture") in ("missed", "blind"))
 
     def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
+        """Plan Atomic Red Team tests for the gaps: ``context['emulation_plan']`` plus a note on each
+        technique node. A dry-run manifest only; nothing is executed.
+        """
         require("GAUNTLET")
         from gauntlet.atomics import load_index, manifest
 

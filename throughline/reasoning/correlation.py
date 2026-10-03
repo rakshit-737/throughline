@@ -43,6 +43,7 @@ Each link is a proposal with its evidence (``cluster_via``), not a proven edge.
 from __future__ import annotations
 
 from collections import defaultdict
+from collections.abc import Iterable
 
 from ..contracts import Claim
 from ..graph import KnowledgeGraph
@@ -60,6 +61,7 @@ NON_SIGNAL_SOURCES = frozenset({SOURCE, "dragnet", "occam", "vantage"})
 
 
 def image(key: str) -> str:
+    """Lower-case image name of a ``Process:`` key (empty for other nodes)."""
     return key.rsplit("/", 1)[-1].lower() if key.startswith("Process:") else ""
 
 
@@ -152,7 +154,7 @@ def evidence_destination(key: str) -> bool:
     return port is None or not (port in INFRA_PORTS or port >= DYNAMIC_RPC)
 
 
-def destinations(kg: KnowledgeGraph, members) -> set[str]:
+def destinations(kg: KnowledgeGraph, members: Iterable[str]) -> set[str]:
     """Remote endpoints (IPAddress/Domain nodes) contacted by non-system members that can
     count as stitching evidence."""
     out = set()
@@ -309,7 +311,8 @@ def stitch(incidents: list[dict], dests: dict[str, set[str]], max_fanout: int = 
     return out
 
 
-def noisy_or(values) -> float:
+def noisy_or(values: Iterable[float]) -> float:
+    """``1 - prod(1 - v)`` over the values, capped at 0.99."""
     miss = 1.0
     for v in values:
         miss *= 1.0 - v
@@ -317,6 +320,9 @@ def noisy_or(values) -> float:
 
 
 class CorrelationEngine:
+    """Groups signal processes into incidents by story root, fuses each incident's technique
+    claims across independent engines and stitches incidents across hosts (see module docs).
+    """
     name = "correlation"
     project = "THROUGHLINE"
     reads = ("EXHIBITS", "ALERTED_ON", "SPAWNED")
@@ -328,6 +334,7 @@ class CorrelationEngine:
         self.incidents: list[dict] = []
 
     def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
+        """Write ``PART_OF`` and incident ``EXHIBITS`` claims; put incidents and clusters in ``context``."""
         signals: dict[str, dict[str, dict[str, float]]] = {}
         alerts: dict[str, int] = defaultdict(int)
         for n in list(kg.g.nodes):

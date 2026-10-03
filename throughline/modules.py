@@ -19,6 +19,9 @@ from .graph import KnowledgeGraph
 
 @runtime_checkable
 class Engine(Protocol):
+    """The frozen engine protocol: ``name``, ``reads``, ``writes`` and ``run(kg, context) -> claims``.
+    Engines talk to each other only through the graph (ADR-0001).
+    """
     name: str
     reads: tuple[str, ...]
     writes: tuple[str, ...]
@@ -33,6 +36,7 @@ class AttackMappingEngine:
     writes = ("EXHIBITS",)
 
     def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
+        """Tag processes with ATT&CK techniques from the built-in event mapping."""
         raw_ctx: dict = context.get("raw_context", {})
         out = []
         for ev in list(kg.events.values()):
@@ -58,6 +62,7 @@ class SiblingEngineStub:
     grade: str = "B/C"
 
     def run(self, kg: KnowledgeGraph, context: dict) -> list[Claim]:
+        """Placeholder for a sibling engine that is not installed: writes nothing."""
         return []
 
 
@@ -75,9 +80,11 @@ SIBLING_SLOTS = [
 
 @dataclass
 class EngineRegistry:
+    """Ordered set of engines; runs them in registration order and times each one."""
     engines: list = field(default_factory=list)
 
-    def register(self, engine) -> None:
+    def register(self, engine: Engine) -> None:
+        """Add an engine (later engines read what earlier ones wrote)."""
         if not isinstance(engine, Engine):
             raise TypeError(f"{engine!r} does not satisfy the Engine protocol")
         self.engines.append(engine)
@@ -101,6 +108,7 @@ class EngineRegistry:
 
 
 def default_registry() -> EngineRegistry:
+    """The engines of the synthetic demo (built-in ATT&CK mapping + correlation)."""
     reg = EngineRegistry()
     reg.register(AttackMappingEngine())
     for s in SIBLING_SLOTS:

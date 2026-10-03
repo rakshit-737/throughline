@@ -86,6 +86,7 @@ class BodySizeLimit:
         self.max_bytes = max_bytes
 
     async def __call__(self, scope, receive, send):
+        """ASGI entry point: refuse bodies whose declared or streamed size exceeds the cap (413)."""
         if scope["type"] != "http":
             await self.app(scope, receive, send)
             return

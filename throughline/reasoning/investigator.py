@@ -22,6 +22,7 @@ from ..pipeline import resolve
 
 @dataclass
 class Hypothesis:
+    """A competing explanation the investigator keeps open, with its belief and citations."""
     id: str
     statement: str
     belief: float
@@ -31,6 +32,7 @@ class Hypothesis:
 
 @dataclass
 class Step:
+    """One investigator step: the read-only tool used, its finding and the claims it cites."""
     n: int
     tool: str
     target: str
@@ -44,6 +46,12 @@ def _edge_claims(kg: KnowledgeGraph, s: str, o: str, k: str) -> list[str]:
 
 
 class Investigator:
+    """Bounded, deterministic, read-only investigation over graph queries.
+
+    It runs a fixed sequence of tools (incident, techniques, root cause, corroboration,
+    attribution, posture, blast radius); every finding cites claim ids, and nothing is
+    written to the graph.
+    """
     TOOLS = ("incident", "techniques", "root_cause", "corroboration", "attribution", "posture", "blast_radius")
 
     def __init__(self, kg: KnowledgeGraph, budget: int = 10, stop_at: float = 0.9):
@@ -66,7 +74,8 @@ class Investigator:
                     return self._incident_of(o)
         return best
 
-    def t_incident(self, inc: str):
+    def t_incident(self, inc: str) -> tuple[str, list[str], dict]:
+        """Incident membership: how many processes, from which engines, under which story root."""
         members = [(m, d.get("confidence", 0.0)) for m, _, k, d in self.kg.g.in_edges(inc, keys=True, data=True)
                    if k == "PART_OF"]
         members.sort(key=lambda x: -x[1])
@@ -79,7 +88,8 @@ class Investigator:
                f"{a.get('alerts', 0)} alerts; strongest member {members[0][0] if members else '-'}")
         return txt, cites, {"members": [m for m, _ in members]}
 
-    def t_techniques(self, inc: str):
+    def t_techniques(self, inc: str) -> tuple[str, list[str], dict]:
+        """The incident's strongest fused technique claims."""
         techs = sorted(((o, d.get("confidence", 0.0), d.get("claims", []))
                         for _, o, k, d in self.kg.g.out_edges(inc, keys=True, data=True) if k == "EXHIBITS"),
                        key=lambda x: -x[1])
@@ -88,7 +98,8 @@ class Investigator:
         top = [f"{o.split(':', 1)[1]} {self.kg.g.nodes[o].get('name', '')} ({c:.2f})" for o, c, _ in techs[:5]]
         return "; ".join(top), [cl[0] for _, _, cl in techs[:5] if cl], {"top": techs}
 
-    def t_root_cause(self, key: str):
+    def t_root_cause(self, key: str) -> tuple[str, list[str], dict]:
+        """The causal chain back to the root cause, with the command lines along it."""
         chain = self.kg.root_cause_chain(key)
         cites = []
         for a, b in zip(chain, chain[1:]):
@@ -97,7 +108,7 @@ class Investigator:
         imgs = [self.kg.g.nodes[n].get("attrs", {}).get("cmdline") or n for n in chain]
         return " -> ".join(str(x)[:80] for x in imgs), cites, {"chain": chain}
 
-    def t_corroboration(self, inc: str):
+    def t_corroboration(self, inc: str) -> tuple[str, list[str], dict]:
         """Which independent engines back the incident's strongest technique (read from the
         member claims the roll-up was fused from)."""
         techs = [(o, d) for _, o, k, d in self.kg.g.out_edges(inc, keys=True, data=True) if k == "EXHIBITS"]
@@ -115,7 +126,8 @@ class Investigator:
         return (f"{o.split(':', 1)[1]} is supported by {len(sources)} independent engine(s): "
                 f"{', '.join(sorted(sources)) or 'none'}"), sorted(sources.values()), {"sources": sorted(sources)}
 
-    def t_attribution(self, inc: str):
+    def t_attribution(self, inc: str) -> tuple[str, list[str], dict]:
+        """Competing ``ATTRIBUTED_TO`` hypotheses (``UNKNOWN`` included) and their confidence."""
         rows = sorted(((o, d.get("confidence", 0.0), d.get("claims", []))
                        for _, o, k, d in self.kg.g.out_edges(inc, keys=True, data=True) if k == "ATTRIBUTED_TO"),
                       key=lambda x: -x[1])
@@ -127,7 +139,8 @@ class Investigator:
             parts.append(f"{o.split(':', 1)[1]} {c:.2f} [{'+'.join(srcs)}]")
         return "; ".join(parts), [cl[0] for _, _, cl in rows if cl], {"rows": rows}
 
-    def t_posture(self, inc: str):
+    def t_posture(self, inc: str) -> tuple[str, list[str], dict]:
+        """What should have detected the observed techniques and what was missed."""
         out, cites = [], []
         for _, o, k in self.kg.g.out_edges(inc, keys=True):
             if k != "EXHIBITS":
@@ -138,7 +151,8 @@ class Investigator:
         return ("coverage gaps: " + ", ".join(out)) if out else "every observed technique had a detection fire", \
             cites, {"gaps": out}
 
-    def t_blast_radius(self, key: str):
+    def t_blast_radius(self, key: str) -> tuple[str, list[str], dict]:
+        """Everything reachable from the entity through causal edges."""
         br = self.kg.blast_radius(key)
         kinds: dict[str, int] = {}
         for n in br:
@@ -148,6 +162,14 @@ class Investigator:
 
     # ------------------------------------------------------------------ loop
     def investigate(self, query: str) -> dict:
+        """Run every tool on an entity or incident and return the cited report and the trace.
+
+        Args:
+            query: a node key, an id or a key suffix.
+
+        Returns:
+            ``{"target", "incident", "steps", "hypotheses", "report"}``; every step cites claim ids.
+        """
         key = resolve(self.kg, query)
         inc = self._incident_of(key)
         steps: list[Step] = []

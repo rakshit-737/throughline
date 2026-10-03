@@ -28,6 +28,7 @@ UNKNOWN_ACTOR = "UNKNOWN"
 
 @dataclass
 class Verdict:
+    """One attribution engine's answer: leading actor (or ``None``), its probability and grade."""
     engine: str
     leading: str | None          # ATT&CK group name, None = unknown / false flag / insufficient
     probability: float           # engine's stated probability that `leading` is right
@@ -45,6 +46,7 @@ class Evidence:
 
 
 def incident_evidence(kg: KnowledgeGraph, incident: str, min_conf: float = 0.0) -> Evidence:
+    """Techniques (fused roll-ups) and ATT&CK software ids of the rules that fired in an incident."""
     techs = sorted({o.split(":", 1)[1] for _, o, k, d in kg.g.out_edges(incident, keys=True, data=True)
                     if k == "EXHIBITS" and d.get("confidence", 0.0) >= min_conf})
     software: set[str] = set()
@@ -89,6 +91,7 @@ class _IntelBase:
 
 
 def record_verdict(kg: KnowledgeGraph, incident: str, v: Verdict, source: str) -> Claim:
+    """Write a verdict as one ``Incident ATTRIBUTED_TO Actor`` claim (``UNKNOWN`` when no actor)."""
     actor = v.leading or UNKNOWN_ACTOR
     itype, iid = incident.split(":", 1)
     c = kg.add_claim(itype, iid, "ATTRIBUTED_TO", "Actor", actor, source=source, method="inferred",
@@ -101,6 +104,7 @@ def record_verdict(kg: KnowledgeGraph, incident: str, v: Verdict, source: str) -
 
 
 class DragnetIntelEngine(_IntelBase):
+    """DRAGNET's specificity-weighted ACH over an ATT&CK knowledge graph (+ MISP sponsor countries)."""
     name = "intel:dragnet"
     project = "DRAGNET"
     source = "dragnet"
@@ -120,6 +124,7 @@ class DragnetIntelEngine(_IntelBase):
         self._sw = {o.attack_id: o for o in self.attack.software.values()}
 
     def signals(self, ev: Evidence):
+        """DRAGNET signals for engine-neutral evidence (TTPs, malware families, tools)."""
         from dragnet.models import Signal, SignalKind
 
         sigs = [Signal(SignalKind.TTP, t, "incident") for t in ev.techniques]
@@ -131,6 +136,7 @@ class DragnetIntelEngine(_IntelBase):
         return sigs
 
     def attribute(self, ev: Evidence, extra_signals: list | None = None) -> Verdict:
+        """Attribute evidence (plus extra DRAGNET signals); abstentions return ``leading=None``."""
         from dragnet.ach import FALSE_FLAG, UNKNOWN, assess
 
         a = assess("throughline", self.signals(ev) + list(extra_signals or []), self.kg)
@@ -146,6 +152,7 @@ class DragnetIntelEngine(_IntelBase):
 
 
 class OccamIntelEngine(_IntelBase):
+    """OCCAM's Heuer-style ACH with explicit false-flag hypotheses over ATT&CK group profiles."""
     name = "intel:occam"
     project = "OCCAM"
     source = "occam"
@@ -164,6 +171,7 @@ class OccamIntelEngine(_IntelBase):
         self.attributor = ACHAttributor(self.profiles, self.kb, shortlist=shortlist)
 
     def evidence(self, ev: Evidence):
+        """OCCAM evidence items for engine-neutral evidence, plus forgeable markers for ``planted``."""
         from occam.attribution import evidence_from_items, planted_markers
 
         items = [x for x in ev.techniques + ev.software if self.kb.get(x)]
@@ -175,6 +183,7 @@ class OccamIntelEngine(_IntelBase):
         return out
 
     def attribute(self, ev: Evidence) -> Verdict:
+        """Attribute evidence; a false-flag or unknown conclusion returns ``leading=None``."""
         r = self.attributor.attribute(self.evidence(ev))
         ranked = [self.names.get(a, a) for a in r.ranked_actors]
         flags = [f"false flag suspected: framing {self.names.get(r.flagged, r.flagged)}"] if r.flagged else []

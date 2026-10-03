@@ -9,11 +9,13 @@ import hashlib
 import json
 from dataclasses import asdict, dataclass, field
 from enum import StrEnum
+from typing import Any
 
 SCHEMA_VERSION = "0.2.0"  # additive over 0.1.0, see docs/adr/0004-schema-0.2.md
 
 
 class Method(StrEnum):
+    """How a claim was obtained; each method has a prior in the confidence model."""
     OBSERVED = "observed"
     INFERRED = "inferred"      # inferred-by-rule
     STATED = "stated"          # stated-in-report
@@ -31,6 +33,7 @@ class Reliability(StrEnum):
 
 
 class Layer(StrEnum):
+    """Which layer of the estate an event belongs to (code, build, runtime, network, identity, intel)."""
     CODE = "code"
     INFRA = "infra"
     IDENTITY = "identity"
@@ -75,16 +78,21 @@ MAX_ATTRIBUTE_LEN = 1024
 
 
 class ContractError(ValueError):
+    """Input violates the frozen contracts (unknown type, bad method or grade, oversized attributes)."""
     pass
 
 
-def canonical_hash(obj) -> str:
+def canonical_hash(obj: Any) -> str:
+    """SHA-256 of the canonical JSON form of a raw record (sorted keys, no whitespace)."""
     data = json.dumps(obj, sort_keys=True, separators=(",", ":"), default=str)
     return hashlib.sha256(data.encode("utf-8")).hexdigest()
 
 
 @dataclass(frozen=True)
 class CanonicalEvent:
+    """One normalized event: actor -action-> object, with source, method, reliability, timestamp
+    and a ``raw_ref`` back to the hashed raw record. Every event becomes one claim.
+    """
     event_id: str
     ts: str
     layer: str
@@ -102,6 +110,11 @@ class CanonicalEvent:
     attributes: dict = field(default_factory=dict)  # 0.2.0: optional display metadata
 
     def validate(self) -> CanonicalEvent:
+        """Check the event against the closed node/edge types, methods, grades and attribute caps.
+
+        Raises:
+            ContractError: on the first violation.
+        """
         if self.layer not in {x.value for x in Layer}:
             raise ContractError(f"bad layer {self.layer!r}")
         for t in (self.actor_type, self.object_type):
@@ -128,6 +141,7 @@ class CanonicalEvent:
         return self
 
     def to_dict(self) -> dict:
+        """Plain-dict form (JSON-serialisable)."""
         return asdict(self)
 
 
@@ -150,8 +164,10 @@ class Claim:
     evidence_ref: str | None = None  # raw_ref / hash of source event
 
     def to_dict(self) -> dict:
+        """Plain-dict form (JSON-serialisable)."""
         return asdict(self)
 
 
 def node_key(node_type: str, node_id: str) -> str:
+    """Graph key of a node: ``<Type>:<id>`` (e.g. ``Process:ws5/4200/rundll32.exe``)."""
     return f"{node_type}:{node_id}"
