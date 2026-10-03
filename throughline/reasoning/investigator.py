@@ -72,7 +72,10 @@ class Investigator:
         members.sort(key=lambda x: -x[1])
         a = self.kg.g.nodes[inc]["attrs"]
         cites = [c for m, _ in members[:5] for c in _edge_claims(self.kg, m, inc, "PART_OF")[:1]]
-        txt = (f"{len(members)} processes grouped under story root {a.get('root', '?')}; "
+        lineage = sum(1 for m, _ in members
+                      if any(self.kg.claims[c].source == "correlation" for c in _edge_claims(self.kg, m, inc, "PART_OF")))
+        txt = (f"{len(members)} processes ({lineage} by process lineage, {len(members) - lineage} added by other "
+               f"engines) grouped under story root {a.get('root', '?')}; "
                f"{a.get('alerts', 0)} alerts; strongest member {members[0][0] if members else '-'}")
         return txt, cites, {"members": [m for m, _ in members]}
 

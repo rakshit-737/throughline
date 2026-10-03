@@ -46,10 +46,20 @@ def test_security_and_sysmon_share_process_identity():
     assert normalize(sec, "windows").object_id == proc_id("ws5", 4200, "rundll32.exe")
 
 
+def test_network_connection_points_at_the_remote_end_and_keeps_the_local_address():
+    out = normalize(_sysmon(3, Image=r"C:\x\beacon.exe", ProcessId="7", Initiated="true", SourceIp="10.0.1.4",
+                            DestinationIp="192.168.0.5", DestinationPort="443"), "windows")
+    assert (out.action, out.object_id) == ("CONNECTED_TO", "192.168.0.5:443")
+    assert out.attributes["actor.local_ip"] == "10.0.1.4"
+
+
 @pytest.mark.parametrize("rec", [
     {"Channel": "Security", "EventID": 4663},
     {"Channel": "Windows PowerShell", "EventID": 400},
     _sysmon(5, Image="x.exe", ProcessId="1"),
+    # inbound connection: Destination* is the local end, so it is skipped like inbound WFP 5156
+    _sysmon(3, Image=r"C:\Windows\System32\lsass.exe", ProcessId="640", Initiated="false", SourceIp="10.0.1.4",
+            DestinationIp="10.0.0.4", DestinationPort="88"),
     {"Channel": "Security", "EventID": 4624, "TargetUserName": "WS5$", "Hostname": "ws5"},
 ])
 def test_unmodelled_records_are_skipped_not_rejected(rec):

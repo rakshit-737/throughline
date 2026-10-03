@@ -175,9 +175,17 @@ def map_sysmon(rec: dict[str, Any]) -> dict[str, Any]:
             raise Skip(f"sysmon {eid}: no Image")
         _proc(ev, host, "actor", _first(rec, "ProcessId", "ProcessID"), img, _first(rec, "ProcessGuid", "ProcessGUID"))
         if eid == 3:
+            # Inbound connections (Initiated=false) put the *local* address in Destination*;
+            # they are skipped like inbound WFP 5156 events, so CONNECTED_TO always points at
+            # the remote end. The local address of an outbound connection is kept on the
+            # process (``local_ip``): correlation uses it to map addresses to hosts.
+            if _s(rec.get("Initiated")).lower() == "false":
+                raise Skip("inbound sysmon connection")
             ev.update(layer="network", action="CONNECTED_TO", object_type="IPAddress",
                       object_id=f"{rec.get('DestinationIp', '?')}:{rec.get('DestinationPort', '?')}")
             ev["attributes"]["object.hostname"] = rec.get("DestinationHostname")
+            if rec.get("SourceIp"):
+                ev["attributes"]["actor.local_ip"] = rec.get("SourceIp")
         elif eid == 7:
             ev.update(action="LOADED", object_type="ModuleLoad", object_id=_s(rec.get("ImageLoaded")).lower())
             ev["attributes"]["object.signed"] = rec.get("Signed")

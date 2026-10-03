@@ -195,3 +195,62 @@ def test_correlation_stitches_cross_host_incidents():
     CorrelationEngine().run(kg, ctx)
     assert len(ctx["incidents"]) == 2 and len(ctx["clusters"]) == 1
     assert ctx["incidents"][0]["cluster_hosts"] == ["h1", "h2"]
+
+
+def _net(kg, proc, dest, ts=TS, local_ip=None):
+    kg.add_claim("Process", proc.split(":", 1)[1], "CONNECTED_TO", "IPAddress", dest.split(":", 1)[1],
+                 source="sysmon", method="observed", reliability="B", timestamp=ts)
+    if local_ip:
+        kg.set_attrs(proc, {"local_ip": local_ip})
+
+
+def test_stitching_ignores_loopback_infrastructure_and_system_traffic():
+    from throughline.reasoning.correlation import evidence_destination, routable
+
+    assert not routable("127.0.0.1") and not routable("::1") and not routable("fe80::1") and not routable("localhost")
+    assert routable("192.168.0.5") and routable("evil.example")
+    assert not evidence_destination("IPAddress:10.0.0.4:88")       # Kerberos on the DC
+    assert not evidence_destination("IPAddress:10.0.0.4:49667")    # dynamic RPC
+    assert not evidence_destination("Domain:localhost")
+    assert evidence_destination("IPAddress:192.168.0.5:443")
+    kg = KnowledgeGraph()
+    for h in ("h1", "h2"):
+        _proc(kg, f"Process:{h}/1/explorer.exe", f"Process:{h}/2/tool.exe")
+        kg.tag_technique(f"Process:{h}/2/tool.exe", "T1003", "sigma", source="anvil", ts=TS, reliability="B")
+        _net(kg, f"Process:{h}/2/tool.exe", "IPAddress:10.0.0.4:88")       # every host talks to the DC
+        _net(kg, f"Process:{h}/2/tool.exe", "IPAddress:127.0.0.1:8080")    # loopback
+        # an OS process inside the incident talks to a shared cloud endpoint: not evidence either
+        _proc(kg, f"Process:{h}/2/tool.exe", f"Process:{h}/3/backgroundtaskhost.exe")
+        kg.tag_technique(f"Process:{h}/3/backgroundtaskhost.exe", "T1105", "sigma", source="anvil", ts=TS,
+                         reliability="C")
+        _net(kg, f"Process:{h}/3/backgroundtaskhost.exe", "IPAddress:52.167.250.154:443")
+    ctx: dict = {}
+    CorrelationEngine().run(kg, ctx)
+    assert len(ctx["clusters"]) == 2
+
+
+def test_stitching_host_fanout_and_lateral_link():
+    from throughline.reasoning.correlation import stitch
+
+    incs = [{"incident": "Incident:a/1"}, {"incident": "Incident:b/2"}]
+    dests = {"Incident:a/1": {"IPAddress:6.6.6.6:443"}, "Incident:b/2": {"IPAddress:6.6.6.6:443"}}
+    # contacted by 3 of 4 hosts in all (> max(2, 4 // 2)): common infrastructure, not joined
+    fan = {"IPAddress:6.6.6.6:443": {"a", "b", "c"}}
+    assert stitch(incs, dests, 3, fan, 4)["Incident:a/1"]["cluster"] != stitch(incs, dests, 3, fan, 4)[
+        "Incident:b/2"]["cluster"]
+    # PsExec-style lateral movement: a member on h1 connects to h2's SMB port, and an incident on h2
+    # starts under psexesvc.exe a minute later -> one cluster, with the lateral evidence
+    kg = KnowledgeGraph()
+    _proc(kg, "Process:h1/1/explorer.exe", "Process:h1/2/psexec64.exe")
+    kg.tag_technique("Process:h1/2/psexec64.exe", "T1570", "sigma", source="anvil", ts=TS, reliability="B")
+    _net(kg, "Process:h1/2/psexec64.exe", "IPAddress:10.0.1.6:445", local_ip="10.0.1.4")
+    _net(kg, "Process:h2/9/updater.exe", "IPAddress:93.184.216.34:443", local_ip="10.0.1.6")
+    later = "2020-01-01T00:01:00Z"
+    kg.add_claim("Process", "h2/5/psexesvc.exe", "SPAWNED", "Process", "h2/6/python.exe", source="sysmon",
+                 method="observed", reliability="B", timestamp=later)
+    kg.tag_technique("Process:h2/6/python.exe", "T1059", "sigma", source="anvil", ts=later, reliability="B")
+    ctx: dict = {}
+    CorrelationEngine().run(kg, ctx)
+    assert len(ctx["clusters"]) == 1
+    via = ctx["incidents"][0]["cluster_via"]
+    assert any(v.startswith("lateral h1->h2 psexec64.exe 10.0.1.6:445") for v in via)
