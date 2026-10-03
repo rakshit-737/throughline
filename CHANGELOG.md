@@ -4,9 +4,14 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
-## [1.1.1] - 2026-10-03
+## [1.1.2] - 2026-10-03
 
-The `v1.1.0` tag was pushed but published nothing: the release preflight refused results produced by the previous engine commits. 1.1.1 is the first release since 1.0.0 and contains everything listed under 1.1.0.
+The first published release since 1.0.0; it contains everything listed under 1.1.1 and 1.1.0. Neither of those tags published anything: `v1.1.0`'s release preflight refused results produced by the previous engine commits, and `v1.1.1`'s preflight could not run its repository lint because PyYAML was not installed.
+
+### Fixed
+- Release workflow: install PyYAML before the repository-hygiene preflight step.
+
+## [1.1.1] - 2026-10-03 (tagged, not released)
 
 ### Changed
 - Every benchmark re-run in CI with the newly pinned engines (bench run 37106795062). No accuracy, calibration, attribution or supply-chain metric changed. APT29 pipeline time on the CI runner rose from 68 s to 84 s (day 1) and from 228 s to 269 s (days 1 + 2); peak memory is unchanged.
