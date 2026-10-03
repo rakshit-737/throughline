@@ -39,7 +39,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: python scripts/check_sibling_tags.py
       - name: repository hygiene (no file over 1 MB, no bidi controls)
-        run: python scripts/repo_lint.py
+        run: |
+          python -m pip install -q pyyaml
+          python scripts/repo_lint.py
   tests:
     uses: ./.github/workflows/ci.yml
   build:
