@@ -1,0 +1,4 @@
+# The sdist carries the test suite with what it needs to run (conftest + the 80 KB fixture slice).
+include LICENSE CHANGELOG.md CITATION.cff
+include tests/conftest.py
+recursive-include tests/fixtures *

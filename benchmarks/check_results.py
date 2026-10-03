@@ -24,6 +24,8 @@ ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "results"
 sys.path.insert(0, str(ROOT))
 MAX_BYTES = 1_000_000
+# siblings whose code produces benchmark numbers (a pin change elsewhere does not stale the results)
+BENCH_ENGINES = {"ANVIL", "REVENANT", "ROOTLINE", "DRAGNET", "OCCAM", "VANTAGE", "GAUNTLET", "TRACEGATE"}
 
 EXPECTED = {
     "otrf": ["otrf_core"],
@@ -110,6 +112,8 @@ def check(name: str, since: str | None, pins: bool) -> list[str]:
             errs.append("no engine provenance recorded")
         else:
             for s in SIBLINGS:
+                if s.project not in BENCH_ENGINES:
+                    continue
                 r = recorded.get(s.project)
                 if r and r.get("commit") and r["commit"] != s.sha:
                     errs.append(f"{s.project} commit {r['commit'][:7]} != pinned {s.sha[:7]} ({s.tag})")

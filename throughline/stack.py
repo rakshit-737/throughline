@@ -29,9 +29,14 @@ ALL_ENGINES = ("anvil", "revenant", "correlation", "rootline", "dragnet", "occam
 
 
 def data_dir() -> Path:
+    """Dataset root: ``$THROUGHLINE_DATA``; in a source checkout ``../../datasets/throughline``
+    if that folder exists, else ``<checkout>/data``; for an installed package
+    ``~/.throughline/data`` (never inside site-packages)."""
     env = os.environ.get("THROUGHLINE_DATA")
     if env:
         return Path(env)
+    if not (ROOT / "pyproject.toml").exists():  # installed from a wheel
+        return Path.home() / ".throughline" / "data"
     sib = ROOT.parents[1] / "datasets" / "throughline"
     return sib if sib.exists() else ROOT / "data"
 

@@ -12,6 +12,6 @@ Thirteen sibling projects fill the eight engine slots. The options were to vendo
 - Sibling repositories are never modified from here.
 
 ## Consequences
-- `pip install throughline` stays at two dependencies (networkx, PyYAML). CI runs a core job without siblings and an `engines` job with all of them on the committed fixture captures.
+- Installing THROUGHLINE without extras (`pip install -e .` in a checkout, or the release wheel; the bare PyPI name `throughline` is an unrelated project) stays at two dependencies (networkx, PyYAML). CI runs a core job without siblings and an `engines` job with all of them on the committed fixture captures.
 - Bumping a sibling is an explicit commit-hash change in two places (the pyproject extra and `SIBLINGS`), reviewed like any dependency bump.
 - Git-URL dependencies cannot be published to PyPI as they are. That is acceptable for a portfolio platform.

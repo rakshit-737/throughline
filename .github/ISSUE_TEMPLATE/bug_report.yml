@@ -1,0 +1,38 @@
+name: Bug report
+description: Something THROUGHLINE does is wrong, crashes, or disagrees with its documentation
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Please do not paste real customer telemetry, credentials or anything you are not allowed
+        to share. Security vulnerabilities go through private reporting (see SECURITY.md), not here.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: The command or API call, what you expected, and what you got (full error text).
+      placeholder: |
+        python -m throughline capture SDWIN-201018195009 --data tests/fixtures/data
+        expected ... / got ...
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: Output of `python -m throughline --version` and `python -m throughline engines`, your OS and Python version.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: data
+    attributes:
+      label: Data
+      description: Which dataset or capture (OTRF id, fixture, synthetic demo), if any.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I can reproduce this on the committed fixtures or the synthetic demo, or I explained why not.

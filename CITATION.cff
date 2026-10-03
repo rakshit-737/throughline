@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use THROUGHLINE in your work, please cite it as below."
+type: software
+title: "THROUGHLINE: an evidence-first security knowledge graph that fuses independent engines"
+abstract: >-
+  THROUGHLINE records every conclusion of thirteen separate security tools (Sigma detection,
+  provenance reconstruction, ACH attribution, posture, supply chain, malware and network
+  analysis) as a claim in one knowledge graph, with a source, a method, an Admiralty
+  reliability grade and a confidence from independent corroboration. Incident-level fusion
+  of independent engines and cross-validated calibration are evaluated on public attack
+  telemetry (OTRF Security-Datasets, the APT29 ATT&CK evaluation) and MITRE ATT&CK.
+authors:
+  - name: Rakshit
+    affiliation: VIT Chennai
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/rakshit-737/throughline"
+url: "https://rakshit-737.github.io/throughline/"
+keywords:
+  - security
+  - knowledge graph
+  - incident response
+  - threat intelligence
+  - MITRE ATT&CK
+  - Sigma
+  - attribution
+  - calibration

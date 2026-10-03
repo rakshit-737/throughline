@@ -1,0 +1,30 @@
+name: Feature or engine request
+description: A new connector, engine adapter, benchmark or investigation capability
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What question can an investigator not answer today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: >-
+        Which claims would it write (subject, predicate, object, source, method, reliability)?
+        Engines talk only through the graph and the frozen contracts (docs/adr/0001).
+  - type: textarea
+    id: evidence
+    attributes:
+      label: How would we measure it?
+      description: Public data and a baseline on identical inputs, if it changes a result.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      options:
+        - label: It needs no exploit code, live malware or scanning of systems we do not own.
+          required: true

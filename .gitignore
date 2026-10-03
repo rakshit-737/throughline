@@ -17,3 +17,24 @@ dist/
 
 # benchmark per-case rows (uploaded as a CI artefact, never committed)
 /results/raw/
+
+# local secrets and compose overrides (docker compose reads .env from the repo root)
+.env
+.env.*
+!.env.example
+# compose-e2e / scan outputs when run locally
+/e2e.json
+/compose.log
+/cypher.txt
+/trivy.txt
+/pip-audit.txt
+/frozen.txt
+*.log
+# models and caches
+*.pkl
+*.joblib
+models/
+.mypy_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/

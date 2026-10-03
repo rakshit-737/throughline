@@ -1,0 +1,24 @@
+# Weekly update proposals. The sibling engines are git-tag pins checked by
+# scripts/check_sibling_tags.py (Dependabot cannot follow them), so pip updates
+# cover the PyPI dependencies only.
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      python-deps:
+        patterns: ["*"]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly

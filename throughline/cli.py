@@ -208,8 +208,10 @@ def cmd_serve(args) -> int:  # pragma: no cover - starts a server
 
         from .api import create_app
     except ImportError as e:
-        raise CliError(f"`serve` needs the api extra ({e.name} is missing): pip install \"throughline[api]\" "
-                       "or, in a checkout, pip install -e .[api]") from None
+        raise CliError(f"`serve` needs the api extra ({e.name} is missing): pip install "
+                       "\"throughline[api] @ git+https://github.com/rakshit-737/throughline\" "
+                       "or, in a checkout, pip install -e .[api] (the bare name 'throughline' on PyPI is an "
+                       "unrelated project)") from None
     import os
     token = os.environ.get("THROUGHLINE_API_TOKEN") or None
     if args.host not in LOOPBACK and not token:
