@@ -26,7 +26,8 @@ jobs:
           test "${GITHUB_REF_NAME#v}" = "$v" || { echo "tag $GITHUB_REF_NAME does not match version $v"; exit 1; }
           test "$(python -c 'import throughline;print(throughline.__version__)')" = "$v"
       - name: CITATION.cff cites this version
-        run: grep -qx "version: ${GITHUB_REF_NAME#v}" CITATION.cff || { echo "CITATION.cff version is not ${GITHUB_REF_NAME#v}"; exit 1; }
+        run: |
+          grep -qx "version: ${GITHUB_REF_NAME#v}" CITATION.cff || { echo "CITATION.cff version is not ${GITHUB_REF_NAME#v}"; exit 1; }
       - name: CHANGELOG has a section for this version
         run: python scripts/release_notes.py "${GITHUB_REF_NAME#v}"
       - name: committed results were produced by the pinned engines

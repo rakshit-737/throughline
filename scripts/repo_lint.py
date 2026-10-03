@@ -3,6 +3,8 @@
 
 * no tracked file is larger than 1,000,000 bytes (the size of the committed blob, so a
   Windows checkout with CRLF conversion is judged like the Linux one);
+* every YAML file under ``.github`` parses (a broken workflow does not fail the push that
+  breaks it);
 * no tracked text file contains Unicode bidirectional control characters (U+202A-U+202E,
   U+2066-U+2069). They reorder how text is *displayed* (a filename such as
   ``<U+202E>cod.3aka3.scr`` renders as ``rcs.3aka3.doc``), so docs must show them as
@@ -44,6 +46,25 @@ def blob_sizes(shas: list[str]) -> dict[str, int]:
     return sizes
 
 
+def yaml_problems(paths: list[str]) -> list[str]:
+    """Every YAML file under .github must parse, and every workflow must have ``on`` and ``jobs``
+    (an unparsable workflow does not fail a push; GitHub only shows a failed, nameless run)."""
+    import yaml
+
+    out = []
+    for p in paths:
+        if not p.startswith(".github/") or not p.endswith((".yml", ".yaml")):
+            continue
+        try:
+            d = yaml.safe_load((ROOT / p).read_text(encoding="utf-8"))
+        except yaml.YAMLError as e:
+            out.append(f"{p}: invalid YAML ({str(e).splitlines()[0]})")
+            continue
+        if p.startswith(".github/workflows/") and not (isinstance(d, dict) and "jobs" in d and True in d):
+            out.append(f"{p}: not a workflow (needs `on` and `jobs`)")
+    return out
+
+
 def main() -> int:
     files = tracked()
     sizes = blob_sizes([sha for _, sha in files])
@@ -59,11 +80,12 @@ def main() -> int:
             bad = sorted({f"U+{ord(c):04X}" for c in line if c in BIDI})
             if bad:
                 problems.append(f"{p}:{n}: bidi control character(s) {', '.join(bad)}")
+    problems += yaml_problems([p for p, _ in files])
     for msg in problems:
         print(msg)
     if problems:
         return 1
-    print(f"ok: {len(files)} tracked files, none over {MAX_BYTES:,} bytes, no bidi controls")
+    print(f"ok: {len(files)} tracked files, none over {MAX_BYTES:,} bytes, no bidi controls, GitHub YAML parses")
     return 0
 
 

@@ -7,6 +7,8 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # propose a new floor only when the current range excludes a release (pyproject keeps floors)
+    versioning-strategy: increase-if-necessary
     open-pull-requests-limit: 5
     groups:
       python-deps:
