@@ -38,7 +38,7 @@
 
 ## Results on real data
 
-All numbers come from `results/*.json`, produced by `benchmarks/` in the manual [bench workflow](.github/workflows/bench.yml) on a fresh runner with every sibling engine at its pinned v1.1.0 release; each file records the engine versions, commits and dataset pins it was produced with. Baselines run on identical inputs. Intervals are 95%: bootstrap over captures, Wilson for rates, case-clustered where cases share a culprit.
+All numbers come from `results/*.json`, produced by `benchmarks/` in the manual [bench workflow](.github/workflows/bench.yml) on a fresh runner with every sibling engine at its pinned release (FEINT v1.1.0, VITRINE and SPECIMEN v1.1.2, the rest v1.1.1); each file records the engine versions, commits and dataset pins it was produced with. Baselines run on identical inputs. Intervals are 95%: bootstrap over captures, Wilson for rates, case-clustered where cases share a culprit.
 
 | question | data | THROUGHLINE | best single engine / baseline |
 | --- | --- | --- | --- |
@@ -194,7 +194,7 @@ MITRE's ATT&CK Evaluations round 2 emulated APT29 on a four-host Windows domain;
 | precision@10 of the technique ranking vs the plan: Sigma / union / **fused** | 0.33 / 0.36 / **0.40** | 0.22 / 0.26 / **0.33** |
 | cross-host clusters (true lateral pairs found / joined pairs) | 1 (1/1): SCRANTON -> NASHUA, PsExec + WinRM | 2 (2/2): UTICA -> NEWYORK, UTICA -> SCRANTON, WinRM |
 | 1.0.0 stitching on the same data | 4 clusters (1 true of 3 pairs) | 1 cluster (2 true of 3 pairs) |
-| pipeline time on a CI runner / peak memory | 68 s / 2.7 GB | 228 s / 8.1 GB |
+| pipeline time on a CI runner / peak memory | 84 s / 2.7 GB | 269 s / 8.1 GB |
 
 - **Stitching now follows the attacker, not the infrastructure.** 1.0.0 joined hosts through the domain controller's Kerberos and RPC ports (`lsass.exe` on every host), Azure endpoints contacted by `backgroundtaskhost.exe` and `Domain:localhost`. Now infrastructure ports, non-routable addresses and operating-system processes are not evidence, rarity is counted over every host's traffic, and a new lateral link joins an admin-port connection from host A with an incident on host B that starts under a remote-execution service (`psexesvc.exe`, `wsmprovhost.exe`). The three true pairs are all of the evaluation's lateral movement; the sample is tiny, so this is a correctness check, not a rate.
 - **The top incident** is rooted at the RTLO-named payload `<U+202E>cod.3aka3.scr` (Explorer shows it as `rcs.3aka3.doc`; the OTRF export stores the character double-encoded as `â€®`), groups 42 processes (28 by process lineage, 14 added by ROOTLINE) and 1,048 alerts, and is led by LSASS dumping (0.87, corroborated by ANVIL and REVENANT) and PowerShell (0.82). Its root cause, as the investigator reports it: `Explorer.EXE -> <U+202E>cod.3aka3.scr /S -> cmd.exe -> sdclt.exe -> control.exe /name Microsoft.BackupAndRestoreCenter -> PowerShell.exe -noni -noexit -ep bypass -window hidden ...`, the plan's step 3 UAC bypass through `sdclt`.

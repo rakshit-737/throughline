@@ -1,6 +1,6 @@
 # Evaluation
 
-Every number on this page comes from `results/*.json`, produced by the scripts in `benchmarks/` in one run of the manual [bench workflow](https://github.com/rakshit-737/throughline/blob/main/.github/workflows/bench.yml) on a fresh GitHub-hosted runner, with every sibling engine at its pinned v1.1.0 release. Each result file records the engine versions and commits, the THROUGHLINE commit and the dataset pins it was produced with, and the workflow refuses results that are stale, over 1 MB, degenerate or produced by other engine commits. [Reproduce](reproduce.md) has the commands and expected outputs.
+Every number on this page comes from `results/*.json`, produced by the scripts in `benchmarks/` in one run of the manual [bench workflow](https://github.com/rakshit-737/throughline/blob/main/.github/workflows/bench.yml) on a fresh GitHub-hosted runner, with every sibling engine at its pinned release (FEINT v1.1.0, VITRINE and SPECIMEN v1.1.2, the rest v1.1.1). Each result file records the engine versions and commits, the THROUGHLINE commit and the dataset pins it was produced with, and the workflow refuses results that are stale, over 1 MB, degenerate or produced by other engine commits. [Reproduce](reproduce.md) has the commands and expected outputs.
 
 **Statistics.** Intervals are 95%. Per-capture metrics: percentile bootstrap over captures (2,000 resamples, seed 0). Rates: Wilson score intervals (they do not collapse at 0 or 1). Where several cases share a culprit group, or claims share a capture, the bootstrap resamples the cluster. Paired comparisons: bootstrap CIs of the difference over the same captures, and exact McNemar tests on paired binary outcomes. "p" next to a bootstrap is one-sided and labelled as such.
 
@@ -179,7 +179,7 @@ Intervals in the figure are bootstrap over groups (all seeds of a group together
 | precision@5 / @10 / @20: **fused** | **0.55 / 0.40 / 0.34** | **0.40 / 0.33 / 0.25** |
 | multi-host clusters / true pairs found / joined pairs | 1 / 1 / 1 | 2 / 2 / 2 |
 | 1.0.0 stitching: clusters / true / joined pairs | 4 / 1 / 3 | 1 / 2 / 3 |
-| pipeline seconds / peak RSS on the CI runner | 68 s / 2.7 GB | 228 s / 8.1 GB |
+| pipeline seconds / peak RSS on the CI runner | 84 s / 2.7 GB | 269 s / 8.1 GB |
 
 Precision@k counts observed parent techniques in the plan; observed techniques outside the plan can be genuine (background activity, techniques the plan's YAML files under a different id), so it is a lower bound. Of the 13 day-1 plan techniques no analyst claimed, 7 are discovery and collection commands (`T1007`, `T1012`, `T1016`, `T1018`, `T1049`, `T1083`, `T1119`) on which no rule or heuristic fired; the rest are `T1037`, `T1041`, `T1105`, `T1112`, `T1134` and `T1529`.
 
