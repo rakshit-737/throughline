@@ -1,543 +1,1404 @@
 {
- "generated": "2026-09-26 20:03:31",
- "python": "3.14.3",
- "captures": 95,
+ "generated": "2026-10-03T03:23:24Z",
+ "provenance": {
+  "throughline": "1.0.0",
+  "commit": "913743662643724b491f93112a57093e96802f7f",
+  "platform": "Linux x86_64",
+  "python": "3.12.14",
+  "engines": {
+   "ANVIL": {
+    "dist": "anvil-dac",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "9cc3f53f539ace9c92467b350348d66611312d7b"
+   },
+   "REVENANT": {
+    "dist": "revenant",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "aa0971cf0c8e9d435174493f534a87a44de419a2"
+   },
+   "ROOTLINE": {
+    "dist": "rootline",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "c69b228bf7bdfaa59614c57ea632911846d6adae"
+   },
+   "DRAGNET": {
+    "dist": "dragnet-attribution",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "fede50f1079129a24f2742ff441b510e20d1ab69"
+   },
+   "OCCAM": {
+    "dist": "occam",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "3e51fe0b26763444832461c91d38d7d64c2f03a5"
+   },
+   "VANTAGE": {
+    "dist": "vantage",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "54fcf281be74e59e165b51ef6131433d525d1ed0"
+   },
+   "GAUNTLET": {
+    "dist": "gauntlet-coverage",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "cd41fa891cc33501cc0087637488c9cfc64d4880"
+   },
+   "TRACEGATE": {
+    "dist": "tracegate",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "d975888e91473a9b6e2c9cf147b6f1d974a90d5a"
+   },
+   "STRATUM": {
+    "dist": "stratum",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "5348cd68abde122829d9205f75d76d14321aab6f"
+   },
+   "LINCHPIN": {
+    "dist": "linchpin-attackpath",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "f95a91f31aee35f44de1ecdfa56c2fc5a56d0b5d"
+   },
+   "VITRINE": {
+    "dist": "vitrine",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "126f64c59fef2e00cc305e653a5db530c2560dd8"
+   },
+   "SPECIMEN": {
+    "dist": "specimen",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "55eebd992ed5b4c6700610842ae58d949289ae66"
+   }
+  },
+  "data_pins": {
+   "attack": "6cda5ad8462c",
+   "sigma": "07ec293a5169",
+   "otrf": "d9d40ef123d2",
+   "misp": "e9e867fe5a5e",
+   "checksums_sha256": "c93c39a2345b61b9"
+  },
+  "ci_run": "37092700297"
+ },
+ "captures": 97,
  "sigma_subset": "core",
  "sigma_rules": 2410,
- "seconds_total": 887.0,
- "seconds_setup": 1.9,
+ "seconds_total": 272.6,
+ "seconds_setup": 1.7,
  "engine_load_s": {
-  "attack": 0.41,
-  "sigma-core": 1.43
+  "attack": 0.52,
+  "sigma-core": 1.22
  },
+ "labelled_captures": 97,
+ "unreadable_captures": [],
+ "seconds_per_capture_median": 0.65,
+ "seconds_per_capture_mean": 2.03,
+ "ties": "hit@1 and MRR are expectations over a uniformly random order of tied scores",
+ "p_values": "one-sided paired bootstrap over captures (2000 resamples, seed 0)",
  "methods": {
   "sigma": {
-   "recall": 0.6737,
+   "ablation": "A0",
+   "recall": 0.6804,
    "recall_ci": [
-    0.5789,
-    0.7684
+    0.5823,
+    0.7648
    ],
-   "hit@1": 0.3368,
+   "hit@1": 0.2588,
    "hit@1_ci": [
-    0.2421,
-    0.4316
+    0.2005,
+    0.3239
    ],
-   "mrr": 0.4566,
+   "hit@1_optimistic": 0.5773,
+   "hit@1_pessimistic": 0.0928,
+   "mrr": 0.4128,
    "mrr_ci": [
-    0.3748,
-    0.5381
+    0.3475,
+    0.4803
    ],
-   "calibration": {
-    "n": 653,
-    "positives": 107,
-    "brier": 0.2691,
-    "ece": 0.3712,
-    "auc": 0.6648
-   },
-   "reliability": [
-    {
-     "bin": "0.2-0.3",
-     "n": 101,
-     "mean_conf": 0.28,
-     "accuracy": 0.0
+   "hit@1_alphabetical": 0.3299,
+   "mrr_alphabetical": 0.4558,
+   "fused_minus_this": {
+    "hit@1": {
+     "diff": 0.1137,
+     "ci": [
+      0.0473,
+      0.178
+     ],
+     "p_one_sided": 0.0
     },
-    {
-     "bin": "0.4-0.5",
-     "n": 67,
-     "mean_conf": 0.42,
-     "accuracy": 0.0597
-    },
-    {
-     "bin": "0.5-0.6",
-     "n": 135,
-     "mean_conf": 0.525,
-     "accuracy": 0.1852
-    },
-    {
-     "bin": "0.6-0.7",
-     "n": 327,
-     "mean_conf": 0.63,
-     "accuracy": 0.208
-    },
-    {
-     "bin": "0.7-0.8",
-     "n": 23,
-     "mean_conf": 0.7,
-     "accuracy": 0.4348
+    "mrr": {
+     "diff": 0.0839,
+     "ci": [
+      0.0391,
+      0.127
+     ],
+     "p_one_sided": 0.0
     }
-   ]
+   }
   },
   "revenant": {
-   "recall": 0.4316,
+   "ablation": null,
+   "recall": 0.4536,
    "recall_ci": [
-    0.3368,
-    0.5263
+    0.3582,
+    0.5526
    ],
-   "hit@1": 0.3053,
+   "hit@1": 0.3247,
    "hit@1_ci": [
-    0.2105,
-    0.4
+    0.2371,
+    0.4175
    ],
-   "mrr": 0.3577,
+   "hit@1_optimistic": 0.3608,
+   "hit@1_pessimistic": 0.2887,
+   "mrr": 0.3778,
    "mrr_ci": [
-    0.2675,
-    0.446
+    0.2921,
+    0.4689
    ],
-   "calibration": {
-    "n": 189,
-    "positives": 43,
-    "brier": 0.1978,
-    "ece": 0.2164,
-    "auc": 0.724
-   },
-   "reliability": [
-    {
-     "bin": "0.2-0.3",
-     "n": 22,
-     "mean_conf": 0.2284,
-     "accuracy": 0.0455
+   "hit@1_alphabetical": 0.3196,
+   "mrr_alphabetical": 0.3761,
+   "fused_minus_this": {
+    "hit@1": {
+     "diff": 0.0477,
+     "ci": [
+      -0.0179,
+      0.1139
+     ],
+     "p_one_sided": 0.0855
     },
-    {
-     "bin": "0.3-0.4",
-     "n": 65,
-     "mean_conf": 0.3548,
-     "accuracy": 0.0462
-    },
-    {
-     "bin": "0.4-0.5",
-     "n": 39,
-     "mean_conf": 0.4519,
-     "accuracy": 0.4872
-    },
-    {
-     "bin": "0.5-0.6",
-     "n": 40,
-     "mean_conf": 0.525,
-     "accuracy": 0.25
-    },
-    {
-     "bin": "0.6-0.7",
-     "n": 23,
-     "mean_conf": 0.6277,
-     "accuracy": 0.4348
+    "mrr": {
+     "diff": 0.1188,
+     "ci": [
+      0.0598,
+      0.1852
+     ],
+     "p_one_sided": 0.0
     }
-   ]
+   }
   },
   "max": {
-   "recall": 0.6947,
+   "ablation": "A1",
+   "recall": 0.7113,
    "recall_ci": [
-    0.6,
-    0.7789
+    0.6145,
+    0.7921
    ],
-   "hit@1": 0.3474,
+   "hit@1": 0.2849,
    "hit@1_ci": [
-    0.2526,
-    0.4421
+    0.2179,
+    0.3565
    ],
-   "mrr": 0.4638,
+   "hit@1_optimistic": 0.5361,
+   "hit@1_pessimistic": 0.1443,
+   "mrr": 0.4366,
    "mrr_ci": [
-    0.3814,
-    0.545
+    0.3681,
+    0.5072
    ],
-   "calibration": {
-    "n": 769,
-    "positives": 113,
-    "brier": 0.2522,
-    "ece": 0.3647,
-    "auc": 0.7071
-   },
-   "reliability": [
-    {
-     "bin": "0.2-0.3",
-     "n": 122,
-     "mean_conf": 0.2711,
-     "accuracy": 0.0082
+   "hit@1_alphabetical": 0.3402,
+   "mrr_alphabetical": 0.468,
+   "fused_minus_this": {
+    "hit@1": {
+     "diff": 0.0875,
+     "ci": [
+      0.0296,
+      0.144
+     ],
+     "p_one_sided": 0.0005
     },
-    {
-     "bin": "0.3-0.4",
-     "n": 61,
-     "mean_conf": 0.3553,
-     "accuracy": 0.0
-    },
-    {
-     "bin": "0.4-0.5",
-     "n": 85,
-     "mean_conf": 0.4255,
-     "accuracy": 0.0706
-    },
-    {
-     "bin": "0.5-0.6",
-     "n": 141,
-     "mean_conf": 0.525,
-     "accuracy": 0.1844
-    },
-    {
-     "bin": "0.6-0.7",
-     "n": 337,
-     "mean_conf": 0.6303,
-     "accuracy": 0.2077
-    },
-    {
-     "bin": "0.7-0.8",
-     "n": 23,
-     "mean_conf": 0.7,
-     "accuracy": 0.4348
+    "mrr": {
+     "diff": 0.06,
+     "ci": [
+      0.0222,
+      0.098
+     ],
+     "p_one_sided": 0.001
     }
-   ]
+   }
+  },
+  "noisy_or_all": {
+   "ablation": "A2",
+   "recall": 0.7113,
+   "recall_ci": [
+    0.6145,
+    0.7921
+   ],
+   "hit@1": 0.3114,
+   "hit@1_ci": [
+    0.2298,
+    0.396
+   ],
+   "hit@1_optimistic": 0.4227,
+   "hit@1_pessimistic": 0.2371,
+   "mrr": 0.4532,
+   "mrr_ci": [
+    0.3747,
+    0.529
+   ],
+   "hit@1_alphabetical": 0.3196,
+   "mrr_alphabetical": 0.4564,
+   "fused_minus_this": {
+    "hit@1": {
+     "diff": 0.061,
+     "ci": [
+      -0.0158,
+      0.1367
+     ],
+     "p_one_sided": 0.067
+    },
+    "mrr": {
+     "diff": 0.0434,
+     "ci": [
+      -0.0052,
+      0.0905
+     ],
+     "p_one_sided": 0.039
+    }
+   }
+  },
+  "per_process": {
+   "ablation": "A3",
+   "recall": 0.7113,
+   "recall_ci": [
+    0.6145,
+    0.7921
+   ],
+   "hit@1": 0.3699,
+   "hit@1_ci": [
+    0.2858,
+    0.4616
+   ],
+   "hit@1_optimistic": 0.4742,
+   "hit@1_pessimistic": 0.3093,
+   "mrr": 0.4971,
+   "mrr_ci": [
+    0.4198,
+    0.5779
+   ],
+   "hit@1_alphabetical": 0.3918,
+   "mrr_alphabetical": 0.5149,
+   "fused_minus_this": {
+    "hit@1": {
+     "diff": 0.0026,
+     "ci": [
+      -0.0155,
+      0.0232
+     ],
+     "p_one_sided": 0.4775
+    },
+    "mrr": {
+     "diff": -0.0004,
+     "ci": [
+      -0.0114,
+      0.0132
+     ],
+     "p_one_sided": 0.5775
+    }
+   }
   },
   "fused": {
-   "recall": 0.6947,
+   "ablation": "A4",
+   "recall": 0.7113,
    "recall_ci": [
-    0.6,
-    0.7789
+    0.6145,
+    0.7921
    ],
-   "hit@1": 0.4,
+   "hit@1": 0.3724,
    "hit@1_ci": [
-    0.3053,
-    0.4947
+    0.2884,
+    0.4615
    ],
-   "mrr": 0.5105,
+   "hit@1_optimistic": 0.4742,
+   "hit@1_pessimistic": 0.3093,
+   "mrr": 0.4966,
    "mrr_ci": [
-    0.4259,
-    0.5943
+    0.418,
+    0.5758
    ],
-   "calibration": {
-    "n": 769,
-    "positives": 113,
-    "brier": 0.2573,
-    "ece": 0.3791,
-    "auc": 0.7538
-   },
-   "reliability": [
-    {
-     "bin": "0.2-0.3",
-     "n": 123,
-     "mean_conf": 0.2712,
-     "accuracy": 0.0163
-    },
-    {
-     "bin": "0.3-0.4",
-     "n": 61,
-     "mean_conf": 0.3553,
-     "accuracy": 0.0
-    },
-    {
-     "bin": "0.4-0.5",
-     "n": 83,
-     "mean_conf": 0.4256,
-     "accuracy": 0.0602
-    },
-    {
-     "bin": "0.5-0.6",
-     "n": 135,
-     "mean_conf": 0.5252,
-     "accuracy": 0.1407
-    },
-    {
-     "bin": "0.6-0.7",
-     "n": 293,
-     "mean_conf": 0.6303,
-     "accuracy": 0.1672
-    },
-    {
-     "bin": "0.7-0.8",
-     "n": 32,
-     "mean_conf": 0.7337,
-     "accuracy": 0.625
-    },
-    {
-     "bin": "0.8-0.9",
-     "n": 42,
-     "mean_conf": 0.8349,
-     "accuracy": 0.4286
-    }
-   ]
+   "hit@1_alphabetical": 0.3918,
+   "mrr_alphabetical": 0.5154
   },
-  "sigma+cal": {
-   "calibration": {
-    "n": 653,
-    "positives": 107,
-    "brier": 0.13,
-    "ece": 0.0315,
-    "auc": 0.6407
-   },
-   "reliability": [
-    {
-     "bin": "0.0-0.1",
-     "n": 168,
-     "mean_conf": 0.0376,
-     "accuracy": 0.0238
-    },
-    {
-     "bin": "0.1-0.2",
-     "n": 135,
-     "mean_conf": 0.1236,
-     "accuracy": 0.1852
-    },
-    {
-     "bin": "0.2-0.3",
-     "n": 327,
-     "mean_conf": 0.2321,
-     "accuracy": 0.208
-    },
-    {
-     "bin": "0.3-0.4",
-     "n": 23,
-     "mean_conf": 0.3452,
-     "accuracy": 0.4348
-    }
+  "fused_no_grade": {
+   "ablation": "A5",
+   "recall": 0.7113,
+   "recall_ci": [
+    0.6145,
+    0.7921
    ],
-   "platt_folds": [
-    {
-     "a": 1.691715,
-     "b": -2.061215
+   "hit@1": 0.3503,
+   "hit@1_ci": [
+    0.2643,
+    0.4347
+   ],
+   "hit@1_optimistic": 0.433,
+   "hit@1_pessimistic": 0.2784,
+   "mrr": 0.4731,
+   "mrr_ci": [
+    0.3948,
+    0.5516
+   ],
+   "hit@1_alphabetical": 0.3711,
+   "mrr_alphabetical": 0.4879,
+   "fused_minus_this": {
+    "hit@1": {
+     "diff": 0.0222,
+     "ci": [
+      -0.0257,
+      0.076
+     ],
+     "p_one_sided": 0.194
     },
-    {
-     "a": 1.593364,
-     "b": -2.053
-    },
-    {
-     "a": 1.871849,
-     "b": -2.179145
-    },
-    {
-     "a": 2.003534,
-     "b": -2.312674
-    },
-    {
-     "a": 1.747662,
-     "b": -2.110382
+    "mrr": {
+     "diff": 0.0235,
+     "ci": [
+      -0.011,
+      0.0594
+     ],
+     "p_one_sided": 0.101
     }
-   ]
+   }
   },
-  "revenant+cal": {
-   "calibration": {
-    "n": 189,
-    "positives": 43,
-    "brier": 0.1625,
-    "ece": 0.1183,
-    "auc": 0.7052
-   },
-   "reliability": [
-    {
-     "bin": "0.0-0.1",
-     "n": 33,
-     "mean_conf": 0.0677,
-     "accuracy": 0.0909
-    },
-    {
-     "bin": "0.1-0.2",
-     "n": 60,
-     "mean_conf": 0.1433,
-     "accuracy": 0.05
-    },
-    {
-     "bin": "0.2-0.3",
-     "n": 33,
-     "mean_conf": 0.2367,
-     "accuracy": 0.5152
-    },
-    {
-     "bin": "0.3-0.4",
-     "n": 40,
-     "mean_conf": 0.3294,
-     "accuracy": 0.25
-    },
-    {
-     "bin": "0.4-0.5",
-     "n": 11,
-     "mean_conf": 0.4557,
-     "accuracy": 0.5455
-    },
-    {
-     "bin": "0.5-0.6",
-     "n": 12,
-     "mean_conf": 0.5531,
-     "accuracy": 0.3333
-    }
+  "rba": {
+   "ablation": "A6",
+   "recall": 0.7113,
+   "recall_ci": [
+    0.6145,
+    0.7921
    ],
-   "platt_folds": [
-    {
-     "a": 1.639702,
-     "b": -0.868289
-    },
-    {
-     "a": 1.604808,
-     "b": -0.861511
-    },
-    {
-     "a": 2.146489,
-     "b": -0.877229
-    },
-    {
-     "a": 1.29687,
-     "b": -0.973614
-    },
-    {
-     "a": 1.978016,
-     "b": -0.864062
-    }
-   ]
-  },
-  "max+cal": {
-   "calibration": {
-    "n": 769,
-    "positives": 113,
-    "brier": 0.1174,
-    "ece": 0.0279,
-    "auc": 0.6775
-   },
-   "reliability": [
-    {
-     "bin": "0.0-0.1",
-     "n": 268,
-     "mean_conf": 0.0368,
-     "accuracy": 0.0261
-    },
-    {
-     "bin": "0.1-0.2",
-     "n": 142,
-     "mean_conf": 0.1215,
-     "accuracy": 0.1831
-    },
-    {
-     "bin": "0.2-0.3",
-     "n": 336,
-     "mean_conf": 0.2319,
-     "accuracy": 0.2083
-    },
-    {
-     "bin": "0.3-0.4",
-     "n": 23,
-     "mean_conf": 0.3518,
-     "accuracy": 0.4348
-    }
+   "hit@1": 0.2719,
+   "hit@1_ci": [
+    0.1881,
+    0.3595
    ],
-   "platt_folds": [
-    {
-     "a": 1.738043,
-     "b": -2.093435
-    },
-    {
-     "a": 1.645353,
-     "b": -2.080392
-    },
-    {
-     "a": 2.127386,
-     "b": -2.309887
-    },
-    {
-     "a": 1.907094,
-     "b": -2.282559
-    },
-    {
-     "a": 1.783925,
-     "b": -2.126119
-    }
-   ]
-  },
-  "fused+cal": {
-   "calibration": {
-    "n": 769,
-    "positives": 113,
-    "brier": 0.1098,
-    "ece": 0.0359,
-    "auc": 0.7435
-   },
-   "reliability": [
-    {
-     "bin": "0.0-0.1",
-     "n": 314,
-     "mean_conf": 0.0454,
-     "accuracy": 0.0541
-    },
-    {
-     "bin": "0.1-0.2",
-     "n": 379,
-     "mean_conf": 0.1688,
-     "accuracy": 0.1504
-    },
-    {
-     "bin": "0.2-0.3",
-     "n": 17,
-     "mean_conf": 0.2756,
-     "accuracy": 0.4118
-    },
-    {
-     "bin": "0.3-0.4",
-     "n": 11,
-     "mean_conf": 0.3528,
-     "accuracy": 0.7273
-    },
-    {
-     "bin": "0.4-0.5",
-     "n": 8,
-     "mean_conf": 0.4632,
-     "accuracy": 1.0
-    },
-    {
-     "bin": "0.5-0.6",
-     "n": 28,
-     "mean_conf": 0.5304,
-     "accuracy": 0.3214
-    },
-    {
-     "bin": "0.6-0.7",
-     "n": 11,
-     "mean_conf": 0.6416,
-     "accuracy": 0.5455
-    },
-    {
-     "bin": "0.7-0.8",
-     "n": 1,
-     "mean_conf": 0.7431,
-     "accuracy": 1.0
-    }
+   "hit@1_optimistic": 0.2887,
+   "hit@1_pessimistic": 0.2577,
+   "mrr": 0.4152,
+   "mrr_ci": [
+    0.3391,
+    0.4898
    ],
-   "platt_folds": [
-    {
-     "a": 1.54369,
-     "b": -2.242162
+   "hit@1_alphabetical": 0.268,
+   "mrr_alphabetical": 0.4138,
+   "fused_minus_this": {
+    "hit@1": {
+     "diff": 0.1005,
+     "ci": [
+      0.0142,
+      0.1873
+     ],
+     "p_one_sided": 0.01
     },
-    {
-     "a": 1.480343,
-     "b": -2.252406
-    },
-    {
-     "a": 1.696234,
-     "b": -2.411665
-    },
-    {
-     "a": 1.592412,
-     "b": -2.394453
-    },
-    {
-     "a": 1.576586,
-     "b": -2.254483
+    "mrr": {
+     "diff": 0.0814,
+     "ci": [
+      0.0245,
+      0.1399
+     ],
+     "p_one_sided": 0.001
     }
-   ]
+   }
+  }
+ },
+ "calibration": {
+  "folds": 5,
+  "universe_claims": 785,
+  "universe_positives": 116,
+  "methods": {
+   "sigma": {
+    "own_claims": {
+     "raw": {
+      "n": 665,
+      "positives": 109,
+      "brier": 0.2683,
+      "ece": 0.3698,
+      "auc": 0.6639
+     },
+     "platt_cv": {
+      "n": 665,
+      "positives": 109,
+      "brier": 0.1301,
+      "ece": 0.03,
+      "auc": 0.6554
+     },
+     "skill": 0.0508,
+     "reliability_raw": [
+      {
+       "bin": "0.2-0.3",
+       "n": 105,
+       "mean_conf": 0.28,
+       "accuracy": 0.0
+      },
+      {
+       "bin": "0.4-0.5",
+       "n": 69,
+       "mean_conf": 0.42,
+       "accuracy": 0.0725
+      },
+      {
+       "bin": "0.5-0.6",
+       "n": 137,
+       "mean_conf": 0.525,
+       "accuracy": 0.1825
+      },
+      {
+       "bin": "0.6-0.7",
+       "n": 331,
+       "mean_conf": 0.63,
+       "accuracy": 0.2085
+      },
+      {
+       "bin": "0.7-0.8",
+       "n": 23,
+       "mean_conf": 0.7,
+       "accuracy": 0.4348
+      }
+     ]
+    },
+    "shared_universe": {
+     "platt_cv": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.1231,
+      "ece": 0.0067,
+      "auc": 0.6672
+     },
+     "skill": 0.0225,
+     "reliability": [
+      {
+       "bin": "0.0-0.1",
+       "n": 120,
+       "mean_conf": 0.037,
+       "accuracy": 0.0583
+      },
+      {
+       "bin": "0.1-0.2",
+       "n": 665,
+       "mean_conf": 0.1679,
+       "accuracy": 0.1639
+      }
+     ],
+     "brier_fused_minus_this": {
+      "diff": -0.0125,
+      "ci_capture_clustered": [
+       -0.0199,
+       -0.0059
+      ]
+     }
+    }
+   },
+   "revenant": {
+    "own_claims": {
+     "raw": {
+      "n": 195,
+      "positives": 45,
+      "brier": 0.199,
+      "ece": 0.2163,
+      "auc": 0.7115
+     },
+     "platt_cv": {
+      "n": 195,
+      "positives": 45,
+      "brier": 0.1653,
+      "ece": 0.1143,
+      "auc": 0.6884
+     },
+     "skill": 0.069,
+     "reliability_raw": [
+      {
+       "bin": "0.2-0.3",
+       "n": 24,
+       "mean_conf": 0.2312,
+       "accuracy": 0.0833
+      },
+      {
+       "bin": "0.3-0.4",
+       "n": 67,
+       "mean_conf": 0.3543,
+       "accuracy": 0.0448
+      },
+      {
+       "bin": "0.4-0.5",
+       "n": 40,
+       "mean_conf": 0.4519,
+       "accuracy": 0.5
+      },
+      {
+       "bin": "0.5-0.6",
+       "n": 41,
+       "mean_conf": 0.525,
+       "accuracy": 0.2439
+      },
+      {
+       "bin": "0.6-0.7",
+       "n": 23,
+       "mean_conf": 0.6277,
+       "accuracy": 0.4348
+      }
+     ]
+    },
+    "shared_universe": {
+     "platt_cv": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.1233,
+      "ece": 0.0031,
+      "auc": 0.5797
+     },
+     "skill": 0.021,
+     "reliability": [
+      {
+       "bin": "0.1-0.2",
+       "n": 590,
+       "mean_conf": 0.1183,
+       "accuracy": 0.1203
+      },
+      {
+       "bin": "0.2-0.3",
+       "n": 195,
+       "mean_conf": 0.2372,
+       "accuracy": 0.2308
+      }
+     ],
+     "brier_fused_minus_this": {
+      "diff": -0.0127,
+      "ci_capture_clustered": [
+       -0.0202,
+       -0.006
+      ]
+     }
+    }
+   },
+   "max": {
+    "own_claims": {
+     "raw": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.2516,
+      "ece": 0.362,
+      "auc": 0.701
+     },
+     "platt_cv": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.1182,
+      "ece": 0.0256,
+      "auc": 0.6928
+     },
+     "skill": 0.0615,
+     "reliability_raw": [
+      {
+       "bin": "0.2-0.3",
+       "n": 128,
+       "mean_conf": 0.2713,
+       "accuracy": 0.0156
+      },
+      {
+       "bin": "0.3-0.4",
+       "n": 63,
+       "mean_conf": 0.3548,
+       "accuracy": 0.0
+      },
+      {
+       "bin": "0.4-0.5",
+       "n": 87,
+       "mean_conf": 0.4253,
+       "accuracy": 0.0805
+      },
+      {
+       "bin": "0.5-0.6",
+       "n": 143,
+       "mean_conf": 0.525,
+       "accuracy": 0.1818
+      },
+      {
+       "bin": "0.6-0.7",
+       "n": 341,
+       "mean_conf": 0.6303,
+       "accuracy": 0.2082
+      },
+      {
+       "bin": "0.7-0.8",
+       "n": 23,
+       "mean_conf": 0.7,
+       "accuracy": 0.4348
+      }
+     ]
+    },
+    "shared_universe": {
+     "platt_cv": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.1182,
+      "ece": 0.0256,
+      "auc": 0.6928
+     },
+     "skill": 0.0615,
+     "reliability": [
+      {
+       "bin": "0.0-0.1",
+       "n": 277,
+       "mean_conf": 0.0416,
+       "accuracy": 0.0325
+      },
+      {
+       "bin": "0.1-0.2",
+       "n": 145,
+       "mean_conf": 0.1267,
+       "accuracy": 0.1793
+      },
+      {
+       "bin": "0.2-0.3",
+       "n": 340,
+       "mean_conf": 0.2317,
+       "accuracy": 0.2088
+      },
+      {
+       "bin": "0.3-0.4",
+       "n": 23,
+       "mean_conf": 0.3406,
+       "accuracy": 0.4348
+      }
+     ],
+     "brier_fused_minus_this": {
+      "diff": -0.0076,
+      "ci_capture_clustered": [
+       -0.0134,
+       -0.0021
+      ]
+     }
+    }
+   },
+   "noisy_or_all": {
+    "own_claims": {
+     "raw": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.4311,
+      "ece": 0.5359,
+      "auc": 0.6881
+     },
+     "platt_cv": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.1222,
+      "ece": 0.0305,
+      "auc": 0.6784
+     },
+     "skill": 0.0298,
+     "reliability_raw": [
+      {
+       "bin": "0.2-0.3",
+       "n": 108,
+       "mean_conf": 0.2769,
+       "accuracy": 0.0
+      },
+      {
+       "bin": "0.3-0.4",
+       "n": 34,
+       "mean_conf": 0.3759,
+       "accuracy": 0.0
+      },
+      {
+       "bin": "0.4-0.5",
+       "n": 34,
+       "mean_conf": 0.4254,
+       "accuracy": 0.1471
+      },
+      {
+       "bin": "0.5-0.6",
+       "n": 84,
+       "mean_conf": 0.5311,
+       "accuracy": 0.1667
+      },
+      {
+       "bin": "0.6-0.7",
+       "n": 159,
+       "mean_conf": 0.6388,
+       "accuracy": 0.0314
+      },
+      {
+       "bin": "0.7-0.8",
+       "n": 43,
+       "mean_conf": 0.7464,
+       "accuracy": 0.2326
+      },
+      {
+       "bin": "0.8-0.9",
+       "n": 123,
+       "mean_conf": 0.8611,
+       "accuracy": 0.2927
+      },
+      {
+       "bin": "0.9-1.0",
+       "n": 200,
+       "mean_conf": 0.9767,
+       "accuracy": 0.23
+      }
+     ]
+    },
+    "shared_universe": {
+     "platt_cv": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.1222,
+      "ece": 0.0305,
+      "auc": 0.6784
+     },
+     "skill": 0.0298,
+     "reliability": [
+      {
+       "bin": "0.0-0.1",
+       "n": 250,
+       "mean_conf": 0.0829,
+       "accuracy": 0.072
+      },
+      {
+       "bin": "0.1-0.2",
+       "n": 363,
+       "mean_conf": 0.1327,
+       "accuracy": 0.1653
+      },
+      {
+       "bin": "0.2-0.3",
+       "n": 125,
+       "mean_conf": 0.2654,
+       "accuracy": 0.232
+      },
+      {
+       "bin": "0.3-0.4",
+       "n": 47,
+       "mean_conf": 0.3028,
+       "accuracy": 0.1915
+      }
+     ],
+     "brier_fused_minus_this": {
+      "diff": -0.0116,
+      "ci_capture_clustered": [
+       -0.0187,
+       -0.0053
+      ]
+     }
+    }
+   },
+   "per_process": {
+    "own_claims": {
+     "raw": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.2572,
+      "ece": 0.3768,
+      "auc": 0.7469
+     },
+     "platt_cv": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.1112,
+      "ece": 0.0275,
+      "auc": 0.7414
+     },
+     "skill": 0.1168,
+     "reliability_raw": [
+      {
+       "bin": "0.2-0.3",
+       "n": 128,
+       "mean_conf": 0.2713,
+       "accuracy": 0.0156
+      },
+      {
+       "bin": "0.3-0.4",
+       "n": 63,
+       "mean_conf": 0.3548,
+       "accuracy": 0.0
+      },
+      {
+       "bin": "0.4-0.5",
+       "n": 86,
+       "mean_conf": 0.4254,
+       "accuracy": 0.0814
+      },
+      {
+       "bin": "0.5-0.6",
+       "n": 134,
+       "mean_conf": 0.5252,
+       "accuracy": 0.1418
+      },
+      {
+       "bin": "0.6-0.7",
+       "n": 296,
+       "mean_conf": 0.6305,
+       "accuracy": 0.1689
+      },
+      {
+       "bin": "0.7-0.8",
+       "n": 38,
+       "mean_conf": 0.7289,
+       "accuracy": 0.5526
+      },
+      {
+       "bin": "0.8-0.9",
+       "n": 40,
+       "mean_conf": 0.8358,
+       "accuracy": 0.425
+      }
+     ]
+    },
+    "shared_universe": {
+     "platt_cv": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.1112,
+      "ece": 0.0275,
+      "auc": 0.7414
+     },
+     "skill": 0.1168,
+     "reliability": [
+      {
+       "bin": "0.0-0.1",
+       "n": 298,
+       "mean_conf": 0.0437,
+       "accuracy": 0.0436
+      },
+      {
+       "bin": "0.1-0.2",
+       "n": 406,
+       "mean_conf": 0.1675,
+       "accuracy": 0.1552
+      },
+      {
+       "bin": "0.2-0.3",
+       "n": 24,
+       "mean_conf": 0.2729,
+       "accuracy": 0.4167
+      },
+      {
+       "bin": "0.3-0.4",
+       "n": 10,
+       "mean_conf": 0.3438,
+       "accuracy": 0.7
+      },
+      {
+       "bin": "0.4-0.5",
+       "n": 8,
+       "mean_conf": 0.4479,
+       "accuracy": 0.875
+      },
+      {
+       "bin": "0.5-0.6",
+       "n": 30,
+       "mean_conf": 0.5281,
+       "accuracy": 0.3333
+      },
+      {
+       "bin": "0.6-0.7",
+       "n": 8,
+       "mean_conf": 0.6297,
+       "accuracy": 0.625
+      },
+      {
+       "bin": "0.7-0.8",
+       "n": 1,
+       "mean_conf": 0.7066,
+       "accuracy": 1.0
+      }
+     ],
+     "brier_fused_minus_this": {
+      "diff": -0.0006,
+      "ci_capture_clustered": [
+       -0.0021,
+       0.0008
+      ]
+     }
+    }
+   },
+   "fused": {
+    "own_claims": {
+     "raw": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.2568,
+      "ece": 0.3765,
+      "auc": 0.7472
+     },
+     "platt_cv": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.1106,
+      "ece": 0.0304,
+      "auc": 0.7464
+     },
+     "skill": 0.1216,
+     "reliability_raw": [
+      {
+       "bin": "0.2-0.3",
+       "n": 129,
+       "mean_conf": 0.2714,
+       "accuracy": 0.0233
+      },
+      {
+       "bin": "0.3-0.4",
+       "n": 63,
+       "mean_conf": 0.3548,
+       "accuracy": 0.0
+      },
+      {
+       "bin": "0.4-0.5",
+       "n": 85,
+       "mean_conf": 0.4255,
+       "accuracy": 0.0706
+      },
+      {
+       "bin": "0.5-0.6",
+       "n": 137,
+       "mean_conf": 0.5252,
+       "accuracy": 0.1387
+      },
+      {
+       "bin": "0.6-0.7",
+       "n": 295,
+       "mean_conf": 0.6303,
+       "accuracy": 0.1661
+      },
+      {
+       "bin": "0.7-0.8",
+       "n": 33,
+       "mean_conf": 0.7356,
+       "accuracy": 0.6364
+      },
+      {
+       "bin": "0.8-0.9",
+       "n": 43,
+       "mean_conf": 0.8347,
+       "accuracy": 0.4186
+      }
+     ]
+    },
+    "shared_universe": {
+     "platt_cv": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.1106,
+      "ece": 0.0304,
+      "auc": 0.7464
+     },
+     "skill": 0.1216,
+     "reliability": [
+      {
+       "bin": "0.0-0.1",
+       "n": 299,
+       "mean_conf": 0.044,
+       "accuracy": 0.0435
+      },
+      {
+       "bin": "0.1-0.2",
+       "n": 408,
+       "mean_conf": 0.1668,
+       "accuracy": 0.1544
+      },
+      {
+       "bin": "0.2-0.3",
+       "n": 17,
+       "mean_conf": 0.2716,
+       "accuracy": 0.4118
+      },
+      {
+       "bin": "0.3-0.4",
+       "n": 11,
+       "mean_conf": 0.343,
+       "accuracy": 0.7273
+      },
+      {
+       "bin": "0.4-0.5",
+       "n": 9,
+       "mean_conf": 0.4513,
+       "accuracy": 1.0
+      },
+      {
+       "bin": "0.5-0.6",
+       "n": 32,
+       "mean_conf": 0.5241,
+       "accuracy": 0.3125
+      },
+      {
+       "bin": "0.6-0.7",
+       "n": 9,
+       "mean_conf": 0.6333,
+       "accuracy": 0.6667
+      }
+     ]
+    }
+   },
+   "fused_no_grade": {
+    "own_claims": {
+     "raw": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.4078,
+      "ece": 0.538,
+      "auc": 0.6431
+     },
+     "platt_cv": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.1151,
+      "ece": 0.0256,
+      "auc": 0.6519
+     },
+     "skill": 0.0859,
+     "reliability_raw": [
+      {
+       "bin": "0.3-0.4",
+       "n": 23,
+       "mean_conf": 0.3087,
+       "accuracy": 0.087
+      },
+      {
+       "bin": "0.4-0.5",
+       "n": 34,
+       "mean_conf": 0.45,
+       "accuracy": 0.0
+      },
+      {
+       "bin": "0.5-0.6",
+       "n": 33,
+       "mean_conf": 0.5061,
+       "accuracy": 0.0303
+      },
+      {
+       "bin": "0.6-0.7",
+       "n": 14,
+       "mean_conf": 0.6071,
+       "accuracy": 0.0714
+      },
+      {
+       "bin": "0.7-0.8",
+       "n": 615,
+       "mean_conf": 0.7005,
+       "accuracy": 0.1252
+      },
+      {
+       "bin": "0.8-0.9",
+       "n": 26,
+       "mean_conf": 0.8748,
+       "accuracy": 0.7692
+      },
+      {
+       "bin": "0.9-1.0",
+       "n": 40,
+       "mean_conf": 0.9299,
+       "accuracy": 0.375
+      }
+     ]
+    },
+    "shared_universe": {
+     "platt_cv": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.1151,
+      "ece": 0.0256,
+      "auc": 0.6519
+     },
+     "skill": 0.0859,
+     "reliability": [
+      {
+       "bin": "0.0-0.1",
+       "n": 103,
+       "mean_conf": 0.047,
+       "accuracy": 0.0388
+      },
+      {
+       "bin": "0.1-0.2",
+       "n": 614,
+       "mean_conf": 0.1301,
+       "accuracy": 0.1238
+      },
+      {
+       "bin": "0.2-0.3",
+       "n": 5,
+       "mean_conf": 0.2527,
+       "accuracy": 0.6
+      },
+      {
+       "bin": "0.3-0.4",
+       "n": 19,
+       "mean_conf": 0.3539,
+       "accuracy": 0.7895
+      },
+      {
+       "bin": "0.4-0.5",
+       "n": 25,
+       "mean_conf": 0.4493,
+       "accuracy": 0.36
+      },
+      {
+       "bin": "0.5-0.6",
+       "n": 3,
+       "mean_conf": 0.5841,
+       "accuracy": 0.3333
+      },
+      {
+       "bin": "0.6-0.7",
+       "n": 14,
+       "mean_conf": 0.6439,
+       "accuracy": 0.5
+      },
+      {
+       "bin": "0.7-0.8",
+       "n": 2,
+       "mean_conf": 0.7024,
+       "accuracy": 0.5
+      }
+     ],
+     "brier_fused_minus_this": {
+      "diff": -0.0045,
+      "ci_capture_clustered": [
+       -0.0077,
+       -0.0013
+      ]
+     }
+    }
+   },
+   "rba": {
+    "own_claims": {
+     "raw": null,
+     "platt_cv": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.126,
+      "ece": 0.0153,
+      "auc": 0.5729
+     },
+     "skill": -0.0008,
+     "reliability_raw": null
+    },
+    "shared_universe": {
+     "platt_cv": {
+      "n": 785,
+      "positives": 116,
+      "brier": 0.126,
+      "ece": 0.0153,
+      "auc": 0.5729
+     },
+     "skill": -0.0008,
+     "reliability": [
+      {
+       "bin": "0.0-0.1",
+       "n": 6,
+       "mean_conf": 0.0982,
+       "accuracy": 0.0
+      },
+      {
+       "bin": "0.1-0.2",
+       "n": 730,
+       "mean_conf": 0.1425,
+       "accuracy": 0.1507
+      },
+      {
+       "bin": "0.2-0.3",
+       "n": 49,
+       "mean_conf": 0.2338,
+       "accuracy": 0.1224
+      }
+     ],
+     "brier_fused_minus_this": {
+      "diff": -0.0154,
+      "ci_capture_clustered": [
+       -0.0233,
+       -0.0083
+      ]
+     }
+    }
+   }
   }
  },
  "platt_full": {
-  "a": 1.581569,
-  "b": -2.312104,
-  "n": 769
+  "a": 1.513415,
+  "b": -2.263633,
+  "n": 785
  },
- "p_fused_vs_sigma_mrr": 0.013,
- "p_fused_vs_max_mrr": 0.0215,
+ "corroboration": {
+  ">=1_engines": {
+   "claims": 785,
+   "precision": 0.1478,
+   "precision_ci": [
+    0.1247,
+    0.1743
+   ],
+   "capture_recall": 0.7113,
+   "capture_recall_ci": [
+    0.6145,
+    0.7921
+   ]
+  },
+  ">=2_engines": {
+   "claims": 75,
+   "precision": 0.5067,
+   "precision_ci": [
+    0.396,
+    0.6167
+   ],
+   "capture_recall": 0.3814,
+   "capture_recall_ci": [
+    0.291,
+    0.4809
+   ]
+  }
+ },
+ "prioritisation": {
+  "incidents": 379,
+  "positive": 97,
+  "auroc": {
+   "severity": {
+    "auc": 0.7964,
+    "ci_capture_clustered": [
+     0.7488,
+     0.8385
+    ]
+   },
+   "alerts": {
+    "auc": 0.7665,
+    "ci_capture_clustered": [
+     0.7056,
+     0.8203
+    ]
+   },
+   "risk": {
+    "auc": 0.7443,
+    "ci_capture_clustered": [
+     0.6851,
+     0.8012
+    ]
+   },
+   "fused": {
+    "auc": 0.7945,
+    "ci_capture_clustered": [
+     0.7397,
+     0.849
+    ]
+   }
+  }
+ },
+ "triage": {
+  "captures": 97,
+  "alert_time": {
+   "found": 66,
+   "median": 4.0,
+   "mean": 5.15,
+   "mean_ci": [
+    4.1015,
+    6.3227
+   ]
+  },
+  "alert_severity": {
+   "found": 66,
+   "median": 2.0,
+   "mean": 4.84,
+   "mean_ci": [
+    2.4798,
+    8.7601
+   ]
+  },
+  "dedup_severity": {
+   "found": 66,
+   "median": 2.0,
+   "mean": 2.1,
+   "mean_ci": [
+    1.7652,
+    2.4394
+   ]
+  },
+  "incidents_opened": {
+   "found": 67,
+   "median": 1.0,
+   "mean": 1.46,
+   "mean_ci": [
+    1.2015,
+    1.7836
+   ]
+  },
+  "incident_lines": {
+   "found": 67,
+   "median": 2.48,
+   "mean": 4.65,
+   "mean_ci": [
+    3.4336,
+    6.0778
+   ]
+  },
+  "paired": {
+   "captures": 64,
+   "alert_time": {
+    "median": 4.0,
+    "mean": 5.26,
+    "mean_ci": [
+     4.1859,
+     6.4349
+    ]
+   },
+   "alert_severity": {
+    "median": 2.0,
+    "mean": 4.96,
+    "mean_ci": [
+     2.5573,
+     9.2083
+    ]
+   },
+   "dedup_severity": {
+    "median": 2.0,
+    "mean": 2.13,
+    "mean_ci": [
+     1.7943,
+     2.4792
+    ]
+   },
+   "incidents_opened": {
+    "median": 1.0,
+    "mean": 1.45,
+    "mean_ci": [
+     1.1719,
+     1.8047
+    ]
+   },
+   "incident_lines": {
+    "median": 2.47,
+    "mean": 4.63,
+    "mean_ci": [
+     3.2986,
+     6.2235
+    ]
+   },
+   "lines_vs_alert_severity": {
+    "diff": 0.3291,
+    "ci": [
+     -2.0791,
+     3.7182
+    ],
+    "p_one_sided": 0.4645
+   }
+  }
+ },
  "compression": {
-  "alerts_total": 5994,
-  "incidents_total": 376,
+  "alerts_total": 6056,
+  "dedup_alerts_total": 838,
+  "incidents_total": 384,
   "alerts_per_capture_median": 17,
-  "incidents_per_capture_median": 2,
-  "ratio": 15.94,
-  "truth_in_top_incident": 0.5579,
-  "truth_in_any_incident": 0.6737
+  "dedup_alerts_per_capture_median": 6,
+  "incidents_per_capture_median": 3,
+  "ratio": 15.77,
+  "ratio_dedup": 2.18,
+  "truth_in_top_incident": 0.567,
+  "truth_in_any_incident": 0.6907
  },
  "per_capture": [
   {
    "id": "SDWIN-190301125905",
-   "title": "Empire Powerview Add-DomainObjectAcl",
    "truth": [
     "T1222.001"
    ],
@@ -545,8 +1406,8 @@
    "alerts": 44,
    "incidents": 3,
    "truth_incident_rank": null,
-   "seconds": 6.300999999999999,
    "claimed": 12,
+   "seconds": 3.3,
    "fused_top": [
     [
      0.63,
@@ -559,20 +1420,11 @@
     [
      0.63,
      "T1087.002"
-    ],
-    [
-     0.63,
-     "T1087.001"
-    ],
-    [
-     0.63,
-     "T1087"
     ]
    ]
   },
   {
    "id": "SDWIN-190301174830",
-   "title": "Empire DCSync",
    "truth": [
     "T1003.006"
    ],
@@ -580,8 +1432,8 @@
    "alerts": 13,
    "incidents": 2,
    "truth_incident_rank": 1,
-   "seconds": 5.291,
    "claimed": 9,
+   "seconds": 3.17,
    "fused_top": [
     [
      0.63,
@@ -594,20 +1446,63 @@
     [
      0.63,
      "T1003.002"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190319020147",
+   "truth": [
+    "T1069.001"
+   ],
+   "events": 884,
+   "alerts": 8,
+   "incidents": 1,
+   "truth_incident_rank": null,
+   "claimed": 4,
+   "seconds": 0.2,
+   "fused_top": [
+    [
+     0.525,
+     "T1087.002"
     ],
     [
-     0.63,
-     "T1003.001"
+     0.525,
+     "T1087.001"
     ],
+    [
+     0.28,
+     "T1531"
+    ]
+   ]
+  },
+  {
+   "id": "SDWIN-190319020729",
+   "truth": [
+    "T1087.001"
+   ],
+   "events": 1907,
+   "alerts": 7,
+   "incidents": 1,
+   "truth_incident_rank": 1,
+   "claimed": 4,
+   "seconds": 0.44,
+   "fused_top": [
     [
      0.42,
      "T1087.001"
+    ],
+    [
+     0.42,
+     "T1033"
+    ],
+    [
+     0.28,
+     "T1531"
     ]
    ]
   },
   {
    "id": "SDWIN-190319021158",
-   "title": "Empire Net Domain Users",
    "truth": [
     "T1087.002"
    ],
@@ -615,8 +1510,8 @@
    "alerts": 6,
    "incidents": 2,
    "truth_incident_rank": 2,
-   "seconds": 0.252,
    "claimed": 3,
+   "seconds": 0.2,
    "fused_top": [
     [
      0.525,
@@ -634,7 +1529,6 @@
   },
   {
    "id": "SDWIN-190319023812",
-   "title": "Empire Userland Registry Run Keys",
    "truth": [
     "T1547.001"
    ],
@@ -642,8 +1536,8 @@
    "alerts": 292,
    "incidents": 19,
    "truth_incident_rank": 4,
-   "seconds": 33.893,
    "claimed": 32,
+   "seconds": 11.36,
    "fused_top": [
     [
      0.828,
@@ -656,20 +1550,11 @@
     [
      0.757,
      "T1547.001"
-    ],
-    [
-     0.63,
-     "T1685"
-    ],
-    [
-     0.63,
-     "T1133"
     ]
    ]
   },
   {
    "id": "SDWIN-190319024742",
-   "title": "Empire Userland Scheduled Tasks",
    "truth": [
     "T1053.005"
    ],
@@ -677,8 +1562,8 @@
    "alerts": 15,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 0.93,
    "claimed": 7,
+   "seconds": 0.36,
    "fused_top": [
     [
      0.796,
@@ -691,20 +1576,11 @@
     [
      0.63,
      "T1140"
-    ],
-    [
-     0.63,
-     "T1059.005"
-    ],
-    [
-     0.63,
-     "T1059.001"
     ]
    ]
   },
   {
    "id": "SDWIN-190319131123",
-   "title": "Empire Over-Pass-The-Hash",
    "truth": [
     "T1550.002"
    ],
@@ -712,8 +1588,8 @@
    "alerts": 183,
    "incidents": 3,
    "truth_incident_rank": 2,
-   "seconds": 6.1899999999999995,
    "claimed": 13,
+   "seconds": 3.58,
    "fused_top": [
     [
      0.866,
@@ -726,20 +1602,11 @@
     [
      0.63,
      "T1003.006"
-    ],
-    [
-     0.63,
-     "T1003.004"
-    ],
-    [
-     0.63,
-     "T1003.002"
     ]
    ]
   },
   {
    "id": "SDWIN-190319145126",
-   "title": "Rubeus Userland ASKTGT PTT",
    "truth": [
     "T1003.003"
    ],
@@ -747,8 +1614,8 @@
    "alerts": 12,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 0.942,
    "claimed": 5,
+   "seconds": 0.35,
    "fused_top": [
     [
      0.7,
@@ -761,20 +1628,11 @@
     [
      0.7,
      "T1003"
-    ],
-    [
-     0.525,
-     "T1558"
-    ],
-    [
-     0.28,
-     "T1531"
     ]
    ]
   },
   {
    "id": "SDWIN-190403133337",
-   "title": "IKEEXT Remote Service DLL Hijack",
    "truth": [
     "T1574.001"
    ],
@@ -782,8 +1640,8 @@
    "alerts": 218,
    "incidents": 5,
    "truth_incident_rank": 1,
-   "seconds": 4.05,
    "claimed": 7,
+   "seconds": 1.46,
    "fused_top": [
     [
      0.685,
@@ -796,20 +1654,11 @@
     [
      0.63,
      "T1021.002"
-    ],
-    [
-     0.525,
-     "T1059.001"
-    ],
-    [
-     0.42,
-     "T1489"
     ]
    ]
   },
   {
    "id": "SDWIN-190518182022",
-   "title": "Empire VBS Execution",
    "truth": [
     "T1059.005"
    ],
@@ -817,8 +1666,8 @@
    "alerts": 17,
    "incidents": 2,
    "truth_incident_rank": 1,
-   "seconds": 2.106,
-   "claimed": 8,
+   "claimed": 7,
+   "seconds": 0.65,
    "fused_top": [
     [
      0.824,
@@ -829,22 +1678,13 @@
      "T1685"
     ],
     [
-     0.45,
-     "T1059.003"
-    ],
-    [
      0.42,
      "T1087.001"
-    ],
-    [
-     0.42,
-     "T1033"
     ]
    ]
   },
   {
    "id": "SDWIN-190518184306",
-   "title": "Empire Elevated WMI Eventing",
    "truth": [
     "T1546.003"
    ],
@@ -852,8 +1692,8 @@
    "alerts": 376,
    "incidents": 24,
    "truth_incident_rank": 10,
-   "seconds": 74.101,
    "claimed": 30,
+   "seconds": 23.18,
    "fused_top": [
     [
      0.828,
@@ -866,20 +1706,11 @@
     [
      0.739,
      "T1047"
-    ],
-    [
-     0.63,
-     "T1685.001"
-    ],
-    [
-     0.63,
-     "T1685"
     ]
    ]
   },
   {
    "id": "SDWIN-190518200432",
-   "title": "Empire PSInject",
    "truth": [
     "T1055.003"
    ],
@@ -887,8 +1718,8 @@
    "alerts": 201,
    "incidents": 4,
    "truth_incident_rank": 1,
-   "seconds": 3.471,
    "claimed": 7,
+   "seconds": 1.91,
    "fused_top": [
     [
      0.63,
@@ -901,20 +1732,11 @@
     [
      0.63,
      "T1055"
-    ],
-    [
-     0.525,
-     "T1055.003"
-    ],
-    [
-     0.525,
-     "T1021.003"
     ]
    ]
   },
   {
    "id": "SDWIN-190518201207",
-   "title": "Empire Shell Net Domain Admins",
    "truth": [
     "T1069.002"
    ],
@@ -922,8 +1744,8 @@
    "alerts": 16,
    "incidents": 2,
    "truth_incident_rank": null,
-   "seconds": 1.214,
    "claimed": 4,
+   "seconds": 0.42,
    "fused_top": [
     [
      0.63,
@@ -936,30 +1758,37 @@
     [
      0.28,
      "T1531"
-    ],
-    [
-     0.262,
-     "T1087"
     ]
    ]
   },
   {
    "id": "SDWIN-190518201922",
-   "title": "Empire WDigest Downgrade",
    "truth": [
     "T1112"
    ],
    "events": 2710,
-   "alerts": 0,
-   "incidents": 0,
-   "truth_incident_rank": null,
-   "seconds": 0.618,
-   "claimed": 0,
-   "fused_top": []
+   "alerts": 21,
+   "incidents": 3,
+   "truth_incident_rank": 2,
+   "claimed": 4,
+   "seconds": 0.62,
+   "fused_top": [
+    [
+     0.63,
+     "T1055"
+    ],
+    [
+     0.45,
+     "T1112"
+    ],
+    [
+     0.338,
+     "T1071.001"
+    ]
+   ]
   },
   {
    "id": "SDWIN-190518202151",
-   "title": "Empire Mimikatz LogonPasswords",
    "truth": [
     "T1003.001"
    ],
@@ -967,8 +1796,8 @@
    "alerts": 15,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 3.08,
    "claimed": 6,
+   "seconds": 1.62,
    "fused_top": [
     [
      0.828,
@@ -981,34 +1810,37 @@
     [
      0.42,
      "T1033"
-    ],
-    [
-     0.338,
-     "T1071.001"
-    ],
-    [
-     0.28,
-     "T1531"
     ]
    ]
   },
   {
    "id": "SDWIN-190518203650",
-   "title": "Empire Enable RDP",
    "truth": [
     "T1112"
    ],
    "events": 2668,
-   "alerts": 0,
-   "incidents": 0,
-   "truth_incident_rank": null,
-   "seconds": 0.512,
-   "claimed": 0,
-   "fused_top": []
+   "alerts": 26,
+   "incidents": 3,
+   "truth_incident_rank": 1,
+   "claimed": 6,
+   "seconds": 0.79,
+   "fused_top": [
+    [
+     0.796,
+     "T1112"
+    ],
+    [
+     0.63,
+     "T1055"
+    ],
+    [
+     0.63,
+     "T1021.001"
+    ]
+   ]
   },
   {
    "id": "SDWIN-190518210125",
-   "title": "Empire Invoke SMBExec",
    "truth": [
     "T1021.002"
    ],
@@ -1016,8 +1848,8 @@
    "alerts": 44,
    "incidents": 7,
    "truth_incident_rank": 4,
-   "seconds": 8.402,
    "claimed": 17,
+   "seconds": 2.55,
    "fused_top": [
     [
      0.828,
@@ -1030,20 +1862,11 @@
     [
      0.63,
      "T1685"
-    ],
-    [
-     0.63,
-     "T1569.002"
-    ],
-    [
-     0.63,
-     "T1548"
     ]
    ]
   },
   {
    "id": "SDWIN-190518210652",
-   "title": "Empire Invoke PsExec",
    "truth": [
     "T1021"
    ],
@@ -1051,8 +1874,8 @@
    "alerts": 40,
    "incidents": 7,
    "truth_incident_rank": 4,
-   "seconds": 4.644,
    "claimed": 22,
+   "seconds": 1.68,
    "fused_top": [
     [
      0.824,
@@ -1065,20 +1888,11 @@
     [
      0.63,
      "T1569.002"
-    ],
-    [
-     0.63,
-     "T1548"
-    ],
-    [
-     0.63,
-     "T1543.003"
     ]
    ]
   },
   {
    "id": "SDWIN-190518211052",
-   "title": "Empire Invoke DCOM ShellWindows",
    "truth": [
     "T1021.003"
    ],
@@ -1086,8 +1900,8 @@
    "alerts": 28,
    "incidents": 10,
    "truth_incident_rank": 1,
-   "seconds": 28.965,
    "claimed": 16,
+   "seconds": 9.13,
    "fused_top": [
     [
      0.824,
@@ -1100,20 +1914,11 @@
     [
      0.63,
      "T1685"
-    ],
-    [
-     0.525,
-     "T1564.003"
-    ],
-    [
-     0.525,
-     "T1491.001"
     ]
    ]
   },
   {
    "id": "SDWIN-190518211456",
-   "title": "Empire Invoke PSRemoting",
    "truth": [
     "T1021.006"
    ],
@@ -1121,8 +1926,8 @@
    "alerts": 33,
    "incidents": 6,
    "truth_incident_rank": 1,
-   "seconds": 2.7489999999999997,
    "claimed": 11,
+   "seconds": 0.85,
    "fused_top": [
     [
      0.824,
@@ -1135,20 +1940,11 @@
     [
      0.63,
      "T1190"
-    ],
-    [
-     0.63,
-     "T1021.006"
-    ],
-    [
-     0.525,
-     "T1021.003"
     ]
    ]
   },
   {
    "id": "SDWIN-190518213907",
-   "title": "Empire Invoke Execute MSBuild",
    "truth": [
     "T1047"
    ],
@@ -1156,8 +1952,8 @@
    "alerts": 40,
    "incidents": 5,
    "truth_incident_rank": 1,
-   "seconds": 3.98,
    "claimed": 13,
+   "seconds": 1.41,
    "fused_top": [
     [
      0.824,
@@ -1170,20 +1966,11 @@
     [
      0.63,
      "T1685"
-    ],
-    [
-     0.63,
-     "T1021.002"
-    ],
-    [
-     0.525,
-     "T1027.004"
     ]
    ]
   },
   {
    "id": "SDWIN-190518221344",
-   "title": "Empire Invoke DLLInjection",
    "truth": [
     "T1055.001"
    ],
@@ -1191,8 +1978,8 @@
    "alerts": 463,
    "incidents": 5,
    "truth_incident_rank": 2,
-   "seconds": 7.519,
    "claimed": 8,
+   "seconds": 2.24,
    "fused_top": [
     [
      0.525,
@@ -1205,20 +1992,11 @@
     [
      0.525,
      "T1059.001"
-    ],
-    [
-     0.525,
-     "T1055.003"
-    ],
-    [
-     0.525,
-     "T1055"
     ]
    ]
   },
   {
    "id": "SDWIN-190518224039",
-   "title": "Empire Find Local Admin Access",
    "truth": [
     "T1069.001"
    ],
@@ -1226,8 +2004,8 @@
    "alerts": 77,
    "incidents": 6,
    "truth_incident_rank": 1,
-   "seconds": 3.965,
    "claimed": 13,
+   "seconds": 1.48,
    "fused_top": [
     [
      0.63,
@@ -1240,20 +2018,11 @@
     [
      0.63,
      "T1087.001"
-    ],
-    [
-     0.63,
-     "T1087"
-    ],
-    [
-     0.63,
-     "T1069.002"
     ]
    ]
   },
   {
    "id": "SDWIN-190518230752",
-   "title": "Empire Mimikatz Extract Kerberos Keys",
    "truth": [
     "T1003.004"
    ],
@@ -1261,8 +2030,8 @@
    "alerts": 6,
    "incidents": 2,
    "truth_incident_rank": 2,
-   "seconds": 9.739,
    "claimed": 9,
+   "seconds": 4.51,
    "fused_top": [
     [
      0.7,
@@ -1275,20 +2044,11 @@
     [
      0.63,
      "T1003.004"
-    ],
-    [
-     0.63,
-     "T1003.002"
-    ],
-    [
-     0.63,
-     "T1003.001"
     ]
    ]
   },
   {
    "id": "SDWIN-190518235535",
-   "title": "Empire Mimikatz Backup Keys",
    "truth": [
     "T1003"
    ],
@@ -1296,8 +2056,8 @@
    "alerts": 13,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 5.045999999999999,
    "claimed": 10,
+   "seconds": 3.01,
    "fused_top": [
     [
      0.63,
@@ -1310,20 +2070,11 @@
     [
      0.63,
      "T1003.006"
-    ],
-    [
-     0.63,
-     "T1003.004"
-    ],
-    [
-     0.63,
-     "T1003.002"
     ]
    ]
   },
   {
    "id": "SDWIN-190519005224",
-   "title": "Empire Remote Get Session",
    "truth": [
     "T1049"
    ],
@@ -1331,8 +2082,8 @@
    "alerts": 304,
    "incidents": 2,
    "truth_incident_rank": null,
-   "seconds": 2.569,
    "claimed": 10,
+   "seconds": 0.94,
    "fused_top": [
     [
      0.63,
@@ -1345,20 +2096,11 @@
     [
      0.63,
      "T1087.001"
-    ],
-    [
-     0.63,
-     "T1087"
-    ],
-    [
-     0.63,
-     "T1069.002"
     ]
    ]
   },
   {
    "id": "SDWIN-190625103712",
-   "title": "Empire Mimikatz SAM Extract Hashes",
    "truth": [
     "T1003.002"
    ],
@@ -1366,8 +2108,8 @@
    "alerts": 17,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 9.196,
    "claimed": 9,
+   "seconds": 4.08,
    "fused_top": [
     [
      0.866,
@@ -1380,20 +2122,11 @@
     [
      0.63,
      "T1003.006"
-    ],
-    [
-     0.63,
-     "T1003.004"
-    ],
-    [
-     0.63,
-     "T1003.002"
     ]
    ]
   },
   {
    "id": "SDWIN-190625133822",
-   "title": "Empire Reg Dump SAM Hive",
    "truth": [
     "T1003.002"
    ],
@@ -1401,8 +2134,8 @@
    "alerts": 3,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 0.5589999999999999,
    "claimed": 4,
+   "seconds": 0.21,
    "fused_top": [
     [
      0.63,
@@ -1415,16 +2148,11 @@
     [
      0.63,
      "T1003.002"
-    ],
-    [
-     0.28,
-     "T1531"
     ]
    ]
   },
   {
    "id": "SDWIN-191027055035",
-   "title": "RDP TaskManager LSASS Dump",
    "truth": [
     "T1003.001"
    ],
@@ -1432,8 +2160,8 @@
    "alerts": 20,
    "incidents": 4,
    "truth_incident_rank": 1,
-   "seconds": 4.72,
    "claimed": 6,
+   "seconds": 1.47,
    "fused_top": [
     [
      0.828,
@@ -1446,20 +2174,11 @@
     [
      0.63,
      "T1110"
-    ],
-    [
-     0.63,
-     "T1078"
-    ],
-    [
-     0.525,
-     "T1055"
     ]
    ]
   },
   {
    "id": "SDWIN-191027223020",
-   "title": "Covenant ShellCmd InstallUtil",
    "truth": [
     "T1218.004"
    ],
@@ -1467,8 +2186,8 @@
    "alerts": 19,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 1.5899999999999999,
    "claimed": 5,
+   "seconds": 0.51,
    "fused_top": [
     [
      0.63,
@@ -1481,20 +2200,11 @@
     [
      0.525,
      "T1218.011"
-    ],
-    [
-     0.525,
-     "T1218.010"
-    ],
-    [
-     0.28,
-     "T1531"
     ]
    ]
   },
   {
    "id": "SDWIN-191225045202",
-   "title": "Empire Invoke InternalMonologue",
    "truth": [
     "T1112"
    ],
@@ -1502,8 +2212,8 @@
    "alerts": 88,
    "incidents": 4,
    "truth_incident_rank": 1,
-   "seconds": 1.141,
    "claimed": 5,
+   "seconds": 0.37,
    "fused_top": [
     [
      0.796,
@@ -1516,20 +2226,11 @@
     [
      0.63,
      "T1685"
-    ],
-    [
-     0.338,
-     "T1071.001"
-    ],
-    [
-     0.28,
-     "T1531"
     ]
    ]
   },
   {
    "id": "SDWIN-200609225055",
-   "title": "MSF Record Mic",
    "truth": [
     "T1123"
    ],
@@ -1537,8 +2238,8 @@
    "alerts": 27,
    "incidents": 4,
    "truth_incident_rank": 1,
-   "seconds": 5.589,
    "claimed": 6,
+   "seconds": 1.71,
    "fused_top": [
     [
      0.703,
@@ -1551,20 +2252,11 @@
     [
      0.525,
      "T1059"
-    ],
-    [
-     0.525,
-     "T1003.001"
-    ],
-    [
-     0.375,
-     "T1070.006"
     ]
    ]
   },
   {
    "id": "SDWIN-200721232741",
-   "title": "Empire Regsvr32 Execution",
    "truth": [
     "T1218.010"
    ],
@@ -1572,8 +2264,8 @@
    "alerts": 25,
    "incidents": 3,
    "truth_incident_rank": 1,
-   "seconds": 2.691,
    "claimed": 8,
+   "seconds": 0.81,
    "fused_top": [
     [
      0.824,
@@ -1586,20 +2278,11 @@
     [
      0.63,
      "T1685"
-    ],
-    [
-     0.525,
-     "T1559.001"
-    ],
-    [
-     0.375,
-     "T1070.006"
     ]
    ]
   },
   {
    "id": "SDWIN-200722001847",
-   "title": "Empire Elevated Registry Run Keys",
    "truth": [
     "T1547.001"
    ],
@@ -1607,8 +2290,8 @@
    "alerts": 7,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 0.356,
    "claimed": 3,
+   "seconds": 0.13,
    "fused_top": [
     [
      0.757,
@@ -1626,7 +2309,6 @@
   },
   {
    "id": "SDWIN-200724174200",
-   "title": "Covenant Remote WMI Eventing ActiveScriptEventConsumers",
    "truth": [
     "T1047"
    ],
@@ -1634,8 +2316,8 @@
    "alerts": 32,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 2.538,
    "claimed": 3,
+   "seconds": 0.85,
    "fused_top": [
     [
      0.525,
@@ -1653,7 +2335,6 @@
   },
   {
    "id": "SDWIN-200805020926",
-   "title": "Covenant DCSync",
    "truth": [
     "T1003.006"
    ],
@@ -1661,8 +2342,8 @@
    "alerts": 8,
    "incidents": 0,
    "truth_incident_rank": null,
-   "seconds": 0.751,
    "claimed": 2,
+   "seconds": 0.23,
    "fused_top": [
     [
      0.525,
@@ -1676,7 +2357,6 @@
   },
   {
    "id": "SDWIN-200805034820",
-   "title": "Covenant SC.exe Utility Query",
    "truth": [
     "T1021.002"
    ],
@@ -1684,8 +2364,8 @@
    "alerts": 3,
    "incidents": 0,
    "truth_incident_rank": null,
-   "seconds": 0.564,
    "claimed": 1,
+   "seconds": 0.17,
    "fused_top": [
     [
      0.28,
@@ -1695,7 +2375,6 @@
   },
   {
    "id": "SDWIN-200806012009",
-   "title": "Covenant SharpSC Query",
    "truth": [
     "T1021.002"
    ],
@@ -1703,8 +2382,8 @@
    "alerts": 5,
    "incidents": 0,
    "truth_incident_rank": null,
-   "seconds": 0.29,
    "claimed": 1,
+   "seconds": 0.09,
    "fused_top": [
     [
      0.28,
@@ -1714,7 +2393,6 @@
   },
   {
    "id": "SDWIN-200806015757",
-   "title": "Covenant Remote File Copy",
    "truth": [
     "T1021.002"
    ],
@@ -1722,8 +2400,8 @@
    "alerts": 3,
    "incidents": 0,
    "truth_incident_rank": null,
-   "seconds": 0.426,
    "claimed": 2,
+   "seconds": 0.13,
    "fused_top": [
     [
      0.63,
@@ -1737,7 +2415,6 @@
   },
   {
    "id": "SDWIN-200806022635",
-   "title": "Covenant SharpSC Create",
    "truth": [
     "T1021.002"
    ],
@@ -1745,8 +2422,8 @@
    "alerts": 16,
    "incidents": 0,
    "truth_incident_rank": null,
-   "seconds": 2.4339999999999997,
    "claimed": 1,
+   "seconds": 0.66,
    "fused_top": [
     [
      0.28,
@@ -1756,7 +2433,6 @@
   },
   {
    "id": "SDWIN-200806030120",
-   "title": "Covenant SharpSC Start",
    "truth": [
     "T1021.002"
    ],
@@ -1764,8 +2440,8 @@
    "alerts": 199,
    "incidents": 2,
    "truth_incident_rank": 1,
-   "seconds": 3.4130000000000003,
    "claimed": 4,
+   "seconds": 1.15,
    "fused_top": [
     [
      0.525,
@@ -1778,16 +2454,11 @@
     [
      0.525,
      "T1021.003"
-    ],
-    [
-     0.28,
-     "T1531"
     ]
    ]
   },
   {
    "id": "SDWIN-200806031938",
-   "title": "Covenant SharpSC Stop Service",
    "truth": [
     "T1021.002"
    ],
@@ -1795,8 +2466,8 @@
    "alerts": 9,
    "incidents": 1,
    "truth_incident_rank": null,
-   "seconds": 1.046,
    "claimed": 3,
+   "seconds": 0.33,
    "fused_top": [
     [
      0.525,
@@ -1814,7 +2485,6 @@
   },
   {
    "id": "SDWIN-200806035621",
-   "title": "Covenant SharpWMI Exec",
    "truth": [
     "T1047"
    ],
@@ -1822,8 +2492,8 @@
    "alerts": 19,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 1.8359999999999999,
    "claimed": 5,
+   "seconds": 0.65,
    "fused_top": [
     [
      0.63,
@@ -1836,20 +2506,11 @@
     [
      0.525,
      "T1047"
-    ],
-    [
-     0.28,
-     "T1531"
-    ],
-    [
-     0.28,
-     "T1202"
     ]
    ]
   },
   {
    "id": "SDWIN-200806115603",
-   "title": "Covenant PowerShell Remoting Command",
    "truth": [
     "T1021.006"
    ],
@@ -1857,8 +2518,8 @@
    "alerts": 149,
    "incidents": 4,
    "truth_incident_rank": 1,
-   "seconds": 3.629,
    "claimed": 7,
+   "seconds": 0.96,
    "fused_top": [
     [
      0.866,
@@ -1871,20 +2532,11 @@
     [
      0.63,
      "T1059.001"
-    ],
-    [
-     0.63,
-     "T1021.006"
-    ],
-    [
-     0.525,
-     "T1021.003"
     ]
    ]
   },
   {
    "id": "SDWIN-200806130039",
-   "title": "Covenant GetDomainGroup Domain Admins",
    "truth": [
     "T1069.002"
    ],
@@ -1892,8 +2544,8 @@
    "alerts": 3,
    "incidents": 1,
    "truth_incident_rank": null,
-   "seconds": 0.358,
    "claimed": 2,
+   "seconds": 0.1,
    "fused_top": [
     [
      0.525,
@@ -1907,7 +2559,6 @@
   },
   {
    "id": "SDWIN-200807103913",
-   "title": "Empire Mimikatz Lsadump LSA Patch",
    "truth": [
     "T1003.001"
    ],
@@ -1915,8 +2566,8 @@
    "alerts": 19,
    "incidents": 2,
    "truth_incident_rank": 1,
-   "seconds": 4.505,
    "claimed": 9,
+   "seconds": 2.36,
    "fused_top": [
     [
      0.866,
@@ -1929,20 +2580,11 @@
     [
      0.63,
      "T1003.004"
-    ],
-    [
-     0.63,
-     "T1003.002"
-    ],
-    [
-     0.42,
-     "T1087.001"
     ]
    ]
   },
   {
    "id": "SDWIN-200904032946",
-   "title": "Invoke BypassUAC FodHelper",
    "truth": [
     "T1548.002"
    ],
@@ -1950,8 +2592,8 @@
    "alerts": 135,
    "incidents": 2,
    "truth_incident_rank": 1,
-   "seconds": 3.832,
    "claimed": 10,
+   "seconds": 1.25,
    "fused_top": [
     [
      0.857,
@@ -1964,20 +2606,11 @@
     [
      0.63,
      "T1685"
-    ],
-    [
-     0.525,
-     "T1033"
-    ],
-    [
-     0.42,
-     "T1087.001"
     ]
    ]
   },
   {
    "id": "SDWIN-200914080546",
-   "title": "Empire Remote WMIC Add User",
    "truth": [
     "T1047"
    ],
@@ -1985,8 +2618,8 @@
    "alerts": 32,
    "incidents": 3,
    "truth_incident_rank": 1,
-   "seconds": 8.076,
    "claimed": 8,
+   "seconds": 2.34,
    "fused_top": [
     [
      0.739,
@@ -1999,20 +2632,11 @@
     [
      0.42,
      "T1686.003"
-    ],
-    [
-     0.42,
-     "T1098"
-    ],
-    [
-     0.375,
-     "T1070.006"
     ]
    ]
   },
   {
    "id": "SDWIN-200916232559",
-   "title": "Mimikatz Netlogon Unauthenticated NetrServerAuthenticate2",
    "truth": [
     "T1210"
    ],
@@ -2020,8 +2644,8 @@
    "alerts": 15,
    "incidents": 1,
    "truth_incident_rank": null,
-   "seconds": 0.679,
    "claimed": 7,
+   "seconds": 0.19,
    "fused_top": [
     [
      0.63,
@@ -2034,20 +2658,11 @@
     [
      0.63,
      "T1003.005"
-    ],
-    [
-     0.63,
-     "T1003.004"
-    ],
-    [
-     0.63,
-     "T1003.002"
     ]
    ]
   },
   {
    "id": "SDWIN-200917174542",
-   "title": "DCOM ExecuteExcel4macro",
    "truth": [
     "T1021.003"
    ],
@@ -2055,8 +2670,8 @@
    "alerts": 20,
    "incidents": 5,
    "truth_incident_rank": null,
-   "seconds": 9.238999999999999,
    "claimed": 5,
+   "seconds": 2.81,
    "fused_top": [
     [
      0.525,
@@ -2069,20 +2684,11 @@
     [
      0.375,
      "T1070.006"
-    ],
-    [
-     0.28,
-     "T1531"
-    ],
-    [
-     0.28,
-     "T1204.002"
     ]
    ]
   },
   {
    "id": "SDWIN-200918145959",
-   "title": "DCOM RegisterXLL",
    "truth": [
     "T1021.003"
    ],
@@ -2090,8 +2696,8 @@
    "alerts": 200,
    "incidents": 2,
    "truth_incident_rank": null,
-   "seconds": 3.772,
    "claimed": 4,
+   "seconds": 1.19,
    "fused_top": [
     [
      0.525,
@@ -2104,16 +2710,11 @@
     [
      0.42,
      "T1201"
-    ],
-    [
-     0.28,
-     "T1531"
     ]
    ]
   },
   {
    "id": "SDWIN-200921001437",
-   "title": "Empire Invoke WMI",
    "truth": [
     "T1047"
    ],
@@ -2121,8 +2722,8 @@
    "alerts": 320,
    "incidents": 6,
    "truth_incident_rank": 1,
-   "seconds": 4.08,
    "claimed": 10,
+   "seconds": 1.32,
    "fused_top": [
     [
      0.824,
@@ -2135,20 +2736,11 @@
     [
      0.63,
      "T1685"
-    ],
-    [
-     0.42,
-     "T1201"
-    ],
-    [
-     0.42,
-     "T1087.001"
     ]
    ]
   },
   {
    "id": "SDWIN-200921175806",
-   "title": "Empire Elevated Scheduled Tasks",
    "truth": [
     "T1053.005"
    ],
@@ -2156,8 +2748,8 @@
    "alerts": 292,
    "incidents": 26,
    "truth_incident_rank": 5,
-   "seconds": 49.080000000000005,
    "claimed": 26,
+   "seconds": 16.32,
    "fused_top": [
     [
      0.828,
@@ -2170,20 +2762,11 @@
     [
      0.796,
      "T1053.005"
-    ],
-    [
-     0.757,
-     "T1547.001"
-    ],
-    [
-     0.63,
-     "T1685"
     ]
    ]
   },
   {
    "id": "SDWIN-200921230246",
-   "title": "Rubeus Elevated ASKTGT CreateNetOnly",
    "truth": [
     "T1003.003"
    ],
@@ -2191,8 +2774,8 @@
    "alerts": 17,
    "incidents": 4,
    "truth_incident_rank": 1,
-   "seconds": 2.726,
    "claimed": 10,
+   "seconds": 0.96,
    "fused_top": [
     [
      0.7,
@@ -2205,20 +2788,11 @@
     [
      0.7,
      "T1003"
-    ],
-    [
-     0.63,
-     "T1550.002"
-    ],
-    [
-     0.63,
-     "T1003.001"
     ]
    ]
   },
   {
    "id": "SDWIN-200922042230",
-   "title": "Empire Powerdump Extract Hashes",
    "truth": [
     "T1003.002"
    ],
@@ -2226,8 +2800,8 @@
    "alerts": 20,
    "incidents": 3,
    "truth_incident_rank": 1,
-   "seconds": 0.839,
    "claimed": 5,
+   "seconds": 0.33,
    "fused_top": [
     [
      0.828,
@@ -2240,20 +2814,11 @@
     [
      0.525,
      "T1027.004"
-    ],
-    [
-     0.375,
-     "T1070.006"
-    ],
-    [
-     0.28,
-     "T1531"
     ]
    ]
   },
   {
    "id": "SDWIN-201009173318",
-   "title": "Covenant Remote WMI Wbemcomn DLL Hijacking",
    "truth": [
     "T1047"
    ],
@@ -2261,8 +2826,8 @@
    "alerts": 216,
    "incidents": 9,
    "truth_incident_rank": 2,
-   "seconds": 6.067,
    "claimed": 14,
+   "seconds": 1.88,
    "fused_top": [
     [
      0.828,
@@ -2275,20 +2840,11 @@
     [
      0.7,
      "T1021.002"
-    ],
-    [
-     0.685,
-     "T1574.001"
-    ],
-    [
-     0.63,
-     "T1055"
     ]
    ]
   },
   {
    "id": "SDWIN-201009183000",
-   "title": "Covenant Remote DCOM Iertutil DLL Hijacking",
    "truth": [
     "T1021.003"
    ],
@@ -2296,8 +2852,8 @@
    "alerts": 42,
    "incidents": 20,
    "truth_incident_rank": 1,
-   "seconds": 37.512,
    "claimed": 13,
+   "seconds": 12.42,
    "fused_top": [
     [
      0.824,
@@ -2310,20 +2866,11 @@
     [
      0.7,
      "T1021.002"
-    ],
-    [
-     0.63,
-     "T1574.001"
-    ],
-    [
-     0.63,
-     "T1036"
     ]
    ]
   },
   {
    "id": "SDWIN-201012183248",
-   "title": "Covenant Wuauclt CreateRemoteThread Execution",
    "truth": [
     "T1218"
    ],
@@ -2331,8 +2878,8 @@
    "alerts": 16,
    "incidents": 3,
    "truth_incident_rank": 1,
-   "seconds": 0.92,
    "claimed": 5,
+   "seconds": 0.3,
    "fused_top": [
     [
      0.824,
@@ -2345,20 +2892,11 @@
     [
      0.42,
      "T1055.011"
-    ],
-    [
-     0.28,
-     "T1531"
-    ],
-    [
-     0.28,
-     "T1202"
     ]
    ]
   },
   {
    "id": "SDWIN-201017061100",
-   "title": "WMIC Remote XSL Jscript Execution",
    "truth": [
     "T1220"
    ],
@@ -2366,8 +2904,8 @@
    "alerts": 7,
    "incidents": 4,
    "truth_incident_rank": 2,
-   "seconds": 0.956,
    "claimed": 8,
+   "seconds": 0.31,
    "fused_top": [
     [
      0.637,
@@ -2380,20 +2918,11 @@
     [
      0.63,
      "T1059.007"
-    ],
-    [
-     0.63,
-     "T1059.005"
-    ],
-    [
-     0.63,
-     "T1047"
     ]
    ]
   },
   {
    "id": "SDWIN-201018195009",
-   "title": "Lsass Memory Dump via Comsvcs.dll",
    "truth": [
     "T1003.001"
    ],
@@ -2401,8 +2930,8 @@
    "alerts": 15,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 0.162,
    "claimed": 4,
+   "seconds": 0.05,
    "fused_top": [
     [
      0.866,
@@ -2415,16 +2944,11 @@
     [
      0.63,
      "T1685.005"
-    ],
-    [
-     0.63,
-     "T1036"
     ]
    ]
   },
   {
    "id": "SDWIN-201018225619",
-   "title": "Lsass Memory Dump via Syscalls",
    "truth": [
     "T1003.001"
    ],
@@ -2432,8 +2956,8 @@
    "alerts": 12,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 0.134,
    "claimed": 5,
+   "seconds": 0.05,
    "fused_top": [
     [
      0.891,
@@ -2446,20 +2970,11 @@
     [
      0.7,
      "T1003"
-    ],
-    [
-     0.63,
-     "T1685.005"
-    ],
-    [
-     0.63,
-     "T1685"
     ]
    ]
   },
   {
    "id": "SDWIN-201019002900",
-   "title": "SAM Copy via Esentutl VSS",
    "truth": [
     "T1003.002"
    ],
@@ -2467,8 +2982,8 @@
    "alerts": 47,
    "incidents": 2,
    "truth_incident_rank": 1,
-   "seconds": 0.735,
    "claimed": 6,
+   "seconds": 0.22,
    "fused_top": [
     [
      0.852,
@@ -2481,20 +2996,11 @@
     [
      0.63,
      "T1490"
-    ],
-    [
-     0.63,
-     "T1218"
-    ],
-    [
-     0.63,
-     "T1105"
     ]
    ]
   },
   {
    "id": "SDWIN-201019033054",
-   "title": "Psexec Reg LSA Secrets Dump",
    "truth": [
     "T1003.004"
    ],
@@ -2502,8 +3008,8 @@
    "alerts": 16,
    "incidents": 2,
    "truth_incident_rank": 1,
-   "seconds": 0.304,
    "claimed": 9,
+   "seconds": 0.1,
    "fused_top": [
     [
      0.63,
@@ -2516,20 +3022,11 @@
     [
      0.63,
      "T1003.005"
-    ],
-    [
-     0.63,
-     "T1003.004"
-    ],
-    [
-     0.63,
-     "T1003.002"
     ]
    ]
   },
   {
    "id": "SDWIN-201019224718",
-   "title": "Logon Scripts via UserInitMprLogonScript",
    "truth": [
     "T1037.001"
    ],
@@ -2537,8 +3034,8 @@
    "alerts": 7,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 0.13599999999999998,
    "claimed": 3,
+   "seconds": 0.05,
    "fused_top": [
     [
      0.824,
@@ -2556,7 +3053,6 @@
   },
   {
    "id": "SDWIN-201019232515",
-   "title": "Mavinject Process DLL Injection",
    "truth": [
     "T1055"
    ],
@@ -2564,8 +3060,8 @@
    "alerts": 9,
    "incidents": 2,
    "truth_incident_rank": 1,
-   "seconds": 0.483,
    "claimed": 8,
+   "seconds": 0.13,
    "fused_top": [
     [
      0.63,
@@ -2578,20 +3074,11 @@
     [
      0.63,
      "T1055.001"
-    ],
-    [
-     0.525,
-     "T1218"
-    ],
-    [
-     0.525,
-     "T1055.003"
     ]
    ]
   },
   {
    "id": "SDWIN-201020013208",
-   "title": "UI Prompt For Credentials Function",
    "truth": [
     "T1056.002"
    ],
@@ -2599,8 +3086,8 @@
    "alerts": 2,
    "incidents": 0,
    "truth_incident_rank": null,
-   "seconds": 0.135,
    "claimed": 1,
+   "seconds": 0.04,
    "fused_top": [
     [
      0.63,
@@ -2610,7 +3097,6 @@
   },
   {
    "id": "SDWIN-201021001911",
-   "title": "Netsh Open FW Proxy Ports",
    "truth": [
     "T1562.004"
    ],
@@ -2618,8 +3104,8 @@
    "alerts": 6,
    "incidents": 1,
    "truth_incident_rank": null,
-   "seconds": 0.8009999999999999,
    "claimed": 3,
+   "seconds": 0.26,
    "fused_top": [
     [
      0.63,
@@ -2637,7 +3123,6 @@
   },
   {
    "id": "SDWIN-201021204544",
-   "title": "Service Modification Fax",
    "truth": [
     "T1543.003"
    ],
@@ -2645,8 +3130,8 @@
    "alerts": 14,
    "incidents": 3,
    "truth_incident_rank": 1,
-   "seconds": 0.369,
    "claimed": 6,
+   "seconds": 0.12,
    "fused_top": [
     [
      0.63,
@@ -2659,20 +3144,11 @@
     [
      0.63,
      "T1548"
-    ],
-    [
-     0.63,
-     "T1543.003"
-    ],
-    [
-     0.63,
-     "T1059.001"
     ]
    ]
   },
   {
    "id": "SDWIN-201021232814",
-   "title": "Internet Explorer Version Discovery",
    "truth": [
     "T1518"
    ],
@@ -2680,8 +3156,8 @@
    "alerts": 4,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 0.092,
    "claimed": 2,
+   "seconds": 0.03,
    "fused_top": [
     [
      0.63,
@@ -2695,7 +3171,6 @@
   },
   {
    "id": "SDWIN-201022002145",
-   "title": "HH Execution of Local Compiled HTML Payload",
    "truth": [
     "T1218.001"
    ],
@@ -2703,8 +3178,8 @@
    "alerts": 12,
    "incidents": 3,
    "truth_incident_rank": 1,
-   "seconds": 1.009,
    "claimed": 17,
+   "seconds": 0.32,
    "fused_top": [
     [
      0.796,
@@ -2717,20 +3192,11 @@
     [
      0.63,
      "T1566.001"
-    ],
-    [
-     0.63,
-     "T1566"
-    ],
-    [
-     0.63,
-     "T1218.011"
     ]
    ]
   },
   {
    "id": "SDWIN-201022013121",
-   "title": "Control Panel Execution",
    "truth": [
     "T1218.002"
    ],
@@ -2738,8 +3204,8 @@
    "alerts": 9,
    "incidents": 3,
    "truth_incident_rank": 1,
-   "seconds": 1.117,
    "claimed": 9,
+   "seconds": 0.35,
    "fused_top": [
     [
      0.755,
@@ -2752,20 +3218,11 @@
     [
      0.63,
      "T1685.005"
-    ],
-    [
-     0.63,
-     "T1546"
-    ],
-    [
-     0.525,
-     "T1218.010"
     ]
    ]
   },
   {
    "id": "SDWIN-201022015432",
-   "title": "CMSTP Proxy Execution",
    "truth": [
     "T1218.003"
    ],
@@ -2773,8 +3230,8 @@
    "alerts": 13,
    "incidents": 3,
    "truth_incident_rank": 1,
-   "seconds": 0.737,
    "claimed": 10,
+   "seconds": 0.23,
    "fused_top": [
     [
      0.824,
@@ -2787,20 +3244,11 @@
     [
      0.63,
      "T1559.001"
-    ],
-    [
-     0.63,
-     "T1548.002"
-    ],
-    [
-     0.525,
-     "T1059"
     ]
    ]
   },
   {
    "id": "SDWIN-201022022144",
-   "title": "Mshta Javascript GetObject Sct",
    "truth": [
     "T1218.005"
    ],
@@ -2808,8 +3256,8 @@
    "alerts": 21,
    "incidents": 3,
    "truth_incident_rank": 1,
-   "seconds": 0.977,
    "claimed": 9,
+   "seconds": 0.29,
    "fused_top": [
     [
      0.81,
@@ -2822,20 +3270,11 @@
     [
      0.63,
      "T1218"
-    ],
-    [
-     0.63,
-     "T1105"
-    ],
-    [
-     0.525,
-     "T1112"
     ]
    ]
   },
   {
    "id": "SDWIN-201022025808",
-   "title": "Mshta VBScript Execute PowerShell",
    "truth": [
     "T1218.005"
    ],
@@ -2843,9 +3282,13 @@
    "alerts": 23,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 0.7769999999999999,
-   "claimed": 11,
+   "claimed": 10,
+   "seconds": 0.24,
    "fused_top": [
+    [
+     0.824,
+     "T1059.001"
+    ],
     [
      0.81,
      "T1218.005"
@@ -2853,24 +3296,11 @@
     [
      0.63,
      "T1685.005"
-    ],
-    [
-     0.63,
-     "T1140"
-    ],
-    [
-     0.63,
-     "T1059.007"
-    ],
-    [
-     0.63,
-     "T1059.001"
     ]
    ]
   },
   {
    "id": "SDWIN-201022035214",
-   "title": "Mshta HTML Application (HTA) Execution",
    "truth": [
     "T1218.005"
    ],
@@ -2878,8 +3308,8 @@
    "alerts": 25,
    "incidents": 3,
    "truth_incident_rank": 1,
-   "seconds": 1.1460000000000001,
    "claimed": 15,
+   "seconds": 0.37,
    "fused_top": [
     [
      0.81,
@@ -2892,20 +3322,11 @@
     [
      0.63,
      "T1547.001"
-    ],
-    [
-     0.63,
-     "T1218"
-    ],
-    [
-     0.63,
-     "T1204.002"
     ]
    ]
   },
   {
    "id": "SDWIN-201022042947",
-   "title": "PurpleSharp Active Directory Playbook I",
    "truth": [
     "T1021.006",
     "T1110.003",
@@ -2916,8 +3337,8 @@
    "alerts": 550,
    "incidents": 11,
    "truth_incident_rank": 1,
-   "seconds": 20.177,
    "claimed": 12,
+   "seconds": 6.17,
    "fused_top": [
     [
      0.7,
@@ -2930,20 +3351,11 @@
     [
      0.63,
      "T1059.001"
-    ],
-    [
-     0.63,
-     "T1021.006"
-    ],
-    [
-     0.525,
-     "T1558.003"
     ]
    ]
   },
   {
    "id": "SDWIN-201023020513",
-   "title": "Register-CimProvider Execute Dll",
    "truth": [
     "T1218"
    ],
@@ -2951,8 +3363,8 @@
    "alerts": 10,
    "incidents": 3,
    "truth_incident_rank": null,
-   "seconds": 1.015,
    "claimed": 5,
+   "seconds": 0.33,
    "fused_top": [
     [
      0.63,
@@ -2965,20 +3377,11 @@
     [
      0.42,
      "T1055.011"
-    ],
-    [
-     0.375,
-     "T1070.006"
-    ],
-    [
-     0.338,
-     "T1071.001"
     ]
    ]
   },
   {
    "id": "SDWIN-201023023651",
-   "title": "Bitsadmin Download Malicious File",
    "truth": [
     "T1197"
    ],
@@ -2986,8 +3389,8 @@
    "alerts": 11,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 0.33699999999999997,
    "claimed": 4,
+   "seconds": 0.11,
    "fused_top": [
     [
      0.796,
@@ -3000,16 +3403,11 @@
     [
      0.63,
      "T1105"
-    ],
-    [
-     0.63,
-     "T1036.003"
     ]
    ]
   },
   {
    "id": "SDWIN-201023031210",
-   "title": "PurpleSharp PE Injection CreateRemoteThread",
    "truth": [
     "T1055.002"
    ],
@@ -3017,8 +3415,8 @@
    "alerts": 16,
    "incidents": 2,
    "truth_incident_rank": 1,
-   "seconds": 0.592,
    "claimed": 8,
+   "seconds": 0.19,
    "fused_top": [
     [
      0.7,
@@ -3031,20 +3429,11 @@
     [
      0.63,
      "T1036"
-    ],
-    [
-     0.63,
-     "T1003.001"
-    ],
-    [
-     0.525,
-     "T1055.003"
     ]
    ]
   },
   {
    "id": "SDWIN-201026235835",
-   "title": "Process Herpaderping Mimikatz",
    "truth": [
     "T1055"
    ],
@@ -3052,8 +3441,8 @@
    "alerts": 4,
    "incidents": 1,
    "truth_incident_rank": null,
-   "seconds": 0.27699999999999997,
    "claimed": 7,
+   "seconds": 0.09,
    "fused_top": [
     [
      0.63,
@@ -3066,20 +3455,11 @@
     [
      0.63,
      "T1003.005"
-    ],
-    [
-     0.63,
-     "T1003.004"
-    ],
-    [
-     0.63,
-     "T1003.002"
     ]
    ]
   },
   {
    "id": "SDWIN-201028191914",
-   "title": "Windows Vault Web Credentials",
    "truth": [
     "T1055"
    ],
@@ -3087,8 +3467,8 @@
    "alerts": 1,
    "incidents": 0,
    "truth_incident_rank": null,
-   "seconds": 0.107,
    "claimed": 1,
+   "seconds": 0.03,
    "fused_top": [
     [
      0.63,
@@ -3098,7 +3478,6 @@
   },
   {
    "id": "SDWIN-201029001615",
-   "title": "Python HTTP Server",
    "truth": [
     "T1059"
    ],
@@ -3106,8 +3485,8 @@
    "alerts": 5,
    "incidents": 1,
    "truth_incident_rank": null,
-   "seconds": 0.892,
    "claimed": 3,
+   "seconds": 0.28,
    "fused_top": [
     [
      0.63,
@@ -3125,7 +3504,6 @@
   },
   {
    "id": "SDWIN-201029202324",
-   "title": "SharpView PCRE.NET",
    "truth": [
     "T1059"
    ],
@@ -3133,8 +3511,8 @@
    "alerts": 10,
    "incidents": 1,
    "truth_incident_rank": 1,
-   "seconds": 0.21000000000000002,
    "claimed": 8,
+   "seconds": 0.07,
    "fused_top": [
     [
      0.63,
@@ -3147,20 +3525,11 @@
     [
      0.63,
      "T1135"
-    ],
-    [
-     0.63,
-     "T1069.002"
-    ],
-    [
-     0.63,
-     "T1059"
     ]
    ]
   },
   {
    "id": "SDWIN-201102041306",
-   "title": "PowerShell HTTP Listener",
    "truth": [
     "T1059.001"
    ],
@@ -3168,8 +3537,8 @@
    "alerts": 1,
    "incidents": 0,
    "truth_incident_rank": null,
-   "seconds": 0.10099999999999999,
    "claimed": 1,
+   "seconds": 0.03,
    "fused_top": [
     [
      0.63,
@@ -3179,7 +3548,6 @@
   },
   {
    "id": "SDWIN-201102163918",
-   "title": "Seatbelt Group User Discovery",
    "truth": [
     "T1012"
    ],
@@ -3187,8 +3555,8 @@
    "alerts": 3,
    "incidents": 1,
    "truth_incident_rank": null,
-   "seconds": 0.32999999999999996,
    "claimed": 4,
+   "seconds": 0.11,
    "fused_top": [
     [
      0.63,
@@ -3201,16 +3569,11 @@
     [
      0.63,
      "T1087"
-    ],
-    [
-     0.63,
-     "T1083"
     ]
    ]
   },
   {
    "id": "SDWIN-201219070027",
-   "title": "Remote Scheduled Task Creation",
    "truth": [
     "T1053.005"
    ],
@@ -3218,8 +3581,8 @@
    "alerts": 11,
    "incidents": 4,
    "truth_incident_rank": 1,
-   "seconds": 0.8789999999999999,
    "claimed": 6,
+   "seconds": 0.29,
    "fused_top": [
     [
      0.796,
@@ -3232,20 +3595,11 @@
     [
      0.63,
      "T1027"
-    ],
-    [
-     0.63,
-     "T1003"
-    ],
-    [
-     0.525,
-     "T1055"
     ]
    ]
   },
   {
    "id": "SDWIN-201219075059",
-   "title": "Remote Scheduled Task Modification",
    "truth": [
     "T1053.005"
    ],
@@ -3253,8 +3607,8 @@
    "alerts": 5,
    "incidents": 4,
    "truth_incident_rank": null,
-   "seconds": 2.069,
    "claimed": 10,
+   "seconds": 0.62,
    "fused_top": [
     [
      0.63,
@@ -3267,20 +3621,11 @@
     [
      0.63,
      "T1003"
-    ],
-    [
-     0.525,
-     "T1055"
-    ],
-    [
-     0.412,
-     "T1021.003"
     ]
    ]
   },
   {
    "id": "SDWIN-210314014019",
-   "title": "Exchange ProxyLogon SSRF RCE Vuln POC",
    "truth": [
     "T1505.003"
    ],
@@ -3288,8 +3633,8 @@
    "alerts": 32,
    "incidents": 4,
    "truth_incident_rank": 1,
-   "seconds": 4.151,
    "claimed": 12,
+   "seconds": 1.37,
    "fused_top": [
     [
      0.63,
@@ -3302,20 +3647,11 @@
     [
      0.63,
      "T1134"
-    ],
-    [
-     0.63,
-     "T1059"
-    ],
-    [
-     0.63,
-     "T1033"
     ]
    ]
   },
   {
    "id": "SDWIN-220630130349",
-   "title": "Disabling Windows Event Logging via Audit Policy Modification",
    "truth": [
     "T1562.002"
    ],
@@ -3323,8 +3659,8 @@
    "alerts": 103,
    "incidents": 4,
    "truth_incident_rank": null,
-   "seconds": 9.162,
    "claimed": 7,
+   "seconds": 2.48,
    "fused_top": [
     [
      0.63,
@@ -3337,20 +3673,11 @@
     [
      0.525,
      "T1003.001"
-    ],
-    [
-     0.42,
-     "T1006"
-    ],
-    [
-     0.375,
-     "T1070.006"
     ]
    ]
   },
   {
    "id": "SDWIN-220703123711",
-   "title": "Disabling Process Command Line Logging via Registry Modification",
    "truth": [
     "T1562.002"
    ],
@@ -3358,8 +3685,8 @@
    "alerts": 8,
    "incidents": 3,
    "truth_incident_rank": null,
-   "seconds": 12.711,
    "claimed": 5,
+   "seconds": 3.81,
    "fused_top": [
     [
      0.63,
@@ -3372,20 +3699,11 @@
     [
      0.375,
      "T1070.006"
-    ],
-    [
-     0.28,
-     "T1531"
-    ],
-    [
-     0.28,
-     "T1202"
     ]
    ]
   },
   {
    "id": "SDWIN-220705170038",
-   "title": "Modifying Security Event Log File Path via Modification of Log Configuration",
    "truth": [
     "T1562.002"
    ],
@@ -3393,8 +3711,8 @@
    "alerts": 7,
    "incidents": 10,
    "truth_incident_rank": null,
-   "seconds": 19.974999999999998,
    "claimed": 7,
+   "seconds": 6.54,
    "fused_top": [
     [
      0.852,
@@ -3407,20 +3725,11 @@
     [
      0.525,
      "T1566.001"
-    ],
-    [
-     0.525,
-     "T1218"
-    ],
-    [
-     0.375,
-     "T1070.006"
     ]
    ]
   },
   {
    "id": "SDWIN-220708104215",
-   "title": "Stopping Event Log Service via Modification of Start Up Type",
    "truth": [
     "T1562.002"
    ],
@@ -3428,8 +3737,8 @@
    "alerts": 34,
    "incidents": 7,
    "truth_incident_rank": null,
-   "seconds": 10.978,
    "claimed": 15,
+   "seconds": 3.64,
    "fused_top": [
     [
      0.63,
@@ -3442,20 +3751,11 @@
     [
      0.63,
      "T1087.001"
-    ],
-    [
-     0.63,
-     "T1087"
-    ],
-    [
-     0.63,
-     "T1069.002"
     ]
    ]
   },
   {
    "id": "SDWIN-220708104300",
-   "title": "Stopping Event Log Service after Stopping Depending Services",
    "truth": [
     "T1562.002"
    ],
@@ -3463,8 +3763,8 @@
    "alerts": 91,
    "incidents": 15,
    "truth_incident_rank": null,
-   "seconds": 39.303,
    "claimed": 16,
+   "seconds": 12.28,
    "fused_top": [
     [
      0.63,
@@ -3477,20 +3777,11 @@
     [
      0.63,
      "T1087.002"
-    ],
-    [
-     0.63,
-     "T1087.001"
-    ],
-    [
-     0.63,
-     "T1087"
     ]
    ]
   },
   {
    "id": "SDWIN-220803205800",
-   "title": "Stopping Event Logging via Creation of MiniNt Registry Key",
    "truth": [
     "T1562.002"
    ],
@@ -3498,8 +3789,8 @@
    "alerts": 75,
    "incidents": 20,
    "truth_incident_rank": null,
-   "seconds": 32.125,
    "claimed": 17,
+   "seconds": 10.05,
    "fused_top": [
     [
      0.852,
@@ -3512,20 +3803,11 @@
     [
      0.63,
      "T1112"
-    ],
-    [
-     0.63,
-     "T1087.002"
-    ],
-    [
-     0.63,
-     "T1087.001"
     ]
    ]
   },
   {
    "id": "SDWIN-230718151900",
-   "title": "Dumping NTDS.dit using NTDSutil",
    "truth": [
     "T1003.003"
    ],
@@ -3533,8 +3815,8 @@
    "alerts": 259,
    "incidents": 8,
    "truth_incident_rank": 1,
-   "seconds": 7.162999999999999,
    "claimed": 9,
+   "seconds": 1.88,
    "fused_top": [
     [
      0.866,
@@ -3547,20 +3829,11 @@
     [
      0.63,
      "T1490"
-    ],
-    [
-     0.525,
-     "T1201"
-    ],
-    [
-     0.412,
-     "T1021.003"
     ]
    ]
   },
   {
    "id": "SDWIN-230720004300",
-   "title": "Dumping NTDS.dit using NinjaCopy",
    "truth": [
     "T1003.003"
    ],
@@ -3568,8 +3841,8 @@
    "alerts": 64,
    "incidents": 7,
    "truth_incident_rank": null,
-   "seconds": 10.633,
    "claimed": 11,
+   "seconds": 3.24,
    "fused_top": [
     [
      0.824,
@@ -3582,14 +3855,6 @@
     [
      0.63,
      "T1685"
-    ],
-    [
-     0.63,
-     "T1140"
-    ],
-    [
-     0.63,
-     "T1087.002"
     ]
    ]
   }

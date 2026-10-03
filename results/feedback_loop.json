@@ -1,20 +1,107 @@
 {
- "generated": "2026-09-26 20:00:45",
- "python": "3.14.3",
- "captures": 95,
- "detected_before": 64,
+ "generated": "2026-10-03T03:38:31Z",
+ "provenance": {
+  "throughline": "1.0.0",
+  "commit": "913743662643724b491f93112a57093e96802f7f",
+  "platform": "Linux x86_64",
+  "python": "3.12.14",
+  "engines": {
+   "ANVIL": {
+    "dist": "anvil-dac",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "9cc3f53f539ace9c92467b350348d66611312d7b"
+   },
+   "REVENANT": {
+    "dist": "revenant",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "aa0971cf0c8e9d435174493f534a87a44de419a2"
+   },
+   "ROOTLINE": {
+    "dist": "rootline",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "c69b228bf7bdfaa59614c57ea632911846d6adae"
+   },
+   "DRAGNET": {
+    "dist": "dragnet-attribution",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "fede50f1079129a24f2742ff441b510e20d1ab69"
+   },
+   "OCCAM": {
+    "dist": "occam",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "3e51fe0b26763444832461c91d38d7d64c2f03a5"
+   },
+   "VANTAGE": {
+    "dist": "vantage",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "54fcf281be74e59e165b51ef6131433d525d1ed0"
+   },
+   "GAUNTLET": {
+    "dist": "gauntlet-coverage",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "cd41fa891cc33501cc0087637488c9cfc64d4880"
+   },
+   "TRACEGATE": {
+    "dist": "tracegate",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "d975888e91473a9b6e2c9cf147b6f1d974a90d5a"
+   },
+   "STRATUM": {
+    "dist": "stratum",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "5348cd68abde122829d9205f75d76d14321aab6f"
+   },
+   "LINCHPIN": {
+    "dist": "linchpin-attackpath",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "f95a91f31aee35f44de1ecdfa56c2fc5a56d0b5d"
+   },
+   "VITRINE": {
+    "dist": "vitrine",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "126f64c59fef2e00cc305e653a5db530c2560dd8"
+   },
+   "SPECIMEN": {
+    "dist": "specimen",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "55eebd992ed5b4c6700610842ae58d949289ae66"
+   }
+  },
+  "data_pins": {
+   "attack": "6cda5ad8462c",
+   "sigma": "07ec293a5169",
+   "otrf": "d9d40ef123d2",
+   "misp": "e9e867fe5a5e",
+   "checksums_sha256": "c93c39a2345b61b9"
+  },
+  "ci_run": "37092700297"
+ },
+ "captures": 97,
+ "detected_before": 66,
  "gaps": 31,
  "backends": {
   "heuristic": {
-   "gaps_with_novel_behaviour": 21,
-   "gaps_with_drafts": 17,
-   "drafts": 25,
-   "accepted_drafts": 4,
+   "gaps_with_novel_behaviour": 22,
+   "gaps_with_drafts": 18,
+   "drafts": 27,
+   "accepted_drafts": 6,
    "rejected_fp": 20,
    "rejected_no_own_hit": 1,
-   "gaps_closed": 4,
-   "coverage_before": 0.6737,
-   "coverage_after_in_sample": 0.7158,
+   "gaps_closed": 5,
+   "coverage_before": 0.6804,
+   "coverage_after_in_sample": 0.732,
    "closed_with_same_technique_elsewhere": 0,
    "rows": [
     {
@@ -23,6 +110,26 @@
      "novel": 0,
      "drafted": 0,
      "accepted": [],
+     "rejected": [],
+     "generalises_to": []
+    },
+    {
+     "capture": "SDWIN-190319020147",
+     "technique": "T1069.001",
+     "novel": 2,
+     "drafted": 2,
+     "accepted": [
+      {
+       "title": "Drafted: net localgroup (THROUGHLINE gap SDWIN-190319020147)",
+       "own_hits": 2,
+       "fp_hits": 0
+      },
+      {
+       "title": "Drafted: net1 localgroup (THROUGHLINE gap SDWIN-190319020147)",
+       "own_hits": 2,
+       "fp_hits": 0
+      }
+     ],
      "rejected": [],
      "generalises_to": []
     },
@@ -68,15 +175,6 @@
     },
     {
      "capture": "SDWIN-190518201922",
-     "technique": "T1112",
-     "novel": 0,
-     "drafted": 0,
-     "accepted": [],
-     "rejected": [],
-     "generalises_to": []
-    },
-    {
-     "capture": "SDWIN-190518203650",
      "technique": "T1112",
      "novel": 0,
      "drafted": 0,
@@ -339,7 +437,7 @@
       {
        "title": "Drafted: reg add (THROUGHLINE gap SDWIN-220703123711)",
        "own_hits": 2,
-       "fp_hits": 2
+       "fp_hits": 6
       },
       {
        "title": "Drafted: PowerShell Export-WinEvents (THROUGHLINE gap SDWIN-220703123711)",
@@ -374,7 +472,7 @@
       {
        "title": "Drafted: reg ADD (THROUGHLINE gap SDWIN-220708104215)",
        "own_hits": 2,
-       "fp_hits": 2
+       "fp_hits": 6
       },
       {
        "title": "Drafted: PowerShell Add-TcpTransport, Add-WebTransport, Export-WinEvents (THROUGHLINE gap SDWIN-220708104215)",
@@ -409,7 +507,7 @@
       {
        "title": "Drafted: reg ADD (THROUGHLINE gap SDWIN-220803205800)",
        "own_hits": 2,
-       "fp_hits": 2
+       "fp_hits": 6
       },
       {
        "title": "Drafted: sc start (THROUGHLINE gap SDWIN-220803205800)",
@@ -441,20 +539,58 @@
     }
    ],
    "example_yaml": [
-    "title: 'Drafted: mimikatz lsadump::zerologon /target:MORDORDC.theshire.local /account:MORDORDC$ (THROUGHLINE gap\n  SDWIN'\nid: 5377b17c-1ac8-45e4-a943-87bc22714245\nstatus: experimental\ndescription: 'Auto-drafted from CTI: THROUGHLINE gap SDWIN-200916232559. Behaviour: `C:\\Users\\pgustavo\\Downloads\\mimikatz_trunk\\x64\\mimikatz.exe  \"lsadump::zerologon\n  /target:MORDORDC.theshire.local /account:MORDORDC$ /exploit\" exit`'\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1210\nlogsource:\n  product: windows\n  category: process_creation\ndetection:\n  selection_img:\n  - Image|endswith: \\mimikatz.exe\n  - OriginalFileName: mimikatz.exe\n  selection_cli:\n    CommandLine|contains|all:\n    - lsadump::zerologon\n    - /target:MORDORDC.theshire.local\n    - /account:MORDORDC$\n  condition: all of selection_*\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-200916232559\n",
-    "title: 'Drafted: register-cimprovider -Path (THROUGHLINE gap SDWIN-201023020513)'\nid: d5235e43-eaf2-4d43-bf53-a3edb41a3bd1\nstatus: experimental\ndescription: 'Auto-drafted from CTI: THROUGHLINE gap SDWIN-201023020513. Behaviour: `\"C:\\Windows\\SysWow64\\Register-CimProvider.exe\"\n  -Path C:\\ProgramData\\T1218-2.dll`'\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1218\nlogsource:\n  product: windows\n  category: process_creation\ndetection:\n  selection_img:\n  - Image|endswith: \\register-cimprovider.exe\n  - OriginalFileName: register-cimprovider.exe\n  selection_cli:\n    CommandLine|contains|all:\n    - -Path\n  condition: all of selection_*\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-201023020513\n"
+    "title: 'Drafted: net localgroup (THROUGHLINE gap SDWIN-190319020147)'\nid: 94d88ff0-121d-45cb-9c4b-7988fce37c69\nstatus: experimental\ndescription: 'Auto-drafted from CTI: THROUGHLINE gap SDWIN-190319020147. Behaviour: `\"C:\\windows\\system32\\net.exe\"\n  localgroup Administrators`'\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1069.001\nlogsource:\n  product: windows\n  category: process_creation\ndetection:\n  selection_img:\n  - Image|endswith: \\net.exe\n  - OriginalFileName: net.exe\n  selection_cli:\n    CommandLine|contains|all:\n    - localgroup\n  condition: all of selection_*\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-190319020147\n",
+    "title: 'Drafted: net1 localgroup (THROUGHLINE gap SDWIN-190319020147)'\nid: c5f1360e-2647-47c1-a9d2-e9ad036c7dd7\nstatus: experimental\ndescription: 'Auto-drafted from CTI: THROUGHLINE gap SDWIN-190319020147. Behaviour: `C:\\windows\\system32\\net1 localgroup\n  Administrators`'\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1069.001\nlogsource:\n  product: windows\n  category: process_creation\ndetection:\n  selection_img:\n  - Image|endswith: \\net1.exe\n  - OriginalFileName: net1.exe\n  selection_cli:\n    CommandLine|contains|all:\n    - localgroup\n  condition: all of selection_*\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-190319020147\n"
+   ],
+   "accepted_rules": [
+    {
+     "capture": "SDWIN-190319020147",
+     "technique": "T1069.001",
+     "title": "Drafted: net localgroup (THROUGHLINE gap SDWIN-190319020147)",
+     "yaml": "title: 'Drafted: net localgroup (THROUGHLINE gap SDWIN-190319020147)'\nid: 94d88ff0-121d-45cb-9c4b-7988fce37c69\nstatus: experimental\ndescription: 'Auto-drafted from CTI: THROUGHLINE gap SDWIN-190319020147. Behaviour: `\"C:\\windows\\system32\\net.exe\"\n  localgroup Administrators`'\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1069.001\nlogsource:\n  product: windows\n  category: process_creation\ndetection:\n  selection_img:\n  - Image|endswith: \\net.exe\n  - OriginalFileName: net.exe\n  selection_cli:\n    CommandLine|contains|all:\n    - localgroup\n  condition: all of selection_*\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-190319020147\n"
+    },
+    {
+     "capture": "SDWIN-190319020147",
+     "technique": "T1069.001",
+     "title": "Drafted: net1 localgroup (THROUGHLINE gap SDWIN-190319020147)",
+     "yaml": "title: 'Drafted: net1 localgroup (THROUGHLINE gap SDWIN-190319020147)'\nid: c5f1360e-2647-47c1-a9d2-e9ad036c7dd7\nstatus: experimental\ndescription: 'Auto-drafted from CTI: THROUGHLINE gap SDWIN-190319020147. Behaviour: `C:\\windows\\system32\\net1 localgroup\n  Administrators`'\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1069.001\nlogsource:\n  product: windows\n  category: process_creation\ndetection:\n  selection_img:\n  - Image|endswith: \\net1.exe\n  - OriginalFileName: net1.exe\n  selection_cli:\n    CommandLine|contains|all:\n    - localgroup\n  condition: all of selection_*\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-190319020147\n"
+    },
+    {
+     "capture": "SDWIN-200916232559",
+     "technique": "T1210",
+     "title": "Drafted: mimikatz lsadump::zerologon /target:MORDORDC.theshire.local /account:MORDORDC$ (THROUGHLINE gap SDWIN",
+     "yaml": "title: 'Drafted: mimikatz lsadump::zerologon /target:MORDORDC.theshire.local /account:MORDORDC$ (THROUGHLINE gap\n  SDWIN'\nid: 5377b17c-1ac8-45e4-a943-87bc22714245\nstatus: experimental\ndescription: 'Auto-drafted from CTI: THROUGHLINE gap SDWIN-200916232559. Behaviour: `C:\\Users\\pgustavo\\Downloads\\mimikatz_trunk\\x64\\mimikatz.exe  \"lsadump::zerologon\n  /target:MORDORDC.theshire.local /account:MORDORDC$ /exploit\" exit`'\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1210\nlogsource:\n  product: windows\n  category: process_creation\ndetection:\n  selection_img:\n  - Image|endswith: \\mimikatz.exe\n  - OriginalFileName: mimikatz.exe\n  selection_cli:\n    CommandLine|contains|all:\n    - lsadump::zerologon\n    - /target:MORDORDC.theshire.local\n    - /account:MORDORDC$\n  condition: all of selection_*\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-200916232559\n"
+    },
+    {
+     "capture": "SDWIN-201023020513",
+     "technique": "T1218",
+     "title": "Drafted: register-cimprovider -Path (THROUGHLINE gap SDWIN-201023020513)",
+     "yaml": "title: 'Drafted: register-cimprovider -Path (THROUGHLINE gap SDWIN-201023020513)'\nid: d5235e43-eaf2-4d43-bf53-a3edb41a3bd1\nstatus: experimental\ndescription: 'Auto-drafted from CTI: THROUGHLINE gap SDWIN-201023020513. Behaviour: `\"C:\\Windows\\SysWow64\\Register-CimProvider.exe\"\n  -Path C:\\ProgramData\\T1218-2.dll`'\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1218\nlogsource:\n  product: windows\n  category: process_creation\ndetection:\n  selection_img:\n  - Image|endswith: \\register-cimprovider.exe\n  - OriginalFileName: register-cimprovider.exe\n  selection_cli:\n    CommandLine|contains|all:\n    - -Path\n  condition: all of selection_*\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-201023020513\n"
+    },
+    {
+     "capture": "SDWIN-201029001615",
+     "technique": "T1059",
+     "title": "Drafted: netsh name=python.exe description=python.exe (THROUGHLINE gap SDWIN-201029001615)",
+     "yaml": "title: 'Drafted: netsh name=python.exe description=python.exe (THROUGHLINE gap SDWIN-201029001615)'\nid: ca063add-1c19-4fd7-97dc-c375484c6492\nstatus: experimental\ndescription: 'Auto-drafted from CTI: THROUGHLINE gap SDWIN-201029001615. Behaviour: `\"C:\\windows\\system32\\netsh.exe\"\n  advfirewall firewall add rule name=python.exe dir=in action=allow description=python.exe program=C:\\users\\wardog\\appdata\\local\\p`'\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1059\nlogsource:\n  product: windows\n  category: process_creation\ndetection:\n  selection_img:\n  - Image|endswith: \\netsh.exe\n  - OriginalFileName: netsh.exe\n  selection_cli:\n    CommandLine|contains|all:\n    - name=python.exe\n    - description=python.exe\n  condition: all of selection_*\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-201029001615\n"
+    },
+    {
+     "capture": "SDWIN-201102163918",
+     "technique": "T1012",
+     "title": "Drafted: seatbelt -group=user (THROUGHLINE gap SDWIN-201102163918)",
+     "yaml": "title: 'Drafted: seatbelt -group=user (THROUGHLINE gap SDWIN-201102163918)'\nid: fb44065d-17f2-4f09-ba45-a6b896e1b676\nstatus: experimental\ndescription: 'Auto-drafted from CTI: THROUGHLINE gap SDWIN-201102163918. Behaviour: `Seatbelt.exe  -group=user`'\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1012\nlogsource:\n  product: windows\n  category: process_creation\ndetection:\n  selection_img:\n  - Image|endswith: \\seatbelt.exe\n  - OriginalFileName: seatbelt.exe\n  selection_cli:\n    CommandLine|contains|all:\n    - -group=user\n  condition: all of selection_*\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-201102163918\n"
+    }
    ]
   },
   "keywords": {
-   "gaps_with_novel_behaviour": 21,
-   "gaps_with_drafts": 20,
-   "drafts": 20,
+   "gaps_with_novel_behaviour": 22,
+   "gaps_with_drafts": 21,
+   "drafts": 21,
    "accepted_drafts": 3,
-   "rejected_fp": 17,
+   "rejected_fp": 18,
    "rejected_no_own_hit": 0,
    "gaps_closed": 3,
-   "coverage_before": 0.6737,
-   "coverage_after_in_sample": 0.7053,
+   "coverage_before": 0.6804,
+   "coverage_after_in_sample": 0.7113,
    "closed_with_same_technique_elsewhere": 1,
    "rows": [
     {
@@ -467,6 +603,21 @@
      "generalises_to": []
     },
     {
+     "capture": "SDWIN-190319020147",
+     "technique": "T1069.001",
+     "novel": 2,
+     "drafted": 1,
+     "accepted": [],
+     "rejected": [
+      {
+       "title": "Keyword baseline (THROUGHLINE gap SDWIN-190319020147)",
+       "own_hits": 4,
+       "fp_hits": 17
+      }
+     ],
+     "generalises_to": []
+    },
+    {
      "capture": "SDWIN-190319021158",
      "technique": "T1087.002",
      "novel": 2,
@@ -476,7 +627,7 @@
       {
        "title": "Keyword baseline (THROUGHLINE gap SDWIN-190319021158)",
        "own_hits": 4,
-       "fp_hits": 13
+       "fp_hits": 17
       }
      ],
      "generalises_to": []
@@ -491,22 +642,13 @@
       {
        "title": "Keyword baseline (THROUGHLINE gap SDWIN-190518201207)",
        "own_hits": 4,
-       "fp_hits": 13
+       "fp_hits": 17
       }
      ],
      "generalises_to": []
     },
     {
      "capture": "SDWIN-190518201922",
-     "technique": "T1112",
-     "novel": 0,
-     "drafted": 0,
-     "accepted": [],
-     "rejected": [],
-     "generalises_to": []
-    },
-    {
-     "capture": "SDWIN-190518203650",
      "technique": "T1112",
      "novel": 0,
      "drafted": 0,
@@ -524,7 +666,7 @@
       {
        "title": "Keyword baseline (THROUGHLINE gap SDWIN-190518211052)",
        "own_hits": 66,
-       "fp_hits": 1365
+       "fp_hits": 1383
       }
      ],
      "generalises_to": []
@@ -710,7 +852,7 @@
       {
        "title": "Keyword baseline (THROUGHLINE gap SDWIN-201029001615)",
        "own_hits": 6,
-       "fp_hits": 66
+       "fp_hits": 68
       }
      ],
      "generalises_to": []
@@ -749,7 +891,7 @@
       {
        "title": "Keyword baseline (THROUGHLINE gap SDWIN-201219075059)",
        "own_hits": 9,
-       "fp_hits": 65
+       "fp_hits": 67
       }
      ],
      "generalises_to": []
@@ -794,7 +936,7 @@
       {
        "title": "Keyword baseline (THROUGHLINE gap SDWIN-220705170038)",
        "own_hits": 20,
-       "fp_hits": 97
+       "fp_hits": 101
       }
      ],
      "generalises_to": []
@@ -863,8 +1005,28 @@
    "example_yaml": [
     "title: Keyword baseline (THROUGHLINE gap SDWIN-200917174542)\nid: a1fbc1db-5986-4b70-a0fd-adb487d8a8b9\nstatus: experimental\ndescription: naive keyword rule\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1021.003\nlogsource:\n  product: windows\ndetection:\n  keywords:\n  - appvdllsurrogate64.exe\n  - excel.exe\n  - filesyncconfig.exe\n  - moveexcel4.exe\n  condition: keywords\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-200917174542\n",
     "title: Keyword baseline (THROUGHLINE gap SDWIN-201023020513)\nid: 5287b0cc-82ef-4e50-8739-a02783cfa906\nstatus: experimental\ndescription: naive keyword rule\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1218\nlogsource:\n  product: windows\ndetection:\n  keywords:\n  - Register-CimProvider\n  - register-cimprovider.exe\n  - t1218-2.dll\n  condition: keywords\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-201023020513\n"
+   ],
+   "accepted_rules": [
+    {
+     "capture": "SDWIN-200917174542",
+     "technique": "T1021.003",
+     "title": "Keyword baseline (THROUGHLINE gap SDWIN-200917174542)",
+     "yaml": "title: Keyword baseline (THROUGHLINE gap SDWIN-200917174542)\nid: a1fbc1db-5986-4b70-a0fd-adb487d8a8b9\nstatus: experimental\ndescription: naive keyword rule\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1021.003\nlogsource:\n  product: windows\ndetection:\n  keywords:\n  - appvdllsurrogate64.exe\n  - excel.exe\n  - filesyncconfig.exe\n  - moveexcel4.exe\n  condition: keywords\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-200917174542\n"
+    },
+    {
+     "capture": "SDWIN-201023020513",
+     "technique": "T1218",
+     "title": "Keyword baseline (THROUGHLINE gap SDWIN-201023020513)",
+     "yaml": "title: Keyword baseline (THROUGHLINE gap SDWIN-201023020513)\nid: 5287b0cc-82ef-4e50-8739-a02783cfa906\nstatus: experimental\ndescription: naive keyword rule\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1218\nlogsource:\n  product: windows\ndetection:\n  keywords:\n  - Register-CimProvider\n  - register-cimprovider.exe\n  - t1218-2.dll\n  condition: keywords\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-201023020513\n"
+    },
+    {
+     "capture": "SDWIN-201102163918",
+     "technique": "T1012",
+     "title": "Keyword baseline (THROUGHLINE gap SDWIN-201102163918)",
+     "yaml": "title: Keyword baseline (THROUGHLINE gap SDWIN-201102163918)\nid: 2b7db614-f86a-4ca8-bed2-bd2cec66ed5a\nstatus: experimental\ndescription: naive keyword rule\nreferences: []\nauthor: ANVIL drafter (unreviewed)\ntags:\n- attack.t1012\nlogsource:\n  product: windows\ndetection:\n  keywords:\n  - seatbelt.exe\n  condition: keywords\nfalsepositives:\n- Unknown - drafted automatically, review before use\nlevel: medium\nanvil:\n  draft: true\n  reviewed: false\n  source: throughline:SDWIN-201102163918\n"
+    }
    ]
   }
  },
- "seconds": 580.8
+ "seconds": 208.3
 }

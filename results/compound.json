@@ -1,0 +1,525 @@
+{
+ "generated": "2026-10-03T03:35:00Z",
+ "provenance": {
+  "throughline": "1.0.0",
+  "commit": "913743662643724b491f93112a57093e96802f7f",
+  "platform": "Linux x86_64",
+  "python": "3.12.14",
+  "engines": {
+   "ANVIL": {
+    "dist": "anvil-dac",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "9cc3f53f539ace9c92467b350348d66611312d7b"
+   },
+   "REVENANT": {
+    "dist": "revenant",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "aa0971cf0c8e9d435174493f534a87a44de419a2"
+   },
+   "ROOTLINE": {
+    "dist": "rootline",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "c69b228bf7bdfaa59614c57ea632911846d6adae"
+   },
+   "DRAGNET": {
+    "dist": "dragnet-attribution",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "fede50f1079129a24f2742ff441b510e20d1ab69"
+   },
+   "OCCAM": {
+    "dist": "occam",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "3e51fe0b26763444832461c91d38d7d64c2f03a5"
+   },
+   "VANTAGE": {
+    "dist": "vantage",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "54fcf281be74e59e165b51ef6131433d525d1ed0"
+   },
+   "GAUNTLET": {
+    "dist": "gauntlet-coverage",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "cd41fa891cc33501cc0087637488c9cfc64d4880"
+   },
+   "TRACEGATE": {
+    "dist": "tracegate",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "d975888e91473a9b6e2c9cf147b6f1d974a90d5a"
+   },
+   "STRATUM": {
+    "dist": "stratum",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "5348cd68abde122829d9205f75d76d14321aab6f"
+   },
+   "LINCHPIN": {
+    "dist": "linchpin-attackpath",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "f95a91f31aee35f44de1ecdfa56c2fc5a56d0b5d"
+   },
+   "VITRINE": {
+    "dist": "vitrine",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "126f64c59fef2e00cc305e653a5db530c2560dd8"
+   },
+   "SPECIMEN": {
+    "dist": "specimen",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "55eebd992ed5b4c6700610842ae58d949289ae66"
+   }
+  },
+  "data_pins": {
+   "attack": "6cda5ad8462c",
+   "sigma": "07ec293a5169",
+   "otrf": "d9d40ef123d2",
+   "misp": "e9e867fe5a5e",
+   "checksums_sha256": "c93c39a2345b61b9"
+  },
+  "ci_run": "37092700297"
+ },
+ "captures": [
+  {
+   "capture": "apt3_empire",
+   "records": 121659,
+   "pipeline_seconds": 47.3,
+   "peak_rss_mb": 1889.5,
+   "alerts": 1047,
+   "incidents": 18,
+   "hosts": [
+    "hfdc01",
+    "hr001",
+    "it001"
+   ],
+   "multi_host_clusters": 1,
+   "cluster_via": [
+    [
+     "IPAddress:10.0.10.106:443"
+    ]
+   ],
+   "techniques_observed": 25,
+   "expected": [],
+   "top_attribution": [
+    [
+     "UNKNOWN",
+     0.25,
+     [
+      "dragnet"
+     ]
+    ],
+    [
+     "OilRig",
+     0.245,
+     [
+      "occam"
+     ]
+    ]
+   ],
+   "actor": "APT3",
+   "actor_rank_best": 2
+  },
+  {
+   "capture": "apt3_caldera_r1",
+   "records": 101904,
+   "pipeline_seconds": 27.1,
+   "peak_rss_mb": 1725.7,
+   "alerts": 48136,
+   "incidents": 13,
+   "hosts": [
+    "acct001",
+    "hfdc01",
+    "hr001",
+    "it001"
+   ],
+   "multi_host_clusters": 0,
+   "cluster_via": [],
+   "techniques_observed": 31,
+   "expected": [],
+   "top_attribution": [
+    [
+     "UNKNOWN",
+     0.263,
+     [
+      "dragnet"
+     ]
+    ],
+    [
+     "Chimera",
+     0.242,
+     [
+      "occam"
+     ]
+    ]
+   ],
+   "actor": "APT3",
+   "actor_rank_best": 1
+  },
+  {
+   "capture": "lsass_01_logonpasswords",
+   "records": 53698,
+   "pipeline_seconds": 18.1,
+   "peak_rss_mb": 1291.1,
+   "alerts": 245,
+   "incidents": 13,
+   "hosts": [
+    "mkt01"
+   ],
+   "multi_host_clusters": 0,
+   "cluster_via": [],
+   "techniques_observed": 28,
+   "expected": [
+    "T1003.001",
+    "T1033",
+    "T1055.002",
+    "T1057",
+    "T1082",
+    "T1134.001",
+    "T1204.002",
+    "T1587.001",
+    "T1608.001"
+   ],
+   "top_attribution": [
+    [
+     "UNKNOWN",
+     0.529,
+     [
+      "dragnet",
+      "occam"
+     ]
+    ]
+   ],
+   "actor": null,
+   "actor_rank_best": null,
+   "recall_sigma": 0.556,
+   "recall_revenant": 0.333,
+   "recall_union": 0.667,
+   "recall_fused": 0.667
+  },
+  {
+   "capture": "lsass_02_procdump",
+   "records": 42482,
+   "pipeline_seconds": 13.6,
+   "peak_rss_mb": 1188.8,
+   "alerts": 271,
+   "incidents": 18,
+   "hosts": [
+    "acct01"
+   ],
+   "multi_host_clusters": 0,
+   "cluster_via": [],
+   "techniques_observed": 20,
+   "expected": [
+    "T1003.001",
+    "T1033",
+    "T1041",
+    "T1082",
+    "T1105",
+    "T1204.002",
+    "T1587.001",
+    "T1608.001"
+   ],
+   "top_attribution": [
+    [
+     "UNKNOWN",
+     0.267,
+     [
+      "dragnet"
+     ]
+    ],
+    [
+     "Ke3chang",
+     0.241,
+     [
+      "occam"
+     ]
+    ]
+   ],
+   "actor": null,
+   "actor_rank_best": null,
+   "recall_sigma": 0.5,
+   "recall_revenant": 0.25,
+   "recall_union": 0.5,
+   "recall_fused": 0.5
+  },
+  {
+   "capture": "lsass_03_comsvcs",
+   "records": 41954,
+   "pipeline_seconds": 12.9,
+   "peak_rss_mb": 1189.6,
+   "alerts": 202,
+   "incidents": 12,
+   "hosts": [
+    "prd01"
+   ],
+   "multi_host_clusters": 0,
+   "cluster_via": [],
+   "techniques_observed": 27,
+   "expected": [
+    "T1003.001",
+    "T1033",
+    "T1041",
+    "T1055.002",
+    "T1057",
+    "T1082",
+    "T1204.002",
+    "T1543.003",
+    "T1587.001",
+    "T1608.001"
+   ],
+   "top_attribution": [
+    [
+     "UNKNOWN",
+     0.246,
+     [
+      "dragnet"
+     ]
+    ],
+    [
+     "Blue Mockingbird",
+     0.246,
+     [
+      "occam"
+     ]
+    ]
+   ],
+   "actor": null,
+   "actor_rank_best": null,
+   "recall_sigma": 0.5,
+   "recall_revenant": 0.3,
+   "recall_union": 0.6,
+   "recall_fused": 0.5
+  },
+  {
+   "capture": "lsass_04_out-minidump",
+   "records": 40568,
+   "pipeline_seconds": 12.9,
+   "peak_rss_mb": 1163.2,
+   "alerts": 126,
+   "incidents": 16,
+   "hosts": [
+    "it01"
+   ],
+   "multi_host_clusters": 0,
+   "cluster_via": [],
+   "techniques_observed": 14,
+   "expected": [
+    "T1003.001",
+    "T1033",
+    "T1041",
+    "T1082",
+    "T1204.002",
+    "T1587.001",
+    "T1608.001"
+   ],
+   "top_attribution": [
+    [
+     "UNKNOWN",
+     0.255,
+     [
+      "dragnet"
+     ]
+    ],
+    [
+     "APT41",
+     0.244,
+     [
+      "occam"
+     ]
+    ]
+   ],
+   "actor": null,
+   "actor_rank_best": null,
+   "recall_sigma": 0.571,
+   "recall_revenant": 0.286,
+   "recall_union": 0.571,
+   "recall_fused": 0.571
+  },
+  {
+   "capture": "lsass_05_sharpdump",
+   "records": 59707,
+   "pipeline_seconds": 20.2,
+   "peak_rss_mb": 1333.0,
+   "alerts": 128,
+   "incidents": 14,
+   "hosts": [
+    "mkt01"
+   ],
+   "multi_host_clusters": 0,
+   "cluster_via": [],
+   "techniques_observed": 18,
+   "expected": [
+    "T1003.001",
+    "T1012",
+    "T1033",
+    "T1041",
+    "T1082",
+    "T1105",
+    "T1204.002",
+    "T1587.001",
+    "T1608.001"
+   ],
+   "top_attribution": [
+    [
+     "UNKNOWN",
+     0.264,
+     [
+      "dragnet"
+     ]
+    ],
+    [
+     "Ke3chang",
+     0.242,
+     [
+      "occam"
+     ]
+    ]
+   ],
+   "actor": null,
+   "actor_rank_best": null,
+   "recall_sigma": 0.444,
+   "recall_revenant": 0.222,
+   "recall_union": 0.444,
+   "recall_fused": 0.444
+  },
+  {
+   "capture": "lsass_06_outflank-dumpert",
+   "records": 58096,
+   "pipeline_seconds": 19.5,
+   "peak_rss_mb": 1332.0,
+   "alerts": 94,
+   "incidents": 18,
+   "hosts": [
+    "mkt01"
+   ],
+   "multi_host_clusters": 0,
+   "cluster_via": [],
+   "techniques_observed": 13,
+   "expected": [
+    "T1003.001",
+    "T1033",
+    "T1041",
+    "T1082",
+    "T1105",
+    "T1204.002",
+    "T1587.001",
+    "T1608.001"
+   ],
+   "top_attribution": [
+    [
+     "UNKNOWN",
+     0.269,
+     [
+      "dragnet"
+     ]
+    ],
+    [
+     "APT32",
+     0.241,
+     [
+      "occam"
+     ]
+    ]
+   ],
+   "actor": null,
+   "actor_rank_best": null,
+   "recall_sigma": 0.5,
+   "recall_revenant": 0.25,
+   "recall_union": 0.5,
+   "recall_fused": 0.5
+  },
+  {
+   "capture": "lsass_07_nanodump",
+   "records": 57724,
+   "pipeline_seconds": 20.0,
+   "peak_rss_mb": 1343.5,
+   "alerts": 154,
+   "incidents": 28,
+   "hosts": [
+    "mkt01"
+   ],
+   "multi_host_clusters": 0,
+   "cluster_via": [],
+   "techniques_observed": 10,
+   "expected": [
+    "T1003.001",
+    "T1033",
+    "T1041",
+    "T1082",
+    "T1105",
+    "T1204.002",
+    "T1587.001",
+    "T1608.001"
+   ],
+   "top_attribution": [
+    [
+     "UNKNOWN",
+     0.264,
+     [
+      "dragnet"
+     ]
+    ],
+    [
+     "Ke3chang",
+     0.242,
+     [
+      "occam"
+     ]
+    ]
+   ],
+   "actor": null,
+   "actor_rank_best": null,
+   "recall_sigma": 0.5,
+   "recall_revenant": 0.25,
+   "recall_union": 0.5,
+   "recall_fused": 0.5
+  }
+ ],
+ "lsass_pooled_recall": {
+  "sigma": {
+   "hit": 30,
+   "expected": 59,
+   "recall": 0.5085,
+   "wilson": [
+    0.3844,
+    0.6316
+   ]
+  },
+  "revenant": {
+   "hit": 16,
+   "expected": 59,
+   "recall": 0.2712,
+   "wilson": [
+    0.1744,
+    0.396
+   ]
+  },
+  "union": {
+   "hit": 32,
+   "expected": 59,
+   "recall": 0.5424,
+   "wilson": [
+    0.4166,
+    0.663
+   ]
+  },
+  "fused": {
+   "hit": 31,
+   "expected": 59,
+   "recall": 0.5254,
+   "wilson": [
+    0.4004,
+    0.6473
+   ]
+  }
+ }
+}

@@ -1,0 +1,618 @@
+{
+ "generated": "2026-10-03T03:35:00Z",
+ "provenance": {
+  "throughline": "1.0.0",
+  "commit": "913743662643724b491f93112a57093e96802f7f",
+  "platform": "Linux x86_64",
+  "python": "3.12.14",
+  "engines": {
+   "ANVIL": {
+    "dist": "anvil-dac",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "9cc3f53f539ace9c92467b350348d66611312d7b"
+   },
+   "REVENANT": {
+    "dist": "revenant",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "aa0971cf0c8e9d435174493f534a87a44de419a2"
+   },
+   "ROOTLINE": {
+    "dist": "rootline",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "c69b228bf7bdfaa59614c57ea632911846d6adae"
+   },
+   "DRAGNET": {
+    "dist": "dragnet-attribution",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "fede50f1079129a24f2742ff441b510e20d1ab69"
+   },
+   "OCCAM": {
+    "dist": "occam",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "3e51fe0b26763444832461c91d38d7d64c2f03a5"
+   },
+   "VANTAGE": {
+    "dist": "vantage",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "54fcf281be74e59e165b51ef6131433d525d1ed0"
+   },
+   "GAUNTLET": {
+    "dist": "gauntlet-coverage",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "cd41fa891cc33501cc0087637488c9cfc64d4880"
+   },
+   "TRACEGATE": {
+    "dist": "tracegate",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "d975888e91473a9b6e2c9cf147b6f1d974a90d5a"
+   },
+   "STRATUM": {
+    "dist": "stratum",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "5348cd68abde122829d9205f75d76d14321aab6f"
+   },
+   "LINCHPIN": {
+    "dist": "linchpin-attackpath",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "f95a91f31aee35f44de1ecdfa56c2fc5a56d0b5d"
+   },
+   "VITRINE": {
+    "dist": "vitrine",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "126f64c59fef2e00cc305e653a5db530c2560dd8"
+   },
+   "SPECIMEN": {
+    "dist": "specimen",
+    "pinned": "v1.1.0",
+    "version": "1.1.0",
+    "commit": "55eebd992ed5b4c6700610842ae58d949289ae66"
+   }
+  },
+  "data_pins": {
+   "attack": "6cda5ad8462c",
+   "sigma": "07ec293a5169",
+   "otrf": "d9d40ef123d2",
+   "misp": "e9e867fe5a5e",
+   "checksums_sha256": "c93c39a2345b61b9"
+  },
+  "ci_run": "37092700297"
+ },
+ "capture": "metasploit_nanodump_lsass_memory_dump.zip",
+ "day": null,
+ "actor": "-",
+ "records": 57724,
+ "load_seconds": 0.9,
+ "engine_setup_seconds": 10.8,
+ "pipeline_seconds": 20.0,
+ "total_seconds": 31.8,
+ "peak_rss_mb": 1343.5,
+ "graph": {
+  "nodes": 5737,
+  "edges": 13679,
+  "claims": 56329,
+  "events": 53071
+ },
+ "rejected_total": 0,
+ "skipped_records": 1923,
+ "engine_claims": {
+  "detection:anvil": 193,
+  "provenance:revenant": 70,
+  "correlation": 49,
+  "provenance:rootline": 80,
+  "intel:dragnet": 2,
+  "intel:occam": 2,
+  "posture:vantage": 132,
+  "simulation:gauntlet": 0
+ },
+ "engine_seconds": {
+  "detection:anvil": 8.439,
+  "provenance:revenant": 5.441,
+  "correlation": 0.024,
+  "provenance:rootline": 0.691,
+  "intel:dragnet": 0.003,
+  "intel:occam": 0.002,
+  "posture:vantage": 0.014,
+  "simulation:gauntlet": 0.002
+ },
+ "engine_load_seconds": {
+  "attack": 0.48,
+  "sigma-core": 1.26,
+  "dragnet": 0.5,
+  "occam": 0.75,
+  "vantage": 7.84
+ },
+ "skipped_engines": {},
+ "alerts": 154,
+ "incidents": 28,
+ "techniques_observed": [
+  "T1003.001",
+  "T1006",
+  "T1033",
+  "T1070.006",
+  "T1082",
+  "T1087.001",
+  "T1202",
+  "T1204.002",
+  "T1547.001",
+  "T1564.004"
+ ],
+ "posture": {
+  "T1003.001": {
+   "status": "detected",
+   "detections": 104,
+   "live": 90,
+   "fired": 3,
+   "controls": [
+    "CIS-11.3",
+    "CIS-14.1",
+    "CIS-14.3",
+    "CIS-16.1",
+    "CIS-16.9",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-2.6",
+    "CIS-3.11",
+    "CIS-3.12",
+    "CIS-4.1",
+    "CIS-4.7",
+    "CIS-4.8",
+    "CIS-5.2",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1006": {
+   "status": "detected",
+   "detections": 1,
+   "live": 1,
+   "fired": 1,
+   "controls": []
+  },
+  "T1033": {
+   "status": "detected",
+   "detections": 29,
+   "live": 20,
+   "fired": 2,
+   "controls": []
+  },
+  "T1070.006": {
+   "status": "missed",
+   "detections": 25,
+   "live": 18,
+   "fired": 0,
+   "controls": [
+    "CIS-12.8",
+    "CIS-3.1",
+    "CIS-3.10",
+    "CIS-3.11",
+    "CIS-3.12",
+    "CIS-3.3",
+    "CIS-3.4",
+    "CIS-4.1",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8",
+    "CIS-8.1",
+    "CIS-8.10",
+    "CIS-8.2",
+    "CIS-8.3",
+    "CIS-8.9"
+   ]
+  },
+  "T1082": {
+   "status": "detected",
+   "detections": 31,
+   "live": 15,
+   "fired": 1,
+   "controls": []
+  },
+  "T1087.001": {
+   "status": "detected",
+   "detections": 23,
+   "live": 18,
+   "fired": 1,
+   "controls": [
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-4.1",
+    "CIS-4.8"
+   ]
+  },
+  "T1120": {
+   "status": "detected",
+   "detections": 2,
+   "live": 2,
+   "fired": 1,
+   "controls": []
+  },
+  "T1202": {
+   "status": "detected",
+   "detections": 39,
+   "live": 39,
+   "fired": 1,
+   "controls": []
+  },
+  "T1204.002": {
+   "status": "detected",
+   "detections": 35,
+   "live": 24,
+   "fired": 1,
+   "controls": [
+    "CIS-13.3",
+    "CIS-13.8",
+    "CIS-14.1",
+    "CIS-14.2",
+    "CIS-14.6",
+    "CIS-2.3",
+    "CIS-2.5",
+    "CIS-2.7",
+    "CIS-9.3",
+    "CIS-9.6"
+   ]
+  },
+  "T1531": {
+   "status": "detected",
+   "detections": 9,
+   "live": 2,
+   "fired": 1,
+   "controls": []
+  },
+  "T1547.001": {
+   "status": "missed",
+   "detections": 38,
+   "live": 38,
+   "fired": 0,
+   "controls": []
+  },
+  "T1564.004": {
+   "status": "detected",
+   "detections": 32,
+   "live": 28,
+   "fired": 2,
+   "controls": [
+    "CIS-3.3",
+    "CIS-4.1",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8"
+   ]
+  },
+  "T1685.005": {
+   "status": "detected",
+   "detections": 163,
+   "live": 125,
+   "fired": 1,
+   "controls": [
+    "CIS-12.8",
+    "CIS-18.3",
+    "CIS-18.5",
+    "CIS-3.1",
+    "CIS-3.10",
+    "CIS-3.11",
+    "CIS-3.12",
+    "CIS-3.3",
+    "CIS-3.4",
+    "CIS-4.1",
+    "CIS-4.2",
+    "CIS-4.7",
+    "CIS-5.3",
+    "CIS-5.4",
+    "CIS-6.1",
+    "CIS-6.2",
+    "CIS-6.8",
+    "CIS-8.1",
+    "CIS-8.10",
+    "CIS-8.2",
+    "CIS-8.3",
+    "CIS-8.9"
+   ]
+  }
+ },
+ "emulation_plan": [
+  {
+   "order": 1,
+   "technique": "T1070.006",
+   "atomic_tests": [
+    {
+     "name": "Windows - Modify file creation timestamp with PowerShell",
+     "guid": "b3b2c408-2ff0-4a33-b89b-1cb46a9e6a9c",
+     "executor": "powershell"
+    },
+    {
+     "name": "Windows - Modify file last modified timestamp with PowerShell",
+     "guid": "f8f6634d-93e1-4238-8510-f8a90a20dcf2",
+     "executor": "powershell"
+    }
+   ],
+   "invoke": [
+    "Invoke-AtomicTest T1070.006 -TestGuids b3b2c408-2ff0-4a33-b89b-1cb46a9e6a9c",
+    "Invoke-AtomicTest T1070.006 -TestGuids f8f6634d-93e1-4238-8510-f8a90a20dcf2"
+   ]
+  },
+  {
+   "order": 2,
+   "technique": "T1547.001",
+   "atomic_tests": [
+    {
+     "name": "Reg Key Run",
+     "guid": "e55be3fd-3521-4610-9d1a-e210e42dcf05",
+     "executor": "command_prompt"
+    },
+    {
+     "name": "Reg Key RunOnce",
+     "guid": "554cbd88-cde1-4b56-8168-0be552eed9eb",
+     "executor": "command_prompt"
+    }
+   ],
+   "invoke": [
+    "Invoke-AtomicTest T1547.001 -TestGuids e55be3fd-3521-4610-9d1a-e210e42dcf05",
+    "Invoke-AtomicTest T1547.001 -TestGuids 554cbd88-cde1-4b56-8168-0be552eed9eb"
+   ]
+  }
+ ],
+ "investigate_latency_ms": [
+  19.6,
+  18.9,
+  0.2
+ ],
+ "top_incidents": [
+  {
+   "incident": "Incident:mkt01/8088/winx64_payload.exe",
+   "score": 0.8659,
+   "breadth": 5,
+   "alerts": 11,
+   "members_lineage": 8,
+   "members_any_engine": 10,
+   "techniques": {
+    "T1003.001": 0.865875,
+    "T1033": 0.525,
+    "T1082": 0.5505,
+    "T1087.001": 0.41999999999999993,
+    "T1202": 0.28
+   },
+   "technique_sources": {
+    "T1003.001": [
+     "anvil",
+     "revenant"
+    ],
+    "T1033": [
+     "anvil"
+    ],
+    "T1082": [
+     "anvil",
+     "revenant"
+    ],
+    "T1087.001": [
+     "anvil"
+    ],
+    "T1202": [
+     "anvil"
+    ]
+   },
+   "attribution": [
+    [
+     "UNKNOWN",
+     0.264,
+     [
+      "dragnet"
+     ]
+    ],
+    [
+     "Ke3chang",
+     0.242,
+     [
+      "occam"
+     ]
+    ]
+   ],
+   "attribution_ranks": {
+    "dragnet": {
+     "actor_rank": null,
+     "ranked": 105,
+     "shortlist": [
+      "Poseidon Group",
+      "RedCurl",
+      "admin@338",
+      "Moses Staff",
+      "APT1",
+      "Ke3chang",
+      "APT3",
+      "Medusa Group",
+      "Aquatic Panda",
+      "Whitefly"
+     ]
+    },
+    "occam": {
+     "actor_rank": null,
+     "ranked": 25,
+     "shortlist": [
+      "Ke3chang",
+      "Threat Group-3390",
+      "OilRig",
+      "APT32",
+      "APT41",
+      "Volt Typhoon",
+      "Medusa Group",
+      "Chimera",
+      "APT1",
+      "RedCurl"
+     ]
+    }
+   },
+   "dragnet": "UNKNOWN (INSUFFICIENT, p=0.80)",
+   "occam": "Ke3chang (low, p=0.50)",
+   "rootline_root_causes": "",
+   "report": "Investigation of Incident:mkt01/8088/winx64_payload.exe (Incident:mkt01/8088/winx64_payload.exe).\n1. incident: 10 processes (8 by process lineage, 2 added by other engines) grouped under story root Process:mkt01/8088/winx64_payload.exe; 11 alerts; strongest member Process:mkt01/7112/nanodump.x64.exe [c56085, c56087, c56114]\n2. techniques: T1003.001 OS Credential Dumping: LSASS Memory (0.87); T1082 System Information Discovery (0.55); T1033 System Owner/User Discovery (0.53); T1087.001 Account Discovery: Local Account (0.42); T1202 Indirect Command Execution (0.28) [c56089, c56091, c56090]\n3. attribution: UNKNOWN 0.26 [dragnet]; Ke3chang 0.24 [occam] [c56194, c56196]\n4. posture: every observed technique had a detection fire\n5. root_cause: C:\\Windows\\Explorer.EXE -> \"C:\\Users\\stevie.marie\\Downloads\\winx64_payload.exe\"  -> C:\\Windows\\System32\\nanodump.x64.exe --write C:\\Windows\\Temp\\lsass_dump.dmp [c12211, c33423, c33424]\n6. corroboration: T1003.001 is supported by 2 independent engine(s): anvil, revenant [c55914, c56030]\n7. blast_radius: 3964 downstream entities: 16 Domain, 1358 File, 9 IPAddress, 515 ModuleLoad, 139 Process, 1927 RegistryKey"
+  },
+  {
+   "incident": "Incident:mkt01/8020/msedge.exe",
+   "score": 0.63,
+   "breadth": 3,
+   "alerts": 7,
+   "members_lineage": 2,
+   "members_any_engine": 3,
+   "techniques": {
+    "T1070.006": 0.375,
+    "T1547.001": 0.48750000000000004,
+    "T1564.004": 0.63
+   },
+   "technique_sources": {
+    "T1070.006": [
+     "revenant"
+    ],
+    "T1547.001": [
+     "revenant"
+    ],
+    "T1564.004": [
+     "anvil"
+    ]
+   },
+   "attribution": [
+    [
+     "APT29",
+     0.523,
+     [
+      "dragnet",
+      "occam"
+     ]
+    ]
+   ],
+   "attribution_ranks": {
+    "dragnet": {
+     "actor_rank": null,
+     "ranked": 92,
+     "shortlist": [
+      "APT29",
+      "APT32",
+      "FIN10",
+      "Rocke",
+      "APT18",
+      "Putter Panda",
+      "Gorgon Group",
+      "APT19",
+      "Nomadic Octopus",
+      "APT5"
+     ]
+    },
+    "occam": {
+     "actor_rank": null,
+     "ranked": 25,
+     "shortlist": [
+      "APT29",
+      "APT32",
+      "APT28",
+      "Lazarus Group",
+      "Kimsuky",
+      "Rocke",
+      "Mustang Panda",
+      "UNC3886",
+      "APT19",
+      "Gorgon Group"
+     ]
+    }
+   },
+   "dragnet": "APT29 (LOW, p=0.53)",
+   "occam": "APT29 (low, p=0.50)",
+   "rootline_root_causes": "",
+   "report": "Investigation of Incident:mkt01/8020/msedge.exe (Incident:mkt01/8020/msedge.exe).\n1. incident: 3 processes (2 by process lineage, 1 added by other engines) grouped under story root Process:mkt01/8020/msedge.exe; 7 alerts; strongest member Process:mkt01/7004/msedge.exe [c56068, c56069, c56121]\n2. techniques: T1564.004 Hide Artifacts: NTFS File Attributes (0.63); T1547.001 Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder (0.49); T1070.006 Indicator Removal: Timestomp (0.38) [c56072, c56071, c56070]\n3. attribution: APT29 0.52 [dragnet+occam] [c56195]\n4. posture: coverage gaps: T1070.006=missed, T1547.001=missed\n5. root_cause: C:\\Windows\\Explorer.EXE -> \"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --profile-directo -> \"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=utility -- [c00352, c07269]\n6. corroboration: T1564.004 is supported by 1 independent engine(s): anvil [c55829]\n7. blast_radius: 3964 downstream entities: 16 Domain, 1358 File, 9 IPAddress, 515 ModuleLoad, 139 Process, 1927 RegistryKey"
+  },
+  {
+   "incident": "Incident:mkt01/4/<unknown process>",
+   "score": 0.42,
+   "breadth": 1,
+   "alerts": 1,
+   "members_lineage": 1,
+   "members_any_engine": 1,
+   "techniques": {
+    "T1006": 0.41999999999999993
+   },
+   "technique_sources": {
+    "T1006": [
+     "anvil"
+    ]
+   },
+   "attribution": [],
+   "attribution_ranks": {},
+   "dragnet": null,
+   "occam": null,
+   "rootline_root_causes": "192.168.56.4:445",
+   "report": "Investigation of Incident:mkt01/4/<unknown process> (Incident:mkt01/4/<unknown process>).\n1. incident: 1 processes (1 by process lineage, 0 added by other engines) grouped under story root Process:mkt01/4/<unknown process>; 1 alerts; strongest member Process:mkt01/4/<unknown process> [c56095]\n2. techniques: T1006 Direct Volume Access (0.42) [c56096]\n3. attribution: no attribution claims (too few techniques, or intel engines not installed)\n4. posture: every observed technique had a detection fire\n5. root_cause: Process:mkt01/4/<unknown process>\n6. corroboration: T1006 is supported by 1 independent engine(s): anvil [c55910]\n7. blast_radius: 1 downstream entities: 1 IPAddress"
+  }
+ ],
+ "stitching": {
+  "hosts_with_incidents": [
+   "mkt01"
+  ],
+  "clusters": 28,
+  "multi_host_clusters": 0,
+  "incidents_in_multi_host_clusters": 0,
+  "top_multi_host": []
+ },
+ "rootline": {
+  "reconstructions": 23,
+  "pivot_not_found": 2
+ },
+ "analyst_techniques": {
+  "sigma": [
+   "T1003.001",
+   "T1006",
+   "T1033",
+   "T1082",
+   "T1087.001",
+   "T1120",
+   "T1202",
+   "T1204.002",
+   "T1531",
+   "T1564.004",
+   "T1685.005"
+  ],
+  "revenant": [
+   "T1003.001",
+   "T1070.006",
+   "T1082",
+   "T1547.001"
+  ],
+  "union": [
+   "T1003.001",
+   "T1006",
+   "T1033",
+   "T1070.006",
+   "T1082",
+   "T1087.001",
+   "T1120",
+   "T1202",
+   "T1204.002",
+   "T1531",
+   "T1547.001",
+   "T1564.004",
+   "T1685.005"
+  ],
+  "fused": [
+   "T1003.001",
+   "T1006",
+   "T1033",
+   "T1070.006",
+   "T1082",
+   "T1087.001",
+   "T1202",
+   "T1204.002",
+   "T1547.001",
+   "T1564.004"
+  ]
+ }
+}
