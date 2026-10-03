@@ -45,10 +45,13 @@ class Capture:
                     continue  # AV-quarantined / truncated capture: skip, caller reports
 
 
+MAX_LINE = 1_000_000  # characters; a single event record is a few KB, anything larger is skipped
+
+
 def _lines(fh: io.TextIOBase) -> Iterator[dict[str, Any]]:
     for line in fh:
         line = line.strip()
-        if not line:
+        if not line or len(line) > MAX_LINE:
             continue
         try:
             obj = json.loads(line)
@@ -111,7 +114,9 @@ def load_catalog(root: str | Path) -> list[Capture]:
                 continue
             link = str(fl.get("link", ""))
             if "/datasets/" in link:
-                files.append(root / link.split("/datasets/", 1)[1])
+                target = root / link.split("/datasets/", 1)[1]
+                if target.resolve().is_relative_to(root.resolve()):  # metadata never points outside the root
+                    files.append(target)
         if files:
             out.append(Capture(str(meta.get("id", f.stem)), str(meta.get("title", "")), _techniques(meta),
                                files, [str(t) for t in meta.get("tags") or []],

@@ -9,7 +9,7 @@
 - **Cross-layer joins on real data are partial.** The endpoint slice (OTRF) and the supply-chain slice (healthchecks) are real but unrelated datasets; the full code-to-runtime story is shown on STRATUM's and the built-in synthetic scenarios. LINCHPIN, VITRINE, SPECIMEN and FEINT are exercised on their own synthetic data or pure mappings, not on real inputs here.
 - **In-memory graph.** networkx holds APT29 day 1 (152k claims) in 2.7 GB and day 2 (419k claims) in 8.1 GB, most of it the sibling engines' own copies of the events; every API ingest rebuilds the graph. A persistent store is the Neo4j mirror, which is not the primary backend yet ([ADR-0002](adr/0002-networkx-first-neo4j-optional.md)).
 - **Authentication is a single bearer token**; no users, roles or TLS. Keep the API on localhost or behind a TLS proxy.
-- **Not built:** GraphQL, a relational case and audit store, and an LLM hypothesis step (spec items out of scope for this release).
+- **Not built** (spec items out of scope for this release): GraphQL (REST covers every query the console needs), a relational case and audit store, an LLM hypothesis step, a reflexive posture run of VANTAGE on THROUGHLINE's own deployment, an in-code egress guard for a live emulation range (the simulation slot only emits a dry-run plan and nothing executes it), and a time-to-detect measure on APT29 (the plan has no per-step timestamps to measure from).
 
 ## Roadmap
 

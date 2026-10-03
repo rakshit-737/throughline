@@ -1,0 +1,13 @@
+{
+ "_comment": "Synthetic, benign, reduced CAPE/Cuckoo-style report written for the tests (no sample, no real malware behaviour): a demo program reads win.ini, sets one registry value and runs whoami.",
+ "info": {"id": "throughline-fixture-1"},
+ "target": {"file": {"name": "demo-tool.exe", "sha256": "0f343b0931126a20f133d67c2b018a3b5e5e1d6c3f1a6b1f2a41d7b8a5e2c9d1"}},
+ "behavior": {
+  "summary": {
+   "mutexes": ["Local\\ThroughlineDemoMutex"],
+   "executed_commands": ["C:\\Windows\\System32\\cmd.exe /c whoami"],
+   "read_files": ["C:\\Windows\\win.ini"],
+   "write_keys": ["HKEY_CURRENT_USER\\Software\\ThroughlineDemo\\Setting"]
+  }
+ }
+}

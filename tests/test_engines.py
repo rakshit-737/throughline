@@ -190,3 +190,34 @@ def test_feint_flow_mapping():
     assert len(out) == 2
     assert kg.g.has_edge("Host:10.0.0.5", "Technique:T1110", "EXHIBITS")
     assert "Host:10.0.0.6" not in kg.g
+
+
+@needs("specimen")
+def test_specimen_run_on_a_benign_synthetic_cape_report():
+    # the real run path (specimen.pipeline.run_report) on a tiny, benign, reduced CAPE-style report
+    rep = FIX.parent / "cape_benign_summary.json"
+    eng = SpecimenMalwareEngine([rep])
+    kg = KnowledgeGraph()
+    eng.run(kg, {})
+    assert len(eng.results) == 1
+    sha = "0f343b0931126a20f133d67c2b018a3b5e5e1d6c3f1a6b1f2a41d7b8a5e2c9d1"
+    assert f"Sample:{sha}" in kg.g
+
+
+@needs("feint")
+def test_feint_engine_run_path_with_a_detector():
+    import feint  # noqa: F401  (the pinned FEINT installs and imports)
+
+    from throughline.engines.network import FeintNetworkEngine
+
+    class Detector:  # stands in for a trained FEINT model: P(attack) per flow
+        def predict_proba(self, X):
+            return [0.91 if row[0] else 0.05 for row in X]
+
+    flows = {"X": [[1], [0]], "meta": [{"src_ip": "10.0.0.5", "dst_ip": "203.0.113.9", "dst_port": 22,
+                                         "label": "SSH-Patator"},
+                                        {"src_ip": "10.0.0.6", "dst_ip": "198.51.100.1", "dst_port": 443}]}
+    kg = KnowledgeGraph()
+    out = FeintNetworkEngine(detector=Detector()).run(kg, {"flows": flows})
+    assert len(out) == 2 and kg.g.has_edge("Host:10.0.0.5", "Technique:T1110", "EXHIBITS")
+    assert "Host:10.0.0.6" not in kg.g
