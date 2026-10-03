@@ -95,7 +95,7 @@ class Sibling:
 SIBLINGS: tuple[Sibling, ...] = (
     Sibling("ANVIL", "detection", "anvil", "anvil-dac", "v1.1.2", "2a49d3980487ffb1e3b7eb8d48b0ae44144ab93b",
             "detection", "Sigma engine over raw endpoint events"),
-    Sibling("FEINT", "detection", "feint", "feint", "v1.1.1", "6933f0fe0523b60dbb0db6fb512cfcb047179742",
+    Sibling("FEINT", "detection", "feint", "feint", "v1.1.2", "78bdaca9f421eeefa0e4773b94af26455190e689",
             "network", "adversarially-hardened flow classifier", extra="network"),
     Sibling("REVENANT", "provenance", "revenant", "revenant", "v1.1.3", "a765776293f202bf7055c8346f7690376df1fc6e",
             "provenance", "causal stories + ATT&CK heuristics"),
