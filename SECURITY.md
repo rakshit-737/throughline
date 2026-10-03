@@ -19,7 +19,7 @@
 ## Supply chain
 - Sibling engines are installed from pinned release tags; `scripts/check_sibling_tags.py` fails when a pinned tag was moved to another commit, and CI checks that every installed sibling is exactly the pinned commit.
 - Datasets are downloaded from pinned commits and checked against `scripts/checksums.sha256` (OTRF files also against the pinned commit's git blob ids); an unpinned file is refused.
-- CI runs `pip-audit` on every installed PyPI dependency, `gitleaks` over the full history, and Trivy on the built image. GitHub Actions are pinned to commit SHAs and the base images to digests; Dependabot proposes updates weekly. Secret scanning with push protection and Dependabot alerts are enabled on the repository.
+- CI runs `pip-audit` on every installed PyPI dependency, `gitleaks` over the full history, Trivy on the built image, and ruff's flake8-bandit (`S`) rules on all code (the per-file exceptions in `pyproject.toml` are reviewed false positives). GitHub Actions are pinned to commit SHAs and the base images to digests; Dependabot proposes updates weekly. Secret scanning with push protection and Dependabot alerts are enabled on the repository.
 
 ## Reporting a vulnerability
 Please report privately through GitHub's private vulnerability reporting: <https://github.com/rakshit-737/throughline/security/advisories/new>. Do not open a public issue. Expect an acknowledgement within 7 days and a fix or a documented decision within 30.

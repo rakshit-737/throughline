@@ -81,5 +81,13 @@ target-version = "py311"
 extend-exclude = [".venv"]
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I", "B", "UP"]
+# S = flake8-bandit (static security checks); the per-file ignores below are reviewed false positives
+select = ["E", "F", "W", "I", "B", "UP", "S"]
 ignore = ["E501", "B905"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S"]                                   # asserts, fixed test tokens and paths
+"benchmarks/**" = ["S311", "S603", "S607"]           # seeded RNG for statistics; fixed `git rev-parse`
+"scripts/**" = ["S106", "S310", "S324", "S603", "S607"]  # fixed https URLs and commands; git blob ids are SHA-1 by definition; a CI-only wrong-token probe
+"throughline/synth.py" = ["S108", "S311"]            # synthetic data: a seeded generator and a "/tmp/.x" string in a fake event
+"throughline/attack.py" = ["S108"]                   # "/tmp/" and "/dev/shm/" are keywords of the ATT&CK event mapping, not paths we write
