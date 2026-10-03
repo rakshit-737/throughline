@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "throughline"
-version = "1.0.0"
+version = "1.1.0"
 description = "Evidence-first security knowledge graph that fuses sibling engines (Sigma, provenance, ACH attribution, posture) into one confidence-graded investigation"
 readme = "README.md"
 license = "MIT"

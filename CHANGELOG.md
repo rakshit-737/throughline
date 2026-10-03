@@ -4,7 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
-Every sibling engine moves to its v1.1.0 release, every benchmark is re-run in CI with them, and the evaluation is rebuilt so each headline comes with an interval, an ablation and a like-for-like baseline. Several published numbers got worse when re-measured this way; they are listed under **Changed results**.
+## [1.1.0] - 2026-10-03
+
+Sibling engines are pinned to their newest releases (FEINT v1.1.0, VITRINE and SPECIMEN v1.1.2, the other ten v1.1.1; STRATUM's distribution is now `stratum-cnapp`, and the TRACEGATE adapter accepts its v1.1.1 pair-list lineage). The benchmarks below were measured in CI with the v1.1.0 engines. Every sibling engine moved to its v1.1.0 release, every benchmark is re-run in CI with them, and the evaluation is rebuilt so each headline comes with an interval, an ablation and a like-for-like baseline. Several published numbers got worse when re-measured this way; they are listed under **Changed results**.
 
 ### Changed results (re-measured with the v1.1.0 engines, 97 captures, in CI)
 - **B1 hit@1 and MRR are now scored with ties in expectation** (Sigma's confidence takes five values; the old alphabetical tie-break favoured whatever sorted first). Fused hit@1 0.400 -> **0.372** [0.288, 0.462], MRR 0.511 -> **0.497**; Sigma alone 0.337 -> **0.259**, MRR 0.457 -> 0.413 (on the same data the alphabetical tie-break gives 0.392 and 0.330). The fused advantage grows: +0.114 [0.047, 0.178] hit@1 over Sigma alone (was +0.063), +0.088 over the unfused union.
