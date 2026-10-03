@@ -58,6 +58,70 @@ jobs:
       - run: python -m pytest -q -rs
       - run: python -m throughline engines
       - run: python -m throughline capture SDWIN-201018195009 --data tests/fixtures/data
+  loop-revalidation:
+    # The feedback loop's accepted detections (results/feedback_loop.json), re-validated on a fresh,
+    # throwaway Windows runner: Security process-creation auditing on, a baseline session of ordinary
+    # administration, then a benign re-run of the read-only discovery command a draft was mined from
+    # (`net localgroup Administrators`, T1069.001). No attack tooling runs and nothing leaves the
+    # runner. Every accepted draft must stay silent on the baseline; re-emulated ones must fire.
+    runs-on: windows-2025
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: install THROUGHLINE and ANVIL at its pinned release
+        run: |
+          pip install -e .
+          $spec = python -c "from throughline.engines import sibling; print(sibling('ANVIL').pip_spec)"
+          pip install "$spec"
+      - name: Security process-creation auditing with command lines
+        run: |
+          auditpol /set /subcategory:"Process Creation" /success:enable
+          reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit /v ProcessCreationIncludeCmdLine_Enabled /t REG_DWORD /d 1 /f
+      - name: baseline session, then a benign re-emulation; export the 4688 events
+        run: |
+          $fmt = "yyyy-MM-ddTHH:mm:ss.fffZ"
+          $t0 = Get-Date
+          whoami; hostname; ipconfig /all | Out-Null; tasklist | Out-Null; Get-Process | Out-Null
+          cmd /c ver; cmd /c dir C:\Windows\System32\drivers\etc | Out-Null; python --version; git --version
+          Start-Sleep -Seconds 2
+          $t1 = Get-Date
+          Start-Sleep -Seconds 2
+          $t2 = Get-Date
+          net localgroup Administrators
+          net1 localgroup Administrators
+          Start-Sleep -Seconds 2
+          $t3 = Get-Date
+          @{ baseline = @($t0.ToUniversalTime().ToString($fmt), $t1.ToUniversalTime().ToString($fmt));
+             emulation = @($t2.ToUniversalTime().ToString($fmt), $t3.ToUniversalTime().ToString($fmt)) } |
+            ConvertTo-Json | Set-Content -Encoding utf8 windows.json
+          Start-Sleep -Seconds 3
+          $events = Get-WinEvent -FilterHashtable @{ LogName = 'Security'; Id = 4688; StartTime = $t0.AddSeconds(-5) }
+          $lines = foreach ($e in $events) {
+            $x = [xml]$e.ToXml()
+            $d = [ordered]@{ Channel = 'Security'; EventID = 4688; Hostname = $env:COMPUTERNAME;
+                             '@timestamp' = $e.TimeCreated.ToUniversalTime().ToString($fmt) }
+            foreach ($n in $x.Event.EventData.Data) { $d[$n.Name] = $n.'#text' }
+            $d | ConvertTo-Json -Compress
+          }
+          $lines | Set-Content -Encoding utf8 events.jsonl
+          "exported $($lines.Count) process-creation events"
+      - name: accepted drafts fire on the re-emulation and stay silent on the baseline
+        run: python scripts/revalidate_loop.py --events events.jsonl --windows windows.json --out revalidation.json
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: loop-revalidation
+          path: |
+            revalidation.json
+            windows.json
+            events.jsonl
   compose-e2e:
     # docker compose brings up the API (real fixture capture through every engine) + Neo4j on
     # the runner's own network, with a bearer token; an investigation runs over HTTP, the graph

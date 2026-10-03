@@ -76,6 +76,9 @@ def main() -> int:
                       "rejected": [{k: x[k] for k in ("title", "own_hits", "fp_hits")} for x in r.rejected],
                       "generalises_to": r.generalises_to} for r in rows],
             "example_yaml": [x["yaml"] for r in closed for x in r.accepted][:2],
+            # every accepted draft, for the re-emulation check (scripts/revalidate_loop.py)
+            "accepted_rules": [{"capture": r.capture, "technique": r.technique, "title": x["title"],
+                                "yaml": x["yaml"]} for r in closed for x in r.accepted],
         }
     res["seconds"] = round(time.perf_counter() - t0, 1)
     print("wrote", write("feedback_loop", res))
