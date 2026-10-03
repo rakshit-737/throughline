@@ -58,6 +58,9 @@ markdown_extensions:
 
 plugins:
   - search
+  - redirects:
+      redirect_maps:
+        benchmarks.md: evaluation.md   # the page was renamed in 1.1.0
   - mkdocstrings:
       handlers:
         python:
