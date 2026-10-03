@@ -4,8 +4,12 @@ TRACEGATE walks every first-parent commit that changed a pin in
 ``healthchecks/healthchecks``'s requirements.txt; OSV's PyPI dump says which
 of those pinned versions carried a published advisory. In the graph this is
 one question per vulnerability: *which commit, by whom, introduced it, and how
-long was it exposed?* The result is checked against ``git blame`` (TRACEGATE's
-independent ground truth) for the pins present at HEAD.
+long was it exposed?* For each vulnerable pin the advisory's OSV ``published`` date
+is compared with the day the pin was introduced, so "exposure in hindsight" vs
+"pinned while already known" is measured, not assumed. The introducing commit is
+compared with ``git blame`` for the pins present at HEAD - an *agreement* check with
+TRACEGATE's own blame helper (both read the same pin parser), not an independent
+oracle.
 
     python benchmarks/demo_supplychain.py
 """
@@ -17,7 +21,7 @@ import time
 from collections import Counter
 from datetime import UTC, datetime
 
-from common import write
+from common import wilson, write
 
 from throughline.engines.supplychain import TracegateSupplyChainEngine
 from throughline.graph import KnowledgeGraph
@@ -60,6 +64,29 @@ def main() -> int:
                      "exposed_days": round((removed - added) / 86400, 1) if added and removed else None,
                      "still_pinned": not a.get("removed_by")})
     query_ms = (time.perf_counter() - t0) * 1000 / max(1, len(vuln_deps))
+    # when was each advisory published, relative to the day its vulnerable version was pinned?
+    from tracegate.osv import iter_zip_records
+
+    wanted = {v for vids in vuln_deps.values() for v in vids}
+    published: dict[str, str] = {}
+    for rec in iter_zip_records(osv_zip):
+        if rec.get("id") in wanted and rec.get("published"):
+            published[rec["id"]] = rec["published"][:10]
+    before = after = unknown = 0
+    known_at_pin = 0
+    for dep, vids in vuln_deps.items():
+        row = next((r for r in rows if r["dependency"] == dep.split(":", 1)[1]), None)
+        pinned = row and row["introduced"]
+        any_before = False
+        for v in vids:
+            if not pinned or v not in published:
+                unknown += 1
+            elif published[v] <= pinned:
+                before += 1
+                any_before = True
+            else:
+                after += 1
+        known_at_pin += any_before
     head_pins = parse_requirements((repo / "requirements.txt").read_text(encoding="utf-8"))
     blame = blame_introducers(repo, "requirements.txt")
     agree = total = 0
@@ -82,13 +109,18 @@ def main() -> int:
         "vulnerable_still_pinned_at_head": [r["dependency"] for r in rows if r["still_pinned"]],
         "exposure_days_median": statistics.median(exposed) if exposed else None,
         "exposure_days_p90": sorted(exposed)[int(0.9 * (len(exposed) - 1))] if exposed else None,
-        "blame_agreement_at_head": {"agree": agree, "total": total},
+        "advisory_published_vs_pin": {"published_before_or_on_pin_day": before, "published_after_pin": after,
+                                      "date_unknown": unknown,
+                                      "versions_with_an_advisory_known_when_pinned": known_at_pin},
+        "blame_agreement_at_head": {"agree": agree, "total": total, "wilson": wilson(agree, total),
+                                    "note": "agreement with tracegate.gitlineage.blame_introducers, which "
+                                            "shares the pin parser; not an independent oracle"},
         "graph": kg.stats(), "build_seconds": round(build_s, 1), "root_cause_ms_per_query": round(query_ms, 3),
         "worst": sorted(rows, key=lambda r: (-SEV.get(r["worst_severity"], 0), -(r["exposed_days"] or 0)))[:10],
     }
     print("wrote", write("supplychain_healthchecks", res))
     print({k: res[k] for k in ("pin_changing_commits", "distinct_pinned_versions", "vulnerable_versions_introduced",
-                               "advisories", "by_worst_severity", "exposure_days_median",
+                               "advisories", "by_worst_severity", "exposure_days_median", "advisory_published_vs_pin",
                                "blame_agreement_at_head", "vulnerable_still_pinned_at_head")})
     return 0
 

@@ -50,7 +50,7 @@ engines = [
 ]
 # FEINT pulls xgboost/pandas; kept separate so the engines extra stays light.
 network = ["feint @ git+https://github.com/rakshit-737/feint@v1.0.0"]
-bench = ["matplotlib>=3.8"]
+bench = ["matplotlib>=3.8", "psutil>=5.9"]
 dev = ["pytest>=8", "ruff==0.16.10", "fastapi>=0.132", "httpx>=0.27", "httpx2>=2.0"]
 docs = ["mkdocs-material>=9.5,<10", "mkdocstrings[python]>=0.25,<2", "httpx2>=2.0"]
 

@@ -1,48 +1,83 @@
 """B3 - attribution: two ACH engines fused in the graph vs each alone vs naive similarity.
 
-Cases are MITRE ATT&CK campaigns with an ``attributed-to`` group. Evidence is the
-campaign's techniques and software. Two settings:
+Every case is a set of ATT&CK techniques (and sometimes software) with a known culprit
+group. Settings, from strictest to most optimistic:
 
-* ``temporal``      - group profiles from ATT&CK **v10.1** (Nov 2021); only campaigns
-  documented later (in v19.2) are scored, so the answer was not in the knowledge
-  base when the profiles were built.
-* ``retrospective`` - profiles and campaigns from v19.2 (optimistic upper bound).
-* ``group_drift``   - the larger case set (since 1.1.0): every ATT&CK group present in
-  both versions becomes a case whose evidence is only what ATT&CK *learned about it
-  after* v10.1 (techniques and software in v19.2 but not in its v10.1 entry);
-  profiles from v10.1. Evidence is subsampled to at most ``DRIFT_MAX`` signals per
-  case over ``SEEDS`` seeds (an analyst rarely sees a group's whole new repertoire);
-  CIs are bootstrap over all case x seed rows, plus the across-seed spread.
-* ``group_retrospective`` - every v19.2 group, evidence subsampled from its own
-  v19.2 repertoire (in-sample: the largest case set, an optimistic upper bound).
+* ``temporal``          ATT&CK campaigns documented after v10.1 (Nov 2021) whose group
+                        exists in v10.1; group profiles from **v10.1**, so the answer was
+                        not in the knowledge base when the profiles were built.
+* ``temporal_families`` malware families first published in ATT&CK after v10.1, used by
+                        exactly one group that exists in v10.1, with >= 5 techniques
+                        expressible in v10.1; evidence is the family's techniques only (the
+                        family itself is unknown to v10.1). Profiles from v10.1.
+* ``temporal_all``      the two temporal sets pooled - the headline case set.
+* ``report_lro``        one case per (group, cited report) in v19.2 with >= 5 techniques
+                        (DRAGNET's per-report cases, at most 8 reports per group) under
+                        **leave-report-out**: 5 folds by report; for each fold every group
+                        ``uses`` relationship whose citations all belong to that fold's
+                        reports is removed from the STIX bundle both engines load, so a case
+                        is never attributed with knowledge only its own report contributed.
+* ``drift_dose``        behaviour drift as a dose-response curve: 8 signals per group, a
+                        fraction f in {0, .25, .5, .75, 1} drawn from what ATT&CK learned
+                        about the group after v10.1 and the rest from its v10.1 profile;
+                        profiles from v10.1 (f = 0 is in-sample by construction, f = 1 is
+                        pure drift); 3 seeds.
+* ``retrospective``     campaigns scored against v19.2 profiles (optimistic upper bound:
+                        ATT&CK copies most campaign techniques onto the group).
 
-Each is run clean and with planted false flags (DRAGNET's stress test: a copied
-Rich header + decoy-language strings pointing at a decoy group from another
-country; level 2 adds an exclusive decoy malware family). OCCAM receives the
-equivalent spoofable markers pointing at the same decoy.
+Each temporal / per-report setting runs clean and with planted false flags (DRAGNET's
+stress test: a copied Rich header + decoy-language strings pointing at a decoy group from
+another country; level 2 adds a malware family exclusive to the decoy). OCCAM receives the
+equivalent spoofable markers.
 
-Methods: ``similarity`` (IDF-cosine nearest profile, the "single-signal"
-baseline), ``dragnet``, ``occam``, and ``fused`` - both verdicts written as
-``ATTRIBUTED_TO`` claims into a THROUGHLINE graph, where the confidence engine
-combines agreeing engines by noisy-OR and discounts competing hypotheses
-(``UNKNOWN`` included). Two operating points per method: *named* (it names any
-actor) and *confident* (its own confidence rule: DRAGNET MEDIUM+, OCCAM
-moderate+, similarity p >= 0.8, THROUGHLINE fused confidence >= 0.5).
+Methods: ``similarity`` (IDF-cosine nearest profile), ``dragnet``, ``occam``, and
+``fused`` - both verdicts as ``ATTRIBUTED_TO`` claims in a THROUGHLINE graph, where the
+confidence engine combines agreeing engines by noisy-OR and discounts competing
+hypotheses (``UNKNOWN`` included). Operating points: *named* (any actor named) and
+*confident* (each method's own rule: DRAGNET MEDIUM+, OCCAM moderate+, similarity
+p >= 0.8, fused confidence >= 0.5).
 
-    python benchmarks/bench_attribution.py
+Statistics: Wilson 95% intervals for every rate (they do not collapse at 0 or 1);
+cluster bootstrap over culprit groups where one group contributes several cases (and over
+all seeds of a group for ``drift_dose``); exact McNemar tests of fused vs each method on
+paired cases; risk-coverage (selective risk among the most confident cases, abstentions
+last) and its area (AURC, lower is better).
+
+    python benchmarks/bench_attribution.py [--quick]
 """
 from __future__ import annotations
 
+import argparse
+import gc
+import json
+import random
 import statistics
+import time
+import zlib
 
-from common import bootstrap_ci, write
+from common import cluster_bootstrap_ci, mcnemar, wilson, write, write_raw
 
 from throughline.engines.intel import DragnetIntelEngine, Evidence, OccamIntelEngine, Verdict, record_verdict
 from throughline.graph import KnowledgeGraph
 from throughline.reasoning import calibration as cal
 from throughline.stack import DataPaths, data_dir
 
+METHODS = ("similarity", "dragnet", "occam", "fused")
+LEVELS = (0, 1, 2)
+LRO_FOLDS = 5
+LRO_MAX_PER_GROUP = 8
+LRO_MIN_TTP = 5
+DOSES = (0.0, 0.25, 0.5, 0.75, 1.0)
+DOSE_SIGNALS = 8
+DOSE_SEEDS = (0, 1, 2)
+FAMILY_MIN_TTP = 5
 
+
+def level_key(level: int) -> str:
+    return "clean" if level == 0 else f"false_flag_l{level}"
+
+
+# ------------------------------------------------------------------------------ methods
 def fuse(vs: list[tuple[Verdict, str]]) -> Verdict:
     kg = KnowledgeGraph()
     kg.add_claim("Incident", "case", "EXISTS", None, None, source="bench", method="observed", reliability="A",
@@ -76,28 +111,8 @@ def confident(method: str, v: dict) -> bool:
     return v["p"] >= 0.5
 
 
-def score(rows: list[dict], method: str) -> dict:
-    named = [r for r in rows if r[method]["named"]]
-    conf = [r for r in rows if confident(method, r[method])]
-    top1 = [float(r[method]["named"] in r["truth"]) for r in rows]
-    committed_ok = [float(r[method]["named"] in r["truth"]) for r in named]
-    pairs = [(r[method]["p"], r[method]["named"] in r["truth"]) for r in rows if r[method]["named"]]
-    out = {"n": len(rows), "top1": round(statistics.mean(top1), 4) if rows else None, "top1_ci": bootstrap_ci(top1),
-           "coverage": round(len(named) / len(rows), 4) if rows else None,
-           "selective_acc": round(statistics.mean(committed_ok), 4) if named else None,
-           "wrong_named": round(sum(1 for r in named if r[method]["named"] not in r["truth"]) / len(rows), 4),
-           "brier_top1": round(cal.brier([(r[method]["p"] if r[method]["named"] else 0.0,
-                                           r[method]["named"] in r["truth"]) for r in rows]), 4)}
-    out["confident_correct"] = round(sum(1 for r in conf if r[method]["named"] in r["truth"]) / len(rows), 4)
-    out["confident_wrong"] = round(sum(1 for r in conf if r[method]["named"] not in r["truth"]) / len(rows), 4)
-    if rows and "decoy" in rows[0]:
-        out["decoy_named"] = round(sum(1 for r in rows if r[method]["named"] == r["decoy"]) / len(rows), 4)
-        out["decoy_confident"] = round(sum(1 for r in conf if r[method]["named"] == r["decoy"]) / len(rows), 4)
-    out["_pairs"] = pairs
-    return out
-
-
-def run_setting(dr: DragnetIntelEngine, oc: OccamIntelEngine, cases, level: int) -> dict:
+def run_cases(dr: DragnetIntelEngine, oc: OccamIntelEngine, cases, level: int) -> list[dict]:
+    """Every method on every case; one row per case."""
     from dragnet.bench import plant_false_flags, reference_rich_headers
     from dragnet.models import SignalKind
 
@@ -126,121 +141,329 @@ def run_setting(dr: DragnetIntelEngine, oc: OccamIntelEngine, cases, level: int)
         vo = oc.attribute(ev)
         vs = similarity(oc, ev)
         vf = fuse([(vd, "dragnet"), (vo, "occam")])
-        row = {"case": c.case_id, "name": c.name, "truth": sorted(c.truth)}
+        row = {"case": c.case_id, "name": c.name, "truth": sorted(c.truth),
+               "group": c.meta.get("group") or next(iter(sorted(c.truth)), ""), "meta": {
+                   k: v for k, v in c.meta.items() if k in ("seed", "dose", "n_ttp", "kind", "report", "fold")}}
         if decoy:
             row["decoy"] = decoy
         for m, v in (("dragnet", vd), ("occam", vo), ("similarity", vs), ("fused", vf)):
             row[m] = {"named": v.leading, "p": round(v.probability, 4), "grade": v.grade}
         rows.append(row)
     dr.kg = kg_saved
-    out = {m: score(rows, m) for m in ("similarity", "dragnet", "occam", "fused")}
-    return {"methods": out, "rows": rows}
+    return rows
 
 
-SEEDS = (0, 1, 2, 3, 4)
-DRIFT_MAX = 10
-DRIFT_MIN_TTP = 3
+# ------------------------------------------------------------------------------ scoring
+def _ok(r: dict, m: str) -> bool:
+    return r[m]["named"] in r["truth"]
 
 
-def group_drift_cases(new, old, seed: int, drift: bool = True):
-    """Cases from what each group gained between ``old`` (profiles) and ``new`` ATT&CK.
-    ``drift=False``: the group's whole ``new`` repertoire (in-sample upper bound, new == old)."""
-    import random
+def _rate(rows: list[dict], pred) -> float | None:
+    return sum(1 for r in rows if pred(r)) / len(rows) if rows else None
 
+
+def _rc(rows: list[dict], m: str) -> dict:
+    from dragnet.protocols import risk_coverage
+
+    pts = [(r[m]["p"] if r[m]["named"] else -1.0, _ok(r, m)) for r in rows]
+    rc = risk_coverage(pts)
+    return {"aurc": round(rc["aurc"], 4), "risk_at": {k: round(v, 4) for k, v in rc["risk_at"].items()}}
+
+
+def score(rows: list[dict], m: str, seeded: bool = False) -> dict:
+    """Rates with Wilson CIs, group-clustered bootstrap CIs and the risk-coverage summary."""
+    n = len(rows)
+    groups: dict[str, list[dict]] = {}
+    for r in rows:
+        groups.setdefault(r["group"], []).append(r)
+    clusters = list(groups.values())
+    named = [r for r in rows if r[m]["named"]]
+    conf = [r for r in rows if confident(m, r[m])]
+    out = {"n": n, "groups": len(groups)}
+    for key, pred in (("top1", lambda r: _ok(r, m)),
+                      ("named", lambda r: bool(r[m]["named"])),
+                      ("wrong_named", lambda r: bool(r[m]["named"]) and not _ok(r, m)),
+                      ("confident_correct", lambda r: confident(m, r[m]) and _ok(r, m)),
+                      ("confident_wrong", lambda r: confident(m, r[m]) and not _ok(r, m))):
+        k = sum(1 for r in rows if pred(r))
+        out[key] = round(k / n, 4) if n else None
+        out[f"{key}_k"] = k
+        out[f"{key}_wilson"] = wilson(k, n)
+        if len(groups) < n:
+            out[f"{key}_ci_group_clustered"] = cluster_bootstrap_ci(clusters, lambda rs, p=pred: _rate(rs, p))
+    out["selective_acc"] = round(sum(1 for r in named if _ok(r, m)) / len(named), 4) if named else None
+    out["confident_precision"] = round(sum(1 for r in conf if _ok(r, m)) / len(conf), 4) if conf else None
+    out["confident_coverage"] = round(len(conf) / n, 4) if n else None
+    out["brier_top1"] = round(cal.brier([(r[m]["p"] if r[m]["named"] else 0.0, _ok(r, m)) for r in rows]), 4)
+    out["risk_coverage"] = _rc(rows, m)
+    if rows and "decoy" in rows[0]:
+        out["decoy_named"] = round(sum(1 for r in rows if r[m]["named"] == r.get("decoy")) / n, 4)
+        out["decoy_confident"] = round(sum(1 for r in conf if r[m]["named"] == r.get("decoy")) / n, 4)
+        out["decoy_named_wilson"] = wilson(sum(1 for r in rows if r[m]["named"] == r.get("decoy")), n)
+    if seeded:
+        by_seed: dict = {}
+        for r in rows:
+            by_seed.setdefault(r["meta"].get("seed"), []).append(_ok(r, m))
+        xs = [sum(v) / len(v) for v in by_seed.values()]
+        out["top1_seed_sd"] = round(statistics.pstdev(xs), 4) if len(xs) > 1 else 0.0
+    return out
+
+
+def paired(rows: list[dict], ref: str = "fused") -> dict:
+    """Exact McNemar tests of ``ref`` against every other method on the same cases."""
+    out = {}
+    for m in METHODS:
+        if m == ref:
+            continue
+        out[m] = {key: mcnemar([pred(r, ref) for r in rows], [pred(r, m) for r in rows])
+                  for key, pred in (("top1", lambda r, x: _ok(r, x)),
+                                    ("confident_correct", lambda r, x: confident(x, r[x]) and _ok(r, x)),
+                                    ("confident_wrong", lambda r, x: confident(x, r[x]) and not _ok(r, x)))}
+    return out
+
+
+def summarise(rows: list[dict], seeded: bool = False) -> dict:
+    return {"methods": {m: score(rows, m, seeded) for m in METHODS}, "fused_vs": paired(rows)}
+
+
+def short(s: dict) -> dict:
+    return {m: (v["top1"], v["confident_correct"], v["confident_wrong"]) for m, v in s["methods"].items()}
+
+
+# ------------------------------------------------------------------------------ case sets
+def family_cases(new, old) -> list:
+    """Malware families first published after ``old`` was released, used by exactly one group
+    that exists in ``old``; evidence = their techniques expressible in ``old``."""
     from dragnet.bench import Case
     from dragnet.models import Signal, SignalKind
 
-    rng = random.Random(seed)
-    known = {t.attack_id for t in old.techniques.values()}  # evidence must be expressible in the old KB
+    known = {t.attack_id for t in old.techniques.values()}
+    out = []
+    for sid, gids in sorted(new.software_attribution().items(), key=lambda kv: new.software[kv[0]].attack_id):
+        sw = new.software[sid]
+        if sw.type != "malware" or len(gids) != 1 or not sw.created or sw.created <= old.released:
+            continue
+        og = old.resolve_group(next(iter(gids)))
+        if not og:
+            continue
+        tids = sorted(new.techniques_of(sid) & known)
+        if len(tids) < FAMILY_MIN_TTP:
+            continue
+        name = old.groups[og].name
+        out.append(Case(sw.attack_id, sw.name, [Signal(SignalKind.TTP, t, sw.attack_id) for t in tids], {name},
+                        {"group": name, "n_ttp": len(tids), "kind": "family", "created": sw.created}))
+    return out
+
+
+def lro_cases(new) -> list:
+    from dragnet.protocols import fold_of, report_cases
+
+    by_group: dict[str, list] = {}
+    for c in report_cases(new, min_ttps=LRO_MIN_TTP):
+        by_group.setdefault(c.meta["group"], []).append(c)
+    out = []
+    for _g, cs in sorted(by_group.items()):
+        cs = sorted(cs, key=lambda c: zlib.crc32(c.case_id.encode()))[:LRO_MAX_PER_GROUP]
+        for c in cs:
+            c.meta["fold"] = fold_of(c.meta["report"], LRO_FOLDS)
+            c.meta["kind"] = "report"
+            out.append(c)
+    return out
+
+
+def dose_cases(new, old, dose: float, seed: int) -> list:
+    """8 signals per eligible group: round(dose * 8) learned after ``old``, the rest from the
+    group's ``old`` profile; groups need >= 8 of each so every dose is feasible."""
+    from dragnet.bench import Case
+    from dragnet.models import Signal, SignalKind
+
+    known_t = {t.attack_id for t in old.techniques.values()}
+    rng = random.Random(seed * 1000 + int(dose * 100))
     out = []
     for gid, g in sorted(new.groups.items(), key=lambda kv: kv[1].attack_id):
         if gid not in old.groups:
             continue
-        techs = sorted((new.techniques_of(gid) - (old.techniques_of(gid) if drift else set())) & known)
-        sw = sorted(new.software_of(gid) - (old.software_of(gid) if drift else set()))
-        if len(techs) < DRIFT_MIN_TTP:
+
+        def ttp(t, gid=gid):
+            return Signal(SignalKind.TTP, t, gid)
+
+        def soft(o, gid=gid):
+            return Signal(SignalKind.FAMILY if o.type == "malware" else SignalKind.TOOL, o.name, gid)
+
+        old_t, new_t = old.techniques_of(gid), new.techniques_of(gid)
+        old_s, new_s = old.software_of(gid), new.software_of(gid)
+        pool_old = [ttp(t) for t in sorted(old_t)] + [soft(old.software[s]) for s in sorted(old_s)]
+        pool_new = [ttp(t) for t in sorted((new_t - old_t) & known_t)]
+        pool_new += [soft(old.software[s]) for s in sorted((new_s - old_s) & set(old.software))]
+        if len(pool_old) < DOSE_SIGNALS or len(pool_new) < DOSE_SIGNALS:
             continue
-        sigs = [Signal(SignalKind.TTP, t, gid) for t in techs]
-        for sid in sw:
-            o = new.software[sid]
-            sigs.append(Signal(SignalKind.FAMILY if o.type == "malware" else SignalKind.TOOL, o.name, gid))
-        if len(sigs) > DRIFT_MAX:
-            ttp = [x for x in sigs if x.kind == SignalKind.TTP]
-            rest = [x for x in sigs if x.kind != SignalKind.TTP]
-            keep = rng.sample(ttp, min(len(ttp), max(DRIFT_MIN_TTP, DRIFT_MAX - min(len(rest), DRIFT_MAX // 2))))
-            keep += rng.sample(rest, min(len(rest), DRIFT_MAX - len(keep)))
-            sigs = keep
-        out.append(Case(g.attack_id, g.name, sigs, {old.groups[gid].name},
-                        {"group": g.name, "new_ttp": len(techs), "new_software": len(sw), "seed": seed}))
+        k = round(dose * DOSE_SIGNALS)
+        sigs = rng.sample(pool_new, k) + rng.sample(pool_old, DOSE_SIGNALS - k)
+        name = old.groups[gid].name
+        out.append(Case(g.attack_id, g.name, sigs, {name},
+                        {"group": name, "seed": seed, "dose": dose, "kind": "drift"}))
     return out
 
 
-def run_group_drift(p: DataPaths, drift: bool = True) -> dict:
-    from dragnet.sources.attack import load_attack
-
-    kb = p.attack_old if drift else p.attack
-    dr = DragnetIntelEngine(kb, p.misp)
-    oc = OccamIntelEngine(kb, shortlist=25)
-    new = load_attack(p.attack)
-    res: dict = {"kg_version": dr.attack.version, "seeds": list(SEEDS), "max_signals": DRIFT_MAX}
-    methods = ("similarity", "dragnet", "occam", "fused")
-    for level in (0, 1):
-        key = "clean" if level == 0 else f"false_flag_l{level}"
-        rows, per_seed = [], {m: [] for m in methods}
-        for seed in SEEDS:
-            cases = group_drift_cases(new, dr.attack, seed, drift)
-            r = run_setting(dr, oc, cases, level)
-            for row in r["rows"]:
-                row["seed"] = seed
-            rows += r["rows"]
-            for m in methods:
-                per_seed[m].append(r["methods"][m]["top1"])
-        res["cases"] = len(cases)
-        agg = {m: score(rows, m) for m in methods}
-        for m in methods:
-            agg[m].pop("_pairs")
-            xs = per_seed[m]
-            agg[m]["top1_seed_mean"] = round(statistics.mean(xs), 4)
-            agg[m]["top1_seed_sd"] = round(statistics.pstdev(xs), 4)
-        res[key] = {"methods": agg, "rows": rows}
-        print(f"  group_{'drift' if drift else 'retro'} {key} ({res['cases']} cases x {len(SEEDS)} seeds):",
-              {m: (s["top1"], s["top1_ci"], s["wrong_named"], s["confident_wrong"]) for m, s in agg.items()},
-              flush=True)
-    return res
+def filtered_bundle(bundle: dict, held: set[str]) -> tuple[dict, int]:
+    """``bundle`` without the group ``uses`` relationships cited only by ``held`` reports
+    (the same rule as ``dragnet.protocols.drop_cited``, applied to the STIX both engines load)."""
+    keep, dropped = [], 0
+    for o in bundle["objects"]:
+        if (o.get("type") == "relationship" and o.get("relationship_type") == "uses"
+                and str(o.get("source_ref", "")).startswith("intrusion-set--")):
+            refs = {r["source_name"] for r in o.get("external_references", []) if r.get("source_name")
+                    and not r["source_name"].startswith("mitre-") and r["source_name"] != "capec"}
+            if refs and refs <= held:
+                dropped += 1
+                continue
+        keep.append(o)
+    return {**bundle, "objects": keep}, dropped
 
 
-def main() -> int:
-    p = DataPaths(data_dir())
+# ------------------------------------------------------------------------------ runs
+def run_temporal(p: DataPaths, new, quick: bool) -> tuple[dict, dict]:
     from dragnet.bench import attack_campaign_cases
+
+    dr = DragnetIntelEngine(p.attack_old, p.misp)
+    oc = OccamIntelEngine(p.attack_old, shortlist=25)
+    camps = [c for c in attack_campaign_cases(new, dr.attack, created_after=dr.attack.released) if c.truth]
+    for c in camps:
+        c.meta["kind"] = "campaign"
+    fams = family_cases(new, dr.attack)
+    if quick:
+        camps, fams = camps[:4], fams[:6]
+    res: dict = {}
+    raw: dict = {}
+    for name, cases in (("temporal", camps), ("temporal_families", fams)):
+        res[name] = {"kg_version": dr.attack.version, "cases": len(cases),
+                     "groups": len({c.meta.get("group") for c in cases})}
+        for level in LEVELS:
+            rows = run_cases(dr, oc, cases, level)
+            raw[f"{name}/{level_key(level)}"] = rows
+            res[name][level_key(level)] = summarise(rows)
+            print(f"  {name} {level_key(level)} n={len(rows)}:", short(res[name][level_key(level)]), flush=True)
+    res["temporal_all"] = {"kg_version": dr.attack.version, "cases": len(camps) + len(fams),
+                           "groups": len({c.meta.get("group") for c in camps + fams})}
+    for level in LEVELS:
+        rows = raw[f"temporal/{level_key(level)}"] + raw[f"temporal_families/{level_key(level)}"]
+        res["temporal_all"][level_key(level)] = summarise(rows)
+        print(f"  temporal_all {level_key(level)} n={len(rows)}:", short(res["temporal_all"][level_key(level)]),
+              flush=True)
+    doses: dict = {"kg_version": dr.attack.version, "signals": DOSE_SIGNALS, "seeds": list(DOSE_SEEDS), "doses": {}}
+    for dose in DOSES:
+        rows = []
+        for seed in (DOSE_SEEDS[:1] if quick else DOSE_SEEDS):
+            cases = dose_cases(new, dr.attack, dose, seed)
+            rows += run_cases(dr, oc, cases[:5] if quick else cases, 0)
+        raw[f"drift_dose/{dose}"] = rows
+        doses["groups"] = len({r["group"] for r in rows})
+        doses["doses"][f"{dose:.2f}"] = summarise(rows, seeded=True)
+        print(f"  drift_dose f={dose} n={len(rows)}:", short(doses["doses"][f"{dose:.2f}"]), flush=True)
+    res["drift_dose"] = doses
+    return res, raw
+
+
+def run_retrospective(p: DataPaths, new, quick: bool) -> tuple[dict, dict]:
+    from dragnet.bench import attack_campaign_cases
+
+    dr = DragnetIntelEngine(p.attack, p.misp)
+    oc = OccamIntelEngine(p.attack, shortlist=25)
+    cases = [c for c in attack_campaign_cases(new, dr.attack) if c.truth]
+    if quick:
+        cases = cases[:4]
+    res: dict = {"kg_version": dr.attack.version, "cases": len(cases)}
+    raw = {}
+    for level in LEVELS:
+        rows = run_cases(dr, oc, cases, level)
+        raw[f"retrospective/{level_key(level)}"] = rows
+        res[level_key(level)] = summarise(rows)
+        print(f"  retrospective {level_key(level)} n={len(rows)}:", short(res[level_key(level)]), flush=True)
+    return res, raw
+
+
+def run_lro(p: DataPaths, new, quick: bool) -> tuple[dict, dict]:
+    cases = lro_cases(new)
+    if quick:
+        cases = [c for c in cases if c.meta["fold"] == 0][:6]
+    bundle = json.loads(p.attack.read_text(encoding="utf-8"))
+    tmp = data_dir() / "cache" / "attack-lro-fold.json"
+    tmp.parent.mkdir(parents=True, exist_ok=True)
+    rows_by_level: dict[int, list] = {lv: [] for lv in LEVELS}
+    leak = {"before": [], "after": []}
+    dropped_total = 0
+    folds = sorted({c.meta["fold"] for c in cases})
+    for f in folds:
+        fold_cases = [c for c in cases if c.meta["fold"] == f]
+        held = {c.meta["report"] for c in cases if c.meta["fold"] == f}
+        fb, dropped = filtered_bundle(bundle, held)
+        dropped_total += dropped
+        tmp.write_text(json.dumps(fb), encoding="utf-8")
+        del fb
+        dr = DragnetIntelEngine(tmp, p.misp)
+        oc = OccamIntelEngine(tmp, shortlist=25)
+        for c in fold_cases:  # how much of the case's evidence is still in its group's profile
+            gid = next((g for g, o in dr.attack.groups.items() if o.name == c.meta["group"]), None)
+            ttps = {s.value for s in c.signals if s.kind.name == "TTP"}
+            leak["after"].append(len(ttps & dr.attack.techniques_of(gid)) / len(ttps) if gid and ttps else 0.0)
+            leak["before"].append(len(ttps & new.techniques_of(c.meta["group_id"])) / len(ttps) if ttps else 0.0)
+        for level in LEVELS:
+            rows = run_cases(dr, oc, fold_cases, level)
+            for r in rows:
+                r["meta"]["fold"] = f
+            rows_by_level[level] += rows
+        print(f"  report_lro fold {f}: {len(fold_cases)} cases, {dropped} relationships held out", flush=True)
+        del dr, oc
+        gc.collect()
+    tmp.unlink(missing_ok=True)
+    res: dict = {"kg_version": new.version, "cases": len(cases), "groups": len({c.meta["group"] for c in cases}),
+                 "folds": LRO_FOLDS, "max_reports_per_group": LRO_MAX_PER_GROUP, "min_ttp": LRO_MIN_TTP,
+                 "relationships_held_out": dropped_total,
+                 "evidence_in_own_profile": {"full_kb": round(statistics.mean(leak["before"]), 4),
+                                             "leave_report_out": round(statistics.mean(leak["after"]), 4)}}
+    raw = {}
+    for level in LEVELS:
+        raw[f"report_lro/{level_key(level)}"] = rows_by_level[level]
+        res[level_key(level)] = summarise(rows_by_level[level])
+        print(f"  report_lro {level_key(level)} n={len(rows_by_level[level])}:", short(res[level_key(level)]),
+              flush=True)
+    return res, raw
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    ap.add_argument("--quick", action="store_true", help="a few cases per setting (smoke test)")
+    a = ap.parse_args(argv)
     from dragnet.sources.attack import load_attack
 
-    res: dict = {}
-    for name, kg_path in (("temporal", p.attack_old), ("retrospective", p.attack)):
-        dr = DragnetIntelEngine(kg_path, p.misp)
-        oc = OccamIntelEngine(kg_path, shortlist=25)
-        attack_eval = load_attack(p.attack)
-        after = dr.attack.released if name == "temporal" else None
-        cases = [c for c in attack_campaign_cases(attack_eval, dr.attack, created_after=after) if c.truth]
-        print(f"{name}: {len(cases)} campaigns with the culprit in the v{dr.attack.version} knowledge base", flush=True)
-        res[name] = {"kg_version": dr.attack.version, "cases": len(cases)}
-        for level in (0, 1, 2):
-            r = run_setting(dr, oc, cases, level)
-            key = "clean" if level == 0 else f"false_flag_l{level}"
-            res[name][key] = r
-            print(f"  {key}:", {m: {k: v for k, v in s.items() if k in ("top1", "wrong_named", "decoy_named",
-                                                                            "confident_correct", "confident_wrong")}
-                                for m, s in r["methods"].items()}, flush=True)
-    res["group_drift"] = run_group_drift(p)
-    res["group_retrospective"] = run_group_drift(p, drift=False)
-    # pooled calibration of the committed verdicts across all settings
-    pooled = {m: [] for m in ("similarity", "dragnet", "occam", "fused")}
-    for name in ("temporal", "retrospective"):
-        for key in ("clean", "false_flag_l1", "false_flag_l2"):
-            for m in pooled:
-                pooled[m] += res[name][key]["methods"][m].pop("_pairs")
+    p = DataPaths(data_dir())
+    t0 = time.perf_counter()
+    new = load_attack(p.attack)
+    res: dict = {"protocol": __doc__.split("\n\n")[1].strip()[:200]}
+    raw: dict = {}
+    for name, fn in (("temporal", run_temporal), ("retrospective", run_retrospective), ("report_lro", run_lro)):
+        print(name, flush=True)
+        r, rw = fn(p, new, a.quick)
+        raw.update(rw)
+        if name == "temporal":
+            res.update(r)
+        else:
+            res[name] = r
+    # calibration of the committed (named) verdicts, pooled over the clean leakage-controlled sets
+    pooled = {m: [] for m in METHODS}
+    for key in ("temporal/clean", "temporal_families/clean", "report_lro/clean"):
+        for r in raw.get(key, []):
+            for m in METHODS:
+                if r[m]["named"]:
+                    pooled[m].append((r[m]["p"], _ok(r, m)))
     res["committed_calibration"] = {m: cal.summary(v) for m, v in pooled.items()}
+    res["seconds"] = round(time.perf_counter() - t0, 1)
+    if a.quick:  # smoke test: nothing under results/ changes
+        print("quick run ok:", write_raw("attribution_quick", {"summary": res, "rows": raw}), f"({res['seconds']} s)")
+        return 0
+    write_raw("attribution_rows", raw)
     out = write("attribution", res)
-    print("wrote", out)
+    print("wrote", out, f"({res['seconds']} s)")
     return 0
 
 

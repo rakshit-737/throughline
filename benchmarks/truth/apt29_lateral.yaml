@@ -1,0 +1,33 @@
+# Lateral movement in the OTRF APT29 evaluation captures (MITRE ATT&CK Evaluations round 2),
+# as host pairs, for scoring THROUGHLINE's cross-host stitching (benchmarks/demo_apt29.py).
+#
+# Steps come from the CTID adversary emulation plan for APT29
+# (center-for-threat-informed-defense/adversary_emulation_library @ 4467a6e,
+#  apt29/Emulation_Plan/yaml/APT29.yaml, Apache-2.0; downloaded by
+#  `python scripts/download_data.py apt29plan`, never vendored). The plan names its targets by
+# placeholder (#{pivot_machine_hostname}, #{target.winrm.remote_host}), so each pair below was
+# resolved from the command lines logged in the capture itself; the evidence column says where.
+# Host names are THROUGHLINE's short, lower-case host names.
+day1:
+  - step: "8.B"
+    from: scranton
+    to: nashua
+    how: PsExec64.exe copies and starts python.exe (the Sandcat agent) on \\NASHUA
+    evidence: >-
+      Sysmon EID 1 on SCRANTON: "C:\Program Files\SysinternalsSuite\PsExec64.exe" -accepteula \\NASHUA
+      -u dmevals\pbeesly ... -i 2 C:\Windows\Temp\python.exe
+day2:
+  - step: "16.C"
+    from: utica
+    to: newyork
+    how: a WinRM session copies m.exe (Mimikatz) to the domain controller and runs lsadump::lsa
+    evidence: >-
+      PowerShell 4103 on UTICA (Copy-Item m.exe ... -ToSession; Invoke-Command -Session ...);
+      Sysmon EID 1 on NEWYORK: C:\Windows\System32\m.exe as a child of wsmprovhost.exe
+  - step: "20.A.1"
+    from: utica
+    to: scranton
+    how: Invoke-Command -ComputerName SCRANTON adds a user with a golden ticket
+    evidence: >-
+      PowerShell 4103 on UTICA (Invoke-Command -ComputerName SCRANTON ... net user /add toby);
+      Sysmon EID 1 on SCRANTON: net.exe as a child of wsmprovhost.exe

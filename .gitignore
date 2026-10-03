@@ -14,3 +14,6 @@ dist/
 /site/
 /docs/figures/
 /docs/demo/
+
+# benchmark per-case rows (uploaded as a CI artefact, never committed)
+/results/raw/

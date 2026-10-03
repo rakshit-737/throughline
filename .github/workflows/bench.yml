@@ -1,53 +1,96 @@
 name: bench
-# Manual only: the long real-data runs (APT29 day 1/2 cross-host stitching, the other
-# OTRF compound captures, attribution with CIs). Downloads the pinned public datasets
-# (sha256-checked) from their upstream hosts, so it never runs on push.
+# Manual only: the long real-data benchmarks on a fresh runner, with every sibling engine at its
+# pinned release. Downloads the pinned public datasets from their upstream hosts (each file checked
+# against its pinned sha256, or for OTRF the git blob id of the pinned commit; fail closed), so it
+# never runs on push. Small summaries are uploaded as `bench-results` and committed after review;
+# per-case rows as `bench-raw` (never committed).
 on:
   workflow_dispatch:
     inputs:
       which:
-        description: "apt29 | compound | attribution | all"
+        description: benchmarks to run
+        type: choice
+        options: [all, otrf, attribution, apt29, compound, loop, supplychain]
         default: all
+      record_checksums:
+        description: pin sha256 of files that only have a git-blob check (uploads checksums.sha256)
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
   bench:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 350
     env:
       THROUGHLINE_DATA: ${{ github.workspace }}/data
-      GITHUB_TOKEN: ${{ github.token }}
+      WHICH: ${{ inputs.which }}
+      PYTHONUNBUFFERED: "1"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
-      - run: pip install -e ".[dev,api,engines]"
-      - name: datasets (pinned, sha256-verified)
-        run: python scripts/download_data.py attack sigma otrf cis misp
-      - name: APT29 day 1 + day 2
-        if: inputs.which == 'apt29' || inputs.which == 'all'
+      - run: pip install -e ".[dev,api,engines,bench]"
+      - name: installed siblings are exactly the pinned commits
+        run: |
+          python - <<'PY'
+          from throughline.engines import status
+          bad = [r["project"] for r in status() if r["extra"] == "engines" and r["matches_pin"] is not True]
+          assert not bad, f"not installed at the pinned commit: {bad}"
+          PY
+      - name: start time
+        run: echo "BENCH_START=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
+      - name: datasets (pinned; sha256 or pinned git blob id; fail closed)
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -o pipefail
+          sources="attack sigma otrf apt29plan cis misp"
+          if [ "$WHICH" = all ] || [ "$WHICH" = supplychain ]; then sources="$sources osv repos"; fi
+          flags=""
+          if [ "${{ inputs.record_checksums }}" = true ]; then flags="--record"; fi
+          python scripts/download_data.py $sources $flags 2>&1 | tee download.log
+          cp scripts/checksums.sha256 checksums.sha256
+      - name: B1/B2 - technique identification, ablation, calibration, triage (95+ OTRF captures)
+        if: env.WHICH == 'all' || env.WHICH == 'otrf'
+        run: python benchmarks/bench_otrf.py
+      - name: B3 - attribution (temporal, leave-report-out, drift dose-response)
+        if: env.WHICH == 'all' || env.WHICH == 'attribution'
+        run: python benchmarks/bench_attribution.py
+      - name: B4 - APT29 day 1 + day 2 (plan and lateral-movement truth)
+        if: env.WHICH == 'all' || env.WHICH == 'apt29'
         run: |
           python benchmarks/demo_apt29.py --day 1
           python benchmarks/demo_apt29.py --day 2
-      - name: other compound captures
-        if: inputs.which == 'compound' || inputs.which == 'all'
+      - name: other compound captures (APT3, LSASS campaigns)
+        if: env.WHICH == 'all' || env.WHICH == 'compound'
         run: python benchmarks/bench_compound.py
-      - name: attribution
-        if: inputs.which == 'attribution' || inputs.which == 'all'
-        run: python benchmarks/bench_attribution.py
-      - name: assert results
-        run: |
-          python - <<'PY'
-          import json, pathlib
-          for p in sorted(pathlib.Path("results").glob("*.json")):
-              d = json.loads(p.read_text())
-              print(p.name, d.get("generated"))
-              if p.name.startswith("apt29_day"):
-                  assert d["incidents"] > 0 and "stitching" in d, p
-          PY
-      - uses: actions/upload-artifact@v4
+      - name: B5 - feedback loop
+        if: env.WHICH == 'all' || env.WHICH == 'loop'
+        run: python benchmarks/bench_loop.py
+      - name: supply chain (healthchecks + OSV)
+        if: env.WHICH == 'all' || env.WHICH == 'supplychain'
+        run: python benchmarks/demo_supplychain.py
+      - name: figures
+        if: env.WHICH == 'all' || env.WHICH == 'otrf' || env.WHICH == 'attribution'
+        run: python benchmarks/figures.py
+      - name: results are fresh, small, pinned and non-degenerate
+        run: python benchmarks/check_results.py --which "$WHICH" --since "$BENCH_START" --pins
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
           name: bench-results
-          path: results/*.json
+          path: |
+            results/*.json
+            results/figures/*.png
+            checksums.sha256
+            download.log
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: bench-raw
+          path: results/raw/
+          if-no-files-found: ignore
