@@ -2,15 +2,21 @@
 """Download the public datasets THROUGHLINE's demo and benchmarks run on.
 
 Every source is pinned (git commit or release tag) and every file is checked
-against ``scripts/checksums.sha256``. Nothing here is executable content: the
-sources are YAML rules, JSON/EVTX *log records* and ATT&CK STIX bundles.
+against ``scripts/checksums.sha256``; a file without a pinned checksum is an
+error (fail closed). OTRF files are additionally checked against the git blob
+id that the pinned OTRF commit's tree lists for them, so a newly added capture
+is verified before its sha256 is recorded. The rolling OSV feed is the only
+unpinned source (its date and digest are recorded instead). Nothing here is
+executable content: the sources are YAML rules, JSON/EVTX *log records*, ATT&CK
+STIX bundles and an emulation-plan YAML.
 
-    python scripts/download_data.py all              # ~290 MB download (everything but `baseline`)
+    python scripts/download_data.py all              # ~310 MB download (everything but `baseline`)
     python scripts/download_data.py attack otrf      # just some sources
     python scripts/download_data.py all --record     # (maintainers) pin checksums of new files
 
 Data goes to $THROUGHLINE_DATA (default: ../../datasets/throughline next to the
-repo checkout if that folder exists, else ./data - both git-ignored).
+repo checkout if that folder exists, else ./data inside the checkout - git-ignored
+either way; set THROUGHLINE_DATA to keep it outside).
 
 Sources and licences
 --------------------
@@ -21,7 +27,9 @@ otrf      OTRF Security-Datasets (Mordor) Windows host logs  MIT
           APT3 Empire + CALDERA round 1, LSASS campaigns 01-07)
 baseline  NextronSystems/evtx-baseline win10-client (benign)  public (repository README); optional,
           not part of `all` (the loop's false-positive gate uses unrelated OTRF captures)
-cis       CIS Controls v8 -> ATT&CK v8.2 master mapping (xlsx)  CIS (free, attribution)
+apt29plan CTID adversary emulation plan for APT29 (YAML)     Apache-2.0
+          (per-step ATT&CK techniques: ground truth for the APT29 evaluation captures)
+cis       CIS Controls v8 -> ATT&CK v8.2 master mapping (xlsx)  CC BY-NC-ND 4.0 (CIS Controls licence)
 misp      MISP galaxy threat-actor cluster (sponsor country)  CC0-1.0 / BSD-2-Clause
 osv       OSV.dev PyPI advisory dump (rolling; date + sha256 recorded in osv/MANIFEST.json)  CC-BY 4.0
 repos     healthchecks/healthchecks git history @ pinned commit (supply-chain demo)  BSD-3-Clause
@@ -104,6 +112,17 @@ def _expected_total(r, have: int) -> int | None:
     return int(cl) if cl and r.status == 200 else (have + int(cl) if cl else None)
 
 
+def _request(url: str, headers: dict) -> urllib.request.Request:
+    """A request whose Authorization header is *not* copied onto redirects (urllib forwards
+    ordinary headers to whatever host a redirect points at)."""
+    plain = {k: v for k, v in headers.items() if k.lower() != "authorization"}
+    req = urllib.request.Request(url, headers=plain)
+    for k, v in headers.items():
+        if k.lower() == "authorization":
+            req.add_unredirected_header(k, v)
+    return req
+
+
 def _download(url: str, dest: Path, attempts: int = 8, headers: dict | None = None) -> None:
     """Stream ``url`` to ``dest`` via a ``.part`` file, resuming with HTTP Range on retry.
 
@@ -118,7 +137,7 @@ def _download(url: str, dest: Path, attempts: int = 8, headers: dict | None = No
         if have:
             hdrs["Range"] = f"bytes={have}-"
         try:
-            req = urllib.request.Request(url, headers=hdrs)
+            req = _request(url, hdrs)
             with urllib.request.urlopen(req, timeout=120) as r:
                 resume = bool(have) and r.status == 206
                 total = _expected_total(r, have if resume else 0)
@@ -158,11 +177,15 @@ def gh_raw(repo: str, commit: str, path: str) -> list[tuple[str, dict]]:
     return out
 
 
+USE_GH_CLI = False  # --use-gh-token: fall back to `gh auth token` (a broad CLI token) when no env token
+
+
 @functools.lru_cache(maxsize=1)
 def _github_token() -> str | None:
+    """GITHUB_TOKEN / GH_TOKEN (a read-only token is enough); ``gh auth token`` only when asked."""
     tok = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
-    if tok:
-        return tok
+    if tok or not USE_GH_CLI:
+        return tok or None
     try:
         out = subprocess.run(["gh", "auth", "token"], capture_output=True, text=True, timeout=20)
         return out.stdout.strip() or None
@@ -170,12 +193,26 @@ def _github_token() -> str | None:
         return None
 
 
+def git_blob_sha(path: Path) -> str:
+    """Git's object id of a file's content (sha1 over ``blob <size>\\0`` + content)."""
+    h = hashlib.sha1(f"blob {path.stat().st_size}\0".encode())
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+class Unverified(SystemExit):
+    """A downloaded file has no pinned checksum (and no pinned git blob id) to check it against."""
+
+
 class Fetcher:
-    def __init__(self, record: bool, force: bool):
-        self.record, self.force = record, force
+    def __init__(self, record: bool, force: bool, allow_unpinned: bool = False):
+        self.record, self.force, self.allow_unpinned = record, force, allow_unpinned
         self.sums = load_checksums()
         self.dirty = False
         self.blocked_hosts: set[str] = set()
+        self.unpinned: list[str] = []
 
     def _fetch(self, url, dest: Path) -> None:
         candidates = [(url, {})] if isinstance(url, str) else url
@@ -191,7 +228,11 @@ class Fetcher:
                 self.blocked_hosts.add(host)  # don't pay the retry cost again for every file
                 print(f"  falling back from {host} for the rest of this run", flush=True)
 
-    def get(self, url: str | list[tuple[str, dict]], dest: Path, key: str) -> Path:
+    def get(self, url: str | list[tuple[str, dict]], dest: Path, key: str, blob: str | None = None) -> Path:
+        """Download ``url`` to ``dest`` unless present, then verify it: against the pinned sha256
+        for ``key`` if there is one, else against ``blob`` (the git blob id a pinned commit's tree
+        lists for it). A file with neither is refused unless ``--record`` (pin it now) or
+        ``--allow-unpinned`` was given."""
         dest.parent.mkdir(parents=True, exist_ok=True)
         if self.force or not dest.exists():
             self._fetch(url, dest)
@@ -205,11 +246,23 @@ class Fetcher:
             if expected != digest:
                 raise SystemExit(f"checksum mismatch for {key}: expected {expected}, got {digest}")
         if expected is None:
+            if blob is not None:
+                got = git_blob_sha(dest)
+                if got != blob:
+                    dest.unlink()
+                    raise SystemExit(f"git blob mismatch for {key}: pinned tree says {blob}, got {got}")
             if self.record:
                 self.sums[key] = digest
                 self.dirty = True
-            else:
+                print(f"  pinned {key} ({digest[:12]}...)" + (" after git-blob check" if blob else ""), flush=True)
+            elif blob is not None:
+                self.unpinned.append(key)  # verified against the pinned tree; sha256 not recorded yet
+            elif self.allow_unpinned:
                 print(f"  WARN no pinned checksum for {key} ({digest[:12]}...)", flush=True)
+                self.unpinned.append(key)
+            else:
+                raise Unverified(f"no pinned checksum for {key}: run with --record to pin it (maintainers) "
+                                 "or --allow-unpinned to accept it unverified")
         return dest
 
     def save(self) -> None:
@@ -237,6 +290,7 @@ def fetch_sigma(f: Fetcher, d: Path) -> None:
     if not (out / "rules").exists():
         prefix = f"sigma-{SIGMA_COMMIT}/"
         keep = ("rules/", "rules-threat-hunting/", "rules-emerging-threats/", "LICENSE")
+        base = out.resolve()
         with zipfile.ZipFile(z) as zf:
             for m in zf.infolist():
                 if m.is_dir() or not m.filename.startswith(prefix):
@@ -245,6 +299,9 @@ def fetch_sigma(f: Fetcher, d: Path) -> None:
                 if not rel.startswith(keep):
                     continue
                 target = out / rel
+                if not target.resolve().is_relative_to(base):  # "rules/../../x": never write outside
+                    print(f"  SKIP {m.filename}: outside the extraction directory")
+                    continue
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes(zf.read(m))
     print(f"  -> {out}")
@@ -255,22 +312,27 @@ def _otrf_tree() -> list[dict]:
     headers = dict(UA)
     if tok := _github_token():
         headers["Authorization"] = f"Bearer {tok}"
-    with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=120) as r:
+    with urllib.request.urlopen(_request(url, headers), timeout=120) as r:
         return json.load(r)["tree"]
 
 
 def fetch_otrf(f: Fetcher, d: Path) -> None:
     print("[otrf] Security-Datasets (Mordor) Windows host datasets @", OTRF_COMMIT[:10])
     tree = _otrf_tree()
-    wanted = [i["path"] for i in tree if i["type"] == "blob" and (
+    blobs = {i["path"]: i["sha"] for i in tree if i["type"] == "blob" and (
         (i["path"].startswith("datasets/atomic/windows/") and "/host/" in i["path"]
          and i["path"].endswith((".zip", ".tar.gz")))
         or i["path"].startswith("datasets/atomic/_metadata/SDWIN")
-        or i["path"] in OTRF_COMPOUND)]
+        or i["path"] in OTRF_COMPOUND)}
+    missing = sorted(set(OTRF_COMPOUND) - set(blobs))
+    if missing:
+        raise SystemExit(f"not in the OTRF tree at {OTRF_COMMIT[:10]}: {missing}")
+    wanted = sorted(blobs)
     blocked = []
     with cf.ThreadPoolExecutor(max_workers=6) as pool:
-        futs = {pool.submit(f.get, gh_raw("OTRF/Security-Datasets", OTRF_COMMIT, p), d / "otrf" / p.removeprefix("datasets/"), "otrf/" + p): p
-                for p in sorted(wanted)}
+        futs = {pool.submit(f.get, gh_raw("OTRF/Security-Datasets", OTRF_COMMIT, p),
+                            d / "otrf" / p.removeprefix("datasets/"), "otrf/" + p, blobs[p]): p
+                for p in wanted}
         for fut in cf.as_completed(futs):
             try:
                 fut.result()
@@ -347,21 +409,39 @@ def fetch_repos(f: Fetcher, d: Path) -> None:
         print(f"  -> {dest}")
 
 
-SOURCES = {"attack": fetch_attack, "sigma": fetch_sigma, "otrf": fetch_otrf,
+CTID_REPO = "center-for-threat-informed-defense/adversary_emulation_library"
+CTID_COMMIT = "4467a6eed6e67d25009704130e1d27d1a8007f57"
+APT29_PLAN = "apt29/Emulation_Plan/yaml/APT29.yaml"
+
+
+def fetch_apt29plan(f: Fetcher, d: Path) -> None:
+    """The CTID APT29 emulation plan: 79 procedures with step ids and ATT&CK technique ids, the
+    ground truth the APT29 evaluation benchmark scores against (never vendored)."""
+    print("[apt29plan] CTID adversary emulation plan APT29 @", CTID_COMMIT[:10])
+    f.get(gh_raw(CTID_REPO, CTID_COMMIT, APT29_PLAN), d / "apt29plan" / "APT29.yaml", "apt29plan/APT29.yaml")
+
+
+SOURCES = {"attack": fetch_attack, "sigma": fetch_sigma, "otrf": fetch_otrf, "apt29plan": fetch_apt29plan,
            "baseline": fetch_baseline, "cis": fetch_cis, "misp": fetch_misp, "osv": fetch_osv,
            "repos": fetch_repos}
 
 
 def main(argv: list[str] | None = None) -> int:
+    global USE_GH_CLI
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("sources", nargs="+", choices=[*SOURCES, "all"])
     ap.add_argument("--record", action="store_true",
                     help="pin checksums of files not yet in the manifest (never overrides a pinned one)")
+    ap.add_argument("--allow-unpinned", action="store_true",
+                    help="accept files that have no pinned checksum (warns instead of failing)")
+    ap.add_argument("--use-gh-token", action="store_true",
+                    help="use `gh auth token` for GitHub API fallbacks when GITHUB_TOKEN/GH_TOKEN is unset")
     ap.add_argument("--force", action="store_true", help="re-download even if present")
     a = ap.parse_args(argv)
+    USE_GH_CLI = a.use_gh_token
     d = data_dir()
     d.mkdir(parents=True, exist_ok=True)
-    f = Fetcher(a.record, a.force)
+    f = Fetcher(a.record, a.force, a.allow_unpinned)
     failed: dict[str, str] = {}
     names = [n for n in SOURCES if n != "baseline"] if "all" in a.sources else a.sources
     try:
@@ -373,6 +453,9 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"  FAILED {n}: {failed[n]}", flush=True)
     finally:
         f.save()
+    if f.unpinned:
+        print(f"note: {len(f.unpinned)} file(s) verified against the pinned git tree only (no sha256 pinned yet; "
+              "maintainers: --record)")
     print(f"done. THROUGHLINE_DATA={d}" + (f"; failed: {sorted(failed)}" if failed else ""))
     return 1 if failed else 0
 
