@@ -1,23 +1,23 @@
 # THROUGHLINE
 
-[![ci](https://github.com/rakshit-737/throughline/actions/workflows/ci.yml/badge.svg)](https://github.com/rakshit-737/throughline/actions/workflows/ci.yml)
+[![ci](https://github.com/rakshit-737/throughline-security-knowledge-graph/actions/workflows/ci.yml/badge.svg)](https://github.com/rakshit-737/throughline-security-knowledge-graph/actions/workflows/ci.yml)
 ![python](https://img.shields.io/badge/python-3.11%E2%80%933.14-blue)
 [![license: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![docs](https://img.shields.io/badge/docs-github%20pages-blue)](https://rakshit-737.github.io/throughline/)
-[![release](https://img.shields.io/github/v/release/rakshit-737/throughline)](https://github.com/rakshit-737/throughline/releases)
+[![docs](https://img.shields.io/badge/docs-github%20pages-blue)](https://rakshit-737.github.io/throughline-security-knowledge-graph/)
+[![release](https://img.shields.io/github/v/release/rakshit-737/throughline-security-knowledge-graph)](https://github.com/rakshit-737/throughline-security-knowledge-graph/releases)
 
 **One evidence-first security knowledge graph that thirteen separate tools write into, so "what happened, how did it start, who did it, and how sure are we?" becomes a single query with a cited, confidence-graded answer.**
 
 **Contribution:** every engine's conclusion becomes a reliability-graded *claim* in one graph, and only *independent* engines are fused (noisy-OR over the best claim of each engine), with `UNKNOWN` as a competing attribution hypothesis. Measured on public data, this ranks the emulated technique first more often than the best single engine or an unfused union (hit@1 0.37 vs 0.26 for Sigma alone, paired difference +0.11 [0.05, 0.18], 97 real OTRF attack captures), and makes confident attributions right more often without adding confident errors (19.2% vs 13.0% for DRAGNET alone, exact McNemar p = 0.0003, 448 leakage-controlled ATT&CK cases). See the [ablation](#b1---technique-identification-and-the-ablation-97-real-attack-captures) and the [attribution benchmark](#b3---attribution-two-ach-engines-fused-vs-each-alone-vs-naive-similarity).
 
-[![The investigation console on a real OTRF capture: incidents, a cited investigation, and why a claim backed by two independent engines has confidence 0.87](docs/assets/console.png)](https://rakshit-737.github.io/throughline/demo/)
+[![The investigation console on a real OTRF capture: incidents, a cited investigation, and why a claim backed by two independent engines has confidence 0.87](docs/assets/console.png)](https://rakshit-737.github.io/throughline-security-knowledge-graph/demo/)
 
 ## Try it in 60 seconds
 
-1. **In the browser, nothing to install:** open the [live console](https://rakshit-737.github.io/throughline/demo/). It opens on a real OTRF capture (LSASS dumped through `comsvcs.dll`) run through every engine; click any claim id to see how its confidence was computed.
+1. **In the browser, nothing to install:** open the [live console](https://rakshit-737.github.io/throughline-security-knowledge-graph/demo/). It opens on a real OTRF capture (LSASS dumped through `comsvcs.dll`) run through every engine; click any claim id to see how its confidence was computed.
 2. **On your machine** (Python 3.11+, no downloads beyond the package):
    ```bash
-   pip install "throughline @ git+https://github.com/rakshit-737/throughline"
+   pip install "throughline @ git+https://github.com/rakshit-737/throughline-security-knowledge-graph"
    throughline demo
    ```
    ```text
@@ -34,7 +34,7 @@
    Facts cited: 13 (each with claim ids)
    ```
    (`throughline --false-flag demo` adds conflicting CTI and watch the attribution confidence drop.)
-3. **The API and console in a container:** `docker run --rm -p 127.0.0.1:8000:8000 ghcr.io/rakshit-737/throughline:latest`, then open the console link it logs (a one-time token is generated because the container listens on all interfaces).
+3. **The API and console in a container:** `docker run --rm -p 127.0.0.1:8000:8000 ghcr.io/rakshit-737/throughline-security-knowledge-graph:latest`, then open the console link it logs (a one-time token is generated because the container listens on all interfaces).
 
 ## Results on real data
 
@@ -92,31 +92,31 @@ flowchart TB
   KG -.->|"optional"| NEO[("Neo4j mirror")]
 ```
 
-Engines talk to each other **only through the graph and the frozen contracts** ([ADR-0001](docs/adr/0001-frozen-contracts.md), [ADR-0004](docs/adr/0004-schema-0.2.md)). Order matters only because later engines read what earlier ones wrote. [How it works](https://rakshit-737.github.io/throughline/how-it-works/) follows one real capture through every step.
+Engines talk to each other **only through the graph and the frozen contracts** ([ADR-0001](docs/adr/0001-frozen-contracts.md), [ADR-0004](docs/adr/0004-schema-0.2.md)). Order matters only because later engines read what earlier ones wrote. [How it works](https://rakshit-737.github.io/throughline-security-knowledge-graph/how-it-works/) follows one real capture through every step.
 
 ### Engines
 
 | slot | sibling (pinned release) | writes | exercised on |
 | --- | --- | --- | --- |
-| detection | [ANVIL](https://github.com/rakshit-737/anvil) `v1.1.1` | `Detection ALERTED_ON Process`, `Process EXHIBITS Technique` (Sigma level -> reliability grade) | real: 97 OTRF captures, APT29, APT3, LSASS campaigns |
-| provenance | [REVENANT](https://github.com/rakshit-737/revenant) `v1.1.1` | technique tags from causal heuristics, `PART_OF` story incidents | real: same |
-| provenance | [ROOTLINE](https://github.com/rakshit-737/rootline) `v1.1.1` | incident membership re-derived from its own provenance graph | real: APT29 (23 + 22 reconstructions), fixtures |
-| intel | [DRAGNET](https://github.com/rakshit-737/dragnet) `v1.1.1` (`dragnet-attribution`) | one competing `Incident ATTRIBUTED_TO Actor` | real: ATT&CK campaigns, families and reports; APT29 |
-| intel | [OCCAM](https://github.com/rakshit-737/occam) `v1.1.1` | one competing `ATTRIBUTED_TO`, `UNKNOWN` on false flags | real: same |
-| posture | [VANTAGE](https://github.com/rakshit-737/vantage) `v1.1.1` | `Control MITIGATES`, `Detection SHOULD_DETECT`, detected / missed / blind per technique | real: ATT&CK + SigmaHQ + CIS v8 mapping |
-| simulation | [GAUNTLET](https://github.com/rakshit-737/gauntlet) `v1.1.1` (`gauntlet-coverage`) | dry-run Atomic Red Team manifest for every missed technique | real gaps (APT29) |
-| supply chain | [TRACEGATE](https://github.com/rakshit-737/tracegate) `v1.1.1` | `Author AUTHORED Commit INTRODUCED Dependency`, `Vulnerability AFFECTS Dependency` | real: healthchecks history + OSV |
-| supply chain | [STRATUM](https://github.com/rakshit-737/stratum) `v1.1.1` (`stratum-cnapp`) | code -> build -> image -> workload -> pod lifecycle, Zero-Trust findings, incidents | STRATUM's synthetic cluster |
-| attack path | [LINCHPIN](https://github.com/rakshit-737/linchpin) `v1.1.1` (`linchpin-attackpath`) | `CAN_REACH` hops, `Vulnerability AFFECTS Host`, ranked fixes | LINCHPIN's synthetic network |
-| malware | [VITRINE](https://github.com/rakshit-737/vitrine) `v1.1.2` | `Sample EXHIBITS`, `ATTRIBUTED_TO MalwareFamily`, `Process USES Sample` by hash | inert synthetic samples |
-| malware | [SPECIMEN](https://github.com/rakshit-737/specimen) `v1.1.2` | same, from a CAPE/Cuckoo report | report mapping (unit test) |
-| network | [FEINT](https://github.com/rakshit-737/feint) `v1.1.0` (its newest release) | `Host CONNECTED_TO`, `EXHIBITS` for flows over threshold | flow mapping (unit test) |
+| detection | [ANVIL](https://github.com/rakshit-737/anvil-detection-engineering) `v1.1.1` | `Detection ALERTED_ON Process`, `Process EXHIBITS Technique` (Sigma level -> reliability grade) | real: 97 OTRF captures, APT29, APT3, LSASS campaigns |
+| provenance | [REVENANT](https://github.com/rakshit-737/revenant-dfir-timeline) `v1.1.1` | technique tags from causal heuristics, `PART_OF` story incidents | real: same |
+| provenance | [ROOTLINE](https://github.com/rakshit-737/rootline-provenance-forensics) `v1.1.1` | incident membership re-derived from its own provenance graph | real: APT29 (23 + 22 reconstructions), fixtures |
+| intel | [DRAGNET](https://github.com/rakshit-737/dragnet-actor-attribution) `v1.1.1` (`dragnet-attribution`) | one competing `Incident ATTRIBUTED_TO Actor` | real: ATT&CK campaigns, families and reports; APT29 |
+| intel | [OCCAM](https://github.com/rakshit-737/occam-cti-attribution) `v1.1.1` | one competing `ATTRIBUTED_TO`, `UNKNOWN` on false flags | real: same |
+| posture | [VANTAGE](https://github.com/rakshit-737/vantage-compliance-attack-mapping) `v1.1.1` | `Control MITIGATES`, `Detection SHOULD_DETECT`, detected / missed / blind per technique | real: ATT&CK + SigmaHQ + CIS v8 mapping |
+| simulation | [GAUNTLET](https://github.com/rakshit-737/gauntlet-detection-coverage) `v1.1.1` (`gauntlet-coverage`) | dry-run Atomic Red Team manifest for every missed technique | real gaps (APT29) |
+| supply chain | [TRACEGATE](https://github.com/rakshit-737/tracegate-cicd-security-gate) `v1.1.1` | `Author AUTHORED Commit INTRODUCED Dependency`, `Vulnerability AFFECTS Dependency` | real: healthchecks history + OSV |
+| supply chain | [STRATUM](https://github.com/rakshit-737/stratum-cloud-security) `v1.1.1` (`stratum-cnapp`) | code -> build -> image -> workload -> pod lifecycle, Zero-Trust findings, incidents | STRATUM's synthetic cluster |
+| attack path | [LINCHPIN](https://github.com/rakshit-737/linchpin-attack-path-analysis) `v1.1.1` (`linchpin-attackpath`) | `CAN_REACH` hops, `Vulnerability AFFECTS Host`, ranked fixes | LINCHPIN's synthetic network |
+| malware | [VITRINE](https://github.com/rakshit-737/vitrine-malware-triage) `v1.1.2` | `Sample EXHIBITS`, `ATTRIBUTED_TO MalwareFamily`, `Process USES Sample` by hash | inert synthetic samples |
+| malware | [SPECIMEN](https://github.com/rakshit-737/specimen-malware-analysis) `v1.1.2` | same, from a CAPE/Cuckoo report | report mapping (unit test) |
+| network | [FEINT](https://github.com/rakshit-737/feint-adversarial-ids) `v1.1.0` (its newest release) | `Host CONNECTED_TO`, `EXHIBITS` for flows over threshold | flow mapping (unit test) |
 
 The siblings are optional extras installed from those release tags ([ADR-0007](docs/adr/0007-siblings-as-pinned-extras.md)); none of their code is vendored or modified. `throughline.engines.SIBLINGS` records each tag's commit; CI fails if an installed sibling is not that commit, and `scripts/check_sibling_tags.py` fails when a newer release exists or a pinned tag moved. Without the siblings the core still runs the synthetic demo, and each missing engine is reported as skipped.
 
 ## Results in detail
 
-The [Evaluation](https://rakshit-737.github.io/throughline/evaluation/) page has the methodology and every table with its intervals; [Reproduce](https://rakshit-737.github.io/throughline/reproduce/) has the exact commands, expected numbers and runtimes.
+The [Evaluation](https://rakshit-737.github.io/throughline-security-knowledge-graph/evaluation/) page has the methodology and every table with its intervals; [Reproduce](https://rakshit-737.github.io/throughline-security-knowledge-graph/reproduce/) has the exact commands, expected numbers and runtimes.
 
 ### B1 - Technique identification and the ablation (97 real attack captures)
 
@@ -258,7 +258,7 @@ The benchmarks run in CI on Linux, where all 97 labelled captures are readable; 
 ## Quickstart
 
 ```bash
-git clone https://github.com/rakshit-737/throughline && cd throughline
+git clone https://github.com/rakshit-737/throughline-security-knowledge-graph && cd throughline
 pip install -e ".[dev,api]"                     # core: networkx + PyYAML only
 python -m pytest -q                              # engine and real-data tests skip without siblings/data
 python -m throughline demo                       # synthetic supply-chain intrusion, no downloads
@@ -285,11 +285,11 @@ Incident:workstation5/6100/powershell.exe  score=0.87  alerts=7  [T1003.001 0.87
 6. corroboration: T1003.001 is supported by 2 independent engine(s): anvil, revenant [c00151, c00172]
 ```
 
-Other entry points: `python -m throughline store ingest|verify|head DIR FILES` (append-only event store), `investigate [--as-of TIME]`, `explain <claim>`, `export --format cypher`. The REST API (`/incidents`, `/investigator/{entity}`, `/investigate/{entity}`, `/claims/{id}/explain`, `/graph/{key}`, `/engines`, `/ingest`, `/neo4j/sync`; `as_of=` on the read endpoints) binds to localhost and serves the console at `/ui` ([reference](https://rakshit-737.github.io/throughline/reference/)). Set `THROUGHLINE_API_TOKEN` to require `Authorization: Bearer <token>` (open the console as `/ui#token=<token>`). Documentation: **<https://rakshit-737.github.io/throughline/>**. `docker compose up` runs the same, published on 127.0.0.1 only; `docker compose -f docker-compose.yml -f docker-compose.neo4j.yml up` adds a local Neo4j (set `NEO4J_PASSWORD`).
+Other entry points: `python -m throughline store ingest|verify|head DIR FILES` (append-only event store), `investigate [--as-of TIME]`, `explain <claim>`, `export --format cypher`. The REST API (`/incidents`, `/investigator/{entity}`, `/investigate/{entity}`, `/claims/{id}/explain`, `/graph/{key}`, `/engines`, `/ingest`, `/neo4j/sync`; `as_of=` on the read endpoints) binds to localhost and serves the console at `/ui` ([reference](https://rakshit-737.github.io/throughline-security-knowledge-graph/reference/)). Set `THROUGHLINE_API_TOKEN` to require `Authorization: Bearer <token>` (open the console as `/ui#token=<token>`). Documentation: **<https://rakshit-737.github.io/throughline-security-knowledge-graph/>**. `docker compose up` runs the same, published on 127.0.0.1 only; `docker compose -f docker-compose.yml -f docker-compose.neo4j.yml up` adds a local Neo4j (set `NEO4J_PASSWORD`).
 
 ## Reproducibility
 
-Every published number comes from one manual run of the [bench workflow](.github/workflows/bench.yml) (`gh workflow run bench.yml -f which=all`, about 25 minutes on a GitHub-hosted runner), which downloads the pinned data, runs every benchmark, checks that each result is fresh, under 1 MB, non-degenerate and produced by the pinned engines, and uploads the results (committed after review) and the per-case rows (an artefact only). Locally, `python scripts/download_data.py all` and then the scripts in `benchmarks/`; APT29 day 2 needs about 8 GB of memory. The [Reproduce](https://rakshit-737.github.io/throughline/reproduce/) page lists each command, its runtime and the numbers to expect. Everything is deterministic: the only randomness is seeded (bootstrap seed 0, DRAGNET's decoy choice seed 7, the drift cases' seeds 0-2, the triage tie-breaks seed 0).
+Every published number comes from one manual run of the [bench workflow](.github/workflows/bench.yml) (`gh workflow run bench.yml -f which=all`, about 25 minutes on a GitHub-hosted runner), which downloads the pinned data, runs every benchmark, checks that each result is fresh, under 1 MB, non-degenerate and produced by the pinned engines, and uploads the results (committed after review) and the per-case rows (an artefact only). Locally, `python scripts/download_data.py all` and then the scripts in `benchmarks/`; APT29 day 2 needs about 8 GB of memory. The [Reproduce](https://rakshit-737.github.io/throughline-security-knowledge-graph/reproduce/) page lists each command, its runtime and the numbers to expect. Everything is deterministic: the only randomness is seeded (bootstrap seed 0, DRAGNET's decoy choice seed 7, the drift cases' seeds 0-2, the triage tie-breaks seed 0).
 
 ## Prior art and how this differs
 

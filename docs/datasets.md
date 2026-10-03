@@ -1,6 +1,6 @@
 # Datasets
 
-`python scripts/download_data.py all` fetches about 330 MB into `../../datasets/throughline/` (or `$THROUGHLINE_DATA`), outside the repo. Every file is checked against `scripts/checksums.sha256` (OTRF files also against the pinned commit's git blob ids) and an unpinned file is refused; the rolling OSV feed records its date and digest instead. Nothing downloaded is committed; `tests/fixtures/data/` holds an 83 KB slice (two real captures, five SigmaHQ rules, an ATT&CK subset) with its licences in [tests/fixtures/README.md](https://github.com/rakshit-737/throughline/blob/main/tests/fixtures/README.md).
+`python scripts/download_data.py all` fetches about 330 MB into `../../datasets/throughline/` (or `$THROUGHLINE_DATA`), outside the repo. Every file is checked against `scripts/checksums.sha256` (OTRF files also against the pinned commit's git blob ids) and an unpinned file is refused; the rolling OSV feed records its date and digest instead. Nothing downloaded is committed; `tests/fixtures/data/` holds an 83 KB slice (two real captures, five SigmaHQ rules, an ATT&CK subset) with its licences in [tests/fixtures/README.md](https://github.com/rakshit-737/throughline-security-knowledge-graph/blob/main/tests/fixtures/README.md).
 
 | dataset | pinned at | size | use | licence |
 | --- | --- | ---: | --- | --- |
@@ -21,7 +21,7 @@ The benchmarks run in CI on Linux, where all 97 labelled captures are readable; 
 | --- | --- | --- |
 | B1/B2, B5 | one ATT&CK technique per atomic capture | each capture's OTRF metadata YAML (`attack_mappings`) |
 | B3 | the culprit group of each ATT&CK campaign, report or malware family | ATT&CK `attributed-to` / `uses` relationships and their citations |
-| B4 | per-step techniques of the APT29 evaluation; lateral-movement host pairs | CTID `APT29.yaml`; [`benchmarks/truth/apt29_lateral.yaml`](https://github.com/rakshit-737/throughline/blob/main/benchmarks/truth/apt29_lateral.yaml) (resolved from the logged command lines, cited) |
+| B4 | per-step techniques of the APT29 evaluation; lateral-movement host pairs | CTID `APT29.yaml`; [`benchmarks/truth/apt29_lateral.yaml`](https://github.com/rakshit-737/throughline-security-knowledge-graph/blob/main/benchmarks/truth/apt29_lateral.yaml) (resolved from the logged command lines, cited) |
 | compound | techniques emulated in each LSASS campaign | OTRF compound metadata (`LSASS_campaign_0N.yaml`) |
 | supply chain | the commit that introduced each pin at HEAD | `git blame` (agreement check, not an independent oracle) |
 

@@ -24,12 +24,23 @@ import json
 from dataclasses import dataclass
 from types import ModuleType
 
+# GitHub repository name of each sibling project (the repos were renamed in October 2026)
+REPO_NAMES = {
+    "LINCHPIN": "linchpin-attack-path-analysis", "VANTAGE": "vantage-compliance-attack-mapping",
+    "REVENANT": "revenant-dfir-timeline", "VITRINE": "vitrine-malware-triage",
+    "TRACEGATE": "tracegate-cicd-security-gate", "ROOTLINE": "rootline-provenance-forensics",
+    "FEINT": "feint-adversarial-ids", "OCCAM": "occam-cti-attribution",
+    "GAUNTLET": "gauntlet-detection-coverage", "SPECIMEN": "specimen-malware-analysis",
+    "STRATUM": "stratum-cloud-security", "DRAGNET": "dragnet-actor-attribution",
+    "ANVIL": "anvil-detection-engineering",
+}
+
 
 @dataclass(frozen=True)
 class Sibling:
     """One sibling project and the release it is pinned to."""
 
-    project: str          # portfolio project name (the GitHub repo is its lower-case form)
+    project: str          # portfolio project name (GitHub repo name: REPO_NAMES)
     slot: str             # engine slot (spec section 5)
     package: str          # importable top-level package
     dist: str             # pip distribution name at the pinned tag
@@ -40,9 +51,14 @@ class Sibling:
     extra: str = "engines"  # pyproject extra that installs it
 
     @property
+    def repo_name(self) -> str:
+        """GitHub repository name of the sibling project."""
+        return REPO_NAMES[self.project]
+
+    @property
     def repo(self) -> str:
         """GitHub URL of the sibling project."""
-        return f"https://github.com/rakshit-737/{self.project.lower()}"
+        return f"https://github.com/rakshit-737/{self.repo_name}"
 
     @property
     def pip_spec(self) -> str:
@@ -77,27 +93,27 @@ class Sibling:
 
 
 SIBLINGS: tuple[Sibling, ...] = (
-    Sibling("ANVIL", "detection", "anvil", "anvil-dac", "v1.1.1", "09a93769812dc03bc9eb8fcd9339e4ffb24f1cf3",
+    Sibling("ANVIL", "detection", "anvil", "anvil-dac", "v1.1.2", "2a49d3980487ffb1e3b7eb8d48b0ae44144ab93b",
             "detection", "Sigma engine over raw endpoint events"),
-    Sibling("FEINT", "detection", "feint", "feint", "v1.1.0", "61807529077fbf38bcb4962942cc3680a86a99ff",
+    Sibling("FEINT", "detection", "feint", "feint", "v1.1.1", "6933f0fe0523b60dbb0db6fb512cfcb047179742",
             "network", "adversarially-hardened flow classifier", extra="network"),
-    Sibling("REVENANT", "provenance", "revenant", "revenant", "v1.1.1", "d29e186a53f2269ac261e5d1a03683a197e168bf",
+    Sibling("REVENANT", "provenance", "revenant", "revenant", "v1.1.3", "a765776293f202bf7055c8346f7690376df1fc6e",
             "provenance", "causal stories + ATT&CK heuristics"),
-    Sibling("ROOTLINE", "provenance", "rootline", "rootline", "v1.1.1", "1effc9a27d97bd8c190ff5d18d9c9d657c4ff7eb",
+    Sibling("ROOTLINE", "provenance", "rootline", "rootline", "v1.1.2", "541a2801aaacfd7d23c22d3d351deba2ef872331",
             "provenance", "IOC-seeded attack reconstruction"),
-    Sibling("DRAGNET", "intel", "dragnet", "dragnet-attribution", "v1.1.1", "3c74827c487e3fb2f2064e7e3e1fe8e56165f7cf", "intel", "specificity-weighted ACH attribution"),
-    Sibling("OCCAM", "intel", "occam", "occam", "v1.1.1", "a0376183f866805ab42836bc4d09e7c848a57f2f",
+    Sibling("DRAGNET", "intel", "dragnet", "dragnet-attribution", "v1.1.3", "22affeb88929d5ef8af2c72acdfd0383ab042620", "intel", "specificity-weighted ACH attribution"),
+    Sibling("OCCAM", "intel", "occam", "occam", "v1.1.3", "b63113e5db45d52edf0450bb7eaaa93679dad8dd",
             "intel", "Heuer ACH with false-flag hypotheses"),
-    Sibling("VANTAGE", "posture", "vantage", "vantage", "v1.1.1", "d81498ef5849283d743c0364886baabeefdd99b1",
+    Sibling("VANTAGE", "posture", "vantage", "vantage", "v1.1.2", "a3b69d38ba3dba197ce6a024695c33e3d1507bec",
             "posture", "control -> detection -> technique coverage"),
-    Sibling("GAUNTLET", "simulation", "gauntlet", "gauntlet-coverage", "v1.1.1", "a31b502490116201e56c5f073c482862c8975bd1", "simulation", "labelled replay + Atomic emulation plans"),
-    Sibling("TRACEGATE", "supply-chain", "tracegate", "tracegate", "v1.1.1", "6779935bc5d2f0d702751db03ad5202be649e5a3", "supplychain", "manifest lineage -> introducing commit"),
-    Sibling("STRATUM", "supply-chain", "stratum", "stratum-cnapp", "v1.1.1", "fd20018c2264d02c5458934794872142db3e4449",
+    Sibling("GAUNTLET", "simulation", "gauntlet", "gauntlet-coverage", "v1.1.2", "63d8a0827a3b14b9d292f4c5a8afbbff693aee6e", "simulation", "labelled replay + Atomic emulation plans"),
+    Sibling("TRACEGATE", "supply-chain", "tracegate", "tracegate", "v1.1.2", "4d573d8924174a4c16e4ce82a9e05c62c5e489d2", "supplychain", "manifest lineage -> introducing commit"),
+    Sibling("STRATUM", "supply-chain", "stratum", "stratum-cnapp", "v1.1.3", "3c4fa32011ad28d210cb2354202b9e8cb4bcd784",
             "supplychain", "Kubernetes posture + image provenance"),
-    Sibling("LINCHPIN", "attack-path", "linchpin", "linchpin-attackpath", "v1.1.1", "e574dc816ef92041a4f65573306a1ad76bb30314", "attackpath", "attack paths + fix prioritisation"),
-    Sibling("VITRINE", "malware", "vitrine", "vitrine", "v1.1.2", "b534eba899c1f622e4a9ca84b74ded66126d468d",
+    Sibling("LINCHPIN", "attack-path", "linchpin", "linchpin-attackpath", "v1.1.3", "bd895fbc7dbe36bbec95fe9a616a14ac8c2b3629", "attackpath", "attack paths + fix prioritisation"),
+    Sibling("VITRINE", "malware", "vitrine", "vitrine", "v1.1.3", "599250ba9933cd27a3913b228dc8094b6651cc18",
             "malware", "static PE triage (never executes)"),
-    Sibling("SPECIMEN", "malware", "specimen", "specimen", "v1.1.2", "be11eac7ab2799f33db42cd04bce02d90870337b",
+    Sibling("SPECIMEN", "malware", "specimen", "specimen", "v1.1.4", "6cf5464ae77a039fa139af1c4f2581e6b3e1d2ec",
             "malware", "behaviour + family attribution from reports"),
 )
 

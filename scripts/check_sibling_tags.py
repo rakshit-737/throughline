@@ -36,7 +36,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from throughline.engines import SIBLINGS, Sibling  # noqa: E402
+from throughline.engines import REPO_NAMES, SIBLINGS, Sibling  # noqa: E402
 
 OWNER = "rakshit-737"
 SEMVER = re.compile(r"^v(\d+)\.(\d+)\.(\d+)$")
@@ -94,11 +94,11 @@ def release_metadata(repo: str, tag: str) -> dict:
 
 
 def check(siblings: tuple[Sibling, ...] = SIBLINGS) -> list[dict]:
-    repos = [s.project.lower() for s in siblings]
+    repos = [s.repo_name for s in siblings]
     releases = published_releases(repos)
     rows = []
     for s in siblings:
-        repo = s.project.lower()
+        repo = s.repo_name
         tags = remote_tags(repo)
         cands = releases.get(repo, []) if releases is not None else list(tags)
         cands = [t for t in cands if semver(t) and t in tags]
@@ -126,7 +126,7 @@ def write(rows: list[dict]) -> list[str]:
     for r in rows:
         if not r.get("newest_sha"):
             continue
-        repo, dist, tag, sha = r["project"].lower(), r["newest_dist"], r["newest"], r["newest_sha"]
+        repo, dist, tag, sha = REPO_NAMES[r["project"]], r["newest_dist"], r["newest"], r["newest_sha"]
         py, n1 = re.subn(rf'"[A-Za-z0-9_.\-]+ @ git\+https://github\.com/{OWNER}/{repo}@v[0-9.]+"',
                          f'"{dist} @ git+https://github.com/{OWNER}/{repo}@{tag}"', py)
         reg, n2 = re.subn(rf'(Sibling\("{r["project"]}",\s*"[^"]*",\s*"[^"]*",\s*)"[^"]*",\s*"v[0-9.]+",\s*'

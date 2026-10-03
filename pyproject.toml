@@ -33,30 +33,30 @@ neo4j = ["neo4j>=5.0"]
 # linchpin-attackpath); the import packages are unchanged. Keep in sync with
 # throughline.engines.SIBLINGS (tests/test_engines.py checks) and scripts/check_sibling_tags.py.
 engines = [
-  "anvil-dac @ git+https://github.com/rakshit-737/anvil@v1.1.1",
-  "revenant @ git+https://github.com/rakshit-737/revenant@v1.1.1",
-  "rootline @ git+https://github.com/rakshit-737/rootline@v1.1.1",
-  "dragnet-attribution @ git+https://github.com/rakshit-737/dragnet@v1.1.1",
-  "occam @ git+https://github.com/rakshit-737/occam@v1.1.1",
-  "vantage @ git+https://github.com/rakshit-737/vantage@v1.1.1",
-  "gauntlet-coverage @ git+https://github.com/rakshit-737/gauntlet@v1.1.1",
-  "tracegate @ git+https://github.com/rakshit-737/tracegate@v1.1.1",
-  "stratum-cnapp @ git+https://github.com/rakshit-737/stratum@v1.1.1",
-  "linchpin-attackpath @ git+https://github.com/rakshit-737/linchpin@v1.1.1",
-  "specimen @ git+https://github.com/rakshit-737/specimen@v1.1.2",
-  "vitrine @ git+https://github.com/rakshit-737/vitrine@v1.1.2",
+  "anvil-dac @ git+https://github.com/rakshit-737/anvil-detection-engineering@v1.1.2",
+  "revenant @ git+https://github.com/rakshit-737/revenant-dfir-timeline@v1.1.3",
+  "rootline @ git+https://github.com/rakshit-737/rootline-provenance-forensics@v1.1.2",
+  "dragnet-attribution @ git+https://github.com/rakshit-737/dragnet-actor-attribution@v1.1.3",
+  "occam @ git+https://github.com/rakshit-737/occam-cti-attribution@v1.1.3",
+  "vantage @ git+https://github.com/rakshit-737/vantage-compliance-attack-mapping@v1.1.2",
+  "gauntlet-coverage @ git+https://github.com/rakshit-737/gauntlet-detection-coverage@v1.1.2",
+  "tracegate @ git+https://github.com/rakshit-737/tracegate-cicd-security-gate@v1.1.2",
+  "stratum-cnapp @ git+https://github.com/rakshit-737/stratum-cloud-security@v1.1.3",
+  "linchpin-attackpath @ git+https://github.com/rakshit-737/linchpin-attack-path-analysis@v1.1.3",
+  "specimen @ git+https://github.com/rakshit-737/specimen-malware-analysis@v1.1.4",
+  "vitrine @ git+https://github.com/rakshit-737/vitrine-malware-triage@v1.1.3",
   "openpyxl>=3.1",
   "defusedxml>=0.7",
 ]
 # FEINT pulls xgboost/pandas; kept separate so the engines extra stays light.
-network = ["feint @ git+https://github.com/rakshit-737/feint@v1.1.0"]
+network = ["feint @ git+https://github.com/rakshit-737/feint-adversarial-ids@v1.1.1"]
 bench = ["matplotlib>=3.8", "psutil>=5.9"]
 dev = ["pytest>=8", "ruff==0.16.10", "fastapi>=0.132", "httpx>=0.27", "httpx2>=2.0"]
 docs = ["mkdocs>=1.6,<2", "mkdocs-material>=9.5,<10", "mkdocs-redirects>=1.2,<2", "mkdocstrings[python]>=0.25,<2", "httpx2>=2.0"]
 
 [project.urls]
-Repository = "https://github.com/rakshit-737/throughline"
-Documentation = "https://rakshit-737.github.io/throughline/"
+Repository = "https://github.com/rakshit-737/throughline-security-knowledge-graph"
+Documentation = "https://rakshit-737.github.io/throughline-security-knowledge-graph/"
 
 [project.scripts]
 throughline = "throughline.cli:main"

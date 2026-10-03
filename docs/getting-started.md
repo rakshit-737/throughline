@@ -3,14 +3,14 @@
 Python 3.11 or newer. The core depends only on `networkx` and `PyYAML`.
 
 ```bash
-git clone https://github.com/rakshit-737/throughline && cd throughline
+git clone https://github.com/rakshit-737/throughline-security-knowledge-graph && cd throughline
 pip install -e ".[dev,api]"
 python -m pytest -q                       # engine and real-data tests skip without siblings/data
 python -m throughline demo                # synthetic supply-chain intrusion, no downloads
 python -m throughline --false-flag demo   # conflicting CTI lowers attribution confidence
 ```
 
-Without a checkout: `pip install "throughline @ git+https://github.com/rakshit-737/throughline"` (the name `throughline` on PyPI belongs to an unrelated project). An installed package keeps datasets in `~/.throughline/data` unless `THROUGHLINE_DATA` or `--data` says otherwise.
+Without a checkout: `pip install "throughline @ git+https://github.com/rakshit-737/throughline-security-knowledge-graph"` (the name `throughline` on PyPI belongs to an unrelated project). An installed package keeps datasets in `~/.throughline/data` unless `THROUGHLINE_DATA` or `--data` says otherwise.
 
 ## Sibling engines
 
@@ -43,7 +43,7 @@ python -m throughline serve                                  # then open /ui#tok
 ## Docker
 
 ```bash
-docker run --rm -p 127.0.0.1:8000:8000 ghcr.io/rakshit-737/throughline:latest   # open the console link it logs
+docker run --rm -p 127.0.0.1:8000:8000 ghcr.io/rakshit-737/throughline-security-knowledge-graph:latest   # open the console link it logs
 docker compose up                                                              # the same, built locally
 NEO4J_PASSWORD=$(python -c "import secrets; print(secrets.token_urlsafe(24))") \
   docker compose -f docker-compose.yml -f docker-compose.neo4j.yml up          # plus a local Neo4j mirror

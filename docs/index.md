@@ -20,10 +20,10 @@
 1. **In the browser:** the [live console](demo/index.html) opens on a real OTRF capture (LSASS dumped through `comsvcs.dll`) run through every engine. Click a claim id to see how its confidence was computed.
 2. **On your machine** (Python 3.11+):
    ```bash
-   pip install "throughline @ git+https://github.com/rakshit-737/throughline"
+   pip install "throughline @ git+https://github.com/rakshit-737/throughline-security-knowledge-graph"
    throughline demo            # synthetic supply-chain intrusion, a cited root-cause chain in about a second
    ```
-3. **In a container:** `docker run --rm -p 127.0.0.1:8000:8000 ghcr.io/rakshit-737/throughline:latest`, then open the console link it logs.
+3. **In a container:** `docker run --rm -p 127.0.0.1:8000:8000 ghcr.io/rakshit-737/throughline-security-knowledge-graph:latest`, then open the console link it logs.
 
 ## Headline results
 

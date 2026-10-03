@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Report a security vulnerability (private)
-    url: https://github.com/rakshit-737/throughline/security/advisories/new
+    url: https://github.com/rakshit-737/throughline-security-knowledge-graph/security/advisories/new
     about: Please report vulnerabilities privately, not in a public issue.
   - name: Documentation
-    url: https://rakshit-737.github.io/throughline/
+    url: https://rakshit-737.github.io/throughline-security-knowledge-graph/
     about: Getting started, how it works, evaluation and reproduction steps.

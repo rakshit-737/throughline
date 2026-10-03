@@ -213,7 +213,7 @@ def cmd_serve(args: argparse.Namespace) -> int:  # pragma: no cover - starts a s
         from .api import create_app
     except ImportError as e:
         raise CliError(f"`serve` needs the api extra ({e.name} is missing): pip install "
-                       "\"throughline[api] @ git+https://github.com/rakshit-737/throughline\" "
+                       "\"throughline[api] @ git+https://github.com/rakshit-737/throughline-security-knowledge-graph\" "
                        "or, in a checkout, pip install -e .[api] (the bare name 'throughline' on PyPI is an "
                        "unrelated project)") from None
     import os

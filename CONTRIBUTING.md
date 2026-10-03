@@ -7,7 +7,7 @@ Thanks for looking. THROUGHLINE is small on purpose: one graph, frozen contracts
 Python 3.11 or newer.
 
 ```bash
-git clone https://github.com/rakshit-737/throughline && cd throughline
+git clone https://github.com/rakshit-737/throughline-security-knowledge-graph && cd throughline
 python -m venv .venv && . .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -e ".[dev,api]"                          # core: no sibling engines needed
 pip install -e ".[dev,api,engines]"                  # + the sibling projects at their pinned release tags

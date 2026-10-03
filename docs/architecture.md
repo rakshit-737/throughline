@@ -36,19 +36,19 @@ Engines talk to each other **only through the graph and the frozen contracts** (
 
 | slot | sibling (pinned release) | writes | exercised on |
 | --- | --- | --- | --- |
-| detection | [ANVIL](https://github.com/rakshit-737/anvil) `v1.1.1` | `Detection ALERTED_ON Process`, `Process EXHIBITS Technique` (Sigma level -> reliability grade) | real: 97 OTRF captures, APT29, APT3, LSASS campaigns |
-| provenance | [REVENANT](https://github.com/rakshit-737/revenant) `v1.1.1` | technique tags from causal heuristics, `PART_OF` story incidents | real: same |
-| provenance | [ROOTLINE](https://github.com/rakshit-737/rootline) `v1.1.1` | incident membership re-derived from its own provenance graph | real: APT29 (23 + 22 reconstructions), fixtures |
-| intel | [DRAGNET](https://github.com/rakshit-737/dragnet) `v1.1.1` (`dragnet-attribution`) | one competing `Incident ATTRIBUTED_TO Actor` | real: ATT&CK campaigns, families and reports; APT29 |
-| intel | [OCCAM](https://github.com/rakshit-737/occam) `v1.1.1` | one competing `ATTRIBUTED_TO`, `UNKNOWN` on false flags | real: same |
-| posture | [VANTAGE](https://github.com/rakshit-737/vantage) `v1.1.1` | `Control MITIGATES`, `Detection SHOULD_DETECT`, detected / missed / blind per technique | real: ATT&CK + SigmaHQ + CIS v8 mapping |
-| simulation | [GAUNTLET](https://github.com/rakshit-737/gauntlet) `v1.1.1` (`gauntlet-coverage`) | dry-run Atomic Red Team manifest for every missed technique | real gaps (APT29) |
-| supply chain | [TRACEGATE](https://github.com/rakshit-737/tracegate) `v1.1.1` | `Author AUTHORED Commit INTRODUCED Dependency`, `Vulnerability AFFECTS Dependency` | real: healthchecks history + OSV |
-| supply chain | [STRATUM](https://github.com/rakshit-737/stratum) `v1.1.1` (`stratum-cnapp`) | code -> build -> image -> workload -> pod lifecycle, Zero-Trust findings, incidents | STRATUM's synthetic cluster |
-| attack path | [LINCHPIN](https://github.com/rakshit-737/linchpin) `v1.1.1` (`linchpin-attackpath`) | `CAN_REACH` hops, `Vulnerability AFFECTS Host`, ranked fixes | LINCHPIN's synthetic network |
-| malware | [VITRINE](https://github.com/rakshit-737/vitrine) `v1.1.2` | `Sample EXHIBITS`, `ATTRIBUTED_TO MalwareFamily`, `Process USES Sample` by hash | inert synthetic samples |
-| malware | [SPECIMEN](https://github.com/rakshit-737/specimen) `v1.1.2` | same, from a CAPE/Cuckoo report | report mapping (unit test) |
-| network | [FEINT](https://github.com/rakshit-737/feint) `v1.1.0` (its newest release) | `Host CONNECTED_TO`, `EXHIBITS` for flows over threshold | flow mapping (unit test) |
+| detection | [ANVIL](https://github.com/rakshit-737/anvil-detection-engineering) `v1.1.1` | `Detection ALERTED_ON Process`, `Process EXHIBITS Technique` (Sigma level -> reliability grade) | real: 97 OTRF captures, APT29, APT3, LSASS campaigns |
+| provenance | [REVENANT](https://github.com/rakshit-737/revenant-dfir-timeline) `v1.1.1` | technique tags from causal heuristics, `PART_OF` story incidents | real: same |
+| provenance | [ROOTLINE](https://github.com/rakshit-737/rootline-provenance-forensics) `v1.1.1` | incident membership re-derived from its own provenance graph | real: APT29 (23 + 22 reconstructions), fixtures |
+| intel | [DRAGNET](https://github.com/rakshit-737/dragnet-actor-attribution) `v1.1.1` (`dragnet-attribution`) | one competing `Incident ATTRIBUTED_TO Actor` | real: ATT&CK campaigns, families and reports; APT29 |
+| intel | [OCCAM](https://github.com/rakshit-737/occam-cti-attribution) `v1.1.1` | one competing `ATTRIBUTED_TO`, `UNKNOWN` on false flags | real: same |
+| posture | [VANTAGE](https://github.com/rakshit-737/vantage-compliance-attack-mapping) `v1.1.1` | `Control MITIGATES`, `Detection SHOULD_DETECT`, detected / missed / blind per technique | real: ATT&CK + SigmaHQ + CIS v8 mapping |
+| simulation | [GAUNTLET](https://github.com/rakshit-737/gauntlet-detection-coverage) `v1.1.1` (`gauntlet-coverage`) | dry-run Atomic Red Team manifest for every missed technique | real gaps (APT29) |
+| supply chain | [TRACEGATE](https://github.com/rakshit-737/tracegate-cicd-security-gate) `v1.1.1` | `Author AUTHORED Commit INTRODUCED Dependency`, `Vulnerability AFFECTS Dependency` | real: healthchecks history + OSV |
+| supply chain | [STRATUM](https://github.com/rakshit-737/stratum-cloud-security) `v1.1.1` (`stratum-cnapp`) | code -> build -> image -> workload -> pod lifecycle, Zero-Trust findings, incidents | STRATUM's synthetic cluster |
+| attack path | [LINCHPIN](https://github.com/rakshit-737/linchpin-attack-path-analysis) `v1.1.1` (`linchpin-attackpath`) | `CAN_REACH` hops, `Vulnerability AFFECTS Host`, ranked fixes | LINCHPIN's synthetic network |
+| malware | [VITRINE](https://github.com/rakshit-737/vitrine-malware-triage) `v1.1.2` | `Sample EXHIBITS`, `ATTRIBUTED_TO MalwareFamily`, `Process USES Sample` by hash | inert synthetic samples |
+| malware | [SPECIMEN](https://github.com/rakshit-737/specimen-malware-analysis) `v1.1.2` | same, from a CAPE/Cuckoo report | report mapping (unit test) |
+| network | [FEINT](https://github.com/rakshit-737/feint-adversarial-ids) `v1.1.0` (its newest release) | `Host CONNECTED_TO`, `EXHIBITS` for flows over threshold | flow mapping (unit test) |
 
 The siblings are optional extras installed from those release tags ([ADR-0007](adr/0007-siblings-as-pinned-extras.md)); none of their code is vendored or modified. `throughline.engines.SIBLINGS` records the commit each tag pointed to when it was validated: CI fails if an installed sibling is not that commit, and `scripts/check_sibling_tags.py` (run again by the release workflow before anything is built) fails when a newer release exists, a pinned tag moved, or a newer release renamed its distribution. Without the siblings the core still runs the synthetic demo, and each missing engine is reported as skipped.
 

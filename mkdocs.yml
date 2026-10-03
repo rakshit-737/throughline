@@ -1,8 +1,8 @@
 site_name: THROUGHLINE
 site_description: Evidence-first security knowledge graph that fuses independent engines into one cited, calibrated investigation
-site_url: https://rakshit-737.github.io/throughline/
-repo_url: https://github.com/rakshit-737/throughline
-repo_name: rakshit-737/throughline
+site_url: https://rakshit-737.github.io/throughline-security-knowledge-graph/
+repo_url: https://github.com/rakshit-737/throughline-security-knowledge-graph
+repo_name: rakshit-737/throughline-security-knowledge-graph
 edit_uri: edit/main/docs/
 copyright: MIT licence
 

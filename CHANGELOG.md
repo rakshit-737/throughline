@@ -4,6 +4,10 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- The GitHub repository was renamed to `throughline-security-knowledge-graph`; docs moved to <https://rakshit-737.github.io/throughline-security-knowledge-graph/> and the image to `ghcr.io/rakshit-737/throughline-security-knowledge-graph`. Links in older entries below point at the old names, which GitHub redirects (Pages URLs do not).
+- Sibling engines are pinned through their renamed repositories (`throughline.engines.REPO_NAMES`) and moved to their newest releases.
+
 ## [1.1.2] - 2026-10-03
 
 The first published release since 1.0.0; it contains everything listed under 1.1.1 and 1.1.0. Neither of those tags published anything: `v1.1.0`'s release preflight refused results produced by the previous engine commits, and `v1.1.1`'s preflight could not run its repository lint because PyYAML was not installed.

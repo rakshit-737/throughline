@@ -105,10 +105,10 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/rakshit-737/throughline:${{ github.ref_name }}
-            ghcr.io/rakshit-737/throughline:latest
+            ghcr.io/rakshit-737/throughline-security-knowledge-graph:${{ github.ref_name }}
+            ghcr.io/rakshit-737/throughline-security-knowledge-graph:latest
           labels: |
-            org.opencontainers.image.source=https://github.com/rakshit-737/throughline
+            org.opencontainers.image.source=https://github.com/rakshit-737/throughline-security-knowledge-graph
             org.opencontainers.image.description=Evidence-first security knowledge graph
             org.opencontainers.image.licenses=MIT
       - name: GitHub release
